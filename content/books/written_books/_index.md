@@ -8,10 +8,15 @@ summary: "Written Books" # Add a page description
 headless: false
 ---
 
+## Analysis
+
  * [Data Analysis](https://bookdown.org/mike/data_analysis/)
- * [Social Science Theory](https://bookdown.org/mike/social-theory/)
  * [Bayesian Analysis](link)
  * [Survival Analysis](link)
  * [Meta Analysis](link)
  * [Text Mining](link)
  * [Network Analysis](link)
+
+## Other
+
+ * [Social Science Theory](https://bookdown.org/mike/social-theory/)
