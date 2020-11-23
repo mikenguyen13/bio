@@ -1,7 +1,7 @@
 ---
 title: "Hello R Markdown"
-author: "Frida Gomam"
-date: 2015-07-23T21:13:14-05:00
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
 categories: ["R"]
 tags: ["R Markdown", "plot", "regression"]
 ---
@@ -13,6 +13,25 @@ knitr::opts_chunk$set(collapse = TRUE)
 # R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+
+include Shiny App
+```{r}
+knitr::include_app("https://mikenguyen.shinyapps.io/first-app/", height = "100%")
+```
+
+
+Or you can embed directly as iframe.  
+But remember to include `runtime: shiny` in the YAML metadata
+
+
+```
+<iframe height="800" width="100%" title="first app" name="first app" allowfullscreen="true" loading="eager" scrolling="auto"  style="border:none;" src="https://mikenguyen.shinyapps.io/first-app/"></iframe>
+```
+
+<iframe height="800" width="100%" title="first app" name="first app" allowfullscreen="true" loading="eager" scrolling="auto"  style="border:none;" src="https://mikenguyen.shinyapps.io/first-app/"></iframe>
+
+
 
 You can embed an R code chunk like this:
 
