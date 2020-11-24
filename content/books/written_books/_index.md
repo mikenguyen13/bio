@@ -14,7 +14,7 @@ headless: false
  * [Bayesian Analysis](link)
  * [Survival Analysis](link)
  * [Meta Analysis](link)
- * [Text Mining](link)
+ * [Text Analysis](link)
  * [Network Analysis](link)
 
 ## Other
