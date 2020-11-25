@@ -25,7 +25,7 @@ date_format: Jan 2006
 #   Leave other parameters empty if not required.
 #   You can begin a multiline `description` using YAML's `|-`.
 item:
-- certificate_url: /media/NEO4j_cert.png
+- certificate_url: /media/cert/NEO4j_cert.png
   date_end: ""
   date_start: "2020-01-29"
   description: "Introduction to NEO4j"
@@ -34,7 +34,7 @@ item:
   title: 'NEO4j Certificate'
   url: "https://neo4j.com/graphacademy/neo4j-certification/"
   
-- certificate_url: /media/certificate_of_completion.pdf
+- certificate_url: /media/cert/certificate_of_completion.pdf
   date_end: ""
   date_start: "2018-04-12"
   description: Bloomberg Market Concepts (BMC). With modules on Economics, Fixed Income, Equities, Currencies and using the Bloomberg Terminal
@@ -52,4 +52,14 @@ item:
   title: Google Certificate
   url: "https://skillshop.exceedlms.com/"
 
+- certificate_url: /media/cert/FIU.pdf
+  date_end: "2018-06-01"
+  date_start: "2016-08-01"
+  description: "Undergraduate Certificates"
+  organization: Florida International University
+  organization_url: https://www.fiu.edu/
+  title: FIU Certificate
+  url: ""
 ---
+
+
