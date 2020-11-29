@@ -53,6 +53,7 @@ Please enjoy!!!
 
 #### Social Network
 
+ * [Connected: The Surprising Power of Our Social Networks and How They Shape Our Lives - James H. Fowler and Nicholas Christakis (2009)](https://www.google.com/books/edition/Connected/LXHi4wgIkzEC)
  * [Contagious - Jonah Berger (2013)](https://www.google.com/books/edition/Contagious/7vVnkdNayFkC)
  * [Invisible Influence - Jonah Berger (2016)](https://www.google.com/books/edition/Invisible_Influence/f90nDwAAQBAJ)
  
