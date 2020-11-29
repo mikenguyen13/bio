@@ -18,11 +18,18 @@ Please enjoy!!!
 
 ### General
 
+ * [Heuristics and Biases: The Psychology of Intuitive Judgment - Daniel Kahneman, Thomas Gilovich, Dale Griffin (2002)](https://www.google.com/books/edition/Heuristics_and_Biases/FfTVDY-zrCoC?)
+ * [Blink: The Power of Thinking Without Thinking - Malcolm Gladwell (2007)](https://books.google.com/books/about/Blink.html?id=VKGbb1hg8JAC)
+ * [Outliers The Story of Success - Malcolm Gladwell (2008)](https://www.google.com/books/edition/Outliers/3NSImqqnxnkC)
+ * [Thinking, Fast and Slow - Daniel Kahneman (2011)](https://books.google.com/books/about/Thinking_Fast_and_Slow.html?id=ZuKTvERuPG8C)
+ * [The Power of Habit: Why We Do What We Do in Life and Business - Charles Duhigg (2012)](https://books.google.com/books/about/The_Power_of_Habit.html?id=O1MInVXd_aoC)
+ * [The Tipping Point: How Little Things Can Make a Big Difference Malcolm Gladwell (2000)](https://www.google.com/books/edition/The_Tipping_Point/yBDBEGBIUmgC)
  * [Incerto: Fooled by Randomness / The Black Swan / The Bed of Procrustes / Antifragile / Skin in the Game - Nassim Nicholas Taleb (2019)](https://www.google.com/books/edition/_/SruEuQEACAAJ?sa=X&ved=2ahUKEwinkOz_zJTtAhUScq0KHWVEB9EQre8FMBN6BAgKEAM)
  * [The Book of Why - Judea Pearl (2018)](https://www.google.com/books/edition/The_Book_of_Why/9H0dDQAAQBAJ)
  * [Ubiquity - Mark Buchanan (2002)](https://www.google.com/books/edition/Ubiquity/yagwR1tOSagC)
  * [Critical Mass - Philip Ball (2006)](https://www.google.com/books/edition/Critical_Mass/WPPUoHCgI6oC)
  * [Why Most Things Fail - Paul Ormerod (2007)](https://www.google.com/books/edition/Why_Most_Things_Fail/WI0uiS23DzEC)
+ * [The Selfish Gene - Richard Dawkins (1976)](https://www.google.com/books/edition/The_Selfish_Gene/EJeHTt8hW7UC)
 
 <br>
 
@@ -56,6 +63,7 @@ Please enjoy!!!
 
 ### Finance / Economics
 
+ * [The Winner's Curse: Paradoxes and Anomalies of Economic Life - Richard Thaler (1992)](https://books.google.com/books/about/The_Winner_s_Curse.html?id=5AsPAQAAMAAJ)
  * [Irrational Exuberance - Robert Shiller (2000)](https://www.google.com/books/edition/Irrational_Exuberance/_aIpBQAAQBAJ)
  * [The Misbehavior of Markets - Benoit Mandelbrot (2004)](https://www.google.com/books/edition/_/M0U5tAEACAAJ) 
  * [Nudge - Richard Thaler (2009)](https://books.google.com/books?id=bt6sPxiYdfkC)
