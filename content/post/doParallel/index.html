@@ -1,0 +1,101 @@
+---
+title: "doParallel"
+author: "Mike Nguyen"
+date: "2020-11-30"
+categories: R
+tags:
+- R Markdown
+- HPC
+---
+
+<link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="index_files/anchor-sections/anchor-sections.js"></script>
+
+
+<div id="packages" class="section level1">
+<h1>Packages</h1>
+<pre class="r"><code>#install.packages(&quot;doParallel&quot;)
+library(&quot;doParallel&quot;)</code></pre>
+<pre><code>## Loading required package: foreach</code></pre>
+<pre><code>## Loading required package: iterators</code></pre>
+<pre><code>## Loading required package: parallel</code></pre>
+<p>Check how long a loop takes</p>
+<pre class="r"><code>start &lt;- proc.time()
+for (i in 1:10){
+    sqrt(i)
+}
+base_loop=(proc.time()-start)</code></pre>
+<p>Check number of cores</p>
+<pre class="r"><code>library(&quot;doParallel&quot;)
+detectCores()</code></pre>
+<pre><code>## [1] 8</code></pre>
+<pre class="r"><code>getDoParWorkers() #current number of worker</code></pre>
+<pre><code>## [1] 1</code></pre>
+<pre class="r"><code>registerDoSEQ() #switch back to original
+getDoParWorkers()</code></pre>
+<pre><code>## [1] 1</code></pre>
+<p>Let R know how many cores you want to use</p>
+<pre class="r"><code>registerDoParallel(6)</code></pre>
+<p><strong>Note</strong>: You shouldn’t use all the cores since your computer might want some background programs to run.</p>
+<p>We can also create cluster of workers</p>
+<pre class="r"><code>cluster = makeCluster(2)
+registerDoParallel(cluster)
+system.time(foreach(i=1:100) %dopar% sum((1:i)))</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.03    0.00    0.04</code></pre>
+<pre class="r"><code>stopCluster(cluster)</code></pre>
+<p>Compare different loops</p>
+<p><code>%do%</code></p>
+<pre class="r"><code>start &lt;- proc.time()
+foreach(i=1:10) %do% {
+    sqrt(i)
+}</code></pre>
+<pre><code>## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 1.414214
+## 
+## [[3]]
+## [1] 1.732051
+## 
+## [[4]]
+## [1] 2
+## 
+## [[5]]
+## [1] 2.236068
+## 
+## [[6]]
+## [1] 2.44949
+## 
+## [[7]]
+## [1] 2.645751
+## 
+## [[8]]
+## [1] 2.828427
+## 
+## [[9]]
+## [1] 3
+## 
+## [[10]]
+## [1] 3.162278</code></pre>
+<pre class="r"><code>do_loop=(proc.time()-start)</code></pre>
+<p><code>%dopar%</code> loop</p>
+<pre class="r"><code>cl &lt;- makeCluster(2)
+registerDoParallel(cl)
+start &lt;- proc.time()
+foreach(i = 1:10, .combine = &#39;c&#39;) %dopar% {
+  sqrt(i)
+}</code></pre>
+<pre><code>##  [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
+##  [9] 3.000000 3.162278</code></pre>
+<pre class="r"><code>dopar_loop=(proc.time()-start)
+stopCluster(cl)</code></pre>
+<pre class="r"><code>print(rbind(base_loop,do_loop,dopar_loop)[,1:3])</code></pre>
+<pre><code>##            user.self sys.self elapsed
+## base_loop       0.01        0    0.02
+## do_loop         0.02        0    0.01
+## dopar_loop      0.02        0    0.04</code></pre>
+<p><code>%do%</code> does not use more than base core, but <code>%dopar%</code> uses the number of cores that we specify in <code>registerDoParallel</code></p>
+<p><code>doParallel::mclapply</code> is the equivalent of <code>lapply</code>.</p>
+</div>
