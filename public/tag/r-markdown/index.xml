@@ -5,7 +5,7 @@
     <link>https://mikenguyen.netlify.app/tag/r-markdown/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     <description>R Markdown</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Mon, 23 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Mon, 30 Nov 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>R Markdown</title>
@@ -13,39 +13,101 @@
     </image>
     
     <item>
-      <title>Hello R Markdown</title>
-      <link>https://mikenguyen.netlify.app/post/copyofr-rmarkdown/</link>
-      <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/post/copyofr-rmarkdown/</guid>
+      <title>doParallel</title>
+      <link>https://mikenguyen.netlify.app/post/doparallel/</link>
+      <pubDate>Mon, 30 Nov 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/doparallel/</guid>
       <description>
 &lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
 &lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
 
 
-&lt;div id=&#34;including-plots&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Including Plots&lt;/h1&gt;
-&lt;p&gt;You can also embed plots. See Figure &lt;a href=&#34;#fig:pie&#34;&gt;1&lt;/a&gt; for example:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mar = c(0, 1, 0, 1))
-pie(c(280, 60, 20), c(&amp;quot;Sky&amp;quot;, &amp;quot;Sunny side of pyramid&amp;quot;, &amp;quot;Shady side of pyramid&amp;quot;), col = c(&amp;quot;#0292D8&amp;quot;, 
-    &amp;quot;#F7EA39&amp;quot;, &amp;quot;#C4B632&amp;quot;), init.angle = -50, border = NA)&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;index_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;
-Figure 1: A fancy pie chart.
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a href=&#34;#fig:example&#34;&gt;2&lt;/a&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;
-# Simple Pie Chart
-slices &amp;lt;- c(10, 12,4, 16, 8)
-lbls &amp;lt;- c(&amp;quot;US&amp;quot;, &amp;quot;UK&amp;quot;, &amp;quot;Australia&amp;quot;, &amp;quot;Germany&amp;quot;, &amp;quot;France&amp;quot;)
-pie(slices, labels = lbls, main=&amp;quot;Pie Chart of Countries&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:example&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;index_files/figure-html/example-1.png&#34; alt=&#34;Example&#34; width=&#34;672&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;
-Figure 2: Example
-&lt;/p&gt;
-&lt;/div&gt;
+&lt;div id=&#34;packages&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Packages&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#install.packages(&amp;quot;doParallel&amp;quot;)
+library(&amp;quot;doParallel&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: foreach&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: iterators&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: parallel&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check how long a loop takes&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start &amp;lt;- proc.time()
+for (i in 1:10){
+    sqrt(i)
+}
+base_loop=(proc.time()-start)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Check number of cores&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;quot;doParallel&amp;quot;)
+detectCores()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 8&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;getDoParWorkers() #current number of worker&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;registerDoSEQ() #switch back to original
+getDoParWorkers()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let R know how many cores you want to use&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;registerDoParallel(6)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: You shouldn’t use all the cores since your computer might want some background programs to run.&lt;/p&gt;
+&lt;p&gt;We can also create cluster of workers&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cluster = makeCluster(2)
+registerDoParallel(cluster)
+system.time(foreach(i=1:100) %dopar% sum((1:i)))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##    0.03    0.00    0.04&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;stopCluster(cluster)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Compare different loops&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;%do%&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;start &amp;lt;- proc.time()
+foreach(i=1:10) %do% {
+    sqrt(i)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [[1]]
+## [1] 1
+## 
+## [[2]]
+## [1] 1.414214
+## 
+## [[3]]
+## [1] 1.732051
+## 
+## [[4]]
+## [1] 2
+## 
+## [[5]]
+## [1] 2.236068
+## 
+## [[6]]
+## [1] 2.44949
+## 
+## [[7]]
+## [1] 2.645751
+## 
+## [[8]]
+## [1] 2.828427
+## 
+## [[9]]
+## [1] 3
+## 
+## [[10]]
+## [1] 3.162278&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;do_loop=(proc.time()-start)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;%dopar%&lt;/code&gt; loop&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cl &amp;lt;- makeCluster(2)
+registerDoParallel(cl)
+start &amp;lt;- proc.time()
+foreach(i = 1:10, .combine = &amp;#39;c&amp;#39;) %dopar% {
+  sqrt(i)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] 1.000000 1.414214 1.732051 2.000000 2.236068 2.449490 2.645751 2.828427
+##  [9] 3.000000 3.162278&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dopar_loop=(proc.time()-start)
+stopCluster(cl)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(rbind(base_loop,do_loop,dopar_loop)[,1:3])&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##            user.self sys.self elapsed
+## base_loop       0.01        0    0.02
+## do_loop         0.02        0    0.01
+## dopar_loop      0.02        0    0.04&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;%do%&lt;/code&gt; does not use more than base core, but &lt;code&gt;%dopar%&lt;/code&gt; uses the number of cores that we specify in &lt;code&gt;registerDoParallel&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;doParallel::mclapply&lt;/code&gt; is the equivalent of &lt;code&gt;lapply&lt;/code&gt;.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
