@@ -1,0 +1,31 @@
+---
+title: "Apache Arrow"
+author: "Mike Nguyen"
+date: "2020-12-06"
+categories: ["R"]
+tags: ["R", "arrow", "data manipulation"]
+---
+
+<link href="index_files/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="index_files/anchor-sections/anchor-sections.js"></script>
+
+
+<p>more information can be found in <a href="https://ursalabs.org/">URSA Labs</a></p>
+<p>This example is from <a href="https://ursalabs.org/arrow-r-nightly/articles/dataset.html">Arrow Vignettes</a></p>
+<div id="arrow" class="section level1">
+<h1>arrow</h1>
+<p>best when working with big data</p>
+<div id="prep" class="section level2">
+<h2>Prep</h2>
+<pre class="r"><code>library(&quot;arrow&quot;, warn.conflicts = FALSE)
+library(&quot;dplyr&quot;, warn.conflicts = FALSE)</code></pre>
+<p>check if S3 support is included.</p>
+<pre class="r"><code>arrow::arrow_with_s3()</code></pre>
+<p>If TRUE, sync data locally import from <a href="https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page">https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page</a></p>
+<pre class="r"><code>arrow::copy_files(&quot;s3://ursa-labs-taxi-data&quot;, &quot;nyc-taxi&quot;)</code></pre>
+<p>since the data is in Parquet format, we use</p>
+<pre class="r"><code>ds &lt;- open_dataset(&quot;nyc-taxi&quot;, partitioning = c(&quot;year&quot;, &quot;month&quot;))</code></pre>
+<p>then you can start using data set as usual</p>
+<pre class="r"><code>ds</code></pre>
+</div>
+</div>

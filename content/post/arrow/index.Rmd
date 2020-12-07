@@ -1,0 +1,52 @@
+---
+title: "Apache Arrow"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+categories: ["R"]
+tags: ["R", "arrow", "data manipulation"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, eval = FALSE)
+```
+
+more information can be found in [URSA Labs](https://ursalabs.org/)
+
+This example is from [Arrow Vignettes](https://ursalabs.org/arrow-r-nightly/articles/dataset.html) 
+
+# arrow
+
+best when working with big data 
+
+## Prep
+
+```{r}
+library("arrow", warn.conflicts = FALSE)
+library("dplyr", warn.conflicts = FALSE)
+```
+
+check if S3 support is included. 
+
+```{r}
+arrow::arrow_with_s3()
+```
+
+If TRUE, sync data locally import from [https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)
+
+```{r}
+arrow::copy_files("s3://ursa-labs-taxi-data", "nyc-taxi")
+```
+
+since the data is in Parquet format, we use 
+```{r}
+ds <- open_dataset("nyc-taxi", partitioning = c("year", "month"))
+```
+
+then you can start using data set as usual
+```{r}
+ds
+```
+
+
+
+

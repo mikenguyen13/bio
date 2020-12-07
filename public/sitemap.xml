@@ -33,8 +33,43 @@
   </url>
   
   <url>
+    <loc>https://mikenguyen.netlify.app/post/arrow/</loc>
+    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/arrow/</loc>
+    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2020-11-30T00:00:00+00:00</lastmod>
+    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/data-manipulation/</loc>
+    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/r/</loc>
+    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -48,22 +83,7 @@
   </url>
   
   <url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2020-11-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2020-11-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://mikenguyen.netlify.app/tag/r-markdown/</loc>
-    <lastmod>2020-11-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2020-11-30T00:00:00+00:00</lastmod>
   </url>
   
