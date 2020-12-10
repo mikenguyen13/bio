@@ -75,6 +75,160 @@
     </item>
     
     <item>
+      <title>Patent Databases</title>
+      <link>https://mikenguyen.netlify.app/post/patent-databases/</link>
+      <pubDate>Wed, 09 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/patent-databases/</guid>
+      <description>
+&lt;link href=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Comprehensive patent data can be found &lt;a href=&#34;https://eml.berkeley.edu/~bhhall/patents.html&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;United States&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://sites.google.com/site/patentdataproject/Home/downloads&#34;&gt;NBER patent data&lt;/a&gt; or &lt;a href=&#34;https://eml.berkeley.edu/~bhhall/NBER06.html&#34;&gt;link&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;Search link for individual patent: &lt;a href=&#34;http://patft.uspto.gov/&#34;&gt;link&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;USPTO - United States patent and Trademark Office
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://bulkdata.uspto.gov/&#34;&gt;Bulk Data Storage System:&lt;/a&gt; repository for raw public bulk data
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/ip-policy/economic-research/research-datasets&#34;&gt;For Researcher&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset&#34;&gt;Patent Assignment Dataset&lt;/a&gt; details information of patent assignment since 1970 with &lt;a href=&#34;https://www.uspto.gov/sites/default/files/documents/pat_assign_dataset_schema.pdf&#34;&gt;schema&lt;/a&gt; and &lt;a href=&#34;https://www.uspto.gov/sites/default/files/documents/USPTO_Patents_Assignment_Dataset_WP.pdf&#34;&gt;description&lt;/a&gt; and &lt;a href=&#34;https://github.com/USPTO/PatentPublicData&#34;&gt;code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.patentsview.org/download/pregrantpublications.html&#34;&gt;Pre-Grant Publications Data Download Tables&lt;/a&gt; with example &lt;a href=&#34;https://github.com/PatentsView/PatentsView-Code-Snippets/blob/master/04_bulk_pregrant_read_in/R%20Scripts/rawassignee.Rmd&#34;&gt;code&lt;/a&gt; note that organizaiton here is different from Compustat and CRSP, hard to match.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ped.uspto.gov/peds/&#34;&gt;Patent Examiniation Data system&lt;/a&gt;: records of USPTO patent application, patent filing status and transaction history data&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/learning-and-resources/electronic-data-products/trademark-assignment-dataset&#34;&gt;Trademark Assignment Dataset&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset&#34;&gt;Patent Assignment Dataset&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://iu.app.box.com/v/patents&#34;&gt;Matched US patents to CRSP 1926 - 2010&lt;/a&gt;: Leonid Kogan, Dimitris Papanikolaou, Amit Seru, and Noah Stoffman. &lt;a href=&#34;https://paper.dropbox.com/doc/U.S.-Patent-Data-1926-2010-t5nuNWnTH1InM0gyxkizL&#34;&gt;Description&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://kelley.iu.edu/nstoffma/&#34;&gt;Maintainer&lt;/a&gt; with &lt;a href=&#34;https://github.com/KPSS2017/Technological-Innovation-Resource-Allocation-and-Growth-Extended-Data&#34;&gt;code&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.uspto.gov/patents-application-process/applying-online/patent-number&#34;&gt;Recognizing Patent&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Utility: 6 - 8 digits lasts for 20 years from the filed date&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://www.uspto.gov/patent/laws-and-regulations/patent-term-calculator&#34;&gt;Changes to Patent Terms&lt;/a&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Year filed&lt;/th&gt;
+&lt;th&gt;Maximum term of validity&lt;/th&gt;
+&lt;th&gt;Act&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;1790–1835&lt;/td&gt;
+&lt;td&gt;14 years from issuance&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Patent_Act_of_1790&#34;&gt;Patent Act of 1790&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;1836–1860&lt;/td&gt;
+&lt;td&gt;21 years from issuance&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Patent_Act_of_1836&#34;&gt;Patent Act of 1836&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;1861– 1994&lt;/td&gt;
+&lt;td&gt;17 years from issuance&lt;/td&gt;
+&lt;td&gt;Congress changed term&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;1994 - now&lt;/td&gt;
+&lt;td&gt;20 years from filing&lt;/td&gt;
+&lt;td&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Uruguay_Round_Agreements_Act&#34;&gt;Uruguay Round Agreements Act&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Table based on &lt;a href=&#34;https://en.wikipedia.org/wiki/Term_of_patent_in_the_United_States&#34;&gt;wikipedia&lt;/a&gt; and &lt;a href=&#34;https://www.uspto.gov/patent/laws-and-regulations/patent-term-calculator&#34;&gt;USPTO&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Reissue (RE######)&lt;/li&gt;
+&lt;li&gt;Plant Patent (PP######) lasts for 20 years from the application date&lt;/li&gt;
+&lt;li&gt;Design (D#######) lasts for 14 years from the granted date&lt;/li&gt;
+&lt;li&gt;Additions or Improvements (AI#######)&lt;/li&gt;
+&lt;li&gt;X Patents (X#######)&lt;/li&gt;
+&lt;li&gt;H Documents (H#######)&lt;/li&gt;
+&lt;li&gt;T Documents (T#######)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Worldwide&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.epo.org/searching-for-patents/business/patstat.html#tab-1&#34;&gt;EPO and OECD&lt;/a&gt; data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;br&gt;
+&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Matching process with CRSP or Compustat&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wrds-www.wharton.upenn.edu/pages/data/contributed-data/kpss-technological-innovation-resource-allocation-and-growth/&#34;&gt;KPSS Technological Innovation, Resource Allocation, and Growth&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://patents.darden.virginia.edu/documents/DataConstructionDetails_v01.pdf&#34;&gt;UVA Darden Global Corporate Patent Dataset&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://voices.uchicago.edu/miaoliu/data-page/&#34;&gt;Miao Liu&lt;/a&gt; Note that you need Bing API and use Python &lt;a href=&#34;https://github.com/danielm-github/patentsmatch_bingsearchapproach&#34;&gt;Github repo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://users.nber.org/~jbessen/matchdoc.pdf&#34;&gt;NBER Guide&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Linking Financial Databases (CRSP and Compustat)</title>
+      <link>https://mikenguyen.netlify.app/post/link_crsp_compustat/</link>
+      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/link_crsp_compustat/</guid>
+      <description>
+&lt;link href=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Information can be found in &lt;a href=&#34;https://www.otago.ac.nz/library/pdf/CRSPCompustatguide09.pdf&#34;&gt;CRSP/COMPUSTAT MERGED DATABASE GUIDE&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Change Identifiers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Ticker&lt;/strong&gt;: can be reassign to another company - abbreviation used to uniquely identify publicly-traded shares of a stock&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CUSIP&lt;/strong&gt;: A company can have multiple CUSIPS due to structural changes. - nine-character code assigned by the CUSIP Service Bureau to identify various securities&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Permanent Identifiers&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CRSP (maintained by Chicago BOoth CRSP)
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;PERMCO&lt;/strong&gt;: is a unique permanent company level identifier (even under name change)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PERMNO&lt;/strong&gt;: is a unique stock (share class) level identifier. One company can have multiple share classes. (1 PERMNO -&amp;gt; 1 PERMCO, 1 -&amp;gt; multiple PERMNOs)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Compustat-Capital IQ (maintained by S&amp;amp;P)
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GVKEY&lt;/strong&gt;: is a unique number assigned to each company.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;CRSP&lt;/th&gt;
+&lt;th&gt;COMPUSTAT&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Time since&lt;/td&gt;
+&lt;td&gt;1925&lt;/td&gt;
+&lt;td&gt;1950&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Companies&lt;/td&gt;
+&lt;td&gt;listed in U.S. Exchange&lt;/td&gt;
+&lt;td&gt;U.S. + Canada&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Report&lt;/td&gt;
+&lt;td&gt;Daily and Monthly&lt;/td&gt;
+&lt;td&gt;Quarterly and Annually&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Apache Arrow</title>
       <link>https://mikenguyen.netlify.app/post/arrow/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
@@ -291,7 +445,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-985231467&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-157248936&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -301,7 +455,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-985231467&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-157248936&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

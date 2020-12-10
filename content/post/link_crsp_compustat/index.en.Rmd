@@ -1,0 +1,54 @@
+---
+title: "Linking Financial Databases (CRSP and Compustat)"
+author: "Mike Nguyen"
+date: '2020-12-08'
+slug: link_crsp_compustat
+categories:
+- Data
+- R
+- Finance
+tags:
+- Academic
+- data manipulation
+- data
+- finance
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-08T15:04:11-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Information can be found in [CRSP/COMPUSTAT MERGED DATABASE GUIDE](https://www.otago.ac.nz/library/pdf/CRSPCompustatguide09.pdf)
+
+Change Identifiers:  
+
+ + **Ticker**: can be reassign to another company - abbreviation used to uniquely identify publicly-traded shares of a stock
+ + **CUSIP**: A company can have multiple CUSIPS due to structural changes. - nine-character code assigned by the CUSIP Service Bureau to identify various securities. The first six digits are firm identifier and the next two digits are the issue identifier. 
+
+Permanent Identifiers  
+
+ * CRSP (maintained by Chicago BOoth CRSP)
+    + **PERMCO**: is a unique permanent company level identifier (even under name change) 
+    + **PERMNO**: is a unique stock (share class) level identifier. One company can have multiple share classes. (1 PERMNO -> 1 PERMCO, 1 -> multiple PERMNOs)
+ * Compustat-Capital IQ (maintained by S&P) 
+    + **GVKEY**: is a unique number assigned to each company.
+
+| | CRSP | COMPUSTAT|
+|---|---|---|
+Time since | 1925| 1950|
+| Companies | listed in U.S. Exchange | U.S. and Canada|
+| Report | Daily and Monthly | Quarterly and Annually |
+
+
+# Match CRSP and COMPUSTAT with CUSIP
+
+```{r}
+# create 
+```
+

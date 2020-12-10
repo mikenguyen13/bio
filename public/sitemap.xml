@@ -33,6 +33,61 @@
   </url>
   
   <url>
+    <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2020-12-09T17:13:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/data/</loc>
+    <lastmod>2020-12-09T17:13:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/data/</loc>
+    <lastmod>2020-12-09T17:13:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/finance/</loc>
+    <lastmod>2020-12-09T17:13:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/patent-databases/</loc>
+    <lastmod>2020-12-09T17:13:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2020-12-09T17:13:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2020-12-09T17:13:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2020-12-09T17:13:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
+    <lastmod>2020-12-08T15:04:11-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/data-manipulation/</loc>
+    <lastmod>2020-12-08T15:04:11-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/link_crsp_compustat/</loc>
+    <lastmod>2020-12-08T15:04:11-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mikenguyen.netlify.app/post/arrow/</loc>
     <lastmod>2020-12-06T00:00:00+00:00</lastmod>
   </url>
@@ -43,32 +98,7 @@
   </url>
   
   <url>
-    <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/data-manipulation/</loc>
-    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://mikenguyen.netlify.app/tag/r/</loc>
-    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2020-12-06T00:00:00+00:00</lastmod>
   </url>
   
@@ -185,11 +215,6 @@
   <url>
     <loc>https://mikenguyen.netlify.app/project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>

@@ -1,0 +1,83 @@
+---
+title: Patent Databases
+author: Mike Nguyen
+date: '2020-12-09'
+slug: patent-databases
+categories:
+  - Data
+  - R
+  - Finance
+tags:
+  - data
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-09T17:13:32-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Comprehensive patent data can be found [here](https://eml.berkeley.edu/~bhhall/patents.html)
+
+
+**United States**
+
+ * [NBER patent data](https://sites.google.com/site/patentdataproject/Home/downloads) or [link](https://eml.berkeley.edu/~bhhall/NBER06.html)
+    * Search link for individual patent: [link](http://patft.uspto.gov/)
+ * USPTO - United States patent and Trademark Office  
+    * [Bulk Data Storage System:](https://bulkdata.uspto.gov/)  repository for raw public bulk data
+      + [For Researcher](https://www.uspto.gov/ip-policy/economic-research/research-datasets)
+    * [Patent Assignment Dataset](https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset) details information of patent assignment since 1970 with [schema](https://www.uspto.gov/sites/default/files/documents/pat_assign_dataset_schema.pdf) and [description](https://www.uspto.gov/sites/default/files/documents/USPTO_Patents_Assignment_Dataset_WP.pdf) and [code](https://github.com/USPTO/PatentPublicData)
+    * [Pre-Grant Publications Data Download Tables](https://www.patentsview.org/download/pregrantpublications.html) with example [code](https://github.com/PatentsView/PatentsView-Code-Snippets/blob/master/04_bulk_pregrant_read_in/R%20Scripts/rawassignee.Rmd) note that organizaiton here is different from Compustat and CRSP, hard to match. 
+    * [Patent Examiniation Data system](https://ped.uspto.gov/peds/): records of USPTO patent application, patent filing status and transaction history data
+    * [Trademark Assignment Dataset](https://www.uspto.gov/learning-and-resources/electronic-data-products/trademark-assignment-dataset)
+    * [Patent Assignment Dataset](https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset)
+    
+ * [Matched US patents to CRSP 1926 - 2010](https://iu.app.box.com/v/patents): Leonid Kogan, Dimitris Papanikolaou, Amit Seru, and Noah Stoffman. [Description](https://paper.dropbox.com/doc/U.S.-Patent-Data-1926-2010-t5nuNWnTH1InM0gyxkizL)
+    + [Maintainer](https://kelley.iu.edu/nstoffma/) with [code](https://github.com/KPSS2017/Technological-Innovation-Resource-Allocation-and-Growth-Extended-Data)
+
+[Recognizing Patent](https://www.uspto.gov/patents-application-process/applying-online/patent-number):  
+
+ * Utility: 6 - 8 digits lasts for 20 years from the filed date
+
+[Changes to Patent Terms](https://www.uspto.gov/patent/laws-and-regulations/patent-term-calculator)
+
+Year filed | Maximum term of validity | Act
+---|---|---
+1790–1835 | 14 years from issuance | [Patent Act of 1790](https://en.wikipedia.org/wiki/Patent_Act_of_1790)
+1836–1860 | 21 years from issuance | [Patent Act of 1836](https://en.wikipedia.org/wiki/Patent_Act_of_1836)
+1861– 1994 | 17 years from issuance | Congress changed term
+1994 - now | 20 years from filing | [Uruguay Round Agreements Act](https://en.wikipedia.org/wiki/Uruguay_Round_Agreements_Act)
+
+Table based on [wikipedia](https://en.wikipedia.org/wiki/Term_of_patent_in_the_United_States) and [USPTO](https://www.uspto.gov/patent/laws-and-regulations/patent-term-calculator)
+
+ * Reissue (RE######)
+ * Plant Patent (PP######) lasts for 20 years from the application date
+ * Design (D#######) lasts  for 14 years from the granted date
+ * Additions or Improvements (AI#######)
+ * X Patents (X#######)
+ * H Documents (H#######)
+ * T Documents (T#######)
+
+
+<br>
+
+**Worldwide**  
+
+ * [EPO and OECD](https://www.epo.org/searching-for-patents/business/patstat.html#tab-1) data
+
+<br>
+<br>
+
+**Matching process with CRSP or Compustat**  
+
+ * [KPSS Technological Innovation, Resource Allocation, and Growth](https://wrds-www.wharton.upenn.edu/pages/data/contributed-data/kpss-technological-innovation-resource-allocation-and-growth/)
+ * [UVA Darden Global Corporate Patent Dataset](https://patents.darden.virginia.edu/documents/DataConstructionDetails_v01.pdf)
+ * [Miao Liu](https://voices.uchicago.edu/miaoliu/data-page/) Note that you need Bing API and use Python [Github repo](https://github.com/danielm-github/patentsmatch_bingsearchapproach)
+ * [NBER Guide](https://users.nber.org/~jbessen/matchdoc.pdf)
+ 
+ 

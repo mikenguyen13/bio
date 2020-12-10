@@ -5,12 +5,69 @@
     <link>https://mikenguyen.netlify.app/tag/academic/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/academic/index.xml" rel="self" type="application/rss+xml" />
     <description>Academic</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Wed, 20 Apr 2016 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Tue, 08 Dec 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>Academic</title>
       <link>https://mikenguyen.netlify.app/tag/academic/</link>
     </image>
+    
+    <item>
+      <title>Linking Financial Databases (CRSP and Compustat)</title>
+      <link>https://mikenguyen.netlify.app/post/link_crsp_compustat/</link>
+      <pubDate>Tue, 08 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/link_crsp_compustat/</guid>
+      <description>
+&lt;link href=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Information can be found in &lt;a href=&#34;https://www.otago.ac.nz/library/pdf/CRSPCompustatguide09.pdf&#34;&gt;CRSP/COMPUSTAT MERGED DATABASE GUIDE&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Change Identifiers:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Ticker&lt;/strong&gt;: can be reassign to another company - abbreviation used to uniquely identify publicly-traded shares of a stock&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;CUSIP&lt;/strong&gt;: A company can have multiple CUSIPS due to structural changes. - nine-character code assigned by the CUSIP Service Bureau to identify various securities&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Permanent Identifiers&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;CRSP (maintained by Chicago BOoth CRSP)
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;PERMCO&lt;/strong&gt;: is a unique permanent company level identifier (even under name change)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;PERMNO&lt;/strong&gt;: is a unique stock (share class) level identifier. One company can have multiple share classes. (1 PERMNO -&amp;gt; 1 PERMCO, 1 -&amp;gt; multiple PERMNOs)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Compustat-Capital IQ (maintained by S&amp;amp;P)
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;GVKEY&lt;/strong&gt;: is a unique number assigned to each company.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;CRSP&lt;/th&gt;
+&lt;th&gt;COMPUSTAT&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Time since&lt;/td&gt;
+&lt;td&gt;1925&lt;/td&gt;
+&lt;td&gt;1950&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Companies&lt;/td&gt;
+&lt;td&gt;listed in U.S. Exchange&lt;/td&gt;
+&lt;td&gt;U.S. + Canada&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Report&lt;/td&gt;
+&lt;td&gt;Daily and Monthly&lt;/td&gt;
+&lt;td&gt;Quarterly and Annually&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</description>
+    </item>
     
     <item>
       <title>Academic: the website builder for Hugo</title>

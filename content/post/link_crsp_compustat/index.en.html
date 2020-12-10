@@ -1,0 +1,72 @@
+---
+title: "Linking Financial Databases (CRSP and Compustat)"
+author: "Mike Nguyen"
+date: '2020-12-08'
+slug: link_crsp_compustat
+categories:
+- Data
+- R
+tags:
+- Academic
+- data manipulation
+- data
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-08T15:04:11-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p>Information can be found in <a href="https://www.otago.ac.nz/library/pdf/CRSPCompustatguide09.pdf">CRSP/COMPUSTAT MERGED DATABASE GUIDE</a></p>
+<p>Change Identifiers:</p>
+<ul>
+<li><strong>Ticker</strong>: can be reassign to another company - abbreviation used to uniquely identify publicly-traded shares of a stock</li>
+<li><strong>CUSIP</strong>: A company can have multiple CUSIPS due to structural changes. - nine-character code assigned by the CUSIP Service Bureau to identify various securities</li>
+</ul>
+<p>Permanent Identifiers</p>
+<ul>
+<li>CRSP (maintained by Chicago BOoth CRSP)
+<ul>
+<li><strong>PERMCO</strong>: is a unique permanent company level identifier (even under name change)</li>
+<li><strong>PERMNO</strong>: is a unique stock (share class) level identifier. One company can have multiple share classes. (1 PERMNO -&gt; 1 PERMCO, 1 -&gt; multiple PERMNOs)</li>
+</ul></li>
+<li>Compustat-Capital IQ (maintained by S&amp;P)
+<ul>
+<li><strong>GVKEY</strong>: is a unique number assigned to each company.</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th>CRSP</th>
+<th>COMPUSTAT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Time since</td>
+<td>1925</td>
+<td>1950</td>
+</tr>
+<tr class="even">
+<td>Companies</td>
+<td>listed in U.S. Exchange</td>
+<td>U.S. + Canada</td>
+</tr>
+<tr class="odd">
+<td>Report</td>
+<td>Daily and Monthly</td>
+<td>Quarterly and Annually</td>
+</tr>
+</tbody>
+</table>

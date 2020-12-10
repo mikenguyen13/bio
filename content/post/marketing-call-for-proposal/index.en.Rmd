@@ -1,0 +1,23 @@
+---
+title: Marketing Call for Proposal
+author: Mike Nguyen
+date: '2020-12-10'
+slug: marketing-call-for-proposal
+categories:
+  - marketing
+  - proposal
+tags:
+  - dissertation
+  - proposal
+  - doctoral student
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-10T00:35:23-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---

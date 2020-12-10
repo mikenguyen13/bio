@@ -1,0 +1,111 @@
+---
+title: Patent Databases
+author: Mike Nguyen
+date: '2020-12-09'
+slug: patent-databases
+categories:
+  - Data
+  - R
+  - Finance
+tags:
+  - data
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-09T17:13:32-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p>Comprehensive patent data can be found <a href="https://eml.berkeley.edu/~bhhall/patents.html">here</a></p>
+<p><strong>United States</strong></p>
+<ul>
+<li><a href="https://sites.google.com/site/patentdataproject/Home/downloads">NBER patent data</a> or <a href="https://eml.berkeley.edu/~bhhall/NBER06.html">link</a>
+<ul>
+<li>Search link for individual patent: <a href="http://patft.uspto.gov/">link</a></li>
+</ul></li>
+<li>USPTO - United States patent and Trademark Office
+<ul>
+<li><a href="https://bulkdata.uspto.gov/">Bulk Data Storage System:</a> repository for raw public bulk data
+<ul>
+<li><a href="https://www.uspto.gov/ip-policy/economic-research/research-datasets">For Researcher</a></li>
+</ul></li>
+<li><a href="https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset">Patent Assignment Dataset</a> details information of patent assignment since 1970 with <a href="https://www.uspto.gov/sites/default/files/documents/pat_assign_dataset_schema.pdf">schema</a> and <a href="https://www.uspto.gov/sites/default/files/documents/USPTO_Patents_Assignment_Dataset_WP.pdf">description</a> and <a href="https://github.com/USPTO/PatentPublicData">code</a></li>
+<li><a href="https://www.patentsview.org/download/pregrantpublications.html">Pre-Grant Publications Data Download Tables</a> with example <a href="https://github.com/PatentsView/PatentsView-Code-Snippets/blob/master/04_bulk_pregrant_read_in/R%20Scripts/rawassignee.Rmd">code</a> note that organizaiton here is different from Compustat and CRSP, hard to match.</li>
+<li><a href="https://ped.uspto.gov/peds/">Patent Examiniation Data system</a>: records of USPTO patent application, patent filing status and transaction history data</li>
+<li><a href="https://www.uspto.gov/learning-and-resources/electronic-data-products/trademark-assignment-dataset">Trademark Assignment Dataset</a></li>
+<li><a href="https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset">Patent Assignment Dataset</a></li>
+</ul></li>
+<li><a href="https://iu.app.box.com/v/patents">Matched US patents to CRSP 1926 - 2010</a>: Leonid Kogan, Dimitris Papanikolaou, Amit Seru, and Noah Stoffman. <a href="https://paper.dropbox.com/doc/U.S.-Patent-Data-1926-2010-t5nuNWnTH1InM0gyxkizL">Description</a>
+<ul>
+<li><a href="https://kelley.iu.edu/nstoffma/">Maintainer</a> with <a href="https://github.com/KPSS2017/Technological-Innovation-Resource-Allocation-and-Growth-Extended-Data">code</a></li>
+</ul></li>
+</ul>
+<p><a href="https://www.uspto.gov/patents-application-process/applying-online/patent-number">Recognizing Patent</a>:</p>
+<ul>
+<li>Utility: 6 - 8 digits lasts for 20 years from the filed date</li>
+</ul>
+<p><a href="https://www.uspto.gov/patent/laws-and-regulations/patent-term-calculator">Changes to Patent Terms</a></p>
+<table>
+<thead>
+<tr class="header">
+<th>Year filed</th>
+<th>Maximum term of validity</th>
+<th>Act</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1790–1835</td>
+<td>14 years from issuance</td>
+<td><a href="https://en.wikipedia.org/wiki/Patent_Act_of_1790">Patent Act of 1790</a></td>
+</tr>
+<tr class="even">
+<td>1836–1860</td>
+<td>21 years from issuance</td>
+<td><a href="https://en.wikipedia.org/wiki/Patent_Act_of_1836">Patent Act of 1836</a></td>
+</tr>
+<tr class="odd">
+<td>1861– 1994</td>
+<td>17 years from issuance</td>
+<td>Congress changed term</td>
+</tr>
+<tr class="even">
+<td>1994 - now</td>
+<td>20 years from filing</td>
+<td><a href="https://en.wikipedia.org/wiki/Uruguay_Round_Agreements_Act">Uruguay Round Agreements Act</a></td>
+</tr>
+</tbody>
+</table>
+<p>Table based on <a href="https://en.wikipedia.org/wiki/Term_of_patent_in_the_United_States">wikipedia</a> and <a href="https://www.uspto.gov/patent/laws-and-regulations/patent-term-calculator">USPTO</a></p>
+<ul>
+<li>Reissue (RE######)</li>
+<li>Plant Patent (PP######) lasts for 20 years from the application date</li>
+<li>Design (D#######) lasts for 14 years from the granted date</li>
+<li>Additions or Improvements (AI#######)</li>
+<li>X Patents (X#######)</li>
+<li>H Documents (H#######)</li>
+<li>T Documents (T#######)</li>
+</ul>
+<p><br></p>
+<p><strong>Worldwide</strong></p>
+<ul>
+<li><a href="https://www.epo.org/searching-for-patents/business/patstat.html#tab-1">EPO and OECD</a> data</li>
+</ul>
+<p><br>
+<br></p>
+<p><strong>Matching process with CRSP or Compustat</strong></p>
+<ul>
+<li><a href="https://wrds-www.wharton.upenn.edu/pages/data/contributed-data/kpss-technological-innovation-resource-allocation-and-growth/">KPSS Technological Innovation, Resource Allocation, and Growth</a></li>
+<li><a href="https://patents.darden.virginia.edu/documents/DataConstructionDetails_v01.pdf">UVA Darden Global Corporate Patent Dataset</a></li>
+<li><a href="https://voices.uchicago.edu/miaoliu/data-page/">Miao Liu</a> Note that you need Bing API and use Python <a href="https://github.com/danielm-github/patentsmatch_bingsearchapproach">Github repo</a></li>
+<li><a href="https://users.nber.org/~jbessen/matchdoc.pdf">NBER Guide</a></li>
+</ul>
