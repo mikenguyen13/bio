@@ -21,14 +21,16 @@ image:
 projects: []
 ---
 
-Comprehensive patent data can be found [here](https://eml.berkeley.edu/~bhhall/patents.html)
+Comprehensive patent data can be found [here](https://eml.berkeley.edu/~bhhall/patents.html)  
+
 
 
 **United States**
 
  * [NBER patent data](https://sites.google.com/site/patentdataproject/Home/downloads) or [link](https://eml.berkeley.edu/~bhhall/NBER06.html)
     * Search link for individual patent: [link](http://patft.uspto.gov/)
- * USPTO - United States patent and Trademark Office  
+    * [Patent API](https://developer.uspto.gov/api-catalog)
+    * USPTO - United States patent and Trademark Office  
     * [Bulk Data Storage System:](https://bulkdata.uspto.gov/)  repository for raw public bulk data
       + [For Researcher](https://www.uspto.gov/ip-policy/economic-research/research-datasets)
     * [Patent Assignment Dataset](https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset) details information of patent assignment since 1970 with [schema](https://www.uspto.gov/sites/default/files/documents/pat_assign_dataset_schema.pdf) and [description](https://www.uspto.gov/sites/default/files/documents/USPTO_Patents_Assignment_Dataset_WP.pdf) and [code](https://github.com/USPTO/PatentPublicData)
@@ -69,6 +71,7 @@ Table based on [wikipedia](https://en.wikipedia.org/wiki/Term_of_patent_in_the_U
 **Worldwide**  
 
  * [EPO and OECD](https://www.epo.org/searching-for-patents/business/patstat.html#tab-1) data
+ * [wipo](https://www.wipo.int/econ_stat/en/economics/research/)
 
 <br>
 <br>

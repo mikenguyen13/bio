@@ -50,6 +50,11 @@
 #  weight = 60
 
 [[main]]
+  name = "Data"
+  url = "data/"
+  weight = 60
+
+[[main]]
   name = "Contact"
   url = "#contact"
   weight = 70
