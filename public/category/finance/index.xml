@@ -28,9 +28,9 @@
 &lt;li&gt;&lt;a href=&#34;https://sites.google.com/site/patentdataproject/Home/downloads&#34;&gt;NBER patent data&lt;/a&gt; or &lt;a href=&#34;https://eml.berkeley.edu/~bhhall/NBER06.html&#34;&gt;link&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;Search link for individual patent: &lt;a href=&#34;http://patft.uspto.gov/&#34;&gt;link&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;USPTO - United States patent and Trademark Office
-&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.uspto.gov/api-catalog&#34;&gt;Patent API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;USPTO - United States patent and Trademark Office&lt;br /&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://bulkdata.uspto.gov/&#34;&gt;Bulk Data Storage System:&lt;/a&gt; repository for raw public bulk data
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/ip-policy/economic-research/research-datasets&#34;&gt;For Researcher&lt;/a&gt;&lt;/li&gt;
@@ -40,6 +40,7 @@
 &lt;li&gt;&lt;a href=&#34;https://ped.uspto.gov/peds/&#34;&gt;Patent Examiniation Data system&lt;/a&gt;: records of USPTO patent application, patent filing status and transaction history data&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/learning-and-resources/electronic-data-products/trademark-assignment-dataset&#34;&gt;Trademark Assignment Dataset&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset&#34;&gt;Patent Assignment Dataset&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zenodo.org/record/3594694#.X9hH59hKgdW&#34;&gt;Duke Innovation&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://iu.app.box.com/v/patents&#34;&gt;Matched US patents to CRSP 1926 - 2010&lt;/a&gt;: Leonid Kogan, Dimitris Papanikolaou, Amit Seru, and Noah Stoffman. &lt;a href=&#34;https://paper.dropbox.com/doc/U.S.-Patent-Data-1926-2010-t5nuNWnTH1InM0gyxkizL&#34;&gt;Description&lt;/a&gt;
 &lt;ul&gt;
@@ -96,6 +97,7 @@
 &lt;p&gt;&lt;strong&gt;Worldwide&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.epo.org/searching-for-patents/business/patstat.html#tab-1&#34;&gt;EPO and OECD&lt;/a&gt; data&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.wipo.int/econ_stat/en/economics/research/&#34;&gt;wipo&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;

@@ -75,6 +75,42 @@
     </item>
     
     <item>
+      <title>Marketing Call for Proposal</title>
+      <link>https://mikenguyen.netlify.app/post/marketing-call-for-proposal/</link>
+      <pubDate>Thu, 10 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/marketing-call-for-proposal/</guid>
+      <description>
+&lt;link href=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;div id=&#34;doctoral-proposal&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Doctoral Proposal&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.springer.com/journal/13162/updates/18399368&#34;&gt;AMS Review -Sheth Foundation Annual Doctoral Competition for COnceptual Articles&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ama.org/listings/2020/11/29/emac-aimark-dissertation-award/&#34;&gt;EMAC-AiMark doctoral dissertation award&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;ams-mary-kay-doctoral-dissertation-competition&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;AMS MARY KAY DOCTORAL DISSERTATION COMPETITION&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ams50nyc.org/call-for-papers/tracks-track-chairs/&#34;&gt;AMS MARY KAY DISSERTATION AWARD&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.ams50nyc.org/call-for-papers/tracks-track-chairs/&#34;&gt;AMS MARY KAY DISSERTATION PROPOSAL AWARD&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;msi&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;MSI&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.msii.clients.bostonwebdevelopment.com/research/awards/robert-d.-buzzell-msi-best-paper-award/&#34;&gt;Robert D. Buzzell MSI Best Paper Award&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.msii.clients.bostonwebdevelopment.com/research/awards/msi-h.-paul-root-award/&#34;&gt;MSI H. Paul Root Award&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.msii.clients.bostonwebdevelopment.com/research/awards/clayton-dissertation-proposal-competition/&#34;&gt;Clayton Dissertation Proposal Competition&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://marketingscienceinstitute.submittable.com/submit/180689/research-priorities-initiative-pre-proposals-2020&#34;&gt;MSI Research Competition&lt;/a&gt; based on &lt;a href=&#34;https://www.msi.org/wp-content/uploads/2020/09/MSI-2020-22-Research-Priorities-final.pdf&#34;&gt;RESEARCH PRIORITIES 2020-2022&lt;/a&gt; and &lt;a href=&#34;https://marketingscienceinstitute.submittable.com/submit/180689/research-priorities-initiative-pre-proposals-2020&#34;&gt;submission details&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Patent Databases</title>
       <link>https://mikenguyen.netlify.app/post/patent-databases/</link>
       <pubDate>Wed, 09 Dec 2020 00:00:00 +0000</pubDate>
@@ -90,9 +126,9 @@
 &lt;li&gt;&lt;a href=&#34;https://sites.google.com/site/patentdataproject/Home/downloads&#34;&gt;NBER patent data&lt;/a&gt; or &lt;a href=&#34;https://eml.berkeley.edu/~bhhall/NBER06.html&#34;&gt;link&lt;/a&gt;
 &lt;ul&gt;
 &lt;li&gt;Search link for individual patent: &lt;a href=&#34;http://patft.uspto.gov/&#34;&gt;link&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;USPTO - United States patent and Trademark Office
-&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developer.uspto.gov/api-catalog&#34;&gt;Patent API&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;USPTO - United States patent and Trademark Office&lt;br /&gt;
+&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://bulkdata.uspto.gov/&#34;&gt;Bulk Data Storage System:&lt;/a&gt; repository for raw public bulk data
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/ip-policy/economic-research/research-datasets&#34;&gt;For Researcher&lt;/a&gt;&lt;/li&gt;
@@ -102,6 +138,7 @@
 &lt;li&gt;&lt;a href=&#34;https://ped.uspto.gov/peds/&#34;&gt;Patent Examiniation Data system&lt;/a&gt;: records of USPTO patent application, patent filing status and transaction history data&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/learning-and-resources/electronic-data-products/trademark-assignment-dataset&#34;&gt;Trademark Assignment Dataset&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset&#34;&gt;Patent Assignment Dataset&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zenodo.org/record/3594694#.X9hH59hKgdW&#34;&gt;Duke Innovation&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://iu.app.box.com/v/patents&#34;&gt;Matched US patents to CRSP 1926 - 2010&lt;/a&gt;: Leonid Kogan, Dimitris Papanikolaou, Amit Seru, and Noah Stoffman. &lt;a href=&#34;https://paper.dropbox.com/doc/U.S.-Patent-Data-1926-2010-t5nuNWnTH1InM0gyxkizL&#34;&gt;Description&lt;/a&gt;
 &lt;ul&gt;
@@ -158,6 +195,7 @@
 &lt;p&gt;&lt;strong&gt;Worldwide&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.epo.org/searching-for-patents/business/patstat.html#tab-1&#34;&gt;EPO and OECD&lt;/a&gt; data&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.wipo.int/econ_stat/en/economics/research/&#34;&gt;wipo&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;br&gt;
 &lt;br&gt;&lt;/p&gt;
@@ -445,7 +483,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-157248936&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-819264537&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -455,7 +493,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-157248936&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-819264537&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

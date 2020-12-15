@@ -38,6 +38,7 @@ Comprehensive patent data can be found [here](https://eml.berkeley.edu/~bhhall/p
     * [Patent Examiniation Data system](https://ped.uspto.gov/peds/): records of USPTO patent application, patent filing status and transaction history data
     * [Trademark Assignment Dataset](https://www.uspto.gov/learning-and-resources/electronic-data-products/trademark-assignment-dataset)
     * [Patent Assignment Dataset](https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset)
+    * [Duke Innovation](https://zenodo.org/record/3594694#.X9hH59hKgdW)
     
  * [Matched US patents to CRSP 1926 - 2010](https://iu.app.box.com/v/patents): Leonid Kogan, Dimitris Papanikolaou, Amit Seru, and Noah Stoffman. [Description](https://paper.dropbox.com/doc/U.S.-Patent-Data-1926-2010-t5nuNWnTH1InM0gyxkizL)
     + [Maintainer](https://kelley.iu.edu/nstoffma/) with [code](https://github.com/KPSS2017/Technological-Innovation-Resource-Allocation-and-Growth-Extended-Data)
