@@ -29,8 +29,10 @@
 &lt;ul&gt;
 &lt;li&gt;Search link for individual patent: &lt;a href=&#34;http://patft.uspto.gov/&#34;&gt;link&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://developer.uspto.gov/api-catalog&#34;&gt;Patent API&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;USPTO - United States patent and Trademark Office&lt;br /&gt;
-&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;USPTO - United States patent and Trademark Office
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/web/offices/ac/ido/oeip/taf/reports_topo.htm&#34;&gt;Patent ranking by orgs&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://bulkdata.uspto.gov/&#34;&gt;Bulk Data Storage System:&lt;/a&gt; repository for raw public bulk data
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.uspto.gov/ip-policy/economic-research/research-datasets&#34;&gt;For Researcher&lt;/a&gt;&lt;/li&gt;

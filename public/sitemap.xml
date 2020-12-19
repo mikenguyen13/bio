@@ -33,8 +33,43 @@
   </url>
   
   <url>
+    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
+    <lastmod>2020-12-19T13:46:55-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2020-12-10T00:35:23-06:00</lastmod>
+    <lastmod>2020-12-19T13:46:55-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/finance/</loc>
+    <lastmod>2020-12-19T13:46:55-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/finance/</loc>
+    <lastmod>2020-12-19T13:46:55-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/marketing/</loc>
+    <lastmod>2020-12-19T13:46:55-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2020-12-19T13:46:55-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2020-12-19T13:46:55-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/tobin-s-q/</loc>
+    <lastmod>2020-12-19T13:46:55-06:00</lastmod>
   </url>
   
   <url>
@@ -48,17 +83,7 @@
   </url>
   
   <url>
-    <loc>https://mikenguyen.netlify.app/category/marketing/</loc>
-    <lastmod>2020-12-10T00:35:23-06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://mikenguyen.netlify.app/post/marketing-call-for-proposal/</loc>
-    <lastmod>2020-12-10T00:35:23-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
     <lastmod>2020-12-10T00:35:23-06:00</lastmod>
   </url>
   
@@ -73,22 +98,12 @@
   </url>
   
   <url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
-    <lastmod>2020-12-10T00:35:23-06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://mikenguyen.netlify.app/category/data/</loc>
     <lastmod>2020-12-09T17:13:32-06:00</lastmod>
   </url>
   
   <url>
     <loc>https://mikenguyen.netlify.app/tag/data/</loc>
-    <lastmod>2020-12-09T17:13:32-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/category/finance/</loc>
     <lastmod>2020-12-09T17:13:32-06:00</lastmod>
   </url>
   
@@ -100,11 +115,6 @@
   <url>
     <loc>https://mikenguyen.netlify.app/category/r/</loc>
     <lastmod>2020-12-09T17:13:32-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
-    <lastmod>2020-12-08T15:04:11-06:00</lastmod>
   </url>
   
   <url>

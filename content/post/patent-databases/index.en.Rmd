@@ -30,7 +30,8 @@ Comprehensive patent data can be found [here](https://eml.berkeley.edu/~bhhall/p
  * [NBER patent data](https://sites.google.com/site/patentdataproject/Home/downloads) or [link](https://eml.berkeley.edu/~bhhall/NBER06.html)
     * Search link for individual patent: [link](http://patft.uspto.gov/)
     * [Patent API](https://developer.uspto.gov/api-catalog)
-    * USPTO - United States patent and Trademark Office  
+ * USPTO - United States patent and Trademark Office  
+    * [Patent ranking by orgs](https://www.uspto.gov/web/offices/ac/ido/oeip/taf/reports_topo.htm)
     * [Bulk Data Storage System:](https://bulkdata.uspto.gov/)  repository for raw public bulk data
       + [For Researcher](https://www.uspto.gov/ip-policy/economic-research/research-datasets)
     * [Patent Assignment Dataset](https://www.uspto.gov/learning-and-resources/electronic-data-products/patent-assignment-dataset) details information of patent assignment since 1970 with [schema](https://www.uspto.gov/sites/default/files/documents/pat_assign_dataset_schema.pdf) and [description](https://www.uspto.gov/sites/default/files/documents/USPTO_Patents_Assignment_Dataset_WP.pdf) and [code](https://github.com/USPTO/PatentPublicData)

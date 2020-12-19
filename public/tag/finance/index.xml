@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>finance | Mike Nguyen</title>
+    <link>https://mikenguyen.netlify.app/tag/finance/</link>
+      <atom:link href="https://mikenguyen.netlify.app/tag/finance/index.xml" rel="self" type="application/rss+xml" />
+    <description>finance</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Sat, 19 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
+      <title>finance</title>
+      <link>https://mikenguyen.netlify.app/tag/finance/</link>
+    </image>
+    
+    <item>
+      <title>Tobin&#39;s q</title>
+      <link>https://mikenguyen.netlify.app/post/tobin-s-q/</link>
+      <pubDate>Sat, 19 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/tobin-s-q/</guid>
+      <description>&lt;h1 id=&#34;tobins-q&#34;&gt;Tobin&amp;rsquo;s Q&lt;/h1&gt;
+&lt;p&gt;According to Kerin and Sethuraman ([Kerin_1998], p. 261), &lt;strong&gt;Tobins q&lt;/strong&gt; is the &amp;ldquo;ratio of the market value of the firm to the replacement cost of its tangible assets, property, plant, equipment, inventory, cash, and investments in stocks and bonds&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Market-to-book ratio&lt;/strong&gt; is the equity capitalization of a firm divided by book equity. Equivalently, (share price multiplied by number of shares) over (common stock equity, capital surplus, and retained earnings).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Market-to-book ratio&lt;/strong&gt; and &lt;strong&gt;Tobin&amp;rsquo;s q&lt;/strong&gt; have been shown to be equivalent measures ()&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
