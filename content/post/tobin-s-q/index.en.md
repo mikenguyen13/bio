@@ -2,6 +2,7 @@
 title: "Tobin's q"
 author: "Mike Nguyen"
 date: '2020-12-19'
+bibliography: references.bib
 slug: tobin-s-q
 categories:
 - marketing
@@ -23,7 +24,7 @@ projects: []
 
 # Tobin's Q
 
-According to Kerin and Sethuraman ([Kerin_1998], p. 261), **Tobins q** is the "ratio of the market value of the firm to the replacement cost of its tangible assets, property, plant, equipment, inventory, cash, and investments in stocks and bonds".  
+According to Kerin and Sethuraman ([@Kerin_1998], p. 261), **Tobins q** is the "ratio of the market value of the firm to the replacement cost of its tangible assets, property, plant, equipment, inventory, cash, and investments in stocks and bonds".  
 
 **Market-to-book ratio** is the equity capitalization of a firm divided by book equity. Equivalently, (share price multiplied by number of shares) over (common stock equity, capital surplus, and retained earnings).  
 
