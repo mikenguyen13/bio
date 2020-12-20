@@ -1,0 +1,34 @@
+---
+title: Psychological Experiments
+author: ''
+date: '2020-12-20'
+slug: psychological-experiments
+categories:
+  - R
+tags:
+  - Academic
+  - R
+  - R Markdown
+  - reproducible
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-20T15:08:47-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Use `jaysire` package to build flexible behavioral experiments in R. Why?  
+
+ * Better workflow
+ * Free
+ * Cutomizable
+
+```{r, eval=FALSE}
+remotes::install_github("djnavarro/jaysire")
+```
+

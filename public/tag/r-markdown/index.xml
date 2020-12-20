@@ -5,12 +5,32 @@
     <link>https://mikenguyen.netlify.app/tag/r-markdown/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     <description>R Markdown</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Mon, 30 Nov 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>R Markdown</title>
       <link>https://mikenguyen.netlify.app/tag/r-markdown/</link>
     </image>
+    
+    <item>
+      <title>psychological experiments</title>
+      <link>https://mikenguyen.netlify.app/post/psychological-experiments/</link>
+      <pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/psychological-experiments/</guid>
+      <description>
+&lt;link href=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Use &lt;code&gt;jaysire&lt;/code&gt; package to build flexible behavioral experiments in R. Why?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Better workflow&lt;/li&gt;
+&lt;li&gt;Free&lt;/li&gt;
+&lt;li&gt;Cutomizable&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;remotes::install_github(&amp;quot;djnavarro/jaysire&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>doParallel</title>

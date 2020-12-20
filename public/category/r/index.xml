@@ -5,12 +5,105 @@
     <link>https://mikenguyen.netlify.app/category/r/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Wed, 09 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>R</title>
       <link>https://mikenguyen.netlify.app/category/r/</link>
     </image>
+    
+    <item>
+      <title>flipbooks</title>
+      <link>https://mikenguyen.netlify.app/post/flipbooks/</link>
+      <pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/flipbooks/</guid>
+      <description>
+&lt;link href=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Flipbooks can be used for:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Education&lt;/li&gt;
+&lt;li&gt;Reference&lt;/li&gt;
+&lt;li&gt;Communication&lt;/li&gt;
+&lt;li&gt;Transparency&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(flipbookr)
+
+cars %&amp;gt;%
+  filter(speed &amp;gt; 4) %&amp;gt;%
+  ggplot() +
+  aes(x = speed) + #BREAK
+  aes(y = dist) + #BREAK
+  geom_point(
+    alpha = .8, 
+    color = &amp;quot;blue&amp;quot; 
+    ) + 
+  aes(size = speed) #BREAK&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>psychological experiments</title>
+      <link>https://mikenguyen.netlify.app/post/psychological-experiments/</link>
+      <pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/psychological-experiments/</guid>
+      <description>
+&lt;link href=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Use &lt;code&gt;jaysire&lt;/code&gt; package to build flexible behavioral experiments in R. Why?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Better workflow&lt;/li&gt;
+&lt;li&gt;Free&lt;/li&gt;
+&lt;li&gt;Cutomizable&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;remotes::install_github(&amp;quot;djnavarro/jaysire&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>renv</title>
+      <link>https://mikenguyen.netlify.app/post/renv/</link>
+      <pubDate>Sun, 20 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/renv/</guid>
+      <description>
+&lt;link href=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Check where your package is installed&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;find.package(&amp;quot;dplyr&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;C:/Program Files/R/R-4.0.3/library/dplyr&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;All projects use the same library path. Then for each project, you need different library dependencies.&lt;/p&gt;
+&lt;div id=&#34;intializing-a-project&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Intializing a project&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;renv::init()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A &lt;code&gt;.Rprofile&lt;/code&gt; is created that forks the current R libraries.&lt;/p&gt;
+&lt;p&gt;Now, you can work as before. But the current state of packages would not change.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;snapshot&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Snapshot&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;renv::snapshot()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The function tells you the current state of a project, and whether you can to update any packages in that project.&lt;/p&gt;
+&lt;p&gt;The lockfile is a JSON file that tells you packages installed in your project, versions, and sources.&lt;/p&gt;
+&lt;p&gt;This is useful for:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Time capsules (you can return to this project in the future without any unexpected changes)&lt;/li&gt;
+&lt;li&gt;Collaborative workflows (different people might have different packages installed).&lt;/li&gt;
+&lt;li&gt;Deployments (you can run your project remotely)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;restore&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Restore&lt;/h2&gt;
+&lt;p&gt;To restore the previously snapshot, you can use&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;renv::restore()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## * The library is already synchronized with the lockfile.&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Patent Databases</title>

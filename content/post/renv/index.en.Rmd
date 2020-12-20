@@ -1,0 +1,64 @@
+---
+title: renv
+author: Mike Nguyen
+date: '2020-12-20'
+slug: renv
+categories:
+  - R
+tags:
+  - R
+  - reproducible
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-20T13:47:28-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Check where your package is installed
+
+```{r}
+find.package("dplyr")
+```
+
+
+All projects use the same library path. Then for each project, you need different library dependencies.
+
+## Intializing a project 
+```{r, eval=FALSE}
+renv::init()
+```
+
+A `.Rprofile` is created that forks the current R libraries. 
+
+Now, you can work as before. But the current state of packages would not change. 
+
+## Snapshot
+```{r, eval=FALSE}
+renv::snapshot()
+```
+
+The function tells you the current state of a project, and whether you can to update any packages in that project.  
+
+The lockfile is a JSON file that tells you packages installed in your project, versions, and sources. 
+
+
+This is useful for:  
+
+ * Time capsules (you can return to this project in the future without any unexpected changes)
+ * Collaborative workflows (different people might have different packages installed).
+ * Deployments (you can run your project remotely)
+
+
+## Restore 
+To restore the previously snapshot, you can use 
+
+```{r}
+renv::restore()
+```
+

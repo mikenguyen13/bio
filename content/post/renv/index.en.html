@@ -1,0 +1,54 @@
+---
+title: renv
+author: Mike Nguyen
+date: '2020-12-20'
+slug: renv
+categories:
+  - R
+tags:
+  - R
+  - reproducible
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-20T13:47:28-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p>Check where your package is installed</p>
+<pre class="r"><code>find.package(&quot;dplyr&quot;)</code></pre>
+<pre><code>## [1] &quot;C:/Program Files/R/R-4.0.3/library/dplyr&quot;</code></pre>
+<p>All projects use the same library path. Then for each project, you need different library dependencies.</p>
+<div id="intializing-a-project" class="section level2">
+<h2>Intializing a project</h2>
+<pre class="r"><code>renv::init()</code></pre>
+<p>A <code>.Rprofile</code> is created that forks the current R libraries.</p>
+<p>Now, you can work as before. But the current state of packages would not change.</p>
+</div>
+<div id="snapshot" class="section level2">
+<h2>Snapshot</h2>
+<pre class="r"><code>renv::snapshot()</code></pre>
+<p>The function tells you the current state of a project, and whether you can to update any packages in that project.</p>
+<p>The lockfile is a JSON file that tells you packages installed in your project, versions, and sources.</p>
+<p>This is useful for:</p>
+<ul>
+<li>Time capsules (you can return to this project in the future without any unexpected changes)</li>
+<li>Collaborative workflows (different people might have different packages installed).</li>
+<li>Deployments (you can run your project remotely)</li>
+</ul>
+</div>
+<div id="restore" class="section level2">
+<h2>Restore</h2>
+<p>To restore the previously snapshot, you can use</p>
+<pre class="r"><code>renv::restore()</code></pre>
+<pre><code>## * The library is already synchronized with the lockfile.</code></pre>
+</div>

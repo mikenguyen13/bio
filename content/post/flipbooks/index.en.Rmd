@@ -1,0 +1,44 @@
+---
+title: flipbooks
+author: Mike Nguyen
+date: '2020-12-20'
+slug: flipbooks
+categories:
+  - R
+tags:
+  - reproducible
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-20T14:20:27-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Flipbooks can be used for:  
+
+ * Education 
+ * Reference 
+ * Communication 
+ * Transparency 
+
+```{r, eval = FALSE}
+library(flipbookr)
+
+cars %>%
+  filter(speed > 4) %>%
+  ggplot() +
+  aes(x = speed) + #BREAK
+  aes(y = dist) + #BREAK
+  geom_point(
+    alpha = .8, 
+    color = "blue" 
+    ) + 
+  aes(size = speed) #BREAK
+
+```
+

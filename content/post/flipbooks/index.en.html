@@ -1,0 +1,44 @@
+---
+title: flipbooks
+author: Mike Nguyen
+date: '2020-12-20'
+slug: flipbooks
+categories:
+  - R
+tags:
+  - reproducible
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-20T14:20:27-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+
+
+<p>Flipbooks can be used for:</p>
+<ul>
+<li>Education</li>
+<li>Reference</li>
+<li>Communication</li>
+<li>Transparency</li>
+</ul>
+<pre class="r"><code>library(flipbookr)
+
+cars %&gt;%
+  filter(speed &gt; 4) %&gt;%
+  ggplot() +
+  aes(x = speed) + #BREAK
+  aes(y = dist) + #BREAK
+  geom_point(
+    alpha = .8, 
+    color = &quot;blue&quot; 
+    ) + 
+  aes(size = speed) #BREAK</code></pre>
