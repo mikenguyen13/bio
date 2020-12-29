@@ -27,5 +27,112 @@ According to Kerin and Sethuraman [@Kerin_1998, p. 261], **Tobins q** is the "ra
 **Market-to-book ratio** is the equity capitalization of a firm divided by book equity. Equivalently, (share price multiplied by number of shares) over (common stock equity, capital surplus, and retained earnings).  
 
 
-**Market-to-book ratio** and **Tobin's q** have been shown to be equivalent measures [@Chung_1994]
+**Market-to-book ratio** and **Tobin's q** have been shown to be equivalent measures [@Chung_1994] 
+
+Original Tobin's q calculation [@Lindenberg_1981]  
+
+$$
+q = \frac{PREFST + VCOMS + LTDEBT + STDEBT - ADJ}{TOTASST - BKCAP + NETCAP}
+$$
+
+where  
+
+ * PREFST is the liquidating value of a firm's preferred stock.  
+ * VCOMS is the price of the firm's common stock multiplied by the number of shares outstanding at year end (December 31st).  
+ * LTDEBT is the long-term debt adjusted for its age structure 
+ * STDEBT is the book value of the firm's current liabilities  
+ * ADJ is the net short-term assets  
+ * TOTASST is the book value of the firm's total assets  
+ * BKCAP is the book value of the firm's net capital stock  
+ * NETCAP is information-adjusted net capital stock.  
+
+
+However, [@Chung_1994] have proposed a simple reliable, and tractable approximation of Tobin's q:  
+
+$$
+q = \frac{MVE + PS + DEBT}{TA}
+$$
+
+where  
+
+ * MVE = share price x number of common stock share outstanding 
+ * PS = liquidating value of outstanding preferred stock  
+ * DEBT = short-term liability - short-term assets + book value of long-term debt  
+ * TA is the book value of the total assets.  
+
+[@Chung_1994] method assumes that the replacement values of a firm's plant, equipment, and inventories equal to their book values. 
+
+## Application
+
+Retrieve data from WRDS
+
+```{r, echo=FALSE, message=FALSE}
+# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
+library(RPostgres)
+library(dplyr)
+wrds <- dbConnect(Postgres(),
+                  host='wrds-pgdata.wharton.upenn.edu',
+                  port=9737,
+                  dbname='wrds',
+                  sslmode='require',
+                  user='nghia130')
+knitr::opts_chunk$set(message = FALSE)
+```
+
+
+
+```{r}
+# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
+library(RPostgres)
+library(dplyr)
+
+# I've set up wrds connection before hand. Please use your username and password here.
+
+# wrds <- dbConnect(Postgres(),
+#                   host='wrds-pgdata.wharton.upenn.edu',
+#                   port=9737,
+#                   dbname='wrds',
+#                   sslmode='require',
+#                   user='')
+
+# Check variables (column headers) in COMP ANNUAL FUNDAMENTAL
+#uses the already-established wrds connection to prepare the SQL query string and save the query as the result res.
+# check avaiable databases: https://wrds-web.wharton.upenn.edu/wrds/tools/variable.cfm?vendor_id=7
+res <- dbSendQuery(wrds, "select column_name
+                   from information_schema.columns
+                   where table_schema='compa'
+                   and table_name='funda'
+                   order by column_name")
+data <- dbFetch(res, n=-1) # fetches the data that results from running the query res against wrds and stores it as data
+dbClearResult(res) # closes the connection
+head(data)
+
+# select everything
+res <- dbSendQuery(wrds, "select * from compa.funda")
+
+# from compa.funda
+
+# only select the following variables
+res <- dbSendQuery(wrds, "select gvkey, datadate, fyear, indfmt, consol, popsrc, datafmt, tic, cusip, conm, curcd, fyr, act, at, bkvlps, ceq, ch, che, dltt, dlc, emp, np, exchg, cik, costat, naicsh,mkvalt from compa.funda") #check variables from (https://wrds-web.wharton.upenn.edu/wrds/ds/comp/funda/index.cfm?navId=80)
+data1 <- dbFetch(res, n=-1)
+dbClearResult(res)
+
+data = data1 %>%
+    distinct(gvkey,datadate,fyear,tic,conm,.keep_all = T)
+```
+
+
+Calculate Tobin's Q
+
+```{r}
+tobin_q_dt = data %>%
+    mutate(mkvalt = coalesce(mkvalt,0),
+           dltt = coalesce(dltt,0),
+           at = coalesce(at,0),
+           dlc = coalesce(dlc,0),
+           act = coalesce(act,0)) %>%
+    mutate(tobin_q = (mkvalt + ifelse((dlc - act) >=0,as.numeric(dlc-act),0) + dltt)/at ) %>% #follow Chung (1994) (sum of stocks (preferred + common) + debt(short-term liabilities - short-term assets + long-term debt))/(total assets) # note: take only excess of short-term liabilities over short-term assets to be included in debt. 
+    select(tobin_q,gvkey,datadate,fyear,conm)
+head(tobin_q_dt)
+```
 

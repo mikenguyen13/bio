@@ -1,0 +1,82 @@
+---
+title: Connect WRDS in R
+author: Mike Nguye
+date: '2020-12-29'
+slug: connect-wrds-in-r
+categories:
+  - Finance
+  - Data
+  - marketing
+  - R
+tags:
+  - Academic
+  - data
+  - data manipulation
+  - finance
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-12-29T17:10:53-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Connect from R to Wharton Research Data Services
+
+```{r, echo=FALSE, message=FALSE}
+# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
+library(RPostgres)
+library(dplyr)
+wrds <- dbConnect(Postgres(),
+                  host='wrds-pgdata.wharton.upenn.edu',
+                  port=9737,
+                  dbname='wrds',
+                  sslmode='require',
+                  user='nghia130')
+knitr::opts_chunk$set(message = FALSE)
+```
+
+
+
+```{r}
+# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
+library(RPostgres)
+library(dplyr)
+
+# I've set up wrds connection before hand. Please use your username and password here.
+
+# wrds <- dbConnect(Postgres(),
+#                   host='wrds-pgdata.wharton.upenn.edu',
+#                   port=9737,
+#                   dbname='wrds',
+#                   sslmode='require',
+#                   user='')
+
+# Check variables (column headers) in COMP ANNUAL FUNDAMENTAL
+#uses the already-established wrds connection to prepare the SQL query string and save the query as the result res.
+# check avaiable databases: https://wrds-web.wharton.upenn.edu/wrds/tools/variable.cfm?vendor_id=7
+res <- dbSendQuery(wrds, "select column_name
+                   from information_schema.columns
+                   where table_schema='compa'
+                   and table_name='funda'
+                   order by column_name")
+data <- dbFetch(res, n=-1) # fetches the data that results from running the query res against wrds and stores it as data
+dbClearResult(res) # closes the connection
+head(data)
+
+# select everything
+res <- dbSendQuery(wrds, "select * from compa.funda")
+
+# from compa.funda
+
+# only select the following variables
+res <- dbSendQuery(wrds, "select gvkey, datadate, fyear, indfmt, consol, popsrc, datafmt, tic, cusip, conm, curcd, fyr, act, at, bkvlps, ceq, ch, che, dltt, dlc, emp, np, exchg, cik, costat, naicsh,mkvalt from compa.funda") #check variables from (https://wrds-web.wharton.upenn.edu/wrds/ds/comp/funda/index.cfm?navId=80)
+data <- dbFetch(res, n=-1)
+dbClearResult(res)
+
+head(data)
+```

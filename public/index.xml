@@ -182,12 +182,116 @@ cars %&amp;gt;%
 &lt;p&gt;According to Kerin and Sethuraman &lt;span class=&#34;citation&#34;&gt;(Kerin and Sethuraman 1998, 261)&lt;/span&gt;, &lt;strong&gt;Tobins q&lt;/strong&gt; is the “ratio of the market value of the firm to the replacement cost of its tangible assets, property, plant, equipment, inventory, cash, and investments in stocks and bonds”.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Market-to-book ratio&lt;/strong&gt; is the equity capitalization of a firm divided by book equity. Equivalently, (share price multiplied by number of shares) over (common stock equity, capital surplus, and retained earnings).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Market-to-book ratio&lt;/strong&gt; and &lt;strong&gt;Tobin’s q&lt;/strong&gt; have been shown to be equivalent measures &lt;span class=&#34;citation&#34;&gt;(Chung and Pruitt 1994)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Original Tobin’s q calculation &lt;span class=&#34;citation&#34;&gt;(Lindenberg and Ross 1981)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+q = \frac{PREFST + VCOMS + LTDEBT + STDEBT - ADJ}{TOTASST - BKCAP + NETCAP}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;PREFST is the liquidating value of a firm’s preferred stock.&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;VCOMS is the price of the firm’s common stock multiplied by the number of shares outstanding at year end (December 31st).&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;LTDEBT is the long-term debt adjusted for its age structure&lt;/li&gt;
+&lt;li&gt;STDEBT is the book value of the firm’s current liabilities&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;ADJ is the net short-term assets&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;TOTASST is the book value of the firm’s total assets&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;BKCAP is the book value of the firm’s net capital stock&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;NETCAP is information-adjusted net capital stock.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However, &lt;span class=&#34;citation&#34;&gt;(Chung and Pruitt 1994)&lt;/span&gt; have proposed a simple reliable, and tractable approximation of Tobin’s q:&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+q = \frac{MVE + PS + DEBT}{TA}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;where&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;MVE = share price x number of common stock share outstanding&lt;/li&gt;
+&lt;li&gt;PS = liquidating value of outstanding preferred stock&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;DEBT = short-term liability - short-term assets + book value of long-term debt&lt;br /&gt;
+&lt;/li&gt;
+&lt;li&gt;TA is the book value of the total assets.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class=&#34;citation&#34;&gt;(Chung and Pruitt 1994)&lt;/span&gt; method assumes that the replacement values of a firm’s plant, equipment, and inventories equal to their book values.&lt;/p&gt;
+&lt;div id=&#34;application&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Application&lt;/h2&gt;
+&lt;p&gt;Retrieve data from WRDS&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
+library(RPostgres)
+library(dplyr)
+
+# I&amp;#39;ve set up wrds connection before hand. Please use your username and password here.
+
+# wrds &amp;lt;- dbConnect(Postgres(),
+#                   host=&amp;#39;wrds-pgdata.wharton.upenn.edu&amp;#39;,
+#                   port=9737,
+#                   dbname=&amp;#39;wrds&amp;#39;,
+#                   sslmode=&amp;#39;require&amp;#39;,
+#                   user=&amp;#39;&amp;#39;)
+
+# Check variables (column headers) in COMP ANNUAL FUNDAMENTAL
+#uses the already-established wrds connection to prepare the SQL query string and save the query as the result res.
+# check avaiable databases: https://wrds-web.wharton.upenn.edu/wrds/tools/variable.cfm?vendor_id=7
+res &amp;lt;- dbSendQuery(wrds, &amp;quot;select column_name
+                   from information_schema.columns
+                   where table_schema=&amp;#39;compa&amp;#39;
+                   and table_name=&amp;#39;funda&amp;#39;
+                   order by column_name&amp;quot;)
+data &amp;lt;- dbFetch(res, n=-1) # fetches the data that results from running the query res against wrds and stores it as data
+dbClearResult(res) # closes the connection
+head(data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   column_name
+## 1       acchg
+## 2        acco
+## 3       accrt
+## 4     acctchg
+## 5     acctstd
+## 6        acdo&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# select everything
+res &amp;lt;- dbSendQuery(wrds, &amp;quot;select * from compa.funda&amp;quot;)
+
+# from compa.funda
+
+# only select the following variables
+res &amp;lt;- dbSendQuery(wrds, &amp;quot;select gvkey, datadate, fyear, indfmt, consol, popsrc, datafmt, tic, cusip, conm, curcd, fyr, act, at, bkvlps, ceq, ch, che, dltt, dlc, emp, np, exchg, cik, costat, naicsh,mkvalt from compa.funda&amp;quot;) #check variables from (https://wrds-web.wharton.upenn.edu/wrds/ds/comp/funda/index.cfm?navId=80)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in result_create(conn@ptr, statement): Closing open result set,
+## cancelling previous query&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data1 &amp;lt;- dbFetch(res, n=-1)
+dbClearResult(res)
+
+data = data1 %&amp;gt;%
+    distinct(gvkey,datadate,fyear,tic,conm,.keep_all = T)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Calculate Tobin’s Q&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tobin_q_dt = data %&amp;gt;%
+    mutate(mkvalt = coalesce(mkvalt,0),
+           dltt = coalesce(dltt,0),
+           at = coalesce(at,0),
+           dlc = coalesce(dlc,0),
+           act = coalesce(act,0)) %&amp;gt;%
+    mutate(tobin_q = (mkvalt + ifelse((dlc - act) &amp;gt;=0,as.numeric(dlc-act),0) + dltt)/at ) %&amp;gt;% #follow Chung (1994) (sum of stocks (preferred + common) + debt(short-term liabilities - short-term assets + long-term debt))/(total assets) # note: take only excess of short-term liabilities over short-term assets to be included in debt. 
+    select(tobin_q,gvkey,datadate,fyear,conm)
+head(tobin_q_dt)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##     tobin_q  gvkey   datadate fyear                  conm
+## 1       Inf 001000 1961-12-31  1961 A &amp;amp; E PLASTIK PAK INC
+## 2       NaN 001000 1962-12-31  1962 A &amp;amp; E PLASTIK PAK INC
+## 3       Inf 001000 1963-12-31  1963 A &amp;amp; E PLASTIK PAK INC
+## 4 0.3686441 001000 1964-12-31  1964 A &amp;amp; E PLASTIK PAK INC
+## 5 0.4995671 001000 1965-12-31  1965 A &amp;amp; E PLASTIK PAK INC
+## 6 0.4563786 001000 1966-12-31  1966 A &amp;amp; E PLASTIK PAK INC&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
 &lt;div id=&#34;ref-Chung_1994&#34;&gt;
 &lt;p&gt;Chung, Kee H., and Stephen W. Pruitt. 1994. “A Simple Approximation of Tobins Q.” &lt;em&gt;Financial Management&lt;/em&gt; 23 (3): 70. &lt;a href=&#34;https://doi.org/10.2307/3665623&#34;&gt;https://doi.org/10.2307/3665623&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;ref-Kerin_1998&#34;&gt;
 &lt;p&gt;Kerin, R. A., and R. Sethuraman. 1998. “Exploring the Brand Value-Shareholder Value Nexus for Consumer Goods Companies.” &lt;em&gt;Journal of the Academy of Marketing Science&lt;/em&gt; 26 (4): 260–73. &lt;a href=&#34;https://doi.org/10.1177/0092070398264001&#34;&gt;https://doi.org/10.1177/0092070398264001&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-Lindenberg_1981&#34;&gt;
+&lt;p&gt;Lindenberg, Eric B., and Stephen A. Ross. 1981. “Tobins Q Ratio and Industrial Organization.” &lt;em&gt;The Journal of Business&lt;/em&gt; 54 (1): 1. &lt;a href=&#34;https://doi.org/10.1086/296120&#34;&gt;https://doi.org/10.1086/296120&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -610,7 +714,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-584697132&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-415829376&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -620,7 +724,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-584697132&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-415829376&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

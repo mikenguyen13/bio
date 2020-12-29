@@ -29,12 +29,116 @@ bibliography: references.bib
 <p>According to Kerin and Sethuraman <span class="citation">(Kerin and Sethuraman 1998, 261)</span>, <strong>Tobins q</strong> is the “ratio of the market value of the firm to the replacement cost of its tangible assets, property, plant, equipment, inventory, cash, and investments in stocks and bonds”.</p>
 <p><strong>Market-to-book ratio</strong> is the equity capitalization of a firm divided by book equity. Equivalently, (share price multiplied by number of shares) over (common stock equity, capital surplus, and retained earnings).</p>
 <p><strong>Market-to-book ratio</strong> and <strong>Tobin’s q</strong> have been shown to be equivalent measures <span class="citation">(Chung and Pruitt 1994)</span></p>
+<p>Original Tobin’s q calculation <span class="citation">(Lindenberg and Ross 1981)</span></p>
+<p><span class="math display">\[
+q = \frac{PREFST + VCOMS + LTDEBT + STDEBT - ADJ}{TOTASST - BKCAP + NETCAP}
+\]</span></p>
+<p>where</p>
+<ul>
+<li>PREFST is the liquidating value of a firm’s preferred stock.<br />
+</li>
+<li>VCOMS is the price of the firm’s common stock multiplied by the number of shares outstanding at year end (December 31st).<br />
+</li>
+<li>LTDEBT is the long-term debt adjusted for its age structure</li>
+<li>STDEBT is the book value of the firm’s current liabilities<br />
+</li>
+<li>ADJ is the net short-term assets<br />
+</li>
+<li>TOTASST is the book value of the firm’s total assets<br />
+</li>
+<li>BKCAP is the book value of the firm’s net capital stock<br />
+</li>
+<li>NETCAP is information-adjusted net capital stock.</li>
+</ul>
+<p>However, <span class="citation">(Chung and Pruitt 1994)</span> have proposed a simple reliable, and tractable approximation of Tobin’s q:</p>
+<p><span class="math display">\[
+q = \frac{MVE + PS + DEBT}{TA}
+\]</span></p>
+<p>where</p>
+<ul>
+<li>MVE = share price x number of common stock share outstanding</li>
+<li>PS = liquidating value of outstanding preferred stock<br />
+</li>
+<li>DEBT = short-term liability - short-term assets + book value of long-term debt<br />
+</li>
+<li>TA is the book value of the total assets.</li>
+</ul>
+<p><span class="citation">(Chung and Pruitt 1994)</span> method assumes that the replacement values of a firm’s plant, equipment, and inventories equal to their book values.</p>
+<div id="application" class="section level2">
+<h2>Application</h2>
+<p>Retrieve data from WRDS</p>
+<pre class="r"><code># to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
+library(RPostgres)
+library(dplyr)
+
+# I&#39;ve set up wrds connection before hand. Please use your username and password here.
+
+# wrds &lt;- dbConnect(Postgres(),
+#                   host=&#39;wrds-pgdata.wharton.upenn.edu&#39;,
+#                   port=9737,
+#                   dbname=&#39;wrds&#39;,
+#                   sslmode=&#39;require&#39;,
+#                   user=&#39;&#39;)
+
+# Check variables (column headers) in COMP ANNUAL FUNDAMENTAL
+#uses the already-established wrds connection to prepare the SQL query string and save the query as the result res.
+# check avaiable databases: https://wrds-web.wharton.upenn.edu/wrds/tools/variable.cfm?vendor_id=7
+res &lt;- dbSendQuery(wrds, &quot;select column_name
+                   from information_schema.columns
+                   where table_schema=&#39;compa&#39;
+                   and table_name=&#39;funda&#39;
+                   order by column_name&quot;)
+data &lt;- dbFetch(res, n=-1) # fetches the data that results from running the query res against wrds and stores it as data
+dbClearResult(res) # closes the connection
+head(data)</code></pre>
+<pre><code>##   column_name
+## 1       acchg
+## 2        acco
+## 3       accrt
+## 4     acctchg
+## 5     acctstd
+## 6        acdo</code></pre>
+<pre class="r"><code># select everything
+res &lt;- dbSendQuery(wrds, &quot;select * from compa.funda&quot;)
+
+# from compa.funda
+
+# only select the following variables
+res &lt;- dbSendQuery(wrds, &quot;select gvkey, datadate, fyear, indfmt, consol, popsrc, datafmt, tic, cusip, conm, curcd, fyr, act, at, bkvlps, ceq, ch, che, dltt, dlc, emp, np, exchg, cik, costat, naicsh,mkvalt from compa.funda&quot;) #check variables from (https://wrds-web.wharton.upenn.edu/wrds/ds/comp/funda/index.cfm?navId=80)</code></pre>
+<pre><code>## Warning in result_create(conn@ptr, statement): Closing open result set,
+## cancelling previous query</code></pre>
+<pre class="r"><code>data1 &lt;- dbFetch(res, n=-1)
+dbClearResult(res)
+
+data = data1 %&gt;%
+    distinct(gvkey,datadate,fyear,tic,conm,.keep_all = T)</code></pre>
+<p>Calculate Tobin’s Q</p>
+<pre class="r"><code>tobin_q_dt = data %&gt;%
+    mutate(mkvalt = coalesce(mkvalt,0),
+           dltt = coalesce(dltt,0),
+           at = coalesce(at,0),
+           dlc = coalesce(dlc,0),
+           act = coalesce(act,0)) %&gt;%
+    mutate(tobin_q = (mkvalt + ifelse((dlc - act) &gt;=0,as.numeric(dlc-act),0) + dltt)/at ) %&gt;% #follow Chung (1994) (sum of stocks (preferred + common) + debt(short-term liabilities - short-term assets + long-term debt))/(total assets) # note: take only excess of short-term liabilities over short-term assets to be included in debt. 
+    select(tobin_q,gvkey,datadate,fyear,conm)
+head(tobin_q_dt)</code></pre>
+<pre><code>##     tobin_q  gvkey   datadate fyear                  conm
+## 1       Inf 001000 1961-12-31  1961 A &amp; E PLASTIK PAK INC
+## 2       NaN 001000 1962-12-31  1962 A &amp; E PLASTIK PAK INC
+## 3       Inf 001000 1963-12-31  1963 A &amp; E PLASTIK PAK INC
+## 4 0.3686441 001000 1964-12-31  1964 A &amp; E PLASTIK PAK INC
+## 5 0.4995671 001000 1965-12-31  1965 A &amp; E PLASTIK PAK INC
+## 6 0.4563786 001000 1966-12-31  1966 A &amp; E PLASTIK PAK INC</code></pre>
 <div id="refs" class="references">
 <div id="ref-Chung_1994">
 <p>Chung, Kee H., and Stephen W. Pruitt. 1994. “A Simple Approximation of Tobins Q.” <em>Financial Management</em> 23 (3): 70. <a href="https://doi.org/10.2307/3665623">https://doi.org/10.2307/3665623</a>.</p>
 </div>
 <div id="ref-Kerin_1998">
 <p>Kerin, R. A., and R. Sethuraman. 1998. “Exploring the Brand Value-Shareholder Value Nexus for Consumer Goods Companies.” <em>Journal of the Academy of Marketing Science</em> 26 (4): 260–73. <a href="https://doi.org/10.1177/0092070398264001">https://doi.org/10.1177/0092070398264001</a>.</p>
+</div>
+<div id="ref-Lindenberg_1981">
+<p>Lindenberg, Eric B., and Stephen A. Ross. 1981. “Tobins Q Ratio and Industrial Organization.” <em>The Journal of Business</em> 54 (1): 1. <a href="https://doi.org/10.1086/296120">https://doi.org/10.1086/296120</a>.</p>
+</div>
 </div>
 </div>
 </div>
