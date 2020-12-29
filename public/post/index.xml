@@ -5,12 +5,91 @@
     <link>https://mikenguyen.netlify.app/post/</link>
       <atom:link href="https://mikenguyen.netlify.app/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Sun, 20 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2020</copyright><lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
       <link>https://mikenguyen.netlify.app/post/</link>
     </image>
+    
+    <item>
+      <title>Connect WRDS in R</title>
+      <link>https://mikenguyen.netlify.app/post/connect-wrds-in-r/</link>
+      <pubDate>Tue, 29 Dec 2020 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/connect-wrds-in-r/</guid>
+      <description>
+&lt;link href=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/rmarkdown-libs/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Connect from R to Wharton Research Data Services&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
+library(RPostgres)
+library(dplyr)
+
+# I&amp;#39;ve set up wrds connection before hand. Please use your username and password here.
+
+# wrds &amp;lt;- dbConnect(Postgres(),
+#                   host=&amp;#39;wrds-pgdata.wharton.upenn.edu&amp;#39;,
+#                   port=9737,
+#                   dbname=&amp;#39;wrds&amp;#39;,
+#                   sslmode=&amp;#39;require&amp;#39;,
+#                   user=&amp;#39;&amp;#39;)
+
+# Check variables (column headers) in COMP ANNUAL FUNDAMENTAL
+#uses the already-established wrds connection to prepare the SQL query string and save the query as the result res.
+# check avaiable databases: https://wrds-web.wharton.upenn.edu/wrds/tools/variable.cfm?vendor_id=7
+res &amp;lt;- dbSendQuery(wrds, &amp;quot;select column_name
+                   from information_schema.columns
+                   where table_schema=&amp;#39;compa&amp;#39;
+                   and table_name=&amp;#39;funda&amp;#39;
+                   order by column_name&amp;quot;)
+data &amp;lt;- dbFetch(res, n=-1) # fetches the data that results from running the query res against wrds and stores it as data
+dbClearResult(res) # closes the connection
+head(data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   column_name
+## 1       acchg
+## 2        acco
+## 3       accrt
+## 4     acctchg
+## 5     acctstd
+## 6        acdo&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# select everything
+res &amp;lt;- dbSendQuery(wrds, &amp;quot;select * from compa.funda&amp;quot;)
+
+# from compa.funda
+
+# only select the following variables
+res &amp;lt;- dbSendQuery(wrds, &amp;quot;select gvkey, datadate, fyear, indfmt, consol, popsrc, datafmt, tic, cusip, conm, curcd, fyr, act, at, bkvlps, ceq, ch, che, dltt, dlc, emp, np, exchg, cik, costat, naicsh,mkvalt from compa.funda&amp;quot;) #check variables from (https://wrds-web.wharton.upenn.edu/wrds/ds/comp/funda/index.cfm?navId=80)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in result_create(conn@ptr, statement): Closing open result set,
+## cancelling previous query&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data &amp;lt;- dbFetch(res, n=-1)
+dbClearResult(res)
+
+head(data)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    gvkey   datadate fyear indfmt consol popsrc datafmt  tic     cusip
+## 1 001000 1961-12-31  1961   INDL      C      D     STD AE.2 000032102
+## 2 001000 1962-12-31  1962   INDL      C      D     STD AE.2 000032102
+## 3 001000 1963-12-31  1963   INDL      C      D     STD AE.2 000032102
+## 4 001000 1964-12-31  1964   INDL      C      D     STD AE.2 000032102
+## 5 001000 1965-12-31  1965   INDL      C      D     STD AE.2 000032102
+## 6 001000 1966-12-31  1966   INDL      C      D     STD AE.2 000032102
+##                    conm curcd fyr   act    at bkvlps   ceq ch   che  dltt   dlc
+## 1 A &amp;amp; E PLASTIK PAK INC   USD  12    NA    NA 2.4342    NA NA    NA 0.100    NA
+## 2 A &amp;amp; E PLASTIK PAK INC   USD  12    NA    NA 3.0497 0.552 NA    NA 0.000    NA
+## 3 A &amp;amp; E PLASTIK PAK INC   USD  12 0.408    NA 2.9731 0.553 NA    NA 0.015    NA
+## 4 A &amp;amp; E PLASTIK PAK INC   USD  12 0.718 1.416 3.0969 0.607 NA 0.269 0.522 0.088
+## 5 A &amp;amp; E PLASTIK PAK INC   USD  12 0.725 2.310 2.3835 0.491 NA 0.031 1.154 0.300
+## 6 A &amp;amp; E PLASTIK PAK INC   USD  12 1.015 2.430 3.8082 0.834 NA 0.063 1.109 0.124
+##   emp    np exchg  cik costat naicsh mkvalt
+## 1  NA    NA    12 &amp;lt;NA&amp;gt;      I     NA     NA
+## 2  NA    NA    12 &amp;lt;NA&amp;gt;      I     NA     NA
+## 3  NA    NA    12 &amp;lt;NA&amp;gt;      I     NA     NA
+## 4  NA 0.000    12 &amp;lt;NA&amp;gt;      I     NA     NA
+## 5  NA 0.225    12 &amp;lt;NA&amp;gt;      I     NA     NA
+## 6  NA 0.050    12 &amp;lt;NA&amp;gt;      I     NA     NA&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>flipbooks</title>
@@ -652,7 +731,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-415829376&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-734596812&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -662,7 +741,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-415829376&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-734596812&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
