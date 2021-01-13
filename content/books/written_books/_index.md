@@ -11,11 +11,14 @@ headless: false
 ## Analysis
 
  * [Data Analysis](https://bookdown.org/mike/data_analysis/)
+
+<!--
  * [Bayesian Analysis](link)
  * [Survival Analysis](link)
  * [Meta Analysis](link)
  * [Text Analysis](link)
  * [Network Analysis](link)
+ -->
 
 ## Other
 
