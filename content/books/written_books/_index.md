@@ -26,3 +26,4 @@ headless: false
 
  * [Social Science Theory](https://bookdown.org/mike/social-theory/)
  * [Communication Theories](https://bookdown.org/mike/comm_theory/)
+ * [Marketing Research](https://bookdown.org/mike/marketing_research/)
