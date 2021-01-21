@@ -26,12 +26,20 @@ headless: false
 # Finance
 
  * Compustat  
+    + Execucomp
  * CRSP  
  * [World Bank](https://www.worldbank.org/en/publication/gfdr/data)  
  * [IMF](https://www.imf.org/en/Data#data)  
  * [Mergent Online](https://www.mergentonline.com/basicsearch.php)  
  * [Orbis](https://www.bvdinfo.com/en-us/our-products/data/international/orbis)  
  * [SDC Platinum](https://www.refinitiv.com/en/products/sdc-platinum-financial-securities): historical transactions  
+ * [IRS Tax Statistics](https://www.irs.gov/statistics)  
+ * [Zillow Home Prices](https://www.zillow.com/research/data/)
+ * [10-K Text data by Hoberg-Phillips](http://hobergphillips.tuck.dartmouth.edu/industryclass.htm)  
+ * [Thomson Reuters](https://www.thomsonreuters.com/en/products-services.html)  
+ * [Pitchbook](https://pitchbook.com/data): private and public data  
+ * [OANDA](https://www.oanda.com/us-en/): currency-related data  
+ 
 
 ## Risk
 
@@ -43,12 +51,14 @@ headless: false
  * [DICE - Database for Instituional Comparisons of Economies](https://www.ifo.de/dice)  
  * [UK Data Service](https://www.ukdataservice.ac.uk/get-data/open-data.aspx)  
  * [World Bank](https://data.worldbank.org/)  
+ * [Bureau of Economic Analysis](https://www.bea.gov/): GDP, personal Income, International Trade, and Transactions.  
+ * [International Monetary Fund (IMF) Data](https://data.imf.org/)
 
  
 
 # Marketing
 
- * [EquiTrend The Harris Poll](https://theharrispoll.com/equitrend/): 
+ * [EquiTrend The Harris Poll](https://theharrispoll.com/equitrend/) [1](https://theharrispoll.com/equitrend-ranking-page/); [2](https://theharrispoll.com/the-harris-poll-announces-this-years-brands-of-the-year-2020/): 
     + three factors – Familiarity, Quality and Purchase Consideration 
     + 45,000 US consumers assessed nearly 2,000 brands across 196 categories.
     + 91 companies were awarded the coveted Brand of the Year designation across 87 categories
@@ -65,8 +75,9 @@ headless: false
  * [AdAge](https://adage.com/article/datacenter/leading-national-advertisers-index/106348): data on ad spending  
  * [Fame](https://www.bvdinfo.com/en-gb/our-products/data/national/fame): data on companies in the UK and Ireland.  
  * [American Customer Satisfaction Index (ACSI)](https://www.theacsi.org/)  
- 
-
+ * [Instacart](https://www.instacart.com/datasets/grocery-shopping-2017)
+ * [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)  
+ * [CMO Spend Survey 2018–2019](https://images.gartnerformarketers.com/Web/Gartner/%7Bb5a5ad17-bf4c-4ce4-adb3-4eed347852c8%7D_CMO_Spend_Survey_Note_Repackage_FINAL.pdf)
 
 # Social Science
 
@@ -91,7 +102,10 @@ headless: false
 
 
 
+# Machine Learning
 
+ * [Sciencemag](https://www.sciencemag.org/site/feature/data/compsci/machine_learning.xhtml)  
+ * [UCI Machine Learning repository](http://archive.ics.uci.edu/ml/index.php)
 
 
 
