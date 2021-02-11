@@ -22,6 +22,7 @@ headless: false
     + CEO Compensation 
     + Takeover defenses
  * [World Management Survey](https://worldmanagementsurvey.org/)
+ * [Harvard's "Creating Emerging Markets"](https://www.hbs.edu/creating-emerging-markets/video-database/Pages/default.aspx)
 
 # Finance
 
@@ -39,6 +40,7 @@ headless: false
  * [Thomson Reuters](https://www.thomsonreuters.com/en/products-services.html)  
  * [Pitchbook](https://pitchbook.com/data): private and public data  
  * [OANDA](https://www.oanda.com/us-en/): currency-related data  
+ * [Professor French database](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)
  
 
 ## Risk
@@ -98,7 +100,7 @@ headless: false
 # Network
 
  * [Stanford Large Network Dataset Collection (SNAP)](https://snap.stanford.edu/data/)  
-
+ * [Michael T. Heaney's rep datasets](http://michaeltheaney.com/data-sets)
 
 
 
