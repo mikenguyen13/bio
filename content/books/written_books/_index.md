@@ -14,10 +14,10 @@ headless: false
  * [Advanced Data Analysis](https://bookdown.org/mike/advanced_data_analysis/)
  * [Text Analysis](https://bookdown.org/mike/text_analysis/)
  * [Network Analysis](https://bookdown.org/mike/network_analysis/)
+ * [Survival Analysis](https://bookdown.org/mike/survival_analysis/)
 
 <!--
  * [Bayesian Analysis](link)
- * [Survival Analysis](link)
  * [Meta Analysis](link)
 
  -->
