@@ -1,0 +1,28 @@
+---
+title: caching for faster Shiny app
+author: ''
+date: '2021-02-19'
+slug: caching-for-faster-shiny-app
+categories:
+  - R
+  - Data
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-02-19T13:17:28-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+To have faster performance with Shiny App, you can pass this command to yoru script.   
+
+```{r}
+# %>% bindCache()
+```
+

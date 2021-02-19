@@ -5,12 +5,28 @@
     <link>https://mikenguyen.netlify.app/tag/academic/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/academic/index.xml" rel="self" type="application/rss+xml" />
     <description>Academic</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Fri, 19 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>Academic</title>
       <link>https://mikenguyen.netlify.app/tag/academic/</link>
     </image>
+    
+    <item>
+      <title>learnr to guide students</title>
+      <link>https://mikenguyen.netlify.app/post/learnr-to-guide-students/</link>
+      <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/learnr-to-guide-students/</guid>
+      <description>
+
+
+&lt;p&gt;Teaching statistics or data science, we can use &lt;code&gt;learnr&lt;/code&gt; package.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# library(&amp;quot;learnr&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To collect data, we can use &lt;code&gt;learnrhash&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# library(&amp;quot;learnrhash&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Remember to adjust parameters so your &lt;code&gt;Shinyapp.io&lt;/code&gt; can handle the number of students you have in the class. Or you can upload it to GitHub, then students can install to your local machine later.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Connect WRDS in R</title>

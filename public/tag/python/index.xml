@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python | Mike Nguyen</title>
+    <link>https://mikenguyen.netlify.app/tag/python/</link>
+      <atom:link href="https://mikenguyen.netlify.app/tag/python/index.xml" rel="self" type="application/rss+xml" />
+    <description>Python</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Fri, 19 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
+      <title>Python</title>
+      <link>https://mikenguyen.netlify.app/tag/python/</link>
+    </image>
+    
+    <item>
+      <title>use dplyr in Python - siuba library</title>
+      <link>https://mikenguyen.netlify.app/post/use-dplyr-in-python-siuba-library/</link>
+      <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/use-dplyr-in-python-siuba-library/</guid>
+      <description>
+
+
+&lt;p&gt;Use siuba library in Python to preserve all your skills from &lt;code&gt;dplyr&lt;/code&gt; package in &lt;code&gt;R&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;pip install siuba&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can see TidyTuesday for tutorial&lt;/p&gt;
+&lt;p&gt;Or &lt;a href=&#34;https://learn.siuba.org/intro-data-science/&#34;&gt;Learn Siuba&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,36 @@
+---
+title: learnr to guide students
+author: ''
+date: '2021-02-19'
+slug: learnr-to-guide-students
+categories:
+  - R
+tags:
+  - Academic
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-02-19T13:54:47-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+Teaching statistics or data science, we can use `learnr` package. 
+
+```{r eval FALSE}
+# library("learnr")
+```
+
+To collect data, we can use `learnrhash`
+
+```{r eval = FALSE}
+# library("learnrhash")
+```
+
+Remember to adjust parameters so your `Shinyapp.io` can handle the number of students you have in the class. Or you can upload it to GitHub, then students can install to your local machine later. 

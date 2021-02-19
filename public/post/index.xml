@@ -5,12 +5,91 @@
     <link>https://mikenguyen.netlify.app/post/</link>
       <atom:link href="https://mikenguyen.netlify.app/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Fri, 19 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
       <link>https://mikenguyen.netlify.app/post/</link>
     </image>
+    
+    <item>
+      <title>caching for faster Shiny app</title>
+      <link>https://mikenguyen.netlify.app/post/caching-for-faster-shiny-app/</link>
+      <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/caching-for-faster-shiny-app/</guid>
+      <description>
+
+
+&lt;p&gt;To have faster performance with Shiny App, you can pass this command to yoru script.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# %&amp;gt;% bindCache()&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>create your own package</title>
+      <link>https://mikenguyen.netlify.app/post/create-your-own-package/</link>
+      <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/create-your-own-package/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;quot;usethis&amp;quot;)
+create_package(path = &amp;quot;../package_name&amp;quot;)
+use_description()
+usethis::is_package()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;load library&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(devtools)
+load_all() # Cmd/Ctrl + Shift + L
+
+# use_pipe()
+use_package(&amp;quot;dplyr&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You also need to modify your description file&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Imports:
+  ggplot2
+  dplyr
+
+# install all dependencies in DESCRIPTION
+install_deps()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;create function&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;your_own_function &amp;lt;- function(){
+  
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Test your package&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;test() # Cmd/Ctrl + Shift + T&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;check Malcolm Barrett’s &lt;a href=&#34;https://zenartofrpkgs.netlify.app/#1&#34;&gt;slides&lt;/a&gt; for more detail&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>learnr to guide students</title>
+      <link>https://mikenguyen.netlify.app/post/learnr-to-guide-students/</link>
+      <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/learnr-to-guide-students/</guid>
+      <description>
+
+
+&lt;p&gt;Teaching statistics or data science, we can use &lt;code&gt;learnr&lt;/code&gt; package.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# library(&amp;quot;learnr&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To collect data, we can use &lt;code&gt;learnrhash&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# library(&amp;quot;learnrhash&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Remember to adjust parameters so your &lt;code&gt;Shinyapp.io&lt;/code&gt; can handle the number of students you have in the class. Or you can upload it to GitHub, then students can install to your local machine later.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>use dplyr in Python - siuba library</title>
+      <link>https://mikenguyen.netlify.app/post/use-dplyr-in-python-siuba-library/</link>
+      <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/use-dplyr-in-python-siuba-library/</guid>
+      <description>
+
+
+&lt;p&gt;Use siuba library in Python to preserve all your skills from &lt;code&gt;dplyr&lt;/code&gt; package in &lt;code&gt;R&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;pip install siuba&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can see TidyTuesday for tutorial&lt;/p&gt;
+&lt;p&gt;Or &lt;a href=&#34;https://learn.siuba.org/intro-data-science/&#34;&gt;Learn Siuba&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Connect WRDS in R</title>
@@ -731,7 +810,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-642183975&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-693125784&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -741,7 +820,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-642183975&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-693125784&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

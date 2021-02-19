@@ -5,12 +5,25 @@
     <link>https://mikenguyen.netlify.app/category/data/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/data/index.xml" rel="self" type="application/rss+xml" />
     <description>Data</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Fri, 19 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>Data</title>
       <link>https://mikenguyen.netlify.app/category/data/</link>
     </image>
+    
+    <item>
+      <title>caching for faster Shiny app</title>
+      <link>https://mikenguyen.netlify.app/post/caching-for-faster-shiny-app/</link>
+      <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/caching-for-faster-shiny-app/</guid>
+      <description>
+
+
+&lt;p&gt;To have faster performance with Shiny App, you can pass this command to yoru script.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# %&amp;gt;% bindCache()&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Connect WRDS in R</title>
