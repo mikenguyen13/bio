@@ -5,12 +5,46 @@
     <link>https://mikenguyen.netlify.app/tag/data-manipulation/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/data-manipulation/index.xml" rel="self" type="application/rss+xml" />
     <description>data manipulation</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Tue, 29 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>data manipulation</title>
       <link>https://mikenguyen.netlify.app/tag/data-manipulation/</link>
     </image>
+    
+    <item>
+      <title>fix for &#34;cannot allocate vecotr of size&#34;</title>
+      <link>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vecotr-of-size/</link>
+      <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vecotr-of-size/</guid>
+      <description>
+
+
+&lt;p&gt;More package author’s introduction, please access this &lt;a href=&#34;https://cran.r-project.org/web/packages/disk.frame/readme/README.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Instead of loading everything at once into your RAM, you divide your data into chunks. To quote author of the &lt;code&gt;disk.frame&lt;/code&gt; package: “we go from”R can only deal with data that fits in RAM&#34; to “R can deal with any data that fits on disk”.&#34; While &lt;code&gt;data.frame&lt;/code&gt; uses in-RAM to process, &lt;code&gt;disk.frame&lt;/code&gt; uses hard drive to store and process data.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;disk.frame&lt;/code&gt; also allows parallel processing.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;quot;disk.frame&amp;quot;)
+# setup_disk.frame() # sets up background workers equal to the number of CPU cores
+setup_disk.frame(workers = 2) # or you number of workers
+options(future.globals.maxSize = Inf) # large dataset can be transferred between sessions  
+# attr(data.df, &amp;quot;path&amp;quot;) # path to where the disk.frame is stored&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# to convert data.frame to a disk.frame
+data.df &amp;lt;- as.disk.frame(original_data_frame)
+
+# to convert one large CSV
+# takes care of splitting large CSV into smaller ones 
+diskf &amp;lt;- disk.frame::csv_to_disk.frame(path_to_csv_file) # you can also specify, outdir = , overwrite = T. 
+
+# to convert multiple CSV
+multiple_CSV = c(path_to_csv_file1,path_to_csv_file2)
+diskf = disk.frame::csv_to_disk.frame(multiple_CSV)
+
+# for faster performance, specify which column to manipulate
+result = df %?% 
+  srckeep(c(&amp;quot;column1&amp;quot;,&amp;quot;column2&amp;quot;)) %&amp;gt;%
+  dplyr::filter()&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Connect WRDS in R</title>

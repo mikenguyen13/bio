@@ -33,6 +33,46 @@
   </url>
   
   <url>
+    <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/data/</loc>
+    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/data-manipulation/</loc>
+    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vecotr-of-size/</loc>
+    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/r/</loc>
+    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
     <lastmod>2021-02-19T13:54:47-06:00</lastmod>
   </url>
@@ -40,11 +80,6 @@
   <url>
     <loc>https://mikenguyen.netlify.app/post/caching-for-faster-shiny-app/</loc>
     <lastmod>2021-02-19T13:17:28-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2021-02-19T15:17:18-06:00</lastmod>
   </url>
   
   <url>
@@ -63,11 +98,6 @@
   </url>
   
   <url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2021-02-19T15:17:18-06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://mikenguyen.netlify.app/tag/python/</loc>
     <lastmod>2021-02-19T14:28:15-06:00</lastmod>
   </url>
@@ -78,37 +108,12 @@
   </url>
   
   <url>
-    <loc>https://mikenguyen.netlify.app/tag/r/</loc>
-    <lastmod>2021-02-19T15:17:18-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2021-02-19T15:17:18-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
-    <lastmod>2021-02-19T15:17:18-06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://mikenguyen.netlify.app/post/use-dplyr-in-python-siuba-library/</loc>
     <lastmod>2021-02-19T14:28:15-06:00</lastmod>
   </url>
   
   <url>
     <loc>https://mikenguyen.netlify.app/post/connect-wrds-in-r/</loc>
-    <lastmod>2020-12-29T17:10:53-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/data/</loc>
-    <lastmod>2020-12-29T17:10:53-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/data-manipulation/</loc>
     <lastmod>2020-12-29T17:10:53-06:00</lastmod>
   </url>
   
