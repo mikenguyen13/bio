@@ -1,0 +1,30 @@
+---
+title: Randomized Study Design
+author: ''
+date: '2021-02-24'
+slug: randomized-study-design
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-02-24T19:30:43-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+We can leverage R to create randomized studies using
+[shinysurveys](https://www.jdtrat.com/packages/shinysurveys/) with learnr
+
+```{r eval = FALSE}
+library("shinysurveys")
+library("learnr")
+```
+
+ou can also use [formr](https://formr.org/) to create survey with `R`.

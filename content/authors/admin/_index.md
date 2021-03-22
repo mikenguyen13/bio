@@ -58,7 +58,7 @@ user_groups:
 - Principal Investigators
 ---
 
-My name is Mike Nguyen. I am a researcher at the University of Missouri. My research interests include   
+My name is Mike Nguyen. I am a researcher/ data scientist at the University of Missouri. My research interests include   
 
  * **Conceptual:** Branding, Brand Equity, Virality, Charisma  
  * **Substantive:** User-Generated Content, Online Platform, Social Media, Advertising, Celebrity/Influencer Endorsement  

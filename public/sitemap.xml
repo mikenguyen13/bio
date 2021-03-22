@@ -33,8 +33,43 @@
   </url>
   
   <url>
+    <loc>https://mikenguyen.netlify.app/tag/arrow/</loc>
+    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
+    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/new-pipe-in-r/</loc>
+    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/r/</loc>
+    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/randomized-study-design/</loc>
+    <lastmod>2021-02-24T19:30:43-06:00</lastmod>
   </url>
   
   <url>
@@ -48,27 +83,7 @@
   </url>
   
   <url>
-    <loc>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vecotr-of-size/</loc>
-    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/r/</loc>
-    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2021-02-20T12:48:28-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <loc>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vector-of-size/</loc>
     <lastmod>2021-02-20T12:48:28-06:00</lastmod>
   </url>
   
@@ -199,11 +214,6 @@
   
   <url>
     <loc>https://mikenguyen.netlify.app/post/arrow/</loc>
-    <lastmod>2020-12-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/arrow/</loc>
     <lastmod>2020-12-06T00:00:00+00:00</lastmod>
   </url>
   

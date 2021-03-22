@@ -5,12 +5,48 @@
     <link>https://mikenguyen.netlify.app/tag/arrow/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/arrow/index.xml" rel="self" type="application/rss+xml" />
     <description>arrow</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sun, 06 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>arrow</title>
       <link>https://mikenguyen.netlify.app/tag/arrow/</link>
     </image>
+    
+    <item>
+      <title>New Pipe in R</title>
+      <link>https://mikenguyen.netlify.app/post/new-pipe-in-r/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/new-pipe-in-r/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/new-pipe-in-r/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;You can read more in Michael Barrowman’s
+&lt;a href=&#34;https://michaelbarrowman.co.uk/post/the-new-base-pipe/&#34;&gt;post&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;But the basic idea is that using the new pipe &lt;code&gt;|&amp;gt;&lt;/code&gt; from the &lt;code&gt;magrittr&lt;/code&gt; library
+is much faster than your old pipe &lt;code&gt;%&amp;gt;%&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# install.packages(&amp;quot;magrittr&amp;quot;)
+remotes::install_github(&amp;quot;Myko101/magrittrclassic&amp;quot;)
+library(&amp;quot;magrittr&amp;quot;)
+library(&amp;quot;tidyverse&amp;quot;)
+doubler &amp;lt;- function(val) 2*val
+x &amp;lt;- 1:10
+bm &amp;lt;- bench::mark(
+  standard = doubler(x),
+  magrittrclassic = x %&amp;gt;&amp;gt;% doubler(),
+  magrittr = x %&amp;gt;% doubler(),
+  base = x |&amp;gt; doubler()
+)
+ggplot2::autoplot(bm)
+bm2 &amp;lt;- bench::mark(
+  standard = (function(y) 2*y)(x),
+  magrittrclassic = x %&amp;gt;&amp;gt;% {2*.},
+  magrittr = x %&amp;gt;% {2*.},
+  base = x |&amp;gt; \(y) 2*y
+)
+ggplot2::autoplot(bm2)&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Apache Arrow</title>

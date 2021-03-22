@@ -1,0 +1,49 @@
+---
+title: New Pipe in R
+author: ''
+date: '2021-02-26'
+slug: new-pipe-in-r
+categories:
+  - R
+tags:
+  - arrow
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-02-26T11:07:29-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>You can read more in Michael Barrowman’s
+<a href="https://michaelbarrowman.co.uk/post/the-new-base-pipe/">post</a></p>
+<p>But the basic idea is that using the new pipe <code>|&gt;</code> from the <code>magrittr</code> library
+is much faster than your old pipe <code>%&gt;%</code></p>
+<pre class="r"><code># install.packages(&quot;magrittr&quot;)
+remotes::install_github(&quot;Myko101/magrittrclassic&quot;)
+library(&quot;magrittr&quot;)
+library(&quot;tidyverse&quot;)
+doubler &lt;- function(val) 2*val
+x &lt;- 1:10
+bm &lt;- bench::mark(
+  standard = doubler(x),
+  magrittrclassic = x %&gt;&gt;% doubler(),
+  magrittr = x %&gt;% doubler(),
+  base = x |&gt; doubler()
+)
+ggplot2::autoplot(bm)
+bm2 &lt;- bench::mark(
+  standard = (function(y) 2*y)(x),
+  magrittrclassic = x %&gt;&gt;% {2*.},
+  magrittr = x %&gt;% {2*.},
+  base = x |&gt; \(y) 2*y
+)
+ggplot2::autoplot(bm2)</code></pre>

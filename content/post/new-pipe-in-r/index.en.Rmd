@@ -1,0 +1,43 @@
+---
+title: New Pipe in R
+author: ''
+date: '2021-02-26'
+slug: new-pipe-in-r
+categories:
+  - R
+tags:
+  - arrow
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-02-26T11:07:29-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+You can read more in Michael Barrowman's
+[post](https://michaelbarrowman.co.uk/post/the-new-base-pipe/)
+
+But the basic idea is that using the new pipe `|>` from the `magrittr` library
+is much faster than your old pipe `%>%`
+
+```{r eval = FALSE}
+# install.packages("magrittr")
+remotes::install_github("Myko101/magrittrclassic")
+library("magrittr")
+library("tidyverse")
+doubler <- function(val) 2*val
+x <- 1:10
+bm <- bench::mark(
+  standard = doubler(x),
+  magrittrclassic = x %>>% doubler(),
+  magrittr = x %>% doubler(),
+  base = x |> doubler()
+)
+ggplot2::autoplot(bm)
+```

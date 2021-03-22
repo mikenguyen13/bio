@@ -61,6 +61,7 @@ Please enjoy!!!
 
  * [The Cost of Talent - Derek Bok (1993)](https://www.google.com/books/edition/The_Cost_of_Talent/s32WZcq7lYYC)
  * [Searching for a Corporate Savior - Rakes Khurana (2002)](https://www.google.com/books/edition/Searching_for_a_Corporate_Savior/y6Jvfnv9Vw8C)
+ * [Organizational Change](https://www.google.com/books/edition/_/PsB9DwAAQBAJ?hl=en&sa=X&ved=2ahUKEwjcjJrMkZ_vAhVJMawKHUVgAxAQre8FMBV6BAgLEAc)
 
 ### Finance / Economics
 

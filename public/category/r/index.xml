@@ -5,7 +5,7 @@
     <link>https://mikenguyen.netlify.app/category/r/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sat, 20 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Fri, 26 Feb 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>R</title>
@@ -13,35 +13,89 @@
     </image>
     
     <item>
-      <title>fix for &#34;cannot allocate vecotr of size&#34;</title>
-      <link>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vecotr-of-size/</link>
-      <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vecotr-of-size/</guid>
+      <title>New Pipe in R</title>
+      <link>https://mikenguyen.netlify.app/post/new-pipe-in-r/</link>
+      <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/new-pipe-in-r/</guid>
       <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/new-pipe-in-r/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;You can read more in Michael Barrowman’s
+&lt;a href=&#34;https://michaelbarrowman.co.uk/post/the-new-base-pipe/&#34;&gt;post&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;But the basic idea is that using the new pipe &lt;code&gt;|&amp;gt;&lt;/code&gt; from the &lt;code&gt;magrittr&lt;/code&gt; library
+is much faster than your old pipe &lt;code&gt;%&amp;gt;%&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# install.packages(&amp;quot;magrittr&amp;quot;)
+remotes::install_github(&amp;quot;Myko101/magrittrclassic&amp;quot;)
+library(&amp;quot;magrittr&amp;quot;)
+library(&amp;quot;tidyverse&amp;quot;)
+doubler &amp;lt;- function(val) 2*val
+x &amp;lt;- 1:10
+bm &amp;lt;- bench::mark(
+  standard = doubler(x),
+  magrittrclassic = x %&amp;gt;&amp;gt;% doubler(),
+  magrittr = x %&amp;gt;% doubler(),
+  base = x |&amp;gt; doubler()
+)
+ggplot2::autoplot(bm)
+bm2 &amp;lt;- bench::mark(
+  standard = (function(y) 2*y)(x),
+  magrittrclassic = x %&amp;gt;&amp;gt;% {2*.},
+  magrittr = x %&amp;gt;% {2*.},
+  base = x |&amp;gt; \(y) 2*y
+)
+ggplot2::autoplot(bm2)&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Randomized Study Design</title>
+      <link>https://mikenguyen.netlify.app/post/randomized-study-design/</link>
+      <pubDate>Wed, 24 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/randomized-study-design/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/randomized-study-design/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;We can leverage R to create randomized studies using
+&lt;a href=&#34;https://www.jdtrat.com/packages/shinysurveys/&#34;&gt;shinysurveys&lt;/a&gt; with learnr&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;quot;shinysurveys&amp;quot;)
+library(&amp;quot;learnr&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ou can also use &lt;a href=&#34;https://formr.org/&#34;&gt;formr&lt;/a&gt; to create survey with &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>fix for &#34;cannot allocate vector of size&#34;</title>
+      <link>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vector-of-size/</link>
+      <pubDate>Sat, 20 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vector-of-size/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vector-of-size/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;More package author’s introduction, please access this &lt;a href=&#34;https://cran.r-project.org/web/packages/disk.frame/readme/README.html&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Instead of loading everything at once into your RAM, you divide your data into chunks. To quote author of the &lt;code&gt;disk.frame&lt;/code&gt; package: “we go from”R can only deal with data that fits in RAM&#34; to “R can deal with any data that fits on disk”.&#34; While &lt;code&gt;data.frame&lt;/code&gt; uses in-RAM to process, &lt;code&gt;disk.frame&lt;/code&gt; uses hard drive to store and process data.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;disk.frame&lt;/code&gt; also allows parallel processing.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;quot;disk.frame&amp;quot;)
-# setup_disk.frame() # sets up background workers equal to the number of CPU cores
-setup_disk.frame(workers = 2) # or you number of workers
-options(future.globals.maxSize = Inf) # large dataset can be transferred between sessions  
-# attr(data.df, &amp;quot;path&amp;quot;) # path to where the disk.frame is stored&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# to convert data.frame to a disk.frame
+&lt;p&gt;Instead of loading everything at once into your RAM, you divide your data into chunks.
+To quote author of the &lt;code&gt;disk.frame&lt;/code&gt; package: “we go from”R can only deal with data that fits in RAM&#34; to “R can deal with any data that fits on disk”.&#34; While &lt;code&gt;data.frame&lt;/code&gt; uses in-RAM to process, &lt;code&gt;disk.frame&lt;/code&gt; uses hard drive to store and process data.&lt;code&gt;disk.frame&lt;/code&gt; also allows parallel processing.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;quot;disk.frame&amp;quot;) 
+# setup_disk.frame() # sets up background workers equal to the number of CPU c res setup_disk.frame(workers =\ 2) \# or you number of workers options(future.globals.maxSize = \Inf) # large dataset can be transferred between sessions
+# attr(data.df, &amp;quot;path&amp;quot;) # path to where the disk.frame is 
+
+
+# to convert data.frame to a     disk.frame
 data.df &amp;lt;- as.disk.frame(original_data_frame)
 
 # to convert one large CSV
 # takes care of splitting large CSV into smaller ones 
-diskf &amp;lt;- disk.frame::csv_to_disk.frame(path_to_csv_file) # you can also specify, outdir = , overwrite = T. 
+diskf &amp;lt;- disk.frame::csv_to_disk.frame(path_to_csv_file) # you can also specify,outdir = , overwrite = T.     
 
 # to convert multiple CSV
 multiple_CSV = c(path_to_csv_file1,path_to_csv_file2)
 diskf = disk.frame::csv_to_disk.frame(multiple_CSV)
 
 # for faster performance, specify which column to manipulate
-result = df %?% 
-  srckeep(c(&amp;quot;column1&amp;quot;,&amp;quot;column2&amp;quot;)) %&amp;gt;%
+result  = df %&amp;gt;% 
+  srep(c(&amp;quot;column1&amp;quot;,&amp;quot;column2&amp;quot;)) %&amp;gt;%
   dplyr::filter()&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>

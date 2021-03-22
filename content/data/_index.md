@@ -36,11 +36,14 @@ headless: false
  * [SDC Platinum](https://www.refinitiv.com/en/products/sdc-platinum-financial-securities): historical transactions  
  * [IRS Tax Statistics](https://www.irs.gov/statistics)  
  * [Zillow Home Prices](https://www.zillow.com/research/data/)
+ * [Redfin](https://www.redfin.com/news/data-center/)
  * [10-K Text data by Hoberg-Phillips](http://hobergphillips.tuck.dartmouth.edu/industryclass.htm)  
  * [Thomson Reuters](https://www.thomsonreuters.com/en/products-services.html)  
  * [Pitchbook](https://pitchbook.com/data): private and public data  
  * [OANDA](https://www.oanda.com/us-en/): currency-related data  
  * [Professor French database](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)
+ * [open Data Network](https://www.opendatanetwork.com/)
+ * [World Bank](https://datahelpdesk.worldbank.org/knowledgebase/articles/889386-developer-information-overview#:~:text=The%20Finances%20API%20provides%20programmatic,from%20the%20Climate%20Knowledge%20Portal.)
  
 
 ## Risk
@@ -55,6 +58,9 @@ headless: false
  * [World Bank](https://data.worldbank.org/)  
  * [Bureau of Economic Analysis](https://www.bea.gov/): GDP, personal Income, International Trade, and Transactions.  
  * [International Monetary Fund (IMF) Data](https://data.imf.org/)
+ * [Consumer Expenditure Surveys](https://www.bls.gov/cex/)
+ * [U.S. Bureau of Labor Statistics](https://www.bls.gov/cex/pumd_data.htm#csv)
+    * [Details](https://www.bls.gov/cex/pumd-getting-started-guide.htm)
 
  
 
