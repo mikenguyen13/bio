@@ -75,6 +75,125 @@
     </item>
     
     <item>
+      <title>CSS and SASS in Shiny</title>
+      <link>https://mikenguyen.netlify.app/post/css-and-sass/</link>
+      <pubDate>Sun, 04 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/css-and-sass/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/css-and-sass/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;CSS = Cascading Style Sheets&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Selector&lt;/li&gt;
+&lt;li&gt;Declaration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To add CSS to Shiny:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Add styling to tags&lt;/li&gt;
+&lt;li&gt;Add CSS to HTML header&lt;/li&gt;
+&lt;li&gt;Add style sheets with the www directory (most ideal)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;SASS = Systematically Awesome Style Sheets (built on top of CSS)&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;SASS&lt;/th&gt;
+&lt;th&gt;CSS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Object oriented&lt;/td&gt;
+&lt;td&gt;Statement oriented&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Allows nesting&lt;/td&gt;
+&lt;td&gt;No nesting&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Allows variables&lt;/td&gt;
+&lt;td&gt;Limited variable declaration&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Table by Pedro Silva from Appsilon&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>reproducible example (reprex)</title>
+      <link>https://mikenguyen.netlify.app/post/reproducible-example-reprex/</link>
+      <pubDate>Sat, 03 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/reproducible-example-reprex/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/reproducible-example-reprex/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;install once per computer&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install.packages(&amp;quot;reprex&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or part of `tidyverse&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install.packages(&amp;quot;tidyverse&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can either call it in every session&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(reprex)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;or put it in &lt;code&gt;.Rprofile&lt;/code&gt; for each machine to run whenever you open R&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (interactive()){
+  suppressMessages(require(reprex))
+}
+options(
+  reprex.advertise = FALSE, 
+  reprex.si = TRUE, 
+  reprex.style = TRUE,
+  reprex.comment = &amp;quot;#;-&amp;quot;,
+  reprex.tidyverse_quiet = FALSE
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;to see your &lt;code&gt;.Rprofile&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::edit_r_profile()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since &lt;code&gt;reprex&lt;/code&gt; is an interactive workflow package, don’t use this with &lt;code&gt;dplyr&lt;/code&gt;, &lt;code&gt;ggplot2&lt;/code&gt;, etc.&lt;/p&gt;
+&lt;p&gt;When ever you want to ask people about your code, or ask them to debug it&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Copy your code to clipboard&lt;/li&gt;
+&lt;li&gt;Simply run in your console&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;reprex()
+
+
+reprex(advertise = TRUE, # To suppress ads
+       si = TRUE, # to include session info
+       style = TRUE, # restyle your code
+       tidyverse_quiet = TRUE # suppress tidyverse message
+       )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Or instead of doing it manually, you can select your code, and under “Addins”. select “Render reprex”&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scaling Shiny</title>
+      <link>https://mikenguyen.netlify.app/post/scaling-shiny/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/scaling-shiny/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/scaling-shiny/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;To solve the problem of scaling:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;From DevOps/IT:
+&lt;ul&gt;
+&lt;li&gt;Add memory, CPU&lt;/li&gt;
+&lt;li&gt;Rstudio Connect set up for multiple machines&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;From R/Shiny engineer:
+&lt;ul&gt;
+&lt;li&gt;use &lt;a href=&#34;https://book.javascript-for-r.com/shiny-intro.html&#34;&gt;Javascript&lt;/a&gt; for less CPU usage&lt;/li&gt;
+&lt;li&gt;extract computations: &lt;a href=&#34;https://appsilon.com/shiny-worker-package/&#34;&gt;Shiny worker&lt;/a&gt;, &lt;a href=&#34;https://www.rplumber.io/&#34;&gt;Plumber&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;use a &lt;a href=&#34;https://shiny.rstudio.com/articles/overview.html&#34;&gt;database&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>New Pipe in R</title>
       <link>https://mikenguyen.netlify.app/post/new-pipe-in-r/</link>
       <pubDate>Fri, 26 Feb 2021 00:00:00 +0000</pubDate>
@@ -960,7 +1079,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-194287653&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-649357821&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -970,7 +1089,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-194287653&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-649357821&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

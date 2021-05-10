@@ -62,3 +62,12 @@ To restore the previously snapshot, you can use
 renv::restore()
 ```
 
+
+
+Other packages
+
+ * `groundhog`: `groundhog.library('dplyr', '2016-06-20')`
+ * `checkpoint`
+ * `Docker`
+ 
+ 

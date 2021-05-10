@@ -1,0 +1,31 @@
+---
+title: Scaling Shiny
+author: ''
+date: '2021-04-02'
+slug: scaling-shiny
+categories:
+  - R
+  - Data
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-04-02T14:08:41-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+To solve the problem of scaling:
+
+ * From DevOps/IT:
+    - Add memory, CPU
+    - Rstudio Connect set up for multiple machines 
+ * From R/Shiny engineer:
+    - use [Javascript](https://book.javascript-for-r.com/shiny-intro.html) for less CPU usage
+    - extract computations: [Shiny worker](https://appsilon.com/shiny-worker-package/), [Plumber](https://www.rplumber.io/)
+    - use a [database](https://shiny.rstudio.com/articles/overview.html)

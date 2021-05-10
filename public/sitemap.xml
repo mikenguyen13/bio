@@ -33,37 +33,62 @@
   </url>
   
   <url>
+    <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2021-04-04T14:28:21-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/css-and-sass/</loc>
+    <lastmod>2021-04-04T14:28:21-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2021-04-04T14:28:21-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/r/</loc>
+    <lastmod>2021-04-04T14:28:21-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2021-04-04T14:28:21-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2021-04-04T14:28:21-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/reproducible/</loc>
+    <lastmod>2021-04-03T13:06:02-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/reproducible-example-reprex/</loc>
+    <lastmod>2021-04-03T13:06:02-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/data/</loc>
+    <lastmod>2021-04-02T14:08:41-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/scaling-shiny/</loc>
+    <lastmod>2021-04-02T14:08:41-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mikenguyen.netlify.app/tag/arrow/</loc>
     <lastmod>2021-02-26T11:07:29-06:00</lastmod>
   </url>
   
   <url>
-    <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://mikenguyen.netlify.app/post/new-pipe-in-r/</loc>
-    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/r/</loc>
-    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2021-02-26T11:07:29-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2021-02-26T11:07:29-06:00</lastmod>
   </url>
   
@@ -100,11 +125,6 @@
   <url>
     <loc>https://mikenguyen.netlify.app/post/create-your-own-package/</loc>
     <lastmod>2021-02-19T15:17:18-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/category/data/</loc>
-    <lastmod>2021-02-19T13:17:28-06:00</lastmod>
   </url>
   
   <url>
@@ -165,11 +185,6 @@
   <url>
     <loc>https://mikenguyen.netlify.app/post/renv/</loc>
     <lastmod>2020-12-20T13:47:28-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/reproducible/</loc>
-    <lastmod>2020-12-20T15:08:47-06:00</lastmod>
   </url>
   
   <url>

@@ -33,6 +33,24 @@ item:
   organization_url: https://neo4j.com/
   title: 'NEO4j Certificate'
   url: "https://neo4j.com/graphacademy/neo4j-certification/"
+
+- certificate_url: /media/cert/M001 - Course Completion Confirmation.html
+  date_end: ""
+  date_start: "2020-03-01"
+  description: ""
+  organization: MongDB University
+  organization_url: https://university.mongodb.com/
+  title: 'MongoDB Basics'
+  url: ""
+  
+- certificate_url: /media/cert/cloud_computing_R.pdf
+  date_end: ""
+  date_start: "2020-09-19"
+  description: "Cloud Computing with R in Google Cloud and AWS"
+  organization: University of Missouri Statistics
+  organization_url: https://www.stat.missouri.edu/
+  title: 'Certificate of Participation'
+  url: ""
   
 - certificate_url: /media/cert/certificate_of_completion.pdf
   date_end: ""

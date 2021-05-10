@@ -1,0 +1,59 @@
+---
+title: reproducible example (reprex)
+author: ''
+date: '2021-04-03'
+slug: reproducible-example-reprex
+categories:
+  - R
+tags:
+  - R
+  - reproducible
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-04-03T13:06:02-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>install once per computer</p>
+<pre class="r"><code>install.packages(&quot;reprex&quot;)</code></pre>
+<p>or part of `tidyverse</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
+<p>You can either call it in every session</p>
+<pre class="r"><code>library(reprex)</code></pre>
+<p>or put it in <code>.Rprofile</code> for each machine to run whenever you open R</p>
+<pre class="r"><code>if (interactive()){
+  suppressMessages(require(reprex))
+}
+options(
+  reprex.advertise = FALSE, 
+  reprex.si = TRUE, 
+  reprex.style = TRUE,
+  reprex.comment = &quot;#;-&quot;,
+  reprex.tidyverse_quiet = FALSE
+)</code></pre>
+<p>to see your <code>.Rprofile</code></p>
+<pre class="r"><code>usethis::edit_r_profile()</code></pre>
+<p>Since <code>reprex</code> is an interactive workflow package, don’t use this with <code>dplyr</code>, <code>ggplot2</code>, etc.</p>
+<p>When ever you want to ask people about your code, or ask them to debug it</p>
+<ol style="list-style-type: decimal">
+<li>Copy your code to clipboard</li>
+<li>Simply run in your console</li>
+</ol>
+<pre class="r"><code>reprex()
+
+
+reprex(advertise = TRUE, # To suppress ads
+       si = TRUE, # to include session info
+       style = TRUE, # restyle your code
+       tidyverse_quiet = TRUE # suppress tidyverse message
+       )</code></pre>
+<p>Or instead of doing it manually, you can select your code, and under “Addins”. select “Render reprex”</p>

@@ -1,0 +1,47 @@
+---
+title: CSS and SASS in Shiny
+author: ''
+date: '2021-04-04'
+slug: css-and-sass
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-04-04T14:28:21-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+CSS = Cascading Style Sheets
+
+ * Selector 
+ * Declaration
+ 
+To add CSS to Shiny: 
+
+ * Add styling to tags 
+ * Add CSS to HTML header
+ * Add style sheets with the www directory (most ideal)
+
+
+SASS = Systematically Awesome Style Sheets (built on top of CSS)
+
+SASS | CSS
+---|---
+Object oriented | Statement oriented 
+Allows nesting | No nesting 
+Allows variables | Limited variable declaration 
+
+Table by Pedro Silva from Appsilon
+
+
+
+
+

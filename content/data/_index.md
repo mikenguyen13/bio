@@ -35,7 +35,7 @@ headless: false
  * [Orbis](https://www.bvdinfo.com/en-us/our-products/data/international/orbis)  
  * [SDC Platinum](https://www.refinitiv.com/en/products/sdc-platinum-financial-securities): historical transactions  
  * [IRS Tax Statistics](https://www.irs.gov/statistics)  
- * [Zillow Home Prices](https://www.zillow.com/research/data/)
+ * [Zillow Home Prices](https://www.zillow.com/research/data/): Zillow's API allows business access only (not for educational or research purposes)
  * [Redfin](https://www.redfin.com/news/data-center/)
  * [10-K Text data by Hoberg-Phillips](http://hobergphillips.tuck.dartmouth.edu/industryclass.htm)  
  * [Thomson Reuters](https://www.thomsonreuters.com/en/products-services.html)  
@@ -44,7 +44,7 @@ headless: false
  * [Professor French database](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)
  * [open Data Network](https://www.opendatanetwork.com/)
  * [World Bank](https://datahelpdesk.worldbank.org/knowledgebase/articles/889386-developer-information-overview#:~:text=The%20Finances%20API%20provides%20programmatic,from%20the%20Climate%20Knowledge%20Portal.)
- 
+ * [Data Current](http://pages.stern.nyu.edu/~adamodar/New_Home_Page/datacurrent.html)
 
 ## Risk
 
@@ -86,6 +86,7 @@ headless: false
  * [Instacart](https://www.instacart.com/datasets/grocery-shopping-2017)
  * [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)  
  * [CMO Spend Survey 2018–2019](https://images.gartnerformarketers.com/Web/Gartner/%7Bb5a5ad17-bf4c-4ce4-adb3-4eed347852c8%7D_CMO_Spend_Survey_Note_Repackage_FINAL.pdf)
+ * [World Brand Lab](http://www.worldbrandlab.com/): brand equity ranking in China. 
 
 # Social Science
 
@@ -107,6 +108,7 @@ headless: false
 
  * [Stanford Large Network Dataset Collection (SNAP)](https://snap.stanford.edu/data/)  
  * [Michael T. Heaney's rep datasets](http://michaeltheaney.com/data-sets)
+ * [Gephi Dataset](https://github.com/gephi/gephi/wiki/Datasets)
 
 
 

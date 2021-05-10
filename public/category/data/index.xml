@@ -5,12 +5,38 @@
     <link>https://mikenguyen.netlify.app/category/data/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/data/index.xml" rel="self" type="application/rss+xml" />
     <description>Data</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Fri, 19 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Fri, 02 Apr 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>Data</title>
       <link>https://mikenguyen.netlify.app/category/data/</link>
     </image>
+    
+    <item>
+      <title>Scaling Shiny</title>
+      <link>https://mikenguyen.netlify.app/post/scaling-shiny/</link>
+      <pubDate>Fri, 02 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/scaling-shiny/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/scaling-shiny/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;To solve the problem of scaling:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;From DevOps/IT:
+&lt;ul&gt;
+&lt;li&gt;Add memory, CPU&lt;/li&gt;
+&lt;li&gt;Rstudio Connect set up for multiple machines&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;From R/Shiny engineer:
+&lt;ul&gt;
+&lt;li&gt;use &lt;a href=&#34;https://book.javascript-for-r.com/shiny-intro.html&#34;&gt;Javascript&lt;/a&gt; for less CPU usage&lt;/li&gt;
+&lt;li&gt;extract computations: &lt;a href=&#34;https://appsilon.com/shiny-worker-package/&#34;&gt;Shiny worker&lt;/a&gt;, &lt;a href=&#34;https://www.rplumber.io/&#34;&gt;Plumber&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;use a &lt;a href=&#34;https://shiny.rstudio.com/articles/overview.html&#34;&gt;database&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>caching for faster Shiny app</title>

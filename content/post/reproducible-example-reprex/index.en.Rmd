@@ -1,0 +1,83 @@
+---
+title: reproducible example (reprex)
+author: ''
+date: '2021-04-03'
+slug: reproducible-example-reprex
+categories:
+  - R
+tags:
+  - R
+  - reproducible
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-04-03T13:06:02-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+install once per computer
+
+```{r, eval = FALSE}
+install.packages("reprex")
+```
+or part of `tidyverse
+
+```{r, eval=FALSE}
+install.packages("tidyverse")
+```
+
+
+You can either call it in every session 
+```{r, eval=FALSE}
+library(reprex)
+```
+
+or put it in `.Rprofile` for each machine to run whenever you open R
+
+```{r, eval = FALSE}
+if (interactive()){
+  suppressMessages(require(reprex))
+}
+options(
+  reprex.advertise = FALSE, 
+  reprex.si = TRUE, 
+  reprex.style = TRUE,
+  reprex.comment = "#;-",
+  reprex.tidyverse_quiet = FALSE
+)
+```
+
+
+to see your `.Rprofile`
+
+```{r, eval = FALSE}
+usethis::edit_r_profile()
+```
+
+Since `reprex` is an interactive workflow package, don't use this with `dplyr`, `ggplot2`, etc.
+
+When ever you want to ask people about your code, or ask them to debug it
+
+
+ 1. Copy your code to clipboard
+ 2. Simply run in your console
+
+```{r, eval = FALSE}
+reprex()
+
+
+reprex(advertise = TRUE, # To suppress ads
+       si = TRUE, # to include session info
+       style = TRUE, # restyle your code
+       tidyverse_quiet = TRUE # suppress tidyverse message
+       )
+```
+
+
+Or instead of doing it manually, you can select your code, and under "Addins". select "Render reprex"
+

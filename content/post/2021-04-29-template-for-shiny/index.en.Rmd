@@ -1,0 +1,30 @@
+---
+title: Template for Shiny
+author: ''
+date: '2021-04-29'
+slug: template-for-shiny
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-04-29T22:53:25-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+New Template to get you produce cool Shiny App instantly
+
+[flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/index.html)
+
+```{r, eval = FALSE}
+install.packages("flexdashboard")
+library(flexdashboard)
+```
+
