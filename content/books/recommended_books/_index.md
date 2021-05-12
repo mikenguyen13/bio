@@ -14,7 +14,7 @@ I do not endorse any bookseller. I try my best to find sources that are not a bo
 
 Please enjoy!!!
 
-**Note**: my book recommendations do not reflect the viewpoints of any of my affiliated organization, but mine lone.  
+**Note**: my book recommendations do not reflect the viewpoints of any of my affiliated organizations, but mine alone.  
 
 ### General
 
@@ -31,6 +31,7 @@ Please enjoy!!!
  * [Why Most Things Fail - Paul Ormerod (2007)](https://www.google.com/books/edition/Why_Most_Things_Fail/WI0uiS23DzEC)
  * [The Selfish Gene - Richard Dawkins (1976)](https://www.google.com/books/edition/The_Selfish_Gene/EJeHTt8hW7UC)
  * [Critical Mass How One Thing Leads to Another](https://www.google.com/books/edition/Critical_Mass/WPPUoHCgI6oC?hl=en&gbpv=0)
+ * [The singularity is near - Ray Kurzweil (2005)](http://singularity.com/)
 
 <br>
 
