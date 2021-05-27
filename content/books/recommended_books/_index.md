@@ -31,7 +31,7 @@ Please enjoy!!!
  * [Why Most Things Fail - Paul Ormerod (2007)](https://www.google.com/books/edition/Why_Most_Things_Fail/WI0uiS23DzEC)
  * [The Selfish Gene - Richard Dawkins (1976)](https://www.google.com/books/edition/The_Selfish_Gene/EJeHTt8hW7UC)
  * [Critical Mass How One Thing Leads to Another](https://www.google.com/books/edition/Critical_Mass/WPPUoHCgI6oC?hl=en&gbpv=0)
- * [The singularity is near - Ray Kurzweil (2005)](http://singularity.com/)
+ * [The Singularity is Near - Ray Kurzweil (2005)](http://singularity.com/)
 
 <br>
 

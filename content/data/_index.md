@@ -35,8 +35,9 @@ headless: false
  * [Orbis](https://www.bvdinfo.com/en-us/our-products/data/international/orbis)  
  * [SDC Platinum](https://www.refinitiv.com/en/products/sdc-platinum-financial-securities): historical transactions  
  * [IRS Tax Statistics](https://www.irs.gov/statistics)  
- * [Zillow Home Prices](https://www.zillow.com/research/data/): Zillow's API allows business access only (not for educational or research purposes)
- * [Redfin](https://www.redfin.com/news/data-center/)
+ * [Zillow Home Prices](https://www.zillow.com/research/data/): Zillow's API allows business access only (not for educational or research purposes). But they do allow to download small [dataset](https://www.zillow.com/research/data/)
+ * [Redfin](https://www.redfin.com/news/data-center/): [full data set](https://www.redfin.com/news/data-center/), [definition](https://www.redfin.com/news/data-center-metrics-definitions/)
+ * [National Association of Realtors](https://www.nar.realtor/research-and-statistics/housing-statistics): [Citation](https://www.nar.realtor/research-and-statistics/citation-guidelines-for-nar-research-statistics)
  * [10-K Text data by Hoberg-Phillips](http://hobergphillips.tuck.dartmouth.edu/industryclass.htm)  
  * [Thomson Reuters](https://www.thomsonreuters.com/en/products-services.html)  
  * [Pitchbook](https://pitchbook.com/data): private and public data  
@@ -45,6 +46,7 @@ headless: false
  * [open Data Network](https://www.opendatanetwork.com/)
  * [World Bank](https://datahelpdesk.worldbank.org/knowledgebase/articles/889386-developer-information-overview#:~:text=The%20Finances%20API%20provides%20programmatic,from%20the%20Climate%20Knowledge%20Portal.)
  * [Data Current](http://pages.stern.nyu.edu/~adamodar/New_Home_Page/datacurrent.html)
+ * [Trading Economics](https://tradingeconomics.com/): paid API service
 
 ## Risk
 
