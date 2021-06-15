@@ -15,6 +15,7 @@ headless: false
  * [Text Analysis](https://bookdown.org/mike/text_analysis/)
  * [Network Analysis](https://bookdown.org/mike/network_analysis/)
  * [Survival Analysis](https://bookdown.org/mike/survival_analysis/)
+ * [Agent-Based Modeling](https://bookdown.org/mike/abm/)
 
 <!--
  * [Bayesian Analysis](link)

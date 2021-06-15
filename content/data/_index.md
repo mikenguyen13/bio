@@ -89,6 +89,7 @@ headless: false
  * [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)  
  * [CMO Spend Survey 2018–2019](https://images.gartnerformarketers.com/Web/Gartner/%7Bb5a5ad17-bf4c-4ce4-adb3-4eed347852c8%7D_CMO_Spend_Survey_Note_Repackage_FINAL.pdf)
  * [World Brand Lab](http://www.worldbrandlab.com/): brand equity ranking in China. 
+ * [GWI](https://www.gwi.com/data) Global Consumer data (students might get free access)
 
 # Social Science
 
