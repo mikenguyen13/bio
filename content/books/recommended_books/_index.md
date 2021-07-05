@@ -32,7 +32,8 @@ Please enjoy!!!
  * [The Selfish Gene - Richard Dawkins (1976)](https://www.google.com/books/edition/The_Selfish_Gene/EJeHTt8hW7UC)
  * [Critical Mass How One Thing Leads to Another](https://www.google.com/books/edition/Critical_Mass/WPPUoHCgI6oC?hl=en&gbpv=0)
  * [The Singularity is Near - Ray Kurzweil (2005)](http://singularity.com/)
- * [The Quick Fix: Why Fad Psychology Can't Cure Our Social Ills](https://books.google.com/books?id=JLniDwAAQBAJ&source=gbs_book_other_versions)
+ * [The Seven Deadly Sins of Psychology - Chris Chambers (2017)](https://press.princeton.edu/books/paperback/9780691192277/the-seven-deadly-sins-of-psychology)
+ * [The Quick Fix: Why Fad Psychology Can't Cure Our Social Ills - Jesse Singal (2021)](https://books.google.com/books?id=JLniDwAAQBAJ&source=gbs_book_other_versions)
 
 <br>
 
