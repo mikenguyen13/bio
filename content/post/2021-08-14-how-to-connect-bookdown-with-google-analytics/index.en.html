@@ -1,0 +1,53 @@
+---
+title: How to connect bookdown with google analytics
+author: ''
+date: '2021-08-14'
+slug: how-to-connect-bookdown-with-google-analytics
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-08-14T19:18:23-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<ol style="list-style-type: decimal">
+<li>Create <a href="https://analytics.google.com/">Google Analytics account</a></li>
+<li>Choose “Analytics Accounts”</li>
+<li>Create “Properties &amp; Apps”</li>
+<li>In “Data Streams”, “Add stream” with your website URL</li>
+<li>Under “Tagging Instructions”, click on gtag.js. You should see something like this:</li>
+</ol>
+<pre><code>&lt;!-- Global site tag (gtag.js) - Google Analytics --&gt;
+&lt;script async src=&quot;https://www.googletagmanager.com/gtag/js?id=G-DMNX2X65HQ&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag(&#39;js&#39;, new Date());
+
+  gtag(&#39;config&#39;, &#39;GA_MEASUREMENT_ID&#39;);
+&lt;/script&gt;</code></pre>
+<p>where you see <code>GA_MEASUREMENT_ID</code>, you will your own number.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>Create a <code>.html</code> file and paste the code script and save it in your bookdown folder. Name it <code>google_analytics.html</code></li>
+<li>Go to <code>_output.yml</code>, change it to</li>
+</ol>
+<pre><code>bookdown::gitbook:
+  includes:
+    in_header: [google_analytics.html]
+  css: style.css</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Upload your bookdown</li>
+<li>Go to Google Analytics your Google Analytics account. And voila.</li>
+</ol>

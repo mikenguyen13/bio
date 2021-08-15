@@ -47,6 +47,7 @@ headless: false
  * [World Bank](https://datahelpdesk.worldbank.org/knowledgebase/articles/889386-developer-information-overview#:~:text=The%20Finances%20API%20provides%20programmatic,from%20the%20Climate%20Knowledge%20Portal.)
  * [Data Current](http://pages.stern.nyu.edu/~adamodar/New_Home_Page/datacurrent.html)
  * [Trading Economics](https://tradingeconomics.com/): paid API service
+ * [AQR Dataset](https://www.aqr.com/Insights/Datasets)
 
 ## Risk
 
@@ -91,6 +92,7 @@ headless: false
  * [World Brand Lab](http://www.worldbrandlab.com/): brand equity ranking in China. 
  * [GWI](https://www.gwi.com/data) Global Consumer data (students might get free access)
  * [Google Patents Public Datasets on BigQuery](https://github.com/google/patents-public-data)
+ * [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f)
 
 # Social Science
 
@@ -104,7 +106,8 @@ headless: false
  * [Pew Research Center](https://www.pewresearch.org/download-datasets/)  
  * [Kaggle](https://www.kaggle.com/datasets)  
  * [Data Planet](https://www.data-planet.com/): by SAGE Publishing Resource.  
- * [Mendeley](https://data.mendeley.com/datasets): mostly based on published paper (i.e., host dataset for published papers)  
+ * [Mendeley](https://data.mendeley.com/datasets): mostly based on published paper (i.e., host dataset for published papers) 
+ * [Humdata](https://data.humdata.org/dataset): Humanitarian Data Exchange (including Facebook's Data for Good data)
  
  
 
@@ -113,6 +116,7 @@ headless: false
  * [Stanford Large Network Dataset Collection (SNAP)](https://snap.stanford.edu/data/)  
  * [Michael T. Heaney's rep datasets](http://michaeltheaney.com/data-sets)
  * [Gephi Dataset](https://github.com/gephi/gephi/wiki/Datasets)
+ * [Facebook Privacy-Protected Full URLs Data Set](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/TDOAPG)
 
 
 

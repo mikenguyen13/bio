@@ -29,6 +29,7 @@ Please enjoy!!!
  * [Ubiquity - Mark Buchanan (2002)](https://www.google.com/books/edition/Ubiquity/yagwR1tOSagC)
  * [Critical Mass - Philip Ball (2006)](https://www.google.com/books/edition/Critical_Mass/WPPUoHCgI6oC)
  * [Why Most Things Fail - Paul Ormerod (2007)](https://www.google.com/books/edition/Why_Most_Things_Fail/WI0uiS23DzEC)
+ * [The Undoing Project - Michael Lewis (2016)](https://www.google.com/books/edition/The_Undoing_Project_A_Friendship_That_Ch/xpJHDAAAQBAJ?hl=en&gbpv=0)
  * [The Selfish Gene - Richard Dawkins (1976)](https://www.google.com/books/edition/The_Selfish_Gene/EJeHTt8hW7UC)
  * [Critical Mass How One Thing Leads to Another](https://www.google.com/books/edition/Critical_Mass/WPPUoHCgI6oC?hl=en&gbpv=0)
  * [The Singularity is Near - Ray Kurzweil (2005)](http://singularity.com/)
@@ -60,6 +61,7 @@ Please enjoy!!!
  * [Connected: The Surprising Power of Our Social Networks and How They Shape Our Lives - James H. Fowler and Nicholas Christakis (2009)](https://www.google.com/books/edition/Connected/LXHi4wgIkzEC)
  * [Contagious - Jonah Berger (2013)](https://www.google.com/books/edition/Contagious/7vVnkdNayFkC)
  * [Invisible Influence - Jonah Berger (2016)](https://www.google.com/books/edition/Invisible_Influence/f90nDwAAQBAJ)
+ * [Breaking the Social Media Prism - Chris Bail (2021)](https://press.princeton.edu/books/hardcover/9780691203423/breaking-the-social-media-prism)
  
 ### Management
 
@@ -69,6 +71,7 @@ Please enjoy!!!
 
 ### Finance / Economics
 
+ * [What I Learned Losing a Million Dollars - Brendan Moynihan and Jim Paul (1994)](https://www.google.com/books/edition/What_I_Learned_Losing_a_Million_Dollars/NV2rAgAAQBAJ?hl=en&gbpv=1&printsec=frontcover)
  * [The Winner's Curse: Paradoxes and Anomalies of Economic Life - Richard Thaler (1992)](https://books.google.com/books/about/The_Winner_s_Curse.html?id=5AsPAQAAMAAJ)
  * [Irrational Exuberance - Robert Shiller (2000)](https://www.google.com/books/edition/Irrational_Exuberance/_aIpBQAAQBAJ)
  * [The Misbehavior of Markets - Benoit Mandelbrot (2004)](https://www.google.com/books/edition/_/M0U5tAEACAAJ) 

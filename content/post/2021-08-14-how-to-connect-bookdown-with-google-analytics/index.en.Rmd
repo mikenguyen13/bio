@@ -1,0 +1,53 @@
+---
+title: How to connect bookdown with google analytics
+author: ''
+date: '2021-08-14'
+slug: how-to-connect-bookdown-with-google-analytics
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-08-14T19:18:23-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+1. Create [Google Analytics account](https://analytics.google.com/)
+2. Choose "Analytics Accounts"
+3. Create "Properties & Apps"
+4. In "Data Streams", "Add stream" with your website URL
+5. Under "Tagging Instructions", click on gtag.js. You should see something like this: 
+
+```
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DMNX2X65HQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+```
+
+where you see `GA_MEASUREMENT_ID`, you will your own number.
+
+6. Create a `.html` file and paste the code script and save it in your bookdown folder. Name it `google_analytics.html`
+7. Go to `_output.yml`, change it to 
+
+```
+bookdown::gitbook:
+  includes:
+    in_header: [google_analytics.html]
+  css: style.css
+```
+
+8. Upload your bookdown 
+9. Go to Google Analytics your Google Analytics account. And voila. 

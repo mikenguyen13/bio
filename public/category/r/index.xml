@@ -5,12 +5,69 @@
     <link>https://mikenguyen.netlify.app/category/r/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sun, 04 Apr 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sat, 14 Aug 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>R</title>
       <link>https://mikenguyen.netlify.app/category/r/</link>
     </image>
+    
+    <item>
+      <title>How to connect bookdown with google analytics</title>
+      <link>https://mikenguyen.netlify.app/post/how-to-connect-bookdown-with-google-analytics/</link>
+      <pubDate>Sat, 14 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/how-to-connect-bookdown-with-google-analytics/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/how-to-connect-bookdown-with-google-analytics/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Create &lt;a href=&#34;https://analytics.google.com/&#34;&gt;Google Analytics account&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Choose “Analytics Accounts”&lt;/li&gt;
+&lt;li&gt;Create “Properties &amp;amp; Apps”&lt;/li&gt;
+&lt;li&gt;In “Data Streams”, “Add stream” with your website URL&lt;/li&gt;
+&lt;li&gt;Under “Tagging Instructions”, click on gtag.js. You should see something like this:&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!-- Global site tag (gtag.js) - Google Analytics --&amp;gt;
+&amp;lt;script async src=&amp;quot;https://www.googletagmanager.com/gtag/js?id=G-DMNX2X65HQ&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag(&amp;#39;js&amp;#39;, new Date());
+
+  gtag(&amp;#39;config&amp;#39;, &amp;#39;GA_MEASUREMENT_ID&amp;#39;);
+&amp;lt;/script&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;where you see &lt;code&gt;GA_MEASUREMENT_ID&lt;/code&gt;, you will your own number.&lt;/p&gt;
+&lt;ol start=&#34;6&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Create a &lt;code&gt;.html&lt;/code&gt; file and paste the code script and save it in your bookdown folder. Name it &lt;code&gt;google_analytics.html&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Go to &lt;code&gt;_output.yml&lt;/code&gt;, change it to&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;bookdown::gitbook:
+  includes:
+    in_header: [google_analytics.html]
+  css: style.css&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;8&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Upload your bookdown&lt;/li&gt;
+&lt;li&gt;Go to Google Analytics your Google Analytics account. And voila.&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Template for Shiny</title>
+      <link>https://mikenguyen.netlify.app/post/template-for-shiny/</link>
+      <pubDate>Thu, 29 Apr 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/template-for-shiny/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/template-for-shiny/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;New Template to get you produce cool Shiny App instantly&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://rmarkdown.rstudio.com/flexdashboard/index.html&#34;&gt;flexdashboard&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install.packages(&amp;quot;flexdashboard&amp;quot;)
+library(flexdashboard)&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>CSS and SASS in Shiny</title>
