@@ -10,7 +10,12 @@ headless: false
 
 ## Analysis
 
+### Public Access
+
  * [Data Analysis](https://bookdown.org/mike/data_analysis/)
+ 
+### Private Access
+
  * [Advanced Data Analysis](https://bookdown.org/mike/advanced_data_analysis/)
  * [Text Analysis](https://bookdown.org/mike/text_analysis/)
  * [Network Analysis](https://bookdown.org/mike/network_analysis/)
@@ -23,8 +28,16 @@ headless: false
 
  -->
 
+<br>
+
+
 ## Other
 
- * [Social Science Theory](https://bookdown.org/mike/social-theory/)
- * [Communication Theories](https://bookdown.org/mike/comm_theory/)
+### Public Access
+
+ * [Communication Theory](https://bookdown.org/mike/comm_theory/)
  * [Marketing Research](https://bookdown.org/mike/marketing_research/)
+
+### Private Access
+
+ * [Social Science Theory](https://bookdown.org/mike/social-theory/)

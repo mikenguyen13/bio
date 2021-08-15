@@ -5,12 +5,27 @@
     <link>https://mikenguyen.netlify.app/tag/r/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sat, 14 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sun, 15 Aug 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>R</title>
       <link>https://mikenguyen.netlify.app/tag/r/</link>
     </image>
+    
+    <item>
+      <title>Bookdown Statistics</title>
+      <link>https://mikenguyen.netlify.app/post/bookdown-statistics/</link>
+      <pubDate>Sun, 15 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/bookdown-statistics/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/bookdown-statistics/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;It’s possible to have basic statistics from bookdown using &lt;code&gt;connectapi&lt;/code&gt; (&lt;a href=&#34;https://github.com/sol-eng/connect-usage&#34;&gt;basic example&lt;/a&gt;). However, this feature is very limited.&lt;/p&gt;
+&lt;p&gt;Hence, it is better to &lt;a href=&#34;(%7B%7B%3C%20relref%20%22../2021-08-14-how-to-connect-bookdown-with-google-analytics%22%20%3E%7D%7D)&#34;&gt;connect bookdown to Google Analytics&lt;/a&gt; to have better metrics. However, the trade-off is that you can’t see every book’s performance at once even though they are all under one account, since it is in one property. You could use Roll-up report, but then you will have to pay to use that feature.&lt;/p&gt;
+&lt;p&gt;Another solution is to use Google Analytics API and write your R script to see customized performance of all your books.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>How to connect bookdown with google analytics</title>

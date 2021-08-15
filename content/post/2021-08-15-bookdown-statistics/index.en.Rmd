@@ -1,0 +1,27 @@
+---
+title: Bookdown Statistics
+author: ''
+date: '2021-08-15'
+slug: bookdown-statistics
+categories:
+  - R
+tags:
+  - R
+  - R Markdown
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-08-15T18:00:31-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+It's possible to have basic statistics from bookdown using `connectapi` ([basic example](https://github.com/sol-eng/connect-usage)). However, this feature is very limited. 
+
+Hence, it is better to [connect bookdown to Google Analytics](({{< relref "../2021-08-14-how-to-connect-bookdown-with-google-analytics" >}})) to have better metrics. However, the trade-off is that you can't see every book's performance at once even though they are all under one account, since it is in one property. You could use Roll-up report, but then you will have to pay to use that feature. 
+
+Another solution is to use Google Analytics API and write your R script to see customized performance of all your books. 
