@@ -5,12 +5,57 @@
     <link>https://mikenguyen.netlify.app/category/r/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sun, 15 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Mon, 16 Aug 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>R</title>
       <link>https://mikenguyen.netlify.app/category/r/</link>
     </image>
+    
+    <item>
+      <title>Create your own hexagon in R</title>
+      <link>https://mikenguyen.netlify.app/post/create-your-own-hexagon-in-r/</link>
+      <pubDate>Mon, 16 Aug 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/create-your-own-hexagon-in-r/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/create-your-own-hexagon-in-r/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;This is a super fast and easy way to create your first hexagon in R.&lt;/p&gt;
+&lt;p&gt;Enjoy !!!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# install.packages(&amp;quot;hexSticker&amp;quot;)
+library(hexSticker)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;hexSticker&amp;#39; was built under R version 4.0.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;imgurl &amp;lt;- &amp;quot;./logo.png&amp;quot;
+
+plot(
+  sticker(
+    imgurl,
+    package = &amp;quot;&amp;quot;,
+    # p_size = 26,
+    # p_color = &amp;quot;black&amp;quot;,
+    
+    # p_x = 1,
+    # p_y = 1.5,
+    
+    s_x = 1,
+    s_y = 1,
+    s_width = 0.9,
+    # s_height = 0.4,
+    h_fill = &amp;quot;gray100&amp;quot;,
+    h_color = &amp;quot;black&amp;quot;,
+    h_size = 2,
+    # spotlight = T,
+    asp = 0.86,
+    # filename = &amp;quot;inst/figures/imgfile.png&amp;quot;
+    filename = &amp;quot;./imgfile.png&amp;quot;
+  )
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://mikenguyen.netlify.app/post/create-your-own-hexagon-in-r/index.en_files/figure-html/unnamed-chunk-1-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::include_graphics(&amp;quot;./imgfile.png&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;imgfile.png&#34; width=&#34;259&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Bookdown Statistics</title>

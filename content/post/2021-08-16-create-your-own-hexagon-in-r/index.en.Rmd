@@ -1,0 +1,59 @@
+---
+title: Create your own hexagon in R
+author: ''
+date: '2021-08-16'
+slug: create-your-own-hexagon-in-r
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-08-16T11:34:57-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+This is a super fast and easy way to create your first hexagon in R. 
+
+Enjoy !!!
+
+```{r}
+# install.packages("hexSticker")
+library(hexSticker)
+
+imgurl <- "./logo.png"
+
+plot(
+  sticker(
+    imgurl,
+    package = "",
+    # p_size = 26,
+    # p_color = "black",
+    
+    # p_x = 1,
+    # p_y = 1.5,
+    
+    s_x = 1,
+    s_y = 1,
+    s_width = 0.9,
+    # s_height = 0.4,
+    h_fill = "gray100",
+    h_color = "black",
+    h_size = 2,
+    # spotlight = T,
+    asp = 0.86,
+    # filename = "inst/figures/imgfile.png"
+    filename = "./imgfile.png"
+  )
+)
+```
+```{r}
+knitr::include_graphics("./imgfile.png")
+```
+

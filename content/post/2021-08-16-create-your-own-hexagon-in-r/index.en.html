@@ -1,0 +1,57 @@
+---
+title: Create your own hexagon in R
+author: ''
+date: '2021-08-16'
+slug: create-your-own-hexagon-in-r
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-08-16T11:34:57-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>This is a super fast and easy way to create your first hexagon in R.</p>
+<p>Enjoy !!!</p>
+<pre class="r"><code># install.packages(&quot;hexSticker&quot;)
+library(hexSticker)</code></pre>
+<pre><code>## Warning: package &#39;hexSticker&#39; was built under R version 4.0.5</code></pre>
+<pre class="r"><code>imgurl &lt;- &quot;./logo.png&quot;
+
+plot(
+  sticker(
+    imgurl,
+    package = &quot;&quot;,
+    # p_size = 26,
+    # p_color = &quot;black&quot;,
+    
+    # p_x = 1,
+    # p_y = 1.5,
+    
+    s_x = 1,
+    s_y = 1,
+    s_width = 0.9,
+    # s_height = 0.4,
+    h_fill = &quot;gray100&quot;,
+    h_color = &quot;black&quot;,
+    h_size = 2,
+    # spotlight = T,
+    asp = 0.86,
+    # filename = &quot;inst/figures/imgfile.png&quot;
+    filename = &quot;./imgfile.png&quot;
+  )
+)</code></pre>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>knitr::include_graphics(&quot;./imgfile.png&quot;)</code></pre>
+<p><img src="imgfile.png" width="259" /></p>
