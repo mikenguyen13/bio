@@ -1,0 +1,38 @@
+---
+title: How to add cover image to bookdown
+author: ''
+date: '2021-08-16'
+slug: how-to-add-cover-image-to-bookdown
+categories:
+  - R
+tags:
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-08-16T19:47:44-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```
+<div style = "text-align: center">
+
+![](cover.jpg)
+
+</div>
+```
+
+
+Alternatively, you can also use `r` block 
+
+
+```{r fig.align='center', echo=TRUE, out.extra='class="cover"', eval=FALSE}
+knitr::include_graphics('cover.jpg', dpi = NA)
+```
+
+
