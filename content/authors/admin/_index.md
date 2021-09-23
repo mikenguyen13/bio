@@ -60,9 +60,9 @@ user_groups:
 
 My name is Mike Nguyen. I am a researcher/ data scientist at the University of Missouri. My research interests include   
 
- * **Conceptual:** Branding, Brand Equity, Virality, Charisma  
- * **Substantive:** User-Generated Content, Online Platform, Social Media, Advertising, Celebrity/Influencer Endorsement  
- * **Methodological:** Meta-Analysis, Econometrics, Machine Learning, Text Mining, Bayesian Analysis, Network Analysis
+ * **Conceptual:** Brand Equity, Virality, Charisma  
+ * **Substantive:** Branding, Advertising, Online Platform
+ * **Methodological:** Econometrics, Machine Learning, Causal Inference, Meta-Analysis
 
 {{< icon name="download" pack="fas" >}} Download my resume in {{< staticref "media/Mike Nguyen CV.pdf" "newtab" >}} PDF {{< /staticref >}} and {{< staticref "media/Mike Nguyen CV.docx" "newtab" >}} Word {{< /staticref >}}.
 
