@@ -108,6 +108,9 @@ headless: false
  * [Data Planet](https://www.data-planet.com/): by SAGE Publishing Resource.  
  * [Mendeley](https://data.mendeley.com/datasets): mostly based on published paper (i.e., host dataset for published papers) 
  * [Humdata](https://data.humdata.org/dataset): Humanitarian Data Exchange (including Facebook's Data for Good data)
+ * Census Data: 
+    + [IPUMS](https://www.nhgis.org/technical-support)
+    + [IPUMS Data in R](https://cran.r-project.org/web/packages/ipumsr/vignettes/ipums.html)
  
  
 

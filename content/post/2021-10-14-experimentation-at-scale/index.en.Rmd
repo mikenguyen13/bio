@@ -1,0 +1,31 @@
+---
+title: Experimentation at Scale
+author: ''
+date: '2021-10-14'
+slug: experimentation-at-scale
+categories:
+  - Data
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-10-14T14:33:45-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Tools that can help you create experiments at scale: 
+
+ * [Empirica](https://empirica.ly/) (recommend)
+ * [nodegame](https://nodegame.org/)
+ * [otree](http://www.otree.org/): Python-based
+ * [Lioness Lab](https://lioness-lab.org/) 
+ * [BreadBoard](https://breadboard.yale.edu/): network
+ * [Turktool](http://turktools.net/use/server.html): survey for Amazon Mturk
+ * [Jspsych](https://www.jspsych.org/7.0/): JavaScript-based
+ * [PsiTurk](https://psiturk.org/): Survey for Amazon Mturk
+ 
