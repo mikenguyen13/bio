@@ -34,7 +34,22 @@
   
   <url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2021-08-16T19:47:44-05:00</lastmod>
+    <lastmod>2021-10-14T14:33:45-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/data/</loc>
+    <lastmod>2021-10-14T14:33:45-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/experimentation-at-scale/</loc>
+    <lastmod>2021-10-14T14:33:45-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2021-10-14T14:33:45-05:00</lastmod>
   </url>
   
   <url>
@@ -44,11 +59,6 @@
   
   <url>
     <loc>https://mikenguyen.netlify.app/post/how-to-add-cover-image-to-bookdown/</loc>
-    <lastmod>2021-08-16T19:47:44-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
     <lastmod>2021-08-16T19:47:44-05:00</lastmod>
   </url>
   
@@ -100,11 +110,6 @@
   <url>
     <loc>https://mikenguyen.netlify.app/post/reproducible-example-reprex/</loc>
     <lastmod>2021-04-03T13:06:02-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/category/data/</loc>
-    <lastmod>2021-04-02T14:08:41-05:00</lastmod>
   </url>
   
   <url>

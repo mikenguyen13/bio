@@ -5,12 +5,35 @@
     <link>https://mikenguyen.netlify.app/post/</link>
       <atom:link href="https://mikenguyen.netlify.app/post/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Mon, 16 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Thu, 14 Oct 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
       <link>https://mikenguyen.netlify.app/post/</link>
     </image>
+    
+    <item>
+      <title>Experimentation at Scale</title>
+      <link>https://mikenguyen.netlify.app/post/experimentation-at-scale/</link>
+      <pubDate>Thu, 14 Oct 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/experimentation-at-scale/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/experimentation-at-scale/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Tools that can help you create experiments at scale:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://empirica.ly/&#34;&gt;Empirica&lt;/a&gt; (recommend)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://nodegame.org/&#34;&gt;nodegame&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.otree.org/&#34;&gt;otree&lt;/a&gt;: Python-based&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://lioness-lab.org/&#34;&gt;Lioness Lab&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://breadboard.yale.edu/&#34;&gt;BreadBoard&lt;/a&gt;: network&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://turktools.net/use/server.html&#34;&gt;Turktool&lt;/a&gt;: survey for Amazon Mturk&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.jspsych.org/7.0/&#34;&gt;Jspsych&lt;/a&gt;: JavaScript-based&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://psiturk.org/&#34;&gt;PsiTurk&lt;/a&gt;: Survey for Amazon Mturk&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Create your own hexagon in R</title>
@@ -1153,7 +1176,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-137492586&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-219365874&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -1163,7 +1186,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-137492586&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-219365874&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
