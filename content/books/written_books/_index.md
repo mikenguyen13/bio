@@ -22,6 +22,7 @@ headless: false
  * [Survival Analysis](https://bookdown.org/mike/survival_analysis/)
  * [Agent-Based Modeling](https://bookdown.org/mike/abm/)
 
+
 <!--
  * [Bayesian Analysis](link)
  * [Meta Analysis](link)
@@ -41,3 +42,4 @@ headless: false
 ### Private Access
 
  * [Social Science Theory](https://bookdown.org/mike/social-theory/)
+ * [Finance](https://bookdown.org/mike/finance/)

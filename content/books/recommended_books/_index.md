@@ -79,3 +79,4 @@ Please enjoy!!!
  * [Misbehaving - Richard Thaler (2015)](https://www.google.com/books/edition/Misbehaving_The_Making_of_Behavioral_Eco/xQedBAAAQBAJ)
  * [Narrative Economics - Robert Shiller (2019)](https://www.google.com/books/edition/Narrative_Economics/DdPgDwAAQBAJ)
  * [The Man Who Solved the Market: How Jim Simons Launched the Quant Revolution - Gregory Zuckerman (2019)](https://www.google.com/books/edition/The_Man_Who_Solved_the_Market/YUmHDwAAQBAJ?hl=en&gbpv=0)
+ * [Mostly harmless econometrics - Joshua Angrist (2008)](https://www.mostlyharmlesseconometrics.com/)
