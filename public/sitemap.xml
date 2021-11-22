@@ -33,8 +33,43 @@
   </url>
   
   <url>
+    <loc>https://mikenguyen.netlify.app/tag/bookdown/</loc>
+    <lastmod>2021-11-22T13:59:35-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2021-10-14T14:33:45-05:00</lastmod>
+    <lastmod>2021-11-22T13:59:35-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/image-and-figure-robust-in-bs4-bookdown/</loc>
+    <lastmod>2021-11-22T13:59:35-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2021-11-22T13:59:35-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2021-11-22T13:59:35-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tag/r-markdown/</loc>
+    <lastmod>2021-11-22T13:59:35-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2021-11-22T13:59:35-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mikenguyen.netlify.app/post/fold-code-in-bookdown/</loc>
+    <lastmod>2021-11-21T12:35:56-06:00</lastmod>
   </url>
   
   <url>
@@ -44,11 +79,6 @@
   
   <url>
     <loc>https://mikenguyen.netlify.app/post/experimentation-at-scale/</loc>
-    <lastmod>2021-10-14T14:33:45-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
     <lastmod>2021-10-14T14:33:45-05:00</lastmod>
   </url>
   
@@ -68,22 +98,7 @@
   </url>
   
   <url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2021-08-16T19:47:44-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
-    <lastmod>2021-08-16T19:47:44-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://mikenguyen.netlify.app/post/bookdown-statistics/</loc>
-    <lastmod>2021-08-15T18:00:31-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/r-markdown/</loc>
     <lastmod>2021-08-15T18:00:31-05:00</lastmod>
   </url>
   

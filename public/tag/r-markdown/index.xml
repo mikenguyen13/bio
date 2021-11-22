@@ -5,12 +5,29 @@
     <link>https://mikenguyen.netlify.app/tag/r-markdown/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/r-markdown/index.xml" rel="self" type="application/rss+xml" />
     <description>R Markdown</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sun, 15 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Mon, 22 Nov 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>R Markdown</title>
       <link>https://mikenguyen.netlify.app/tag/r-markdown/</link>
     </image>
+    
+    <item>
+      <title>making your image and figure robust in bs4 bookdown</title>
+      <link>https://mikenguyen.netlify.app/post/image-and-figure-robust-in-bs4-bookdown/</link>
+      <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/image-and-figure-robust-in-bs4-bookdown/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/image-and-figure-robust-in-bs4-bookdown/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;I struggle to find how to make my figures and images perfectly aligned in the center of my book. After looking around, I think I’ve found an adequate solution:&lt;/p&gt;
+&lt;p&gt;Step 1: Change your image into &lt;code&gt;%&lt;/code&gt; format.&lt;/p&gt;
+&lt;p&gt;Step 2: I typically change my width to &lt;code&gt;100&lt;/code&gt;, but you can also leave it as is&lt;/p&gt;
+&lt;p&gt;Step 3: Go to &lt;code&gt;Attributes&lt;/code&gt; tab can put this line into the “CSS styles” box: &lt;code&gt;display: block; margin: 1em auto&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Voila! Now your image or figure should be robust to both bs4 or gitbook styles.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Bookdown Statistics</title>

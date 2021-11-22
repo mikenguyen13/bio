@@ -8,6 +8,7 @@ summary: "Data Repository" # Add a page description
 headless: false
 ---
 
+[Awesome Data on Everything](https://github.com/awesomedata/awesome-public-datasets)
 
 # Management 
 

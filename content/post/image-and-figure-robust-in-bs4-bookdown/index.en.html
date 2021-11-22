@@ -1,0 +1,30 @@
+---
+title: making your image and figure robust in bs4 bookdown
+author: ''
+date: '2021-11-22'
+slug: image-and-figure-robust-in-bs4-bookdown
+categories:
+  - R
+tags:
+  - bookdown
+  - R Markdown
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-11-22T13:59:35-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>I struggle to find how to make my figures and images perfectly aligned in the center of my book. After looking around, I think I’ve found an adequate solution:</p>
+<p>Step 1: Change your image into <code>%</code> format.</p>
+<p>Step 2: I typically change my width to <code>100</code>, but you can also leave it as is</p>
+<p>Step 3: Go to <code>Attributes</code> tab can put this line into the “CSS styles” box: <code>display: block; margin: 1em auto</code></p>
+<p>Voila! Now your image or figure should be robust to both bs4 or gitbook styles.</p>

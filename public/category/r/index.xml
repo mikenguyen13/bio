@@ -5,12 +5,787 @@
     <link>https://mikenguyen.netlify.app/category/r/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Mon, 16 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Mon, 22 Nov 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
       <title>R</title>
       <link>https://mikenguyen.netlify.app/category/r/</link>
     </image>
+    
+    <item>
+      <title>making your image and figure robust in bs4 bookdown</title>
+      <link>https://mikenguyen.netlify.app/post/image-and-figure-robust-in-bs4-bookdown/</link>
+      <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/image-and-figure-robust-in-bs4-bookdown/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/image-and-figure-robust-in-bs4-bookdown/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;I struggle to find how to make my figures and images perfectly aligned in the center of my book. After looking around, I think I’ve found an adequate solution:&lt;/p&gt;
+&lt;p&gt;Step 1: Change your image into &lt;code&gt;%&lt;/code&gt; format.&lt;/p&gt;
+&lt;p&gt;Step 2: I typically change my width to &lt;code&gt;100&lt;/code&gt;, but you can also leave it as is&lt;/p&gt;
+&lt;p&gt;Step 3: Go to &lt;code&gt;Attributes&lt;/code&gt; tab can put this line into the “CSS styles” box: &lt;code&gt;display: block; margin: 1em auto&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Voila! Now your image or figure should be robust to both bs4 or gitbook styles.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Fold code in bookdown</title>
+      <link>https://mikenguyen.netlify.app/post/fold-code-in-bookdown/</link>
+      <pubDate>Sun, 21 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/fold-code-in-bookdown/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/fold-code-in-bookdown/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Following this &lt;a href=&#34;https://stackoverflow.com/questions/45360998/code-folding-in-bookdown&#34;&gt;answer&lt;/a&gt; by Sébastien Rochette, we can fold all code chunk in bookdown by&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Create a &lt;code&gt;js&lt;/code&gt; folder in the same directory as your bookdown book&lt;/li&gt;
+&lt;li&gt;Create 3 files in this &lt;code&gt;js&lt;/code&gt; folder&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;transition.js&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/* ========================================================================
+ * Bootstrap: transition.js v3.3.7
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  &amp;#39;use strict&amp;#39;;
+
+  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // ============================================================
+
+  function transitionEnd() {
+    var el = document.createElement(&amp;#39;bootstrap&amp;#39;)
+
+    var transEndEventNames = {
+      WebkitTransition : &amp;#39;webkitTransitionEnd&amp;#39;,
+      MozTransition    : &amp;#39;transitionend&amp;#39;,
+      OTransition      : &amp;#39;oTransitionEnd otransitionend&amp;#39;,
+      transition       : &amp;#39;transitionend&amp;#39;
+    }
+
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
+      }
+    }
+
+    return false // explicit for ie8 (  ._.)
+  }
+
+  // http://blog.alexmaccaw.com/css-transitions
+  $.fn.emulateTransitionEnd = function (duration) {
+    var called = false
+    var $el = this
+    $(this).one(&amp;#39;bsTransitionEnd&amp;#39;, function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+  }
+
+  $(function () {
+    $.support.transition = transitionEnd()
+
+    if (!$.support.transition) return
+
+    $.event.special.bsTransitionEnd = {
+      bindType: $.support.transition.end,
+      delegateType: $.support.transition.end,
+      handle: function (e) {
+        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+      }
+    }
+  })
+
+}(jQuery);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;collapse.js&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/* ========================================================================
+ * Bootstrap: collapse.js v3.3.7
+ * http://getbootstrap.com/javascript/#collapse
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+/* jshint latedef: false */
+
++function ($) {
+  &amp;#39;use strict&amp;#39;;
+
+  // COLLAPSE PUBLIC CLASS DEFINITION
+  // ================================
+
+  var Collapse = function (element, options) {
+    this.$element      = $(element)
+    this.options       = $.extend({}, Collapse.DEFAULTS, options)
+    this.$trigger      = $(&amp;#39;[data-toggle=&amp;quot;collapse&amp;quot;][href=&amp;quot;#&amp;#39; + element.id + &amp;#39;&amp;quot;],&amp;#39; +
+                           &amp;#39;[data-toggle=&amp;quot;collapse&amp;quot;][data-target=&amp;quot;#&amp;#39; + element.id + &amp;#39;&amp;quot;]&amp;#39;)
+    this.transitioning = null
+
+    if (this.options.parent) {
+      this.$parent = this.getParent()
+    } else {
+      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
+    }
+
+    if (this.options.toggle) this.toggle()
+  }
+
+  Collapse.VERSION  = &amp;#39;3.3.7&amp;#39;
+
+  Collapse.TRANSITION_DURATION = 350
+
+  Collapse.DEFAULTS = {
+    toggle: true
+  }
+
+  Collapse.prototype.dimension = function () {
+    var hasWidth = this.$element.hasClass(&amp;#39;width&amp;#39;)
+    return hasWidth ? &amp;#39;width&amp;#39; : &amp;#39;height&amp;#39;
+  }
+
+  Collapse.prototype.show = function () {
+    if (this.transitioning || this.$element.hasClass(&amp;#39;in&amp;#39;)) return
+
+    var activesData
+    var actives = this.$parent &amp;amp;&amp;amp; this.$parent.children(&amp;#39;.panel&amp;#39;).children(&amp;#39;.in, .collapsing&amp;#39;)
+
+    if (actives &amp;amp;&amp;amp; actives.length) {
+      activesData = actives.data(&amp;#39;bs.collapse&amp;#39;)
+      if (activesData &amp;amp;&amp;amp; activesData.transitioning) return
+    }
+
+    var startEvent = $.Event(&amp;#39;show.bs.collapse&amp;#39;)
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    if (actives &amp;amp;&amp;amp; actives.length) {
+      Plugin.call(actives, &amp;#39;hide&amp;#39;)
+      activesData || actives.data(&amp;#39;bs.collapse&amp;#39;, null)
+    }
+
+    var dimension = this.dimension()
+
+    this.$element
+      .removeClass(&amp;#39;collapse&amp;#39;)
+      .addClass(&amp;#39;collapsing&amp;#39;)[dimension](0)
+      .attr(&amp;#39;aria-expanded&amp;#39;, true)
+
+    this.$trigger
+      .removeClass(&amp;#39;collapsed&amp;#39;)
+      .attr(&amp;#39;aria-expanded&amp;#39;, true)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.$element
+        .removeClass(&amp;#39;collapsing&amp;#39;)
+        .addClass(&amp;#39;collapse in&amp;#39;)[dimension](&amp;#39;&amp;#39;)
+      this.transitioning = 0
+      this.$element
+        .trigger(&amp;#39;shown.bs.collapse&amp;#39;)
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    var scrollSize = $.camelCase([&amp;#39;scroll&amp;#39;, dimension].join(&amp;#39;-&amp;#39;))
+
+    this.$element
+      .one(&amp;#39;bsTransitionEnd&amp;#39;, $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
+  }
+
+  Collapse.prototype.hide = function () {
+    if (this.transitioning || !this.$element.hasClass(&amp;#39;in&amp;#39;)) return
+
+    var startEvent = $.Event(&amp;#39;hide.bs.collapse&amp;#39;)
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    var dimension = this.dimension()
+
+    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+
+    this.$element
+      .addClass(&amp;#39;collapsing&amp;#39;)
+      .removeClass(&amp;#39;collapse in&amp;#39;)
+      .attr(&amp;#39;aria-expanded&amp;#39;, false)
+
+    this.$trigger
+      .addClass(&amp;#39;collapsed&amp;#39;)
+      .attr(&amp;#39;aria-expanded&amp;#39;, false)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.transitioning = 0
+      this.$element
+        .removeClass(&amp;#39;collapsing&amp;#39;)
+        .addClass(&amp;#39;collapse&amp;#39;)
+        .trigger(&amp;#39;hidden.bs.collapse&amp;#39;)
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    this.$element
+      [dimension](0)
+      .one(&amp;#39;bsTransitionEnd&amp;#39;, $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
+  }
+
+  Collapse.prototype.toggle = function () {
+    this[this.$element.hasClass(&amp;#39;in&amp;#39;) ? &amp;#39;hide&amp;#39; : &amp;#39;show&amp;#39;]()
+  }
+
+  Collapse.prototype.getParent = function () {
+    return $(this.options.parent)
+      .find(&amp;#39;[data-toggle=&amp;quot;collapse&amp;quot;][data-parent=&amp;quot;&amp;#39; + this.options.parent + &amp;#39;&amp;quot;]&amp;#39;)
+      .each($.proxy(function (i, element) {
+        var $element = $(element)
+        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
+      }, this))
+      .end()
+  }
+
+  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
+    var isOpen = $element.hasClass(&amp;#39;in&amp;#39;)
+
+    $element.attr(&amp;#39;aria-expanded&amp;#39;, isOpen)
+    $trigger
+      .toggleClass(&amp;#39;collapsed&amp;#39;, !isOpen)
+      .attr(&amp;#39;aria-expanded&amp;#39;, isOpen)
+  }
+
+  function getTargetFromTrigger($trigger) {
+    var href
+    var target = $trigger.attr(&amp;#39;data-target&amp;#39;)
+      || (href = $trigger.attr(&amp;#39;href&amp;#39;)) &amp;amp;&amp;amp; href.replace(/.*(?=#[^\s]+$)/, &amp;#39;&amp;#39;) // strip for ie7
+
+    return $(target)
+  }
+
+
+  // COLLAPSE PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data(&amp;#39;bs.collapse&amp;#39;)
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == &amp;#39;object&amp;#39; &amp;amp;&amp;amp; option)
+
+      if (!data &amp;amp;&amp;amp; options.toggle &amp;amp;&amp;amp; /show|hide/.test(option)) options.toggle = false
+      if (!data) $this.data(&amp;#39;bs.collapse&amp;#39;, (data = new Collapse(this, options)))
+      if (typeof option == &amp;#39;string&amp;#39;) data[option]()
+    })
+  }
+
+  var old = $.fn.collapse
+
+  $.fn.collapse             = Plugin
+  $.fn.collapse.Constructor = Collapse
+
+
+  // COLLAPSE NO CONFLICT
+  // ====================
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+  // COLLAPSE DATA-API
+  // =================
+
+  $(document).on(&amp;#39;click.bs.collapse.data-api&amp;#39;, &amp;#39;[data-toggle=&amp;quot;collapse&amp;quot;]&amp;#39;, function (e) {
+    var $this   = $(this)
+
+    if (!$this.attr(&amp;#39;data-target&amp;#39;)) e.preventDefault()
+
+    var $target = getTargetFromTrigger($this)
+    var data    = $target.data(&amp;#39;bs.collapse&amp;#39;)
+    var option  = data ? &amp;#39;toggle&amp;#39; : $this.data()
+
+    Plugin.call($target, option)
+  })
+
+}(jQuery);&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;codefolding.js&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;window.initializeCodeFolding = function(show) {
+
+  // handlers for show-all and hide all
+  $(&amp;quot;#rmd-show-all-code&amp;quot;).click(function() {
+    $(&amp;#39;div.r-code-collapse&amp;#39;).each(function() {
+      $(this).collapse(&amp;#39;show&amp;#39;);
+    });
+  });
+  $(&amp;quot;#rmd-hide-all-code&amp;quot;).click(function() {
+    $(&amp;#39;div.r-code-collapse&amp;#39;).each(function() {
+      $(this).collapse(&amp;#39;hide&amp;#39;);
+    });
+  });
+
+  // index for unique code element ids
+  var currentIndex = 1;
+
+  // select all R code blocks
+  var rCodeBlocks = $(&amp;#39;pre.sourceCode, pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan&amp;#39;);
+  rCodeBlocks.each(function() {
+
+    // create a collapsable div to wrap the code in
+    var div = $(&amp;#39;&amp;lt;div class=&amp;quot;collapse r-code-collapse&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;);
+    if (show)
+      div.addClass(&amp;#39;in&amp;#39;);
+    var id = &amp;#39;rcode-643E0F36&amp;#39; + currentIndex++;
+    div.attr(&amp;#39;id&amp;#39;, id);
+    $(this).before(div);
+    $(this).detach().appendTo(div);
+
+    // add a show code button right above
+    var showCodeText = $(&amp;#39;&amp;lt;span&amp;gt;&amp;#39; + (show ? &amp;#39;Hide&amp;#39; : &amp;#39;Code&amp;#39;) + &amp;#39;&amp;lt;/span&amp;gt;&amp;#39;);
+    var showCodeButton = $(&amp;#39;&amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-default btn-xs code-folding-btn pull-right&amp;quot;&amp;gt;&amp;lt;/button&amp;gt;&amp;#39;);
+    showCodeButton.append(showCodeText);
+    showCodeButton
+        .attr(&amp;#39;data-toggle&amp;#39;, &amp;#39;collapse&amp;#39;)
+        .attr(&amp;#39;data-target&amp;#39;, &amp;#39;#&amp;#39; + id)
+        .attr(&amp;#39;aria-expanded&amp;#39;, show)
+        .attr(&amp;#39;aria-controls&amp;#39;, id);
+
+    var buttonRow = $(&amp;#39;&amp;lt;div class=&amp;quot;row&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;);
+    var buttonCol = $(&amp;#39;&amp;lt;div class=&amp;quot;col-md-12&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;);
+
+    buttonCol.append(showCodeButton);
+    buttonRow.append(buttonCol);
+
+    div.before(buttonRow);
+
+    // update state of button on show/hide
+    div.on(&amp;#39;hidden.bs.collapse&amp;#39;, function () {
+      showCodeText.text(&amp;#39;Code&amp;#39;);
+    });
+    div.on(&amp;#39;show.bs.collapse&amp;#39;, function () {
+      showCodeText.text(&amp;#39;Hide&amp;#39;);
+    });
+  });
+
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Add &lt;code&gt;header.html&lt;/code&gt; in the same bookdown directory (not in &lt;code&gt;js&lt;/code&gt; folder)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;
+&amp;lt;script&amp;gt;
+/* ========================================================================
+ * Bootstrap: transition.js v3.3.7
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  &amp;#39;use strict&amp;#39;;
+
+  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // ============================================================
+
+  function transitionEnd() {
+    var el = document.createElement(&amp;#39;bootstrap&amp;#39;)
+
+    var transEndEventNames = {
+      WebkitTransition : &amp;#39;webkitTransitionEnd&amp;#39;,
+      MozTransition    : &amp;#39;transitionend&amp;#39;,
+      OTransition      : &amp;#39;oTransitionEnd otransitionend&amp;#39;,
+      transition       : &amp;#39;transitionend&amp;#39;
+    }
+
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
+      }
+    }
+
+    return false // explicit for ie8 (  ._.)
+  }
+
+  // http://blog.alexmaccaw.com/css-transitions
+  $.fn.emulateTransitionEnd = function (duration) {
+    var called = false
+    var $el = this
+    $(this).one(&amp;#39;bsTransitionEnd&amp;#39;, function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+  }
+
+  $(function () {
+    $.support.transition = transitionEnd()
+
+    if (!$.support.transition) return
+
+    $.event.special.bsTransitionEnd = {
+      bindType: $.support.transition.end,
+      delegateType: $.support.transition.end,
+      handle: function (e) {
+        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+      }
+    }
+  })
+
+}(jQuery);
+&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+/* ========================================================================
+ * Bootstrap: collapse.js v3.3.7
+ * http://getbootstrap.com/javascript/#collapse
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+/* jshint latedef: false */
+
++function ($) {
+  &amp;#39;use strict&amp;#39;;
+
+  // COLLAPSE PUBLIC CLASS DEFINITION
+  // ================================
+
+  var Collapse = function (element, options) {
+    this.$element      = $(element)
+    this.options       = $.extend({}, Collapse.DEFAULTS, options)
+    this.$trigger      = $(&amp;#39;[data-toggle=&amp;quot;collapse&amp;quot;][href=&amp;quot;#&amp;#39; + element.id + &amp;#39;&amp;quot;],&amp;#39; +
+                           &amp;#39;[data-toggle=&amp;quot;collapse&amp;quot;][data-target=&amp;quot;#&amp;#39; + element.id + &amp;#39;&amp;quot;]&amp;#39;)
+    this.transitioning = null
+
+    if (this.options.parent) {
+      this.$parent = this.getParent()
+    } else {
+      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
+    }
+
+    if (this.options.toggle) this.toggle()
+  }
+
+  Collapse.VERSION  = &amp;#39;3.3.7&amp;#39;
+
+  Collapse.TRANSITION_DURATION = 350
+
+  Collapse.DEFAULTS = {
+    toggle: true
+  }
+
+  Collapse.prototype.dimension = function () {
+    var hasWidth = this.$element.hasClass(&amp;#39;width&amp;#39;)
+    return hasWidth ? &amp;#39;width&amp;#39; : &amp;#39;height&amp;#39;
+  }
+
+  Collapse.prototype.show = function () {
+    if (this.transitioning || this.$element.hasClass(&amp;#39;in&amp;#39;)) return
+
+    var activesData
+    var actives = this.$parent &amp;amp;&amp;amp; this.$parent.children(&amp;#39;.panel&amp;#39;).children(&amp;#39;.in, .collapsing&amp;#39;)
+
+    if (actives &amp;amp;&amp;amp; actives.length) {
+      activesData = actives.data(&amp;#39;bs.collapse&amp;#39;)
+      if (activesData &amp;amp;&amp;amp; activesData.transitioning) return
+    }
+
+    var startEvent = $.Event(&amp;#39;show.bs.collapse&amp;#39;)
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    if (actives &amp;amp;&amp;amp; actives.length) {
+      Plugin.call(actives, &amp;#39;hide&amp;#39;)
+      activesData || actives.data(&amp;#39;bs.collapse&amp;#39;, null)
+    }
+
+    var dimension = this.dimension()
+
+    this.$element
+      .removeClass(&amp;#39;collapse&amp;#39;)
+      .addClass(&amp;#39;collapsing&amp;#39;)[dimension](0)
+      .attr(&amp;#39;aria-expanded&amp;#39;, true)
+
+    this.$trigger
+      .removeClass(&amp;#39;collapsed&amp;#39;)
+      .attr(&amp;#39;aria-expanded&amp;#39;, true)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.$element
+        .removeClass(&amp;#39;collapsing&amp;#39;)
+        .addClass(&amp;#39;collapse in&amp;#39;)[dimension](&amp;#39;&amp;#39;)
+      this.transitioning = 0
+      this.$element
+        .trigger(&amp;#39;shown.bs.collapse&amp;#39;)
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    var scrollSize = $.camelCase([&amp;#39;scroll&amp;#39;, dimension].join(&amp;#39;-&amp;#39;))
+
+    this.$element
+      .one(&amp;#39;bsTransitionEnd&amp;#39;, $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
+  }
+
+  Collapse.prototype.hide = function () {
+    if (this.transitioning || !this.$element.hasClass(&amp;#39;in&amp;#39;)) return
+
+    var startEvent = $.Event(&amp;#39;hide.bs.collapse&amp;#39;)
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    var dimension = this.dimension()
+
+    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+
+    this.$element
+      .addClass(&amp;#39;collapsing&amp;#39;)
+      .removeClass(&amp;#39;collapse in&amp;#39;)
+      .attr(&amp;#39;aria-expanded&amp;#39;, false)
+
+    this.$trigger
+      .addClass(&amp;#39;collapsed&amp;#39;)
+      .attr(&amp;#39;aria-expanded&amp;#39;, false)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.transitioning = 0
+      this.$element
+        .removeClass(&amp;#39;collapsing&amp;#39;)
+        .addClass(&amp;#39;collapse&amp;#39;)
+        .trigger(&amp;#39;hidden.bs.collapse&amp;#39;)
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    this.$element
+      [dimension](0)
+      .one(&amp;#39;bsTransitionEnd&amp;#39;, $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
+  }
+
+  Collapse.prototype.toggle = function () {
+    this[this.$element.hasClass(&amp;#39;in&amp;#39;) ? &amp;#39;hide&amp;#39; : &amp;#39;show&amp;#39;]()
+  }
+
+  Collapse.prototype.getParent = function () {
+    return $(this.options.parent)
+      .find(&amp;#39;[data-toggle=&amp;quot;collapse&amp;quot;][data-parent=&amp;quot;&amp;#39; + this.options.parent + &amp;#39;&amp;quot;]&amp;#39;)
+      .each($.proxy(function (i, element) {
+        var $element = $(element)
+        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
+      }, this))
+      .end()
+  }
+
+  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
+    var isOpen = $element.hasClass(&amp;#39;in&amp;#39;)
+
+    $element.attr(&amp;#39;aria-expanded&amp;#39;, isOpen)
+    $trigger
+      .toggleClass(&amp;#39;collapsed&amp;#39;, !isOpen)
+      .attr(&amp;#39;aria-expanded&amp;#39;, isOpen)
+  }
+
+  function getTargetFromTrigger($trigger) {
+    var href
+    var target = $trigger.attr(&amp;#39;data-target&amp;#39;)
+      || (href = $trigger.attr(&amp;#39;href&amp;#39;)) &amp;amp;&amp;amp; href.replace(/.*(?=#[^\s]+$)/, &amp;#39;&amp;#39;) // strip for ie7
+
+    return $(target)
+  }
+
+
+  // COLLAPSE PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data(&amp;#39;bs.collapse&amp;#39;)
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == &amp;#39;object&amp;#39; &amp;amp;&amp;amp; option)
+
+      if (!data &amp;amp;&amp;amp; options.toggle &amp;amp;&amp;amp; /show|hide/.test(option)) options.toggle = false
+      if (!data) $this.data(&amp;#39;bs.collapse&amp;#39;, (data = new Collapse(this, options)))
+      if (typeof option == &amp;#39;string&amp;#39;) data[option]()
+    })
+  }
+
+  var old = $.fn.collapse
+
+  $.fn.collapse             = Plugin
+  $.fn.collapse.Constructor = Collapse
+
+
+  // COLLAPSE NO CONFLICT
+  // ====================
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+  // COLLAPSE DATA-API
+  // =================
+
+  $(document).on(&amp;#39;click.bs.collapse.data-api&amp;#39;, &amp;#39;[data-toggle=&amp;quot;collapse&amp;quot;]&amp;#39;, function (e) {
+    var $this   = $(this)
+
+    if (!$this.attr(&amp;#39;data-target&amp;#39;)) e.preventDefault()
+
+    var $target = getTargetFromTrigger($this)
+    var data    = $target.data(&amp;#39;bs.collapse&amp;#39;)
+    var option  = data ? &amp;#39;toggle&amp;#39; : $this.data()
+
+    Plugin.call($target, option)
+  })
+
+}(jQuery);
+&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+window.initializeCodeFolding = function(show) {
+
+  // handlers for show-all and hide all
+  $(&amp;quot;#rmd-show-all-code&amp;quot;).click(function() {
+    $(&amp;#39;div.r-code-collapse&amp;#39;).each(function() {
+      $(this).collapse(&amp;#39;show&amp;#39;);
+    });
+  });
+  $(&amp;quot;#rmd-hide-all-code&amp;quot;).click(function() {
+    $(&amp;#39;div.r-code-collapse&amp;#39;).each(function() {
+      $(this).collapse(&amp;#39;hide&amp;#39;);
+    });
+  });
+
+  // index for unique code element ids
+  var currentIndex = 1;
+
+  // select all R code blocks
+  var rCodeBlocks = $(&amp;#39;pre.sourceCode, pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan&amp;#39;);
+  rCodeBlocks.each(function() {
+
+    // create a collapsable div to wrap the code in
+    var div = $(&amp;#39;&amp;lt;div class=&amp;quot;collapse r-code-collapse&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;);
+    if (show)
+      div.addClass(&amp;#39;in&amp;#39;);
+    var id = &amp;#39;rcode-643E0F36&amp;#39; + currentIndex++;
+    div.attr(&amp;#39;id&amp;#39;, id);
+    $(this).before(div);
+    $(this).detach().appendTo(div);
+
+    // add a show code button right above
+    var showCodeText = $(&amp;#39;&amp;lt;span&amp;gt;&amp;#39; + (show ? &amp;#39;Hide&amp;#39; : &amp;#39;Code&amp;#39;) + &amp;#39;&amp;lt;/span&amp;gt;&amp;#39;);
+    var showCodeButton = $(&amp;#39;&amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;btn btn-default btn-xs code-folding-btn pull-right&amp;quot;&amp;gt;&amp;lt;/button&amp;gt;&amp;#39;);
+    showCodeButton.append(showCodeText);
+    showCodeButton
+        .attr(&amp;#39;data-toggle&amp;#39;, &amp;#39;collapse&amp;#39;)
+        .attr(&amp;#39;data-target&amp;#39;, &amp;#39;#&amp;#39; + id)
+        .attr(&amp;#39;aria-expanded&amp;#39;, show)
+        .attr(&amp;#39;aria-controls&amp;#39;, id);
+
+    var buttonRow = $(&amp;#39;&amp;lt;div class=&amp;quot;row&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;);
+    var buttonCol = $(&amp;#39;&amp;lt;div class=&amp;quot;col-md-12&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;&amp;#39;);
+
+    buttonCol.append(showCodeButton);
+    buttonRow.append(buttonCol);
+
+    div.before(buttonRow);
+
+    // update state of button on show/hide
+    div.on(&amp;#39;hidden.bs.collapse&amp;#39;, function () {
+      showCodeText.text(&amp;#39;Code&amp;#39;);
+    });
+    div.on(&amp;#39;show.bs.collapse&amp;#39;, function () {
+      showCodeText.text(&amp;#39;Hide&amp;#39;);
+    });
+  });
+
+}
+&amp;lt;/script&amp;gt;
+&amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;
+.code-folding-btn { margin-bottom: 4px; }
+.row { display: flex; }
+.collapse { display: none; }
+.in { display:block }
+&amp;lt;/style&amp;gt;
+&amp;lt;script&amp;gt;
+$(document).ready(function () {
+  window.initializeCodeFolding(&amp;quot;show&amp;quot; === &amp;quot;hide&amp;quot;);
+});
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;4&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;In the &lt;code&gt;index.Rmd&lt;/code&gt;, fix it to be&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;markdown&#34;&gt;&lt;code&gt;---
+title: &amp;quot;&amp;quot;
+author: &amp;quot;&amp;quot;
+date: &amp;#39;&amp;#39;
+---
+```{r setup, include=FALSE}
+
+# Add a common class name for every chunks
+knitr::opts_chunk$set(
+  echo = TRUE)
+```
+
+```{r htmlTemp3, echo=FALSE, eval=TRUE}
+
+codejs &amp;lt;- readr::read_lines(&amp;quot;js/codefolding.js&amp;quot;)
+collapsejs &amp;lt;- readr::read_lines(&amp;quot;js/collapse.js&amp;quot;)
+transitionjs &amp;lt;- readr::read_lines(&amp;quot;js/transition.js&amp;quot;)
+
+htmlhead &amp;lt;- 
+  paste(&amp;#39;
+&amp;lt;script&amp;gt;&amp;#39;,
+paste(transitionjs, collapse = &amp;quot;\n&amp;quot;),
+&amp;#39;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;&amp;#39;,
+paste(collapsejs, collapse = &amp;quot;\n&amp;quot;),
+&amp;#39;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;&amp;#39;,
+paste(codejs, collapse = &amp;quot;\n&amp;quot;),
+&amp;#39;&amp;lt;/script&amp;gt;
+&amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;
+.code-folding-btn { margin-bottom: 4px; }
+.row { display: flex; }
+.collapse { display: none; }
+.in { display:block }
+&amp;lt;/style&amp;gt;
+&amp;lt;script&amp;gt;
+$(document).ready(function () {
+  window.initializeCodeFolding(&amp;quot;show&amp;quot; === &amp;quot;show&amp;quot;);
+});
+&amp;lt;/script&amp;gt;
+&amp;#39;, sep = &amp;quot;\n&amp;quot;)
+
+readr::write_lines(htmlhead, path = &amp;quot;header.html&amp;quot;)
+```
+# Your heading 1
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;5&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;In your &lt;code&gt;_output.yaml&lt;/code&gt; change it to&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;bookdown::html_document2:
+  includes:
+    in_header: header.html
+bookdown::gitbook:
+  includes:
+    in_header: header.html&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Create your own hexagon in R</title>
