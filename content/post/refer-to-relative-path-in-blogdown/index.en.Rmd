@@ -1,0 +1,39 @@
+---
+title: refer to relative path in blogdown
+author: ''
+date: '2021-11-24'
+slug: refer-to-relative-path-in-blogdown
+categories:
+  - R
+tags:
+  - R
+  - R Markdown
+  - blogdown
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-11-24T14:05:28-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+When you write your posts/blogs on blogdown, you might not want to always refer to the absolute path appeared on your website (because you might change your domain name and all hell breaks loose).
+
+Then, to specify relative path you can
+
+-   Step 1: Change your `config.toml` file by searching for `[permalinks]` then include relative path for your post:
+
+```{r, eval = FALSE}
+[permalinks] 
+    authors = "/author/:slug/" 
+    tags = "/tag/:slug/" 
+    categories = "/category/:slug/" 
+    publication_types = "/publication-type/:slug/" 
+    post = "/post/:slug"
+```
+
+-   Step 2: Then you can start writing like usual again. For example, you can find the last post `[here](/post/slug_name_for_other_post/)` where `here` will be highlighted with the URL to the other post.

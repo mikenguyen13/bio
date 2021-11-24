@@ -1,0 +1,39 @@
+---
+title: remove files greater than 100MB from github repo before committing
+author: ''
+date: '2021-11-24'
+slug: remove-files-greater-than-100mb-from-github-repo-before-committing
+categories:
+  - GitHub
+tags:
+  - GitHub
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-11-24T13:20:38-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>I accidentally commit files greater than 100 MB (which is against GitHub’s policy - only files less than 100MB). Hence, you should always either</p>
+<ol style="list-style-type: decimal">
+<li>Ignore the files by including their names in the <code>.gitignore</code> files. You can either write the name of the file or use <code>*</code> (e.g., <code>*.rds</code> to ignore any files with <code>rds</code> ending).</li>
+<li>Use <a href="https://git-lfs.github.com/">Git Large File Storage</a> to store the files. This step is covered in <a href="/post/upload-files-greater-than-100mb-to-github/">this post</a></li>
+</ol>
+<p>Back to our problems, how can we delete the wrong commits?</p>
+<p>Luckily we can use <code>bfg.jar</code>, which could be downloaded from <a href="https://rtyley.github.io/bfg-repo-cleaner/">here</a>. I usually move the file to my GitHub directory that I want to use. But you can also leave it wherever you want.</p>
+<p>To delete the wrong commits, you can either go to “Terminal”, or I usually just to the “Terminal” tab in RStudio. Then, you can type</p>
+<p><code>java -jar bfg.jar --strip-blobs-bigger-than 100M &lt;your_repo&gt;</code></p>
+<p>For example, I use</p>
+<p><code>java -jar bfg-1.14.0.jar --strip-blobs-bigger-than 100M C:/Users/tn9k4/GitHub/finance</code></p>
+<p>where I have to change <code>bfg.jar</code> because my file has its version in its name (or you can also change your <code>bfg.jar</code> to match with your command) and my git repo is <code>C:/Users/tn9k4/GitHub/finance</code></p>
+<p>To find your git repo, you can also type in the “Terminal” tab</p>
+<p><code>git rev-parse --show-toplevel</code></p>
+<p>Please don’t include <code>.git</code> in the repo location.</p>

@@ -1,0 +1,46 @@
+---
+title: Upload files greater than 100MB to GitHub
+author: ''
+date: '2021-11-24'
+slug: upload-files-greater-than-100mb-to-github
+categories:
+  - GitHub
+tags:
+  - GitHub
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-11-24T13:32:04-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+What if you want to upload more than 100MB?
+
+This is where [Git Large File Storage](https://git-lfs.github.com/) comes in.
+
+-   Step 1: After downloading it from the link above, type `git lfs isntall` in your "Terminal" (once per user account)
+
+-   Step 2: Go to the folder that has the files you want to upload, type this command
+
+`git lfs track "*.rds"`
+
+where you can `rds` to any file types of your choice (e.g., mp4, jpeg, zip, etc.)
+
+if you want to commit multiple types then
+
+`git lfs track "*.jpg" "*.png" "*.mp4"`
+
+then, run
+
+`git add .gitattributes`
+
+Alternatively, you can also directly edit your `.gitattributes` file
+
+<br>
+
+Then, you are done. You can proceed to commit and push to GitHub like usual.

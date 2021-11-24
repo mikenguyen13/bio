@@ -1,0 +1,45 @@
+---
+title: remove files greater than 100MB from github repo before committing
+author: ''
+date: '2021-11-24'
+slug: remove-files-greater-than-100mb-from-github-repo-before-committing
+categories:
+  - GitHub
+tags:
+  - GitHub
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-11-24T13:20:38-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+I accidentally commit files greater than 100 MB (which is against GitHub's policy - only files less than 100MB). Hence, you should always either
+
+1.  Ignore the files by including their names in the `.gitignore` files. You can either write the name of the file or use `*` (e.g., `*.rds` to ignore any files with `rds` ending).
+2.  Use [Git Large File Storage](https://git-lfs.github.com/) to store the files. This step is covered in [this post](/post/upload-files-greater-than-100mb-to-github/)
+
+Back to our problems, how can we delete the wrong commits?
+
+Luckily we can use `bfg.jar`, which could be downloaded from [here](https://rtyley.github.io/bfg-repo-cleaner/). I usually move the file to my GitHub directory that I want to use. But you can also leave it wherever you want.
+
+To delete the wrong commits, you can either go to "Terminal", or I usually just to the "Terminal" tab in RStudio. Then, you can type
+
+`java -jar bfg.jar --strip-blobs-bigger-than 100M <your_repo>`
+
+For example, I use
+
+`java -jar bfg-1.14.0.jar --strip-blobs-bigger-than 100M C:/Users/tn9k4/GitHub/finance`
+
+where I have to change `bfg.jar` because my file has its version in its name (or you can also change your `bfg.jar` to match with your command) and my git repo is `C:/Users/tn9k4/GitHub/finance`
+
+To find your git repo, you can also type in the "Terminal" tab
+
+`git rev-parse --show-toplevel`
+
+Please don't include `.git` in the repo location.

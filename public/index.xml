@@ -75,6 +75,86 @@
     </item>
     
     <item>
+      <title>refer to relative path in blogdown</title>
+      <link>https://mikenguyen.netlify.app/post/refer-to-relative-path-in-blogdown/</link>
+      <pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/refer-to-relative-path-in-blogdown/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/refer-to-relative-path-in-blogdown/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;When you write your posts/blogs on blogdown, you might not want to always refer to the absolute path appeared on your website (because you might change your domain name and all hell breaks loose).&lt;/p&gt;
+&lt;p&gt;Then, to specify relative path you can&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Step 1: Change your &lt;code&gt;config.toml&lt;/code&gt; file by searching for &lt;code&gt;[permalinks]&lt;/code&gt; then include relative path for your post:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;[permalinks] 
+    authors = &amp;quot;/author/:slug/&amp;quot; 
+    tags = &amp;quot;/tag/:slug/&amp;quot; 
+    categories = &amp;quot;/category/:slug/&amp;quot; 
+    publication_types = &amp;quot;/publication-type/:slug/&amp;quot; 
+    post = &amp;quot;/post/:slug&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Step 2: Then you can start writing like usual again. For example, you can find the last post &lt;code&gt;[here](/post/slug_name_for_other_post/)&lt;/code&gt; where &lt;code&gt;here&lt;/code&gt; will be highlighted with the URL to the other post.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>remove files greater than 100MB from github repo before committing</title>
+      <link>https://mikenguyen.netlify.app/post/remove-files-greater-than-100mb-from-github-repo-before-committing/</link>
+      <pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/remove-files-greater-than-100mb-from-github-repo-before-committing/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/remove-files-greater-than-100mb-from-github-repo-before-committing/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;I accidentally commit files greater than 100 MB (which is against GitHub’s policy - only files less than 100MB). Hence, you should always either&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Ignore the files by including their names in the &lt;code&gt;.gitignore&lt;/code&gt; files. You can either write the name of the file or use &lt;code&gt;*&lt;/code&gt; (e.g., &lt;code&gt;*.rds&lt;/code&gt; to ignore any files with &lt;code&gt;rds&lt;/code&gt; ending).&lt;/li&gt;
+&lt;li&gt;Use &lt;a href=&#34;https://git-lfs.github.com/&#34;&gt;Git Large File Storage&lt;/a&gt; to store the files. This step is covered in &lt;a href=&#34;https://mikenguyen.netlify.app/post/upload-files-greater-than-100mb-to-github/&#34;&gt;this post&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Back to our problems, how can we delete the wrong commits?&lt;/p&gt;
+&lt;p&gt;Luckily we can use &lt;code&gt;bfg.jar&lt;/code&gt;, which could be downloaded from &lt;a href=&#34;https://rtyley.github.io/bfg-repo-cleaner/&#34;&gt;here&lt;/a&gt;. I usually move the file to my GitHub directory that I want to use. But you can also leave it wherever you want.&lt;/p&gt;
+&lt;p&gt;To delete the wrong commits, you can either go to “Terminal”, or I usually just to the “Terminal” tab in RStudio. Then, you can type&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;java -jar bfg.jar --strip-blobs-bigger-than 100M &amp;lt;your_repo&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;For example, I use&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;java -jar bfg-1.14.0.jar --strip-blobs-bigger-than 100M C:/Users/tn9k4/GitHub/finance&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;where I have to change &lt;code&gt;bfg.jar&lt;/code&gt; because my file has its version in its name (or you can also change your &lt;code&gt;bfg.jar&lt;/code&gt; to match with your command) and my git repo is &lt;code&gt;C:/Users/tn9k4/GitHub/finance&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;To find your git repo, you can also type in the “Terminal” tab&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git rev-parse --show-toplevel&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Please don’t include &lt;code&gt;.git&lt;/code&gt; in the repo location.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Upload files greater than 100MB to GitHub</title>
+      <link>https://mikenguyen.netlify.app/post/upload-files-greater-than-100mb-to-github/</link>
+      <pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/upload-files-greater-than-100mb-to-github/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/upload-files-greater-than-100mb-to-github/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;What if you want to upload more than 100MB?&lt;/p&gt;
+&lt;p&gt;This is where &lt;a href=&#34;https://git-lfs.github.com/&#34;&gt;Git Large File Storage&lt;/a&gt; comes in.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Step 1: After downloading it from the link above, type &lt;code&gt;git lfs isntall&lt;/code&gt; in your “Terminal” (once per user account)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Step 2: Go to the folder that has the files you want to upload, type this command&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;git lfs track &#34;*.rds&#34;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;where you can &lt;code&gt;rds&lt;/code&gt; to any file types of your choice (e.g., mp4, jpeg, zip, etc.)&lt;/p&gt;
+&lt;p&gt;if you want to commit multiple types then&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git lfs track &#34;*.jpg&#34; &#34;*.png&#34; &#34;*.mp4&#34;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;then, run&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git add .gitattributes&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Alternatively, you can also directly edit your &lt;code&gt;.gitattributes&lt;/code&gt; file&lt;/p&gt;
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;Then, you are done. You can proceed to commit and push to GitHub like usual.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>making your image and figure robust in bs4 bookdown</title>
       <link>https://mikenguyen.netlify.app/post/image-and-figure-robust-in-bs4-bookdown/</link>
       <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
@@ -1798,9 +1878,9 @@ head(tobin_q_dt)&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Apache Arrow</title>
-      <link>https://mikenguyen.netlify.app/post/arrow/</link>
+      <link>https://mikenguyen.netlify.app/post/apache-arrow/</link>
       <pubDate>Sun, 06 Dec 2020 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/post/arrow/</guid>
+      <guid>https://mikenguyen.netlify.app/post/apache-arrow/</guid>
       <description>
 &lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
 &lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
@@ -1930,9 +2010,9 @@ stopCluster(cl)&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Hello R Markdown</title>
-      <link>https://mikenguyen.netlify.app/post/r-rmarkdown/</link>
+      <link>https://mikenguyen.netlify.app/post/hello-r-markdown/</link>
       <pubDate>Mon, 23 Nov 2020 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/post/r-rmarkdown/</guid>
+      <guid>https://mikenguyen.netlify.app/post/hello-r-markdown/</guid>
       <description>
 &lt;link href=&#34;index_files/anchor-sections/anchor-sections.css&#34; rel=&#34;stylesheet&#34; /&gt;
 &lt;script src=&#34;index_files/anchor-sections/anchor-sections.js&#34;&gt;&lt;/script&gt;
@@ -1987,9 +2067,9 @@ Figure 1: A fancy pie chart.
     
     <item>
       <title>Writing technical content in Academic</title>
-      <link>https://mikenguyen.netlify.app/post/writing-technical-content/</link>
+      <link>https://mikenguyen.netlify.app/post/writing-technical-content-in-academic/</link>
       <pubDate>Fri, 12 Jul 2019 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/post/writing-technical-content/</guid>
+      <guid>https://mikenguyen.netlify.app/post/writing-technical-content-in-academic/</guid>
       <description>&lt;p&gt;Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;On this page, you&amp;rsquo;ll find some examples of the types of technical content that can be rendered with Academic.&lt;/p&gt;
@@ -2013,7 +2093,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-152683479&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-473126859&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2023,7 +2103,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-152683479&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-473126859&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
@@ -2273,9 +2353,9 @@ You found me!
     
     <item>
       <title>Display Jupyter Notebooks with Academic</title>
-      <link>https://mikenguyen.netlify.app/post/jupyter/</link>
+      <link>https://mikenguyen.netlify.app/post/display-jupyter-notebooks-with-academic/</link>
       <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/post/jupyter/</guid>
+      <guid>https://mikenguyen.netlify.app/post/display-jupyter-notebooks-with-academic/</guid>
       <description>&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from IPython.core.display import Image
 Image(&#39;https://www.python.org/static/community_logos/python-logo-master-v3-TM-flattened.png&#39;)
 &lt;/code&gt;&lt;/pre&gt;
@@ -2467,9 +2547,9 @@ Three
     
     <item>
       <title>Academic: the website builder for Hugo</title>
-      <link>https://mikenguyen.netlify.app/post/getting-started/</link>
+      <link>https://mikenguyen.netlify.app/post/academic-the-website-builder-for-hugo/</link>
       <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/post/getting-started/</guid>
+      <guid>https://mikenguyen.netlify.app/post/academic-the-website-builder-for-hugo/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Create a free website with Academic using Markdown, Jupyter, or RStudio. Choose a beautiful color theme and build anything with the Page Builder - over 40 &lt;em&gt;widgets&lt;/em&gt;, &lt;em&gt;themes&lt;/em&gt;, and &lt;em&gt;language packs&lt;/em&gt; included!&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://academic-demo.netlify.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Check out the latest &lt;strong&gt;demo&lt;/strong&gt;&lt;/a&gt; of what you&amp;rsquo;ll get in less than 10 minutes, or &lt;a href=&#34;https://sourcethemes.com/academic/#expo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;view the &lt;strong&gt;showcase&lt;/strong&gt;&lt;/a&gt; of personal, project, and business sites.&lt;/p&gt;
 &lt;ul&gt;

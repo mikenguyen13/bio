@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blogdown | Mike Nguyen</title>
+    <link>https://mikenguyen.netlify.app/tag/blogdown/</link>
+      <atom:link href="https://mikenguyen.netlify.app/tag/blogdown/index.xml" rel="self" type="application/rss+xml" />
+    <description>blogdown</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Wed, 24 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
+      <title>blogdown</title>
+      <link>https://mikenguyen.netlify.app/tag/blogdown/</link>
+    </image>
+    
+    <item>
+      <title>refer to relative path in blogdown</title>
+      <link>https://mikenguyen.netlify.app/post/refer-to-relative-path-in-blogdown/</link>
+      <pubDate>Wed, 24 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/refer-to-relative-path-in-blogdown/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/refer-to-relative-path-in-blogdown/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;When you write your posts/blogs on blogdown, you might not want to always refer to the absolute path appeared on your website (because you might change your domain name and all hell breaks loose).&lt;/p&gt;
+&lt;p&gt;Then, to specify relative path you can&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Step 1: Change your &lt;code&gt;config.toml&lt;/code&gt; file by searching for &lt;code&gt;[permalinks]&lt;/code&gt; then include relative path for your post:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;[permalinks] 
+    authors = &amp;quot;/author/:slug/&amp;quot; 
+    tags = &amp;quot;/tag/:slug/&amp;quot; 
+    categories = &amp;quot;/category/:slug/&amp;quot; 
+    publication_types = &amp;quot;/publication-type/:slug/&amp;quot; 
+    post = &amp;quot;/post/:slug&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;Step 2: Then you can start writing like usual again. For example, you can find the last post &lt;code&gt;[here](/post/slug_name_for_other_post/)&lt;/code&gt; where &lt;code&gt;here&lt;/code&gt; will be highlighted with the URL to the other post.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
