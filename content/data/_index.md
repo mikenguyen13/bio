@@ -9,6 +9,9 @@ headless: false
 ---
 
 [Awesome Data on Everything](https://github.com/awesomedata/awesome-public-datasets)
+[Government Data](https://github.com/cisagov/dotgov-data)
+[Political Dataset](https://marvelous.ai/resources/)
+
 
 # Management 
 

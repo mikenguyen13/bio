@@ -816,9 +816,12 @@ This is where Git Large File Storage comes in.
 <p>where you can <code>rds</code> to any file types of your choice (e.g., mp4, jpeg, zip, etc.)</p>
 <p>if you want to commit multiple types then</p>
 <p><code>git lfs track "*.jpg" "*.png" "*.mp4"</code></p>
-<p>then, run</p>
+<p>my usual go-to command is</p>
+<p><code>git lfs track "*.csv" "*.xlsx" "*.rds" "*.sas7bdat" "*csv.gz" "*.CSV"</code></p>
+<p>which will create a <code>.gitattributes</code> file</p>
+<p>then, you need to track this file by</p>
 <p><code>git add .gitattributes</code></p>
-<p>Alternatively, you can also directly edit your <code>.gitattributes</code> file</p>
+<p>Alternatively, you can also directly edit your <code>.gitattributes</code> file (but then you still need to add it: <code>git add .gitattributes</code> )</p>
 <p><br></p>
 <p>Then, you are done. You can proceed to commit and push to GitHub like usual.</p>
 

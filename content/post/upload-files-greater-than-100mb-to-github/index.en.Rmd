@@ -35,12 +35,22 @@ if you want to commit multiple types then
 
 `git lfs track "*.jpg" "*.png" "*.mp4"`
 
-then, run
+my usual go-to command is
+
+`git lfs track "*.csv" "*.xlsx" "*.rds" "*.sas7bdat" "*csv.gz" "*.CSV"`
+
+which will create a `.gitattributes` file
+
+then, you need to track this file by
 
 `git add .gitattributes`
 
-Alternatively, you can also directly edit your `.gitattributes` file
+Alternatively, you can also directly edit your `.gitattributes` file (but then you still need to add it: `git add .gitattributes` )
 
 <br>
 
 Then, you are done. You can proceed to commit and push to GitHub like usual.
+
+If your files are stored on Git LFS, it will have the label of "Stored with Git LFS"
+
+Then, if you want to pull the directory with Git LFS, you can just install `git-lfs` then proceed to pull as usual.
