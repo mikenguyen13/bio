@@ -1,6 +1,6 @@
 ---
 title: Connect WRDS in R
-author: Mike Nguye
+author: Mike Nguyen
 date: '2020-12-29'
 slug: connect-wrds-in-r
 categories:
