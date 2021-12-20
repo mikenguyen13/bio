@@ -1,483 +1,295 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://mikenguyen.netlify.app/courses/example/example1/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/courses/example/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/courses/example/example2/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/talk/example/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/talk/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
+    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/project-managment-for-researchers/</loc>
+    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/research/</loc>
+    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/blogdown/</loc>
     <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/github/</loc>
     <lastmod>2021-11-24T13:32:04-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/category/github/</loc>
     <lastmod>2021-11-24T13:32:04-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/r/</loc>
     <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/category/r/</loc>
     <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/r-markdown/</loc>
     <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/refer-to-relative-path-in-blogdown/</loc>
     <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/remove-files-greater-than-100mb-from-github-repo-before-committing/</loc>
     <lastmod>2021-11-24T13:20:38-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
-    <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/upload-files-greater-than-100mb-to-github/</loc>
     <lastmod>2021-11-24T13:32:04-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/bookdown/</loc>
     <lastmod>2021-11-22T13:59:35-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/image-and-figure-robust-in-bs4-bookdown/</loc>
     <lastmod>2021-11-22T13:59:35-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/fold-code-in-bookdown/</loc>
     <lastmod>2021-11-21T12:35:56-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/category/data/</loc>
     <lastmod>2021-10-14T14:33:45-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/experimentation-at-scale/</loc>
     <lastmod>2021-10-14T14:33:45-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/create-your-own-hexagon-in-r/</loc>
     <lastmod>2021-08-16T11:34:57-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/how-to-add-cover-image-to-bookdown/</loc>
     <lastmod>2021-08-16T19:47:44-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/bookdown-statistics/</loc>
     <lastmod>2021-08-15T18:00:31-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/how-to-connect-bookdown-with-google-analytics/</loc>
     <lastmod>2021-08-14T19:18:23-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/template-for-shiny/</loc>
     <lastmod>2021-04-29T22:53:25-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/css-and-sass/</loc>
     <lastmod>2021-04-04T14:28:21-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/reproducible/</loc>
     <lastmod>2021-04-03T13:06:02-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/reproducible-example-reprex/</loc>
     <lastmod>2021-04-03T13:06:02-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/scaling-shiny/</loc>
     <lastmod>2021-04-02T14:08:41-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/arrow/</loc>
     <lastmod>2021-02-26T11:07:29-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/new-pipe-in-r/</loc>
     <lastmod>2021-02-26T11:07:29-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/randomized-study-design/</loc>
     <lastmod>2021-02-24T19:30:43-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/data/</loc>
     <lastmod>2021-02-20T12:48:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/data-manipulation/</loc>
     <lastmod>2021-02-20T12:48:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/fix-for-cannot-allocate-vector-of-size/</loc>
     <lastmod>2021-02-20T12:48:28-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
-    <lastmod>2021-02-19T13:54:47-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/caching-for-faster-shiny-app/</loc>
     <lastmod>2021-02-19T13:17:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/create-your-own-package/</loc>
     <lastmod>2021-02-19T15:17:18-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/learnr-to-guide-students/</loc>
     <lastmod>2021-02-19T13:54:47-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/python/</loc>
     <lastmod>2021-02-19T14:28:15-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/category/python/</loc>
     <lastmod>2021-02-19T14:28:15-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/use-dplyr-in-python-siuba-library/</loc>
     <lastmod>2021-02-19T14:28:15-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/connect-wrds-in-r/</loc>
     <lastmod>2020-12-29T17:10:53-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/category/finance/</loc>
     <lastmod>2020-12-29T17:10:53-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/finance/</loc>
     <lastmod>2020-12-29T17:10:53-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/category/marketing/</loc>
     <lastmod>2020-12-29T17:10:53-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/flipbooks/</loc>
     <lastmod>2020-12-20T14:20:27-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/psychological-experiments/</loc>
     <lastmod>2020-12-20T15:08:47-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/renv/</loc>
     <lastmod>2020-12-20T13:47:28-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/tobin-s-q/</loc>
     <lastmod>2020-12-19T19:54:29-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/dissertation/</loc>
     <lastmod>2020-12-10T00:35:23-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/doctoral-student/</loc>
     <lastmod>2020-12-10T00:35:23-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/marketing-call-for-proposal/</loc>
     <lastmod>2020-12-10T00:35:23-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/proposal/</loc>
     <lastmod>2020-12-10T00:35:23-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/category/proposal/</loc>
     <lastmod>2020-12-10T00:35:23-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/patent-databases/</loc>
     <lastmod>2020-12-09T17:13:32-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/link_crsp_compustat/</loc>
     <lastmod>2020-12-08T15:04:11-06:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/apache-arrow/</loc>
     <lastmod>2020-12-06T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/doparallel/</loc>
     <lastmod>2020-11-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/hpc/</loc>
     <lastmod>2020-11-30T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/hello-r-markdown/</loc>
     <lastmod>2020-11-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/plot/</loc>
     <lastmod>2020-11-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/regression/</loc>
     <lastmod>2020-11-23T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/writing-technical-content-in-academic/</loc>
     <lastmod>2019-07-12T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/courses/</loc>
     <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/publication-type/3/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/publication/preprint/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/authors/</loc>
     <lastmod>2019-09-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/author/mike-nguyen/</loc>
     <lastmod>2019-09-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/publication_types/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/publication/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/source-themes/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/display-jupyter-notebooks-with-academic/</loc>
     <lastmod>2019-09-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/slides/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/slides/example/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/deep-learning/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/demo/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/project/external-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/project/internal-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/post/academic-the-website-builder-for-hugo/</loc>
     <lastmod>2019-04-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/category/demo/</loc>
     <lastmod>2019-04-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/publication-type/2/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/publication/journal-article/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/author/robert-ford/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/publication-type/1/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/publication/conference-paper/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/about/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/projects/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/publications/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/books/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/data/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/books/recommended_books/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/books/written_books/</loc>
   </url>
-  
 </urlset>

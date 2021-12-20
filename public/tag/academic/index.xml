@@ -5,12 +5,30 @@
     <link>https://mikenguyen.netlify.app/tag/academic/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/academic/index.xml" rel="self" type="application/rss+xml" />
     <description>Academic</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Fri, 19 Feb 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Mon, 13 Dec 2021 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_2.png</url>
+      <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_3.png</url>
       <title>Academic</title>
       <link>https://mikenguyen.netlify.app/tag/academic/</link>
     </image>
+    
+    <item>
+      <title>Project Managment for Researchers</title>
+      <link>https://mikenguyen.netlify.app/post/project-managment-for-researchers/</link>
+      <pubDate>Mon, 13 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/project-managment-for-researchers/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/project-managment-for-researchers/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;As a PhD student, it can be overwhelming sometimes with all the projects, courses (either teaching or taking), and conferences that you have to manage. Since I might not be the only one who struggle with this management task, I’d like to share my favorite project management app.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://asana.com/&#34;&gt;Asana&lt;/a&gt;: great design, user-friendly, but cannot connect to other app (e.g., One Drive)&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://trello.com/&#34;&gt;Trello&lt;/a&gt;: greatly recommended by others, good for big projects, limited free options, and no templates for academic research, cannot connect to other apps&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;monday.com&#34;&gt;Monday&lt;/a&gt;: great template for academic research, can integrate with other apps well.&lt;/p&gt;
+&lt;p&gt;Hence, personally I use and suggest Monday for academic researchers.&lt;/p&gt;
+&lt;p&gt;(This post is not sponsored by any providers).&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>learnr to guide students</title>
