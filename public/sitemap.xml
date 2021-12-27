@@ -21,21 +21,36 @@
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
-    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/demo/</loc>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/doctoral-student/</loc>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/post/project-managment-for-researchers/</loc>
-    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+    <loc>https://mikenguyen.netlify.app/tag/python/</loc>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/python/</loc>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/category/research/</loc>
-    <lastmod>2021-12-13T15:15:28-06:00</lastmod>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/task-scheduler-with-python-and-anaconda-environment/</loc>
+    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/project-managment-for-researchers/</loc>
     <lastmod>2021-12-13T15:15:28-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/blogdown/</loc>
@@ -134,12 +149,6 @@
     <loc>https://mikenguyen.netlify.app/post/learnr-to-guide-students/</loc>
     <lastmod>2021-02-19T13:54:47-06:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/python/</loc>
-    <lastmod>2021-02-19T14:28:15-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/python/</loc>
-    <lastmod>2021-02-19T14:28:15-06:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/post/use-dplyr-in-python-siuba-library/</loc>
     <lastmod>2021-02-19T14:28:15-06:00</lastmod>
   </url><url>
@@ -168,9 +177,6 @@
     <lastmod>2020-12-19T19:54:29-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/dissertation/</loc>
-    <lastmod>2020-12-10T00:35:23-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/doctoral-student/</loc>
     <lastmod>2020-12-10T00:35:23-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/marketing-call-for-proposal/</loc>
@@ -258,9 +264,6 @@
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/academic-the-website-builder-for-hugo/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/demo/</loc>
     <lastmod>2019-04-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/publication-type/2/</loc>

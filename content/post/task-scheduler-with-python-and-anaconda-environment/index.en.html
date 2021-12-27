@@ -1,0 +1,46 @@
+---
+title: Task Scheduler with Python and Anaconda environment
+author: ''
+date: '2021-12-26'
+slug: task-scheduler-with-python-and-anaconda-environment
+categories:
+  - Python
+  - research
+  - Demo
+tags:
+  - Python
+  - doctoral student
+  - Academic
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2021-12-26T23:01:12-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Frequently, we as researchers would like to expedite our work process with programs when we have repeated tasks. There is an easy way for you to do this with Python on your Windows computer.</p>
+<p>Steps:</p>
+<ol style="list-style-type: decimal">
+<li>Create your python file: <code>file.py</code></li>
+<li>Create your bat file to call your environment and the python scrip: <code>file.bat</code> (typically we edit in “Notepad”)</li>
+</ol>
+<pre class="r"><code>call activate &quot;C:\Users\user_name\Anaconda3\envs\envs_name&quot;
+python &quot;C:\Users\...\file.py&quot;
+call conda deactivate</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Search for “Task Scheduler”</li>
+<li>On the right-hand side, you will see “Create Basic Task”</li>
+</ol>
+<p><img src="Capture.PNG" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Follow the steps until “Action”, pick “Start a program”</li>
+<li>Browse your <code>file.bat</code> and finish</li>
+</ol>

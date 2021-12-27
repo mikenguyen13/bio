@@ -75,6 +75,36 @@
     </item>
     
     <item>
+      <title>Task Scheduler with Python and Anaconda environment</title>
+      <link>https://mikenguyen.netlify.app/post/task-scheduler-with-python-and-anaconda-environment/</link>
+      <pubDate>Sun, 26 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/task-scheduler-with-python-and-anaconda-environment/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/task-scheduler-with-python-and-anaconda-environment/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Frequently, we as researchers would like to expedite our work process with programs when we have repeated tasks. There is an easy way for you to do this with Python on your Windows computer.&lt;/p&gt;
+&lt;p&gt;Steps:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Create your python file: &lt;code&gt;file.py&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Create your bat file to call your environment and the python scrip: &lt;code&gt;file.bat&lt;/code&gt; (typically we edit in “Notepad”)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;call activate &amp;quot;C:\Users\user_name\Anaconda3\envs\envs_name&amp;quot;
+python &amp;quot;C:\Users\...\file.py&amp;quot;
+call conda deactivate&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Search for “Task Scheduler”&lt;/li&gt;
+&lt;li&gt;On the right-hand side, you will see “Create Basic Task”&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;Capture.PNG&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Follow the steps until “Action”, pick “Start a program”&lt;/li&gt;
+&lt;li&gt;Browse your &lt;code&gt;file.bat&lt;/code&gt; and finish&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Project Managment for Researchers</title>
       <link>https://mikenguyen.netlify.app/post/project-managment-for-researchers/</link>
       <pubDate>Mon, 13 Dec 2021 00:00:00 +0000</pubDate>
@@ -2114,7 +2144,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-352619874&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-439187265&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2124,7 +2154,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-352619874&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-439187265&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

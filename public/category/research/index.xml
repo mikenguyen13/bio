@@ -5,12 +5,42 @@
     <link>https://mikenguyen.netlify.app/category/research/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/research/index.xml" rel="self" type="application/rss+xml" />
     <description>research</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Mon, 13 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Sun, 26 Dec 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_3.png</url>
       <title>research</title>
       <link>https://mikenguyen.netlify.app/category/research/</link>
     </image>
+    
+    <item>
+      <title>Task Scheduler with Python and Anaconda environment</title>
+      <link>https://mikenguyen.netlify.app/post/task-scheduler-with-python-and-anaconda-environment/</link>
+      <pubDate>Sun, 26 Dec 2021 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/task-scheduler-with-python-and-anaconda-environment/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/task-scheduler-with-python-and-anaconda-environment/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Frequently, we as researchers would like to expedite our work process with programs when we have repeated tasks. There is an easy way for you to do this with Python on your Windows computer.&lt;/p&gt;
+&lt;p&gt;Steps:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Create your python file: &lt;code&gt;file.py&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Create your bat file to call your environment and the python scrip: &lt;code&gt;file.bat&lt;/code&gt; (typically we edit in “Notepad”)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;call activate &amp;quot;C:\Users\user_name\Anaconda3\envs\envs_name&amp;quot;
+python &amp;quot;C:\Users\...\file.py&amp;quot;
+call conda deactivate&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;3&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Search for “Task Scheduler”&lt;/li&gt;
+&lt;li&gt;On the right-hand side, you will see “Create Basic Task”&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&#34;Capture.PNG&#34; /&gt;&lt;/p&gt;
+&lt;ol start=&#34;5&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Follow the steps until “Action”, pick “Start a program”&lt;/li&gt;
+&lt;li&gt;Browse your &lt;code&gt;file.bat&lt;/code&gt; and finish&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>Project Managment for Researchers</title>
