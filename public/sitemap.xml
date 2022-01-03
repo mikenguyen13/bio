@@ -20,19 +20,43 @@
     <loc>https://mikenguyen.netlify.app/talk/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
-    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/github/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/github/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/missing-git-tab-in-rstudio-on-windows-computer/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/r/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/rstudio/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/rstudio/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
     <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/category/demo/</loc>
     <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/doctoral-student/</loc>
-    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
     <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/python/</loc>
@@ -44,9 +68,6 @@
     <loc>https://mikenguyen.netlify.app/category/research/</loc>
     <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
-    <lastmod>2021-12-26T23:01:12-06:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/post/task-scheduler-with-python-and-anaconda-environment/</loc>
     <lastmod>2021-12-26T23:01:12-06:00</lastmod>
   </url><url>
@@ -54,18 +75,6 @@
     <lastmod>2021-12-13T15:15:28-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/blogdown/</loc>
-    <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/github/</loc>
-    <lastmod>2021-11-24T13:32:04-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/github/</loc>
-    <lastmod>2021-11-24T13:32:04-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/r/</loc>
-    <lastmod>2021-11-24T14:05:28-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
     <lastmod>2021-11-24T14:05:28-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/r-markdown/</loc>

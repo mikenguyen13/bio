@@ -1,0 +1,66 @@
+---
+title: Missing Git tab in Rstudio on Windows computer
+author: Nguyen, Mike
+date: '2022-01-03'
+slug: missing-git-tab-in-rstudio-on-windows-computer
+categories:
+  - R
+  - Rstudio
+  - GitHub
+tags:
+  - GitHub
+  - Rstudio
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-01-03T12:53:22-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+Due to a new movement in the tech industry, organizations (e.g., companies or universities) will not allow their members to have complete control of their machines (i.e., administrative privileges or running programs as administrators). Hence, if members want to use this function, they typically have to apply for permission to use the "Make Me Admin" app, which grants administrator rights for 15 minutes. This movement can seriously hinder the working process and speed. But it seems unstoppable now (i.e., an industry-wide adoption). Hence, before installing programs on your computer, you will always need to run this app first. Or else, when being asked for admin privileges, your username and password will not suffice.
+
+Moreover, another movement is where organizations only use cloud storage (e.g., Dropbox, Box, OneDrive) instead of purchasing physical hard drives. Hence, your home default directory might be changed and cause unintended consequences (e.g., disintegration between GitHub and Rstudio). For example, my organization recently implemented an org-wide integration with OneDrive. Hence, my default home directory was changed from `C:\Users\tn9k4\Documents\` to `C:\Users\tn9k4\OneDrive - University of Missouri\Documents`. This change disrupts my configuration between GitHub and Rstudio.
+
+I can still manually push, pull, and do various things with GitHub, but only via manually coding. T**he Git tab in Rstudio is missing in Rstudio on Windows computers.**
+
+1.  I've tried to reinstall Git, Rstudio, and reset the Rstudio settings.
+2.  I successfully cloned a repo from GitHub, but the tab would not appear.
+3.  And my terminal inside Rstudio looks like a normal Window Terminal (not like that of Git Terminal).
+4.  In my Global Options, my Git executable and SSH RSA key are working well.
+
+And none of the above solutions works.
+
+Hence, a manual modification is required to fix this hiccup.
+
+1.  First, we have to come back to the basics. We search for the Git on your machine. On Windows: `where git` On Linux & Mac: `which git` For me, I have three directories:
+
+    1.  `C:\Users\tn9k4\scoop\shims\git.exe`
+
+    2.  `C:\Users\tn9k4\AppData\Local\Programs\Git\mingw64\bin\git.exe`
+
+    3.  `C:\Users\tn9k4\AppData\Local\Programs\Git\cmd\git.exe`
+
+2.  Go to Tools -> Global Options -> Git/SVN, change the "Git executable" to the second path (`C:\Users\tn9k4\AppData\Local\Programs\Git\cmd\git.exe`). The first is installed with Scoop, and your Rstudio cannot recognize it.
+
+3.  Search on your Windows Search bar, "edit the system environment variables," click on "Environment Variables". Then click on "PATH" under the user variable (not the system variable). Add your bin path (e.g., `C:/Users/tn9k4/AppData/Local/Programs/Git/bin`)
+
+4.  Reset and Reopen your Rstudio; you should be able to see your Git tab now.
+
+All of the problems stem from installing only to my user directory since I don't have admin privileges yet.
+
+To avoid these mambo jumbos, an alternative way is that you can simply uninstall git and scoop and reinstall Git with admin privileges.
+
+1.  Search for "Add or remove programs" in your Windows search bar. Then, uninstall "Git."
+2.  In "Terminal", execute `scoop uninstall scoop`
+3.  Then download Git 64 Standalone Installer from <https://git-scm.com/download/win> (use the version according to your computer). When opening the installer, right-click to "Run as Admin," then you have the option to install it in `C:\Program Files\` Remember to pick "Use Git from the Windows Command Prompt" and "Enable Symbolic Links."
+4.  Open "Rstudio" with "Run as Admin", go to Tools -> Global Options -> Terminal -> New terminal open with -> Select "Git Bash"
+
+Voila! You are all set again.
+
+Moral of the story: always "run as Admin" so that your system can consistently configure

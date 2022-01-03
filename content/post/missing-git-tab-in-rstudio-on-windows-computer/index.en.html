@@ -1,0 +1,60 @@
+---
+title: Missing Git tab in Rstudio on Windows computer
+author: Nguyen, Mike
+date: '2022-01-03'
+slug: missing-git-tab-in-rstudio-on-windows-computer
+categories:
+  - R
+  - Rstudio
+  - GitHub
+tags:
+  - GitHub
+  - Rstudio
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-01-03T12:53:22-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Due to a new movement in the tech industry, organizations (e.g., companies or universities) will not allow their members to have complete control of their machines (i.e., administrative privileges or running programs as administrators). Hence, if members want to use this function, they typically have to apply for permission to use the “Make Me Admin” app, which grants administrator rights for 15 minutes. This movement can seriously hinder the working process and speed. But it seems unstoppable now (i.e., an industry-wide adoption). Hence, before installing programs on your computer, you will always need to run this app first. Or else, when being asked for admin privileges, your username and password will not suffice.</p>
+<p>Moreover, another movement is where organizations only use cloud storage (e.g., Dropbox, Box, OneDrive) instead of purchasing physical hard drives. Hence, your home default directory might be changed and cause unintended consequences (e.g., disintegration between GitHub and Rstudio). For example, my organization recently implemented an org-wide integration with OneDrive. Hence, my default home directory was changed from <code>C:\Users\tn9k4\Documents\</code> to <code>C:\Users\tn9k4\OneDrive - University of Missouri\Documents</code>. This change disrupts my configuration between GitHub and Rstudio.</p>
+<p>I can still manually push, pull, and do various things with GitHub, but only via manually coding. T<strong>he Git tab in Rstudio is missing in Rstudio on Windows computers.</strong></p>
+<ol style="list-style-type: decimal">
+<li>I’ve tried to reinstall Git, Rstudio, and reset the Rstudio settings.</li>
+<li>I successfully cloned a repo from GitHub, but the tab would not appear.</li>
+<li>And my terminal inside Rstudio looks like a normal Window Terminal (not like that of Git Terminal).</li>
+<li>In my Global Options, my Git executable and SSH RSA key are working well.</li>
+</ol>
+<p>And none of the above solutions works.</p>
+<p>Hence, a manual modification is required to fix this hiccup.</p>
+<ol style="list-style-type: decimal">
+<li><p>First, we have to come back to the basics. We search for the Git on your machine. On Windows: <code>where git</code> On Linux &amp; Mac: <code>which git</code> For me, I have three directories:</p>
+<ol style="list-style-type: decimal">
+<li><p><code>C:\Users\tn9k4\scoop\shims\git.exe</code></p></li>
+<li><p><code>C:\Users\tn9k4\AppData\Local\Programs\Git\mingw64\bin\git.exe</code></p></li>
+<li><p><code>C:\Users\tn9k4\AppData\Local\Programs\Git\cmd\git.exe</code></p></li>
+</ol></li>
+<li><p>Go to Tools -&gt; Global Options -&gt; Git/SVN, change the “Git executable” to the second path (<code>C:\Users\tn9k4\AppData\Local\Programs\Git\cmd\git.exe</code>). The first is installed with Scoop, and your Rstudio cannot recognize it.</p></li>
+<li><p>Search on your Windows Search bar, “edit the system environment variables,” click on “Environment Variables”. Then click on “PATH” under the user variable (not the system variable). Add your bin path (e.g., <code>C:/Users/tn9k4/AppData/Local/Programs/Git/bin</code>)</p></li>
+<li><p>Reset and Reopen your Rstudio; you should be able to see your Git tab now.</p></li>
+</ol>
+<p>All of the problems stem from installing only to my user directory since I don’t have admin privileges yet.</p>
+<p>To avoid these mambo jumbos, an alternative way is that you can simply uninstall git and scoop and reinstall Git with admin privileges.</p>
+<ol style="list-style-type: decimal">
+<li>Search for “Add or remove programs” in your Windows search bar. Then, uninstall “Git.”</li>
+<li>In “Terminal”, execute <code>scoop uninstall scoop</code></li>
+<li>Then download Git 64 Standalone Installer from <a href="https://git-scm.com/download/win" class="uri">https://git-scm.com/download/win</a> (use the version according to your computer). When opening the installer, right-click to “Run as Admin,” then you have the option to install it in <code>C:\Program Files\</code> Remember to pick “Use Git from the Windows Command Prompt” and “Enable Symbolic Links.”</li>
+<li>Open “Rstudio” with “Run as Admin”, go to Tools -&gt; Global Options -&gt; Terminal -&gt; New terminal open with -&gt; Select “Git Bash”</li>
+</ol>
+<p>Voila! You are all set again.</p>
+<p>Moral of the story: always “run as Admin” so that your system can consistently configure</p>

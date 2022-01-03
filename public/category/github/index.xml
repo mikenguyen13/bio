@@ -5,12 +5,56 @@
     <link>https://mikenguyen.netlify.app/category/github/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/github/index.xml" rel="self" type="application/rss+xml" />
     <description>GitHub</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2021</copyright><lastBuildDate>Wed, 24 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Mon, 03 Jan 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_3.png</url>
       <title>GitHub</title>
       <link>https://mikenguyen.netlify.app/category/github/</link>
     </image>
+    
+    <item>
+      <title>Missing Git tab in Rstudio on Windows computer</title>
+      <link>https://mikenguyen.netlify.app/post/missing-git-tab-in-rstudio-on-windows-computer/</link>
+      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/missing-git-tab-in-rstudio-on-windows-computer/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/missing-git-tab-in-rstudio-on-windows-computer/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Due to a new movement in the tech industry, organizations (e.g., companies or universities) will not allow their members to have complete control of their machines (i.e., administrative privileges or running programs as administrators). Hence, if members want to use this function, they typically have to apply for permission to use the “Make Me Admin” app, which grants administrator rights for 15 minutes. This movement can seriously hinder the working process and speed. But it seems unstoppable now (i.e., an industry-wide adoption). Hence, before installing programs on your computer, you will always need to run this app first. Or else, when being asked for admin privileges, your username and password will not suffice.&lt;/p&gt;
+&lt;p&gt;Moreover, another movement is where organizations only use cloud storage (e.g., Dropbox, Box, OneDrive) instead of purchasing physical hard drives. Hence, your home default directory might be changed and cause unintended consequences (e.g., disintegration between GitHub and Rstudio). For example, my organization recently implemented an org-wide integration with OneDrive. Hence, my default home directory was changed from &lt;code&gt;C:\Users\tn9k4\Documents\&lt;/code&gt; to &lt;code&gt;C:\Users\tn9k4\OneDrive - University of Missouri\Documents&lt;/code&gt;. This change disrupts my configuration between GitHub and Rstudio.&lt;/p&gt;
+&lt;p&gt;I can still manually push, pull, and do various things with GitHub, but only via manually coding. T&lt;strong&gt;he Git tab in Rstudio is missing in Rstudio on Windows computers.&lt;/strong&gt;&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;I’ve tried to reinstall Git, Rstudio, and reset the Rstudio settings.&lt;/li&gt;
+&lt;li&gt;I successfully cloned a repo from GitHub, but the tab would not appear.&lt;/li&gt;
+&lt;li&gt;And my terminal inside Rstudio looks like a normal Window Terminal (not like that of Git Terminal).&lt;/li&gt;
+&lt;li&gt;In my Global Options, my Git executable and SSH RSA key are working well.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;And none of the above solutions works.&lt;/p&gt;
+&lt;p&gt;Hence, a manual modification is required to fix this hiccup.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;First, we have to come back to the basics. We search for the Git on your machine. On Windows: &lt;code&gt;where git&lt;/code&gt; On Linux &amp;amp; Mac: &lt;code&gt;which git&lt;/code&gt; For me, I have three directories:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;C:\Users\tn9k4\scoop\shims\git.exe&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;C:\Users\tn9k4\AppData\Local\Programs\Git\mingw64\bin\git.exe&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;C:\Users\tn9k4\AppData\Local\Programs\Git\cmd\git.exe&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Go to Tools -&amp;gt; Global Options -&amp;gt; Git/SVN, change the “Git executable” to the second path (&lt;code&gt;C:\Users\tn9k4\AppData\Local\Programs\Git\cmd\git.exe&lt;/code&gt;). The first is installed with Scoop, and your Rstudio cannot recognize it.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Search on your Windows Search bar, “edit the system environment variables,” click on “Environment Variables”. Then click on “PATH” under the user variable (not the system variable). Add your bin path (e.g., &lt;code&gt;C:/Users/tn9k4/AppData/Local/Programs/Git/bin&lt;/code&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Reset and Reopen your Rstudio; you should be able to see your Git tab now.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;All of the problems stem from installing only to my user directory since I don’t have admin privileges yet.&lt;/p&gt;
+&lt;p&gt;To avoid these mambo jumbos, an alternative way is that you can simply uninstall git and scoop and reinstall Git with admin privileges.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Search for “Add or remove programs” in your Windows search bar. Then, uninstall “Git.”&lt;/li&gt;
+&lt;li&gt;In “Terminal”, execute &lt;code&gt;scoop uninstall scoop&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Then download Git 64 Standalone Installer from &lt;a href=&#34;https://git-scm.com/download/win&#34; class=&#34;uri&#34;&gt;https://git-scm.com/download/win&lt;/a&gt; (use the version according to your computer). When opening the installer, right-click to “Run as Admin,” then you have the option to install it in &lt;code&gt;C:\Program Files\&lt;/code&gt; Remember to pick “Use Git from the Windows Command Prompt” and “Enable Symbolic Links.”&lt;/li&gt;
+&lt;li&gt;Open “Rstudio” with “Run as Admin”, go to Tools -&amp;gt; Global Options -&amp;gt; Terminal -&amp;gt; New terminal open with -&amp;gt; Select “Git Bash”&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Voila! You are all set again.&lt;/p&gt;
+&lt;p&gt;Moral of the story: always “run as Admin” so that your system can consistently configure&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>remove files greater than 100MB from github repo before committing</title>
