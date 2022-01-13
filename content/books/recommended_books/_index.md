@@ -16,7 +16,7 @@ Please enjoy!!!
 
 **Note**: my book recommendations do not reflect the viewpoints of any of my affiliated organizations, but mine alone.  
 
-### General
+# General
 
  * [Heuristics and Biases: The Psychology of Intuitive Judgment - Daniel Kahneman, Thomas Gilovich, Dale Griffin (2002)](https://www.google.com/books/edition/Heuristics_and_Biases/FfTVDY-zrCoC?)
  * [Blink: The Power of Thinking Without Thinking - Malcolm Gladwell (2007)](https://books.google.com/books/about/Blink.html?id=VKGbb1hg8JAC)
@@ -35,11 +35,13 @@ Please enjoy!!!
  * [The Singularity is Near - Ray Kurzweil (2005)](http://singularity.com/)
  * [The Seven Deadly Sins of Psychology - Chris Chambers (2017)](https://press.princeton.edu/books/paperback/9780691192277/the-seven-deadly-sins-of-psychology)
  * [The Quick Fix: Why Fad Psychology Can't Cure Our Social Ills - Jesse Singal (2021)](https://books.google.com/books?id=JLniDwAAQBAJ&source=gbs_book_other_versions)
+ * [Chaos: Making a New Science - James Gleick (2008)](https://www.google.com/books/edition/Chaos/de4PAQAAQBAJ?hl=en&gbpv=0)
+ * [The Pragmatic Programmer - Andy Hunt and Dave Thomas (2020)](https://www.google.com/books/edition/The_Pragmatic_Programmer/5wBQEp6ruIAC?hl=en&gbpv=0)
 
 <br>
 
-### Marketing
-#### Brand Equity
+# Marketing
+## Brand Equity
 
  * [Managing Brand Equity - David Aaker (1991)](https://www.google.com/books/edition/Managing_Brand_Equity/r_TSY5sxnO8C)
  * [Brand Equity & Advertising - David Aaker (1993)](https://www.google.com/books/edition/Brand_Equity_Advertising/Cb3eAQAAQBAJ)
@@ -49,27 +51,27 @@ Please enjoy!!!
  * [Brand Relevance - David Aaker (2010)](https://www.google.com/books/edition/Brand_Relevance/BXzLTfbJFcgC)
  * [Aaker on Branding - David Aaker (2014)](https://www.google.com/books/edition/Aaker_on_Branding/Bu3YAgAAQBAJ)
 
-#### Relevant Knowledge Series (MSI)
+## Relevant Knowledge Series (MSI)
 
  * [Branding and Brand Equity - Kevin Lane Keller (2002)](http://www.msii.clients.bostonwebdevelopment.com/books/branding-and-brand-equity/)
  * [Essential Readings in Marketing - Leigh McAlister (2006)](http://msii.clients.bostonwebdevelopment.com/books/essential-readings-in-marketing-with-2006-2010-update/)
  * [Marketing Metrics and Financial Performance - Donald R. Lehmann (2006)](http://msii.clients.bostonwebdevelopment.com/books/marketing-metrics-and-financial-performance/)
  * [Social Networks and Marketing - Christophe Van den Bulte (2007)](http://msii.clients.bostonwebdevelopment.com/books/social-networks-and-marketing/)
 
-#### Social Network
+## Social Network
 
  * [Connected: The Surprising Power of Our Social Networks and How They Shape Our Lives - James H. Fowler and Nicholas Christakis (2009)](https://www.google.com/books/edition/Connected/LXHi4wgIkzEC)
  * [Contagious - Jonah Berger (2013)](https://www.google.com/books/edition/Contagious/7vVnkdNayFkC)
  * [Invisible Influence - Jonah Berger (2016)](https://www.google.com/books/edition/Invisible_Influence/f90nDwAAQBAJ)
  * [Breaking the Social Media Prism - Chris Bail (2021)](https://press.princeton.edu/books/hardcover/9780691203423/breaking-the-social-media-prism)
  
-### Management
+# Management
 
  * [The Cost of Talent - Derek Bok (1993)](https://www.google.com/books/edition/The_Cost_of_Talent/s32WZcq7lYYC)
  * [Searching for a Corporate Savior - Rakes Khurana (2002)](https://www.google.com/books/edition/Searching_for_a_Corporate_Savior/y6Jvfnv9Vw8C)
  * [Organizational Change](https://www.google.com/books/edition/_/PsB9DwAAQBAJ?hl=en&sa=X&ved=2ahUKEwjcjJrMkZ_vAhVJMawKHUVgAxAQre8FMBV6BAgLEAc)
 
-### Finance / Economics
+# Finance / Economics
 
  * [What I Learned Losing a Million Dollars - Brendan Moynihan and Jim Paul (1994)](https://www.google.com/books/edition/What_I_Learned_Losing_a_Million_Dollars/NV2rAgAAQBAJ?hl=en&gbpv=1&printsec=frontcover)
  * [The Winner's Curse: Paradoxes and Anomalies of Economic Life - Richard Thaler (1992)](https://books.google.com/books/about/The_Winner_s_Curse.html?id=5AsPAQAAMAAJ)
