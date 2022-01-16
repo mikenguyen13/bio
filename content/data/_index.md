@@ -8,10 +8,6 @@ summary: "Data Repository" # Add a page description
 headless: false
 ---
 
-[Awesome Data on Everything](https://github.com/awesomedata/awesome-public-datasets)
-[Government Data](https://github.com/cisagov/dotgov-data)
-[Political Dataset](https://marvelous.ai/resources/)
-
 
 # Management 
 
@@ -115,7 +111,9 @@ headless: false
  * Census Data: 
     + [IPUMS](https://www.nhgis.org/technical-support)
     + [IPUMS Data in R](https://cran.r-project.org/web/packages/ipumsr/vignettes/ipums.html)
- 
+ * [Awesome Data on Everything](https://github.com/awesomedata/awesome-public-datasets)
+ * [Government Data](https://github.com/cisagov/dotgov-data)
+ * [Political Dataset](https://marvelous.ai/resources/)
  
 
 # Network
