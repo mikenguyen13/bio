@@ -1,6 +1,6 @@
 ---
 date: "2018-09-09T00:00:00Z"
-draft: false
+draft: true
 lastmod: "2018-09-09T00:00:00Z"
 linktitle: An Example Course
 menu:
@@ -11,7 +11,7 @@ summary: Learn how to use Academic's docs layout for publishing online courses, 
 title: Overview
 toc: true
 type: docs
-weight: 1
+weight: 2
 ---
 
 ## Flexibility

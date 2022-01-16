@@ -7,7 +7,7 @@
     <description>Posts</description>
     <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Thu, 13 Jan 2022 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_512x512_fill_lanczos_center_3.png</url>
+      <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Posts</title>
       <link>https://mikenguyen.netlify.app/post/</link>
     </image>
@@ -2146,7 +2146,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-963412587&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-921735648&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2156,7 +2156,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-963412587&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-921735648&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
