@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://mikenguyen.netlify.app/courses/mizzou-mar4050-s22/</loc>
+    <lastmod>2022-01-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/courses/mizzou-mar4050-f21/</loc>
+    <lastmod>2022-01-09T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/talk/example/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url><url>
@@ -34,6 +40,9 @@
   </url><url>
     <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2022-01-13T13:14:07-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/courses/</loc>
+    <lastmod>2022-01-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/github/</loc>
     <lastmod>2022-01-03T12:53:22-06:00</lastmod>
@@ -288,8 +297,6 @@
     <loc>https://mikenguyen.netlify.app/publications/</loc>
   </url><url>
     <loc>https://mikenguyen.netlify.app/books/</loc>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/courses/</loc>
   </url><url>
     <loc>https://mikenguyen.netlify.app/data/</loc>
   </url><url>

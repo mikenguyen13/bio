@@ -1,17 +1,17 @@
 ---
 date: "2022-01-09T00:00:00Z"
-draft: true
+draft: false
 lastmod: "2022-01-09T00:00:00Z"
-linktitle: Marketing Research (MAR 4050)
+title: Marketing Research (MAR 4050) Spring 2022
+linktitle: Overview
 menu:
-  example:
+  mar4050_s22:
     name: Overview
     weight: 1
 summary: Online materials for MAR 4050 (Marketing research) at the University of Missouri in Spring 2022.
-title: Overview
 toc: true
-type: docs
-weight: 1
+type: book
+weight: 90
 ---
 
 ## Welcome to Marketing Research - MAR 4050

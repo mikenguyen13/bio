@@ -2,7 +2,8 @@
 header:
   caption: ""
   image: ""
-layout: docs
+# layout: docs
+layout: book
 # Section title
 title: Courses
 
