@@ -3,7 +3,7 @@ header:
   caption: ""
   image: ""
 # layout: docs
-layout: book
+layout: page
 # Section title
 title: Courses
 
