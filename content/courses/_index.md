@@ -2,7 +2,7 @@
 header:
   caption: ""
   image: ""
-layout: page
+layout: docs
 # Section title
 title: Courses
 
