@@ -4,10 +4,6 @@ draft: false
 lastmod: "2022-01-09T00:00:00Z"
 title: Marketing Research (MAR 4050) Fall 2021
 linktitle: Overview
-menu:
-  mar4050_f21:
-    name: Overview
-    weight: 1
 summary: Online materials for MAR 4050 (Marketing research) at the University of Missouri in Fall 2021.
 toc: true
 type: book
