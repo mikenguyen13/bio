@@ -1,0 +1,35 @@
+---
+title: Move or Copy Environment in Python
+author: Mike Nguyen
+date: '2022-02-15'
+slug: move-or-copy-environment-in-python
+categories:
+  - Python
+tags:
+  - Python
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-02-15T20:46:03-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>It’s likely that at some point in you data analysis or research career, you will have to either move or copy your current working/virtual environment in Python (in Anaconda or any other platform) to a new location (e.g., virtual machine, new work station)</p>
+<p>To do so, you can copy your old working environment by exporting it. In your console, type:</p>
+<pre class="python"><code>pip freeze &gt; requirements.txt</code></pre>
+<p>This code helps you create a new <code>requirements.txt</code> file in your current working directory. If you don’t know where you are (type <code>os.getcwd()</code>)</p>
+<p>Then move this file to your new location, and in the console type</p>
+<pre class="python"><code>pip install -r requirements.txt</code></pre>
+<p>You can also edit the <code>requirements.txt</code> if you want by</p>
+<ol style="list-style-type: decimal">
+<li>Including more packages in the format: <code>&lt;package_name&gt; == &lt;version&gt;</code></li>
+<li>Specify the range of the package: <code>&lt;package_name&gt; &gt;= &lt;version&gt;, &lt;= &lt;version&gt;</code></li>
+</ol>

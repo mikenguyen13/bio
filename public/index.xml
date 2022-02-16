@@ -33,6 +33,29 @@
     </item>
     
     <item>
+      <title>Move or Copy Environment in Python</title>
+      <link>https://mikenguyen.netlify.app/post/move-or-copy-environment-in-python/</link>
+      <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/move-or-copy-environment-in-python/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/move-or-copy-environment-in-python/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;It’s likely that at some point in you data analysis or research career, you will have to either move or copy your current working/virtual environment in Python (in Anaconda or any other platform) to a new location (e.g., virtual machine, new work station)&lt;/p&gt;
+&lt;p&gt;To do so, you can copy your old working environment by exporting it. In your console, type:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This code helps you create a new &lt;code&gt;requirements.txt&lt;/code&gt; file in your current working directory. If you don’t know where you are (type &lt;code&gt;os.getcwd()&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;Then move this file to your new location, and in the console type&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also edit the &lt;code&gt;requirements.txt&lt;/code&gt; if you want by&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Including more packages in the format: &lt;code&gt;&amp;lt;package_name&amp;gt; == &amp;lt;version&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Specify the range of the package: &lt;code&gt;&amp;lt;package_name&amp;gt; &amp;gt;= &amp;lt;version&amp;gt;, &amp;lt;= &amp;lt;version&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Setup Java with R</title>
       <link>https://mikenguyen.netlify.app/post/setup-java-with-r/</link>
       <pubDate>Thu, 13 Jan 2022 00:00:00 +0000</pubDate>
@@ -2166,7 +2189,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-158296743&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-769158342&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2176,7 +2199,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-158296743&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-769158342&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

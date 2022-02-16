@@ -5,12 +5,35 @@
     <link>https://mikenguyen.netlify.app/category/python/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/python/index.xml" rel="self" type="application/rss+xml" />
     <description>Python</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Sun, 26 Dec 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Tue, 15 Feb 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Python</title>
       <link>https://mikenguyen.netlify.app/category/python/</link>
     </image>
+    
+    <item>
+      <title>Move or Copy Environment in Python</title>
+      <link>https://mikenguyen.netlify.app/post/move-or-copy-environment-in-python/</link>
+      <pubDate>Tue, 15 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/move-or-copy-environment-in-python/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/move-or-copy-environment-in-python/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;It’s likely that at some point in you data analysis or research career, you will have to either move or copy your current working/virtual environment in Python (in Anaconda or any other platform) to a new location (e.g., virtual machine, new work station)&lt;/p&gt;
+&lt;p&gt;To do so, you can copy your old working environment by exporting it. In your console, type:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;pip freeze &amp;gt; requirements.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This code helps you create a new &lt;code&gt;requirements.txt&lt;/code&gt; file in your current working directory. If you don’t know where you are (type &lt;code&gt;os.getcwd()&lt;/code&gt;)&lt;/p&gt;
+&lt;p&gt;Then move this file to your new location, and in the console type&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can also edit the &lt;code&gt;requirements.txt&lt;/code&gt; if you want by&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Including more packages in the format: &lt;code&gt;&amp;lt;package_name&amp;gt; == &amp;lt;version&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Specify the range of the package: &lt;code&gt;&amp;lt;package_name&amp;gt; &amp;gt;= &amp;lt;version&amp;gt;, &amp;lt;= &amp;lt;version&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>Task Scheduler with Python and Anaconda environment</title>

@@ -93,6 +93,7 @@ headless: false
  * [GWI](https://www.gwi.com/data) Global Consumer data (students might get free access)
  * [Google Patents Public Datasets on BigQuery](https://github.com/google/patents-public-data)
  * [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f)
+ * [Safeguard Data](https://www.safegraph.com/): Foot traffic, mobile data, transaction data. 
 
 # Social Science
 
