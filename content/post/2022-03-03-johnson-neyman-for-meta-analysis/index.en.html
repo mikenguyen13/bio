@@ -1,14 +1,14 @@
 ---
-title: Johnson-Neyman for meta analysis
-author: Mike Nguyen
+title: "Johnson-Neyman for meta analysis"
+author: "Mike Nguyen"
 date: '2022-03-03'
 slug: johnson-neyman-for-meta-analysis
 categories:
-  - R
-  - research
+- R
+- research
 tags:
-  - Academic
-  - R
+- Academic
+- R
 subtitle: ''
 summary: ''
 authors: []
@@ -165,14 +165,8 @@ W = \frac{-2(t_{crit}^2 s_{b_1b_3} - b_1b_3)\pm \sqrt{(2t^2_{crit}s_{b_1b_3}- 2b
 }</code></pre>
 <p>Let’s try it on a model</p>
 <p>Note: both the moderator and the predictor must be <strong>continuous</strong></p>
-<pre class="r"><code>library(metafor)</code></pre>
-<pre><code>## Warning: package &#39;metafor&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Loading required package: Matrix</code></pre>
-<pre><code>## Warning: package &#39;Matrix&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## 
-## Loading the &#39;metafor&#39; package (version 3.0-2). For an
-## introduction to the package please type: help(metafor)</code></pre>
-<pre class="r"><code>mod &lt;- rma.mv(yi, vi, mods = ~ year * pubstatus, random = ~ 1 | study/esid, data= dat.assink2016)
+<pre class="r"><code>library(metafor)
+mod &lt;- rma.mv(yi, vi, mods = ~ year * pubstatus, random = ~ 1 | study/esid, data= dat.assink2016)
 summary(mod)</code></pre>
 <pre><code>## 
 ## Multivariate Meta-Analysis Model (k = 100; method: REML)
@@ -203,28 +197,9 @@ summary(mod)</code></pre>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre class="r"><code>jnt(mod, predictor = &quot;year&quot;, moderator = &quot;pubstatus&quot;)</code></pre>
-<pre><code>## Loading required package: stringi</code></pre>
-<pre><code>## Warning: package &#39;stringi&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --</code></pre>
-<pre><code>## v ggplot2 3.3.5     v purrr   0.3.4
-## v tibble  3.1.6     v dplyr   1.0.8
-## v tidyr   1.2.0     v stringr 1.4.0
-## v readr   2.1.2     v forcats 0.5.1</code></pre>
-<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.0.5</code></pre>
-<pre><code>## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
-## x tidyr::expand() masks Matrix::expand()
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()
-## x tidyr::pack()   masks Matrix::pack()
-## x tidyr::unpack() masks Matrix::unpack()</code></pre>
 <pre><code>## [1] &quot;outside the range&quot;</code></pre>
 <pre><code>## [1] -0.02071889  0.94999771</code></pre>
 <pre class="r"><code>theta_plot(mod, predictor = &quot;year&quot;, moderator = &quot;pubstatus&quot;, jn = T)</code></pre>
 <pre><code>## [1] &quot;outside the range&quot;</code></pre>
-<pre><code>## Warning: Removed 1 rows containing missing values (geom_vline).</code></pre>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/unnamed-chunk-4-1.png" width="672" />
 Then we interpret that the impact of year on the outcome variable is only significant when the publication status is greater than 0.95 or less than -0.02 (but this is not possible because the lower limit is 0).</p>

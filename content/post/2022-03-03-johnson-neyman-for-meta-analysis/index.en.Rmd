@@ -1,14 +1,14 @@
 ---
-title: Johnson-Neyman for meta analysis
-author: Mike Nguyen
+title: "Johnson-Neyman for meta analysis"
+author: "Mike Nguyen"
 date: '2022-03-03'
 slug: johnson-neyman-for-meta-analysis
 categories:
-  - R
-  - research
+- R
+- research
 tags:
-  - Academic
-  - R
+- Academic
+- R
 subtitle: ''
 summary: ''
 authors: []
@@ -20,6 +20,11 @@ image:
   preview_only: no
 projects: []
 ---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(message = F, warning = F)
+```
+
 
 In applied research, we typically look at moderation effect of a moderator on the relationship between a predictor and an outcome variable. However, looking at the interaction term alone is very misleading. Hence, researcher typically employ the Johnson-Neyman technique in probing the moderation effect. This technique helps find the region where the predictor effect is significant. 
 
@@ -191,4 +196,3 @@ jnt(mod, predictor = "year", moderator = "pubstatus")
 theta_plot(mod, predictor = "year", moderator = "pubstatus", jn = T)
 ```
 Then we interpret that the impact of year on the outcome variable is only significant when the publication status is greater than 0.95 or less than -0.02 (but this is not possible because the lower limit is 0). 
-
