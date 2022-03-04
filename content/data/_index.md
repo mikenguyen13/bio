@@ -94,6 +94,7 @@ headless: false
  * [Google Patents Public Datasets on BigQuery](https://github.com/google/patents-public-data)
  * [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f)
  * [Safeguard Data](https://www.safegraph.com/): Foot traffic, mobile data, transaction data. 
+ * [IRI Marketing Data Set](https://pubsonline.informs.org/doi/10.1287/mksc.1080.0450): Panel Scanner data for academic research for 30 product categories in 5 years that include sales, pricing, promotion data. 
 
 # Social Science
 

@@ -1,0 +1,194 @@
+---
+title: Johnson-Neyman for meta analysis
+author: Mike Nguyen
+date: '2022-03-03'
+slug: johnson-neyman-for-meta-analysis
+categories:
+  - R
+  - research
+tags:
+  - Academic
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-03-03T20:21:15-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+In applied research, we typically look at moderation effect of a moderator on the relationship between a predictor and an outcome variable. However, looking at the interaction term alone is very misleading. Hence, researcher typically employ the Johnson-Neyman technique in probing the moderation effect. This technique helps find the region where the predictor effect is significant. 
+
+Even though `interactions` package in R is very versatile that it can work with pretty much every model for probing the interaction effect, it couldn't play well with `metafor` package ([for more details on moderation](https://bookdown.org/mike/data_analysis/moderation.html)). Hence, we have to write a custom function for this purpose.
+
+A little reminder of the moderation effect
+
+$$
+Y = b_1 X+ b_2 W + b_3 XW
+$$
+
+Johnson-Neyman finds the values of the moderators $W$ such that the p-value of the conditional effect of the predictor is equal to the level of significance $\alpha$
+
+$$
+t_{crit} = \frac{b_1 + b_3 W}{\sqrt{s^2_{b1} + 2 Ws_{b_1b_3} + W^2 s^2_{b_3}}}
+$$
+
+The solution for $W$ is
+
+$$
+W = \frac{-2(t_{crit}^2 s_{b_1b_3} - b_1b_3)\pm \sqrt{(2t^2_{crit}s_{b_1b_3}- 2b_1 b_3)^2-4(t_{crit}^2s^2_{b_3} - b_3^2)(t_{crit}^2 s^2_{b_1}-b_1^2)}}{2(t^2_{crit}s^2_{b_3}-b^2_3)}
+$$
+
+To implement the custom function, I model the code after [Marko Bachl](https://rpubs.com/bachl/jn-plot)
+
+To get the Johnson-Neyman signficance area 
+
+```{r}
+jnt = function(.rma.mv, predictor, moderator, alpha = .05) {
+    require(stringi)
+    library(tidyverse)
+    
+    # get coefficient for the predictor
+    b1 = .rma.mv$b[predictor, 1]
+    # get coefficient for the interaction term
+    b3 = .rma.mv$b[paste0(predictor, ":", moderator), 1]
+    
+    # standard error for the predictor term
+    se_b1 = .rma.mv$se[which(rownames(summary(.rma.mv)$b) == predictor)]
+    
+    # standard error for the interaction term
+    se_b3 = .rma.mv$se[which(rownames(summary(.rma.mv)$b) == paste0(predictor, ":", moderator))]
+    
+    # covariance for the predictor and the interaction term
+    COV_b1b3 = .rma.mv$vb[which(rownames(summary(.rma.mv)$b) == predictor), which(rownames(summary(.rma.mv)$b) == paste0(predictor, ":", moderator))]
+    
+    # the t-critical value
+    t_crit = qt(1 - alpha / 2, df.residual(.rma.mv))
+    
+    
+    # see Bauer & Curran, 2005
+    a = t_crit ^ 2 * se_b3 ^ 2 - b3 ^ 2
+    
+    b = 2 * (t_crit ^ 2 * COV_b1b3 - b1 * b3)
+    
+    c = t_crit ^ 2 * se_b1 ^ 2 - b1 ^ 2
+    
+    jn = c((-b - sqrt(b ^ 2 - 4 * a * c)) / (2 * a),
+           (-b + sqrt(b ^ 2 - 4 * a * c)) / (2 * a))
+    
+    JN = sort(unname(jn))
+    
+    # see whether it's inside the two numbers or outside
+    
+    if (length(JN) != 0){
+        # randomly pick a number between the two cutoffs
+        test_num <- runif(1, JN[1], JN[2])
+        test_theta = b1 + test_num * b3
+        test_se_theta = sqrt(se_b1 ^ 2 + 2 * test_num * COV_b1b3 + test_num ^ 2 * se_b3 ^ 2)
+        
+        test.ci.lo_theta = test_theta - qt(1 - alpha / 2, df.residual(.rma.mv)) * test_se_theta
+        test.ci.hi_theta = test_theta + qt(1 - alpha / 2, df.residual(.rma.mv)) * test_se_theta
+        if (0 %in% c(test.ci.lo_theta:test.ci.hi_theta)){
+            print("inside the range")
+        } else {
+            print("outside the range")
+        }
+    }
+    
+    
+    return(JN)
+    rm(.rma.mv)
+}
+```
+
+If the results are 0, 1, 2, then the whole range of the predictors are significant.
+
+```{r}
+theta_plot = function(.rma.mv,
+                      predictor,
+                      moderator,
+                      alpha = .05,
+                      jn = F) {
+    require(dplyr)
+    require(ggplot2)
+    theme_set(theme_minimal())
+    require(stringi)
+    
+    .data = tibble(
+        # get coefficient for the predictor
+        b1 = .rma.mv$b[predictor, 1],
+        # get coefficient for the interaction term
+        b3 = .rma.mv$b[paste0(predictor, ":", moderator), 1],
+        
+        Z = quantile(.rma.mv$X[, moderator], seq(0, 1, .01)),
+        
+        theta = b1 + Z * b3,
+        
+        # standard error for the predictor term
+        se_b1 = .rma.mv$se[which(rownames(summary(.rma.mv)$b) == predictor)],
+        
+        # standard error for the interaction term
+        se_b3 = .rma.mv$se[which(rownames(summary(.rma.mv)$b) == paste0(predictor, ":", moderator))],
+        
+        # covariance for the predictor and the interaction term
+        COV_b1b3 = .rma.mv$vb[which(rownames(summary(.rma.mv)$b) == predictor), which(rownames(summary(.rma.mv)$b) == paste0(predictor, ":", moderator))], 
+        
+        se_theta = sqrt(se_b1 ^ 2 + 2 * Z * COV_b1b3 + Z ^ 2 * se_b3 ^ 2),
+        
+        ci.lo_theta = theta - qt(1 - alpha / 2, df.residual(.rma.mv)) * se_theta,
+        ci.hi_theta = theta + qt(1 - alpha / 2, df.residual(.rma.mv)) * se_theta
+    )
+    
+    
+    if (jn) {
+        JN = jnt(
+            .rma.mv = .rma.mv,
+            predictor = predictor,
+            moderator = moderator,
+            alpha = alpha
+        )
+        JN_lines = geom_vline(xintercept = JN, linetype = 2)
+        JN_regions = ifelse(length(JN) == 0,
+                            "no significance regions",
+                            paste(round(JN, 2), collapse = "; "))
+        Xlab = paste0(moderator, " (JN Significance Regions: ", JN_regions, ")")
+    } else {
+        Xlab = moderator
+        JN_lines = NULL
+    }
+    .data %>%
+        ggplot(aes(x = Z, y = theta)) +
+        geom_ribbon(aes(ymin = ci.lo_theta, ymax = ci.hi_theta), fill = "grey70") +
+        geom_line() +
+        ggtitle(paste(
+            "Conditional Effect of",
+            predictor,
+            "as function of",
+            moderator
+        )) +
+        geom_hline(yintercept = 0, linetype = 2) +
+        labs(x = Xlab, y = expression(theta)) +
+        JN_lines +
+        xlim(min(.rma.mv$X[, moderator]), max(.rma.mv$X[, moderator]))
+}
+```
+
+Let's try it on a model 
+
+Note: both the moderator and the predictor must be **continuous**
+
+```{r}
+library(metafor)
+mod <- rma.mv(yi, vi, mods = ~ year * pubstatus, random = ~ 1 | study/esid, data= dat.assink2016)
+summary(mod)
+
+jnt(mod, predictor = "year", moderator = "pubstatus")
+
+theta_plot(mod, predictor = "year", moderator = "pubstatus", jn = T)
+```
+Then we interpret that the impact of year on the outcome variable is only significant when the publication status is greater than 0.95 or less than -0.02 (but this is not possible because the lower limit is 0). 
+

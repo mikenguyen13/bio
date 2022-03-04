@@ -5,12 +5,228 @@
     <link>https://mikenguyen.netlify.app/category/r/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Thu, 13 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Thu, 03 Mar 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>R</title>
       <link>https://mikenguyen.netlify.app/category/r/</link>
     </image>
+    
+    <item>
+      <title>Johnson-Neyman for meta analysis</title>
+      <link>https://mikenguyen.netlify.app/post/johnson-neyman-for-meta-analysis/</link>
+      <pubDate>Thu, 03 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/johnson-neyman-for-meta-analysis/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/johnson-neyman-for-meta-analysis/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;In applied research, we typically look at moderation effect of a moderator on the relationship between a predictor and an outcome variable. However, looking at the interaction term alone is very misleading. Hence, researcher typically employ the Johnson-Neyman technique in probing the moderation effect. This technique helps find the region where the predictor effect is significant.&lt;/p&gt;
+&lt;p&gt;Even though &lt;code&gt;interactions&lt;/code&gt; package in R is very versatile that it can work with pretty much every model for probing the interaction effect, it couldn’t play well with &lt;code&gt;metafor&lt;/code&gt; package (&lt;a href=&#34;https://bookdown.org/mike/data_analysis/moderation.html&#34;&gt;for more details on moderation&lt;/a&gt;). Hence, we have to write a custom function for this purpose.&lt;/p&gt;
+&lt;p&gt;A little reminder of the moderation effect&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+Y = b_1 X+ b_2 W + b_3 XW
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Johnson-Neyman finds the values of the moderators &lt;span class=&#34;math inline&#34;&gt;\(W\)&lt;/span&gt; such that the p-value of the conditional effect of the predictor is equal to the level of significance &lt;span class=&#34;math inline&#34;&gt;\(\alpha\)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+t_{crit} = \frac{b_1 + b_3 W}{\sqrt{s^2_{b1} + 2 Ws_{b_1b_3} + W^2 s^2_{b_3}}}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The solution for &lt;span class=&#34;math inline&#34;&gt;\(W\)&lt;/span&gt; is&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+W = \frac{-2(t_{crit}^2 s_{b_1b_3} - b_1b_3)\pm \sqrt{(2t^2_{crit}s_{b_1b_3}- 2b_1 b_3)^2-4(t_{crit}^2s^2_{b_3} - b_3^2)(t_{crit}^2 s^2_{b_1}-b_1^2)}}{2(t^2_{crit}s^2_{b_3}-b^2_3)}
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;To implement the custom function, I model the code after &lt;a href=&#34;https://rpubs.com/bachl/jn-plot&#34;&gt;Marko Bachl&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;To get the Johnson-Neyman signficance area&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;jnt = function(.rma.mv, predictor, moderator, alpha = .05) {
+    require(stringi)
+    library(tidyverse)
+    
+    # get coefficient for the predictor
+    b1 = .rma.mv$b[predictor, 1]
+    # get coefficient for the interaction term
+    b3 = .rma.mv$b[paste0(predictor, &amp;quot;:&amp;quot;, moderator), 1]
+    
+    # standard error for the predictor term
+    se_b1 = .rma.mv$se[which(rownames(summary(.rma.mv)$b) == predictor)]
+    
+    # standard error for the interaction term
+    se_b3 = .rma.mv$se[which(rownames(summary(.rma.mv)$b) == paste0(predictor, &amp;quot;:&amp;quot;, moderator))]
+    
+    # covariance for the predictor and the interaction term
+    COV_b1b3 = .rma.mv$vb[which(rownames(summary(.rma.mv)$b) == predictor), which(rownames(summary(.rma.mv)$b) == paste0(predictor, &amp;quot;:&amp;quot;, moderator))]
+    
+    # the t-critical value
+    t_crit = qt(1 - alpha / 2, df.residual(.rma.mv))
+    
+    
+    # see Bauer &amp;amp; Curran, 2005
+    a = t_crit ^ 2 * se_b3 ^ 2 - b3 ^ 2
+    
+    b = 2 * (t_crit ^ 2 * COV_b1b3 - b1 * b3)
+    
+    c = t_crit ^ 2 * se_b1 ^ 2 - b1 ^ 2
+    
+    jn = c((-b - sqrt(b ^ 2 - 4 * a * c)) / (2 * a),
+           (-b + sqrt(b ^ 2 - 4 * a * c)) / (2 * a))
+    
+    JN = sort(unname(jn))
+    
+    # see whether it&amp;#39;s inside the two numbers or outside
+    
+    if (length(JN) != 0){
+        # randomly pick a number between the two cutoffs
+        test_num &amp;lt;- runif(1, JN[1], JN[2])
+        test_theta = b1 + test_num * b3
+        test_se_theta = sqrt(se_b1 ^ 2 + 2 * test_num * COV_b1b3 + test_num ^ 2 * se_b3 ^ 2)
+        
+        test.ci.lo_theta = test_theta - qt(1 - alpha / 2, df.residual(.rma.mv)) * test_se_theta
+        test.ci.hi_theta = test_theta + qt(1 - alpha / 2, df.residual(.rma.mv)) * test_se_theta
+        if (0 %in% c(test.ci.lo_theta:test.ci.hi_theta)){
+            print(&amp;quot;inside the range&amp;quot;)
+        } else {
+            print(&amp;quot;outside the range&amp;quot;)
+        }
+    }
+    
+    
+    return(JN)
+    rm(.rma.mv)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If the results are 0, 1, 2, then the whole range of the predictors are significant.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theta_plot = function(.rma.mv,
+                      predictor,
+                      moderator,
+                      alpha = .05,
+                      jn = F) {
+    require(dplyr)
+    require(ggplot2)
+    theme_set(theme_minimal())
+    require(stringi)
+    
+    .data = tibble(
+        # get coefficient for the predictor
+        b1 = .rma.mv$b[predictor, 1],
+        # get coefficient for the interaction term
+        b3 = .rma.mv$b[paste0(predictor, &amp;quot;:&amp;quot;, moderator), 1],
+        
+        Z = quantile(.rma.mv$X[, moderator], seq(0, 1, .01)),
+        
+        theta = b1 + Z * b3,
+        
+        # standard error for the predictor term
+        se_b1 = .rma.mv$se[which(rownames(summary(.rma.mv)$b) == predictor)],
+        
+        # standard error for the interaction term
+        se_b3 = .rma.mv$se[which(rownames(summary(.rma.mv)$b) == paste0(predictor, &amp;quot;:&amp;quot;, moderator))],
+        
+        # covariance for the predictor and the interaction term
+        COV_b1b3 = .rma.mv$vb[which(rownames(summary(.rma.mv)$b) == predictor), which(rownames(summary(.rma.mv)$b) == paste0(predictor, &amp;quot;:&amp;quot;, moderator))], 
+        
+        se_theta = sqrt(se_b1 ^ 2 + 2 * Z * COV_b1b3 + Z ^ 2 * se_b3 ^ 2),
+        
+        ci.lo_theta = theta - qt(1 - alpha / 2, df.residual(.rma.mv)) * se_theta,
+        ci.hi_theta = theta + qt(1 - alpha / 2, df.residual(.rma.mv)) * se_theta
+    )
+    
+    
+    if (jn) {
+        JN = jnt(
+            .rma.mv = .rma.mv,
+            predictor = predictor,
+            moderator = moderator,
+            alpha = alpha
+        )
+        JN_lines = geom_vline(xintercept = JN, linetype = 2)
+        JN_regions = ifelse(length(JN) == 0,
+                            &amp;quot;no significance regions&amp;quot;,
+                            paste(round(JN, 2), collapse = &amp;quot;; &amp;quot;))
+        Xlab = paste0(moderator, &amp;quot; (JN Significance Regions: &amp;quot;, JN_regions, &amp;quot;)&amp;quot;)
+    } else {
+        Xlab = moderator
+        JN_lines = NULL
+    }
+    .data %&amp;gt;%
+        ggplot(aes(x = Z, y = theta)) +
+        geom_ribbon(aes(ymin = ci.lo_theta, ymax = ci.hi_theta), fill = &amp;quot;grey70&amp;quot;) +
+        geom_line() +
+        ggtitle(paste(
+            &amp;quot;Conditional Effect of&amp;quot;,
+            predictor,
+            &amp;quot;as function of&amp;quot;,
+            moderator
+        )) +
+        geom_hline(yintercept = 0, linetype = 2) +
+        labs(x = Xlab, y = expression(theta)) +
+        JN_lines +
+        xlim(min(.rma.mv$X[, moderator]), max(.rma.mv$X[, moderator]))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let’s try it on a model&lt;/p&gt;
+&lt;p&gt;Note: both the moderator and the predictor must be &lt;strong&gt;continuous&lt;/strong&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(metafor)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;metafor&amp;#39; was built under R version 4.0.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: Matrix&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;Matrix&amp;#39; was built under R version 4.0.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Loading the &amp;#39;metafor&amp;#39; package (version 3.0-2). For an
+## introduction to the package please type: help(metafor)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;mod &amp;lt;- rma.mv(yi, vi, mods = ~ year * pubstatus, random = ~ 1 | study/esid, data= dat.assink2016)
+summary(mod)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Multivariate Meta-Analysis Model (k = 100; method: REML)
+## 
+##   logLik  Deviance       AIC       BIC      AICc 
+## -66.6051  133.2102  145.2102  160.5963  146.1540   
+## 
+## Variance Components:
+## 
+##             estim    sqrt  nlvls  fixed      factor 
+## sigma^2.1  0.1143  0.3381     17     no       study 
+## sigma^2.2  0.1138  0.3373    100     no  study/esid 
+## 
+## Test for Residual Heterogeneity:
+## QE(df = 96) = 447.7313, p-val &amp;lt; .0001
+## 
+## Test of Moderators (coefficients 2:4):
+## QM(df = 3) = 9.8164, p-val = 0.0202
+## 
+## Model Results:
+## 
+##                 estimate      se     zval    pval    ci.lb    ci.ub 
+## intrcpt           0.6985  0.2621   2.6655  0.0077   0.1849   1.2121  ** 
+## year             -0.0928  0.0464  -1.9990  0.0456  -0.1837  -0.0018   * 
+## pubstatus        -0.3308  0.2826  -1.1704  0.2418  -0.8847   0.2231     
+## year:pubstatus    0.0608  0.0499   1.2170  0.2236  -0.0371   0.1586     
+## 
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;jnt(mod, predictor = &amp;quot;year&amp;quot;, moderator = &amp;quot;pubstatus&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: stringi&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;stringi&amp;#39; was built under R version 4.0.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyverse&amp;#39; was built under R version 4.0.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.1.6     v dplyr   1.0.8
+## v tidyr   1.2.0     v stringr 1.4.0
+## v readr   2.1.2     v forcats 0.5.1&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;ggplot2&amp;#39; was built under R version 4.0.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tibble&amp;#39; was built under R version 4.0.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;tidyr&amp;#39; was built under R version 4.0.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;readr&amp;#39; was built under R version 4.0.5&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x tidyr::expand() masks Matrix::expand()
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+## x tidyr::pack()   masks Matrix::pack()
+## x tidyr::unpack() masks Matrix::unpack()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;outside the range&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] -0.02071889  0.94999771&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theta_plot(mod, predictor = &amp;quot;year&amp;quot;, moderator = &amp;quot;pubstatus&amp;quot;, jn = T)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;outside the range&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: Removed 1 rows containing missing values (geom_vline).&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;https://mikenguyen.netlify.app/post/johnson-neyman-for-meta-analysis/index.en_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;
+Then we interpret that the impact of year on the outcome variable is only significant when the publication status is greater than 0.95 or less than -0.02 (but this is not possible because the lower limit is 0).&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Setup Java with R</title>
