@@ -1,0 +1,82 @@
+---
+title: "Brand Equity Meta-Analysis"
+author: "Mike Nguyen"
+date: "2022-03-09"
+output: html_document
+image:
+  caption: Photo by Eva Elijas on Pexels
+  focal_point: Smart
+# links:
+# - icon: twitter
+#   icon_pack: fab
+#   name: Follow
+#   url: https://twitter.com/
+slides: example
+summary: Web Appendix for the Brand Equity Meta-analysis
+tags:
+- Brand Equity
+- Meta Analysis
+- Branding
+url_code: ""
+url_pdf: ""
+url_slides: ""
+url_video: ""
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>You can find additional information for my meta-analysis on this page.</p>
+<p>To incorporate prior research to your new correlation between brand equity and brand performance, you only need three values:</p>
+<ol style="list-style-type: decimal">
+<li>The new correlation: <code>r_new</code></li>
+<li>The new sample size: <code>n_new</code></li>
+<li>Your desired alpha level: <code>alpha</code></li>
+</ol>
+<p>You can copy the same code into <code>R</code> and it should run smoothly without any packages.</p>
+<pre class="r"><code>n_new              &lt;- 200
+r_new              &lt;- 0.5
+alpha              &lt;- 0.05
+
+update_correlation &lt;- function(n_new, r_new, alpha) {
+    n_meta             &lt;- 50205
+    r_meta             &lt;- 0.206
+    
+    # Variance
+    var_xi         &lt;- 1 / (n_new + n_meta)
+    format(var_xi, scientific = FALSE)
+    
+    # mean
+    mu_xi          &lt;- var_xi * (n_meta * atanh(r_meta) + n_new * (atanh(r_new)))
+    format(mu_xi, scientific  = FALSE)
+    
+    # confidence interval
+    upper_xi       &lt;- mu_xi + qnorm(1 - alpha / 2) * sqrt(var_xi)
+    lower_xi       &lt;- mu_xi - qnorm(1 - alpha / 2) * sqrt(var_xi)
+    
+    # rho
+    mean_rho       &lt;- tanh(mu_xi)
+    upper_rho      &lt;- tanh(upper_xi)
+    lower_rho      &lt;- tanh(lower_xi)
+    
+    # return a list
+    return(
+        list(
+            &quot;mu_xi&quot; = mu_xi,
+            &quot;var_xi&quot; = var_xi,
+            &quot;upper_xi&quot; = upper_xi,
+            &quot;lower_xi&quot; = lower_xi,
+            &quot;mean_rho&quot; = mean_rho,
+            &quot;upper_rho&quot; = upper_rho,
+            &quot;lower_rho&quot; = lower_rho
+        )
+    )
+}
+
+
+testing = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
+
+r_new + qnorm(1 - alpha / 2) * sqrt(1/n_new)</code></pre>
+<pre><code>## [1] 0.6385904</code></pre>
+<pre class="r"><code>r_new - qnorm(1 - alpha / 2) * sqrt(1/n_new)</code></pre>
+<pre><code>## [1] 0.3614096</code></pre>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Branding | Mike Nguyen</title>
+    <link>https://mikenguyen.netlify.app/tag/branding/</link>
+      <atom:link href="https://mikenguyen.netlify.app/tag/branding/index.xml" rel="self" type="application/rss+xml" />
+    <description>Branding</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Wed, 09 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
+      <title>Branding</title>
+      <link>https://mikenguyen.netlify.app/tag/branding/</link>
+    </image>
+    
+    <item>
+      <title>Brand Equity Meta-Analysis</title>
+      <link>https://mikenguyen.netlify.app/project/brannd-equity-meta/</link>
+      <pubDate>Wed, 09 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/project/brannd-equity-meta/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/project/brannd-equity-meta/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;You can find additional information for my meta-analysis on this page.&lt;/p&gt;
+&lt;p&gt;To incorporate prior research to your new correlation between brand equity and brand performance, you only need three values:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;The new correlation: &lt;code&gt;r_new&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;The new sample size: &lt;code&gt;n_new&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Your desired alpha level: &lt;code&gt;alpha&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;You can copy the same code into &lt;code&gt;R&lt;/code&gt; and it should run smoothly without any packages.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n_new              &amp;lt;- 200
+r_new              &amp;lt;- 0.5
+alpha              &amp;lt;- 0.05
+
+update_correlation &amp;lt;- function(n_new, r_new, alpha) {
+    n_meta             &amp;lt;- 50205
+    r_meta             &amp;lt;- 0.206
+    
+    # Variance
+    var_xi         &amp;lt;- 1 / (n_new + n_meta)
+    format(var_xi, scientific = FALSE)
+    
+    # mean
+    mu_xi          &amp;lt;- var_xi * (n_meta * atanh(r_meta) + n_new * (atanh(r_new)))
+    format(mu_xi, scientific  = FALSE)
+    
+    # confidence interval
+    upper_xi       &amp;lt;- mu_xi + qnorm(1 - alpha / 2) * sqrt(var_xi)
+    lower_xi       &amp;lt;- mu_xi - qnorm(1 - alpha / 2) * sqrt(var_xi)
+    
+    # rho
+    mean_rho       &amp;lt;- tanh(mu_xi)
+    upper_rho      &amp;lt;- tanh(upper_xi)
+    lower_rho      &amp;lt;- tanh(lower_xi)
+    
+    # return a list
+    return(
+        list(
+            &amp;quot;mu_xi&amp;quot; = mu_xi,
+            &amp;quot;var_xi&amp;quot; = var_xi,
+            &amp;quot;upper_xi&amp;quot; = upper_xi,
+            &amp;quot;lower_xi&amp;quot; = lower_xi,
+            &amp;quot;mean_rho&amp;quot; = mean_rho,
+            &amp;quot;upper_rho&amp;quot; = upper_rho,
+            &amp;quot;lower_rho&amp;quot; = lower_rho
+        )
+    )
+}
+
+
+testing = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
+
+r_new + qnorm(1 - alpha / 2) * sqrt(1/n_new)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.6385904&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;r_new - qnorm(1 - alpha / 2) * sqrt(1/n_new)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.3614096&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

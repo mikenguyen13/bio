@@ -1,0 +1,83 @@
+---
+title: "Brand Equity Meta-Analysis"
+author: "Mike Nguyen"
+date: "`r Sys.Date()`"
+output: html_document
+image:
+  caption: Photo by Eva Elijas on Pexels
+  focal_point: Smart
+# links:
+# - icon: twitter
+#   icon_pack: fab
+#   name: Follow
+#   url: https://twitter.com/
+slides: example
+summary: Web Appendix for the Brand Equity Meta-analysis
+tags:
+- Brand Equity
+- Meta Analysis
+- Branding
+url_code: ""
+url_pdf: ""
+url_slides: ""
+url_video: ""
+---
+
+You can find additional information for my meta-analysis on this page. 
+
+
+To incorporate prior research to your new correlation between brand equity and brand performance, you only need three values: 
+
+ 1. The new correlation: `r_new`
+ 2. The new sample size: `n_new`
+ 3. Your desired alpha level: `alpha`
+ 
+You can copy the same code into `R` and it should run smoothly without any packages. 
+
+```{r}
+n_new              <- 200
+r_new              <- 0.5
+alpha              <- 0.05
+
+update_correlation <- function(n_new, r_new, alpha) {
+    n_meta             <- 50205
+    r_meta             <- 0.206
+    
+    # Variance
+    var_xi         <- 1 / (n_new + n_meta)
+    format(var_xi, scientific = FALSE)
+    
+    # mean
+    mu_xi          <- var_xi * (n_meta * atanh(r_meta) + n_new * (atanh(r_new)))
+    format(mu_xi, scientific  = FALSE)
+    
+    # confidence interval
+    upper_xi       <- mu_xi + qnorm(1 - alpha / 2) * sqrt(var_xi)
+    lower_xi       <- mu_xi - qnorm(1 - alpha / 2) * sqrt(var_xi)
+    
+    # rho
+    mean_rho       <- tanh(mu_xi)
+    upper_rho      <- tanh(upper_xi)
+    lower_rho      <- tanh(lower_xi)
+    
+    # return a list
+    return(
+        list(
+            "mu_xi" = mu_xi,
+            "var_xi" = var_xi,
+            "upper_xi" = upper_xi,
+            "lower_xi" = lower_xi,
+            "mean_rho" = mean_rho,
+            "upper_rho" = upper_rho,
+            "lower_rho" = lower_rho
+        )
+    )
+}
+
+
+testing = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
+
+r_new + qnorm(1 - alpha / 2) * sqrt(1/n_new)
+r_new - qnorm(1 - alpha / 2) * sqrt(1/n_new)
+```
+
