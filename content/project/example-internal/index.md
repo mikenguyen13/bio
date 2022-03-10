@@ -2,7 +2,7 @@
 date: "2022-03-09T00:00:00Z"
 external_link: ""
 image:
-  caption: Photo by Eva Elijas on Pexels
+  caption: Photo by Sean Polllock on Unsplash
   focal_point: Smart
 # links:
 # - icon: twitter
