@@ -2,25 +2,21 @@
 title: "Brand Equity Meta-Analysis"
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  html_document: default
 image:
   caption: Photo by Eva Elijas on Pexels
   focal_point: Smart
-# links:
-# - icon: twitter
-#   icon_pack: fab
-#   name: Follow
-#   url: https://twitter.com/
 slides: example
 summary: Web Appendix for the Brand Equity Meta-analysis
 tags:
 - Brand Equity
 - Meta Analysis
 - Branding
-url_code: ""
-url_pdf: ""
-url_slides: ""
-url_video: ""
+url_code: ''
+url_pdf: ''
+url_slides: ''
+url_video: ''
 ---
 
 You can find additional information for my meta-analysis on this page. 
@@ -75,9 +71,16 @@ update_correlation <- function(n_new, r_new, alpha) {
 }
 
 
-testing = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
+new_cor = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
 
-r_new + qnorm(1 - alpha / 2) * sqrt(1/n_new)
-r_new - qnorm(1 - alpha / 2) * sqrt(1/n_new)
+
+# new correlation
+new_cor$mean_rho
+
+# lower confident interval
+new_cor$lower_rho
+
+# upper confident interval
+new_cor$upper_rho
 ```
 

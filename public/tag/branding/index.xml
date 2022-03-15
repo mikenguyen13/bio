@@ -5,7 +5,7 @@
     <link>https://mikenguyen.netlify.app/tag/branding/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/branding/index.xml" rel="self" type="application/rss+xml" />
     <description>Branding</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Wed, 09 Mar 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Thu, 10 Mar 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Branding</title>
@@ -15,7 +15,7 @@
     <item>
       <title>Brand Equity Meta-Analysis</title>
       <link>https://mikenguyen.netlify.app/project/brannd-equity-meta/</link>
-      <pubDate>Wed, 09 Mar 2022 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
       <guid>https://mikenguyen.netlify.app/project/brannd-equity-meta/</guid>
       <description>
 &lt;script src=&#34;https://mikenguyen.netlify.app/project/brannd-equity-meta/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
@@ -69,12 +69,18 @@ update_correlation &amp;lt;- function(n_new, r_new, alpha) {
 }
 
 
-testing = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
+new_cor = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
 
-r_new + qnorm(1 - alpha / 2) * sqrt(1/n_new)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.6385904&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;r_new - qnorm(1 - alpha / 2) * sqrt(1/n_new)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.3614096&lt;/code&gt;&lt;/pre&gt;
+
+# new correlation
+new_cor$mean_rho&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.2072927&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# lower confident interval
+new_cor$lower_rho&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.1989229&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# upper confident interval
+new_cor$upper_rho&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.2156322&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

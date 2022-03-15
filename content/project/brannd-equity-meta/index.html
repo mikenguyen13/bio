@@ -1,26 +1,22 @@
 ---
 title: "Brand Equity Meta-Analysis"
 author: "Mike Nguyen"
-date: "2022-03-09"
-output: html_document
+date: "2022-03-10"
+output:
+  html_document: default
 image:
   caption: Photo by Eva Elijas on Pexels
   focal_point: Smart
-# links:
-# - icon: twitter
-#   icon_pack: fab
-#   name: Follow
-#   url: https://twitter.com/
 slides: example
 summary: Web Appendix for the Brand Equity Meta-analysis
 tags:
 - Brand Equity
 - Meta Analysis
 - Branding
-url_code: ""
-url_pdf: ""
-url_slides: ""
-url_video: ""
+url_code: ''
+url_pdf: ''
+url_slides: ''
+url_video: ''
 ---
 
 <script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
@@ -74,9 +70,15 @@ update_correlation &lt;- function(n_new, r_new, alpha) {
 }
 
 
-testing = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
+new_cor = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
 
-r_new + qnorm(1 - alpha / 2) * sqrt(1/n_new)</code></pre>
-<pre><code>## [1] 0.6385904</code></pre>
-<pre class="r"><code>r_new - qnorm(1 - alpha / 2) * sqrt(1/n_new)</code></pre>
-<pre><code>## [1] 0.3614096</code></pre>
+
+# new correlation
+new_cor$mean_rho</code></pre>
+<pre><code>## [1] 0.2072927</code></pre>
+<pre class="r"><code># lower confident interval
+new_cor$lower_rho</code></pre>
+<pre><code>## [1] 0.1989229</code></pre>
+<pre class="r"><code># upper confident interval
+new_cor$upper_rho</code></pre>
+<pre><code>## [1] 0.2156322</code></pre>

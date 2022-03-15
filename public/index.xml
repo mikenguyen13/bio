@@ -35,7 +35,7 @@
     <item>
       <title>Brand Equity Meta-Analysis</title>
       <link>https://mikenguyen.netlify.app/project/brannd-equity-meta/</link>
-      <pubDate>Wed, 09 Mar 2022 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
       <guid>https://mikenguyen.netlify.app/project/brannd-equity-meta/</guid>
       <description>
 &lt;script src=&#34;https://mikenguyen.netlify.app/project/brannd-equity-meta/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
@@ -89,12 +89,18 @@ update_correlation &amp;lt;- function(n_new, r_new, alpha) {
 }
 
 
-testing = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
+new_cor = update_correlation(n_new = n_new, r_new = r_new, alpha = alpha)
 
-r_new + qnorm(1 - alpha / 2) * sqrt(1/n_new)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.6385904&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;r_new - qnorm(1 - alpha / 2) * sqrt(1/n_new)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] 0.3614096&lt;/code&gt;&lt;/pre&gt;
+
+# new correlation
+new_cor$mean_rho&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.2072927&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# lower confident interval
+new_cor$lower_rho&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.1989229&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# upper confident interval
+new_cor$upper_rho&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.2156322&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -2463,7 +2469,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-172948563&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-957182436&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2473,7 +2479,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-172948563&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-957182436&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
