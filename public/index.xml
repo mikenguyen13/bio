@@ -33,6 +33,53 @@
     </item>
     
     <item>
+      <title>Teaching Philosophy</title>
+      <link>https://mikenguyen.netlify.app/post/teaching-philosophy/</link>
+      <pubDate>Tue, 15 Mar 2022 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/teaching-philosophy/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/teaching-philosophy/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;Teaching Statement or Teaching Philosophy&lt;/p&gt;
+&lt;p&gt;(resources provided by Dr. Laura Page)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Different versions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Full-length with word limit (usually one-page)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Syllabus statement: usually include a smaller version of the full-length version in the syllabus&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Considerations:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Brief, clear, and concise&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Target audience: colleague + supervisor + students&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Avoid pedagogical jargon&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Keys&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Goals + values for teaching and learning&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Description of how you teach&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Assumptions about teaching and leaning&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Structure&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Experience in teaching&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Commitment to teaching&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Philosophy of teaching and learning&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Learning models&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Teaching models&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Assessment&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Teaching interests&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Summary&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;References&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Brand Equity Meta-Analysis</title>
       <link>https://mikenguyen.netlify.app/project/brannd-equity-meta/</link>
       <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
@@ -2469,7 +2516,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-957182436&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-981764253&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2479,7 +2526,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-957182436&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-981764253&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
