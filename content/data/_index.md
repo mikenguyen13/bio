@@ -89,6 +89,12 @@ Academic Literature
 
 -   [Sustainalytics](https://www.sustainalytics.com/)
 
+## Crypto Currency
+
+-   [CryptoScamDB](https://cryptoscamdb.org): Report about scam (only name of blacklisted domains)
+
+-   [BitcoinAbuse](https://www.bitcoinabuse.com/): report about scam with date, abuser, description, from country, and crated_at.
+
 # Economics
 
 -   [Journal of Applied Econometrics](http://qed.econ.queensu.ca/jae/)
@@ -119,15 +125,21 @@ Academic Literature
     -   [Media Owner Profile](https://www.warc.com/data/mediaownerprofiles)
 -   [AdAge](https://adage.com/article/datacenter/leading-national-advertisers-index/106348): data on ad spending
 -   [Fame](https://www.bvdinfo.com/en-gb/our-products/data/national/fame): data on companies in the UK and Ireland.
+-   [Wharton Customer Analytics](https://wca.wharton.upenn.edu/): write proposal to partner with firms to get data
 -   [American Customer Satisfaction Index (ACSI)](https://www.theacsi.org/)
 -   [Instacart](https://www.instacart.com/datasets/grocery-shopping-2017)
 -   [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)
 -   [CMO Spend Survey 2018--2019](https://images.gartnerformarketers.com/Web/Gartner/%7Bb5a5ad17-bf4c-4ce4-adb3-4eed347852c8%7D_CMO_Spend_Survey_Note_Repackage_FINAL.pdf)
 -   [World Brand Lab](http://www.worldbrandlab.com/): brand equity ranking in China.
 -   [GWI](https://www.gwi.com/data) Global Consumer data (students might get free access)
+-   [Global Market Database](https://globalmarketdatabase.com/): global market data
 -   [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f)
 -   [Safeguard Data](https://www.safegraph.com/): Foot traffic, mobile data, transaction data.
 -   [IRI Marketing Data Set](https://pubsonline.informs.org/doi/10.1287/mksc.1080.0450): Panel Scanner data for academic research for 30 product categories in 5 years that include sales, pricing, promotion data.
+
+Sales Data:
+
+-   **Global Market Information Database** by Euromonitor International (good for studying market penetration).
 
 # Social Science
 
@@ -170,5 +182,4 @@ Academic Literature
 
 # References
 
-Arora, A., Belenzon, S., & Sheer, L. (2021). Matching patents to compustat firms, 1980--2015: Dynamic reassignment, name changes, and ownership structures. Research Policy, 50(5), 104217.
-Kogan, L., Papanikolaou, D., Seru, A., & Stoffman, N. (2017). Technological innovation, resource allocation, and growth. *The Quarterly Journal of Economics*, *132*(2), 665-712.
+Arora, A., Belenzon, S., & Sheer, L. (2021). Matching patents to compustat firms, 1980--2015: Dynamic reassignment, name changes, and ownership structures. Research Policy, 50(5), 104217. Kogan, L., Papanikolaou, D., Seru, A., & Stoffman, N. (2017). Technological innovation, resource allocation, and growth. *The Quarterly Journal of Economics*, *132*(2), 665-712.
