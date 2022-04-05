@@ -46,16 +46,21 @@
   name = "Teaching"
   url = "courses/"
   weight = 60
+  
+[[main]]
+  name = "Talks"
+  url = "talk"
+  weight = 70
 
 [[main]]
   name = "Data"
   url = "data/"
-  weight = 60
+  weight = 80
 
 [[main]]
   name = "Contact"
   url = "#contact"
-  weight = 70
+  weight = 90
   
 
 
@@ -64,4 +69,4 @@
 [[main]]
   name = "CV"
   url = "media/Mike Nguyen CV.pdf"
-  weight = 70
+  weight = 100
