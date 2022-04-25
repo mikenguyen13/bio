@@ -48,17 +48,17 @@ height = ""
   cta_icon_pack = "fas"
   cta_icon = "comment-smile"
 
-[[item]]
-  title = "Unplug"
-  content = "Need to relax? :smile:"
-  align = "right"
-
-  overlay_color = "#333"  # An HTML color value.
-  overlay_img = "headers/beach.jpg"  # Image path relative to your `static/media/` folder.
-  overlay_filter = 0.1  # Darken the image. Value in range 0-1.
-  
-  cta_label = "Yes! Please"
-  cta_url = "https://www.youtube.com/watch?v=ZToicYcHIOU&ab_channel=Calm"
-  cta_icon_pack = "fas"
-  cta_icon = "umbrella-beach"
+# [[item]]
+#   title = "Unplug"
+#   content = "Need to relax? :smile:"
+#   align = "right"
+# 
+#   overlay_color = "#333"  # An HTML color value.
+#   overlay_img = "headers/beach.jpg"  # Image path relative to your `static/media/` folder.
+#   overlay_filter = 0.1  # Darken the image. Value in range 0-1.
+#   
+#   cta_label = "Yes! Please"
+#   cta_url = "https://www.youtube.com/watch?v=ZToicYcHIOU&ab_channel=Calm"
+#   cta_icon_pack = "fas"
+#   cta_icon = "umbrella-beach"
 +++

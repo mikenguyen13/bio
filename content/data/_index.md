@@ -33,6 +33,9 @@ Rule of thumb when naming files:
 -   [World Management Survey](https://worldmanagementsurvey.org/)
 -   [Harvard's "Creating Emerging Markets"](https://www.hbs.edu/creating-emerging-markets/video-database/Pages/default.aspx)
 -   [Workplace discrimination](https://www.umass.edu/eeodatanet/)
+-   [CoreSignal- Employee Review](https://coresignal.com/alternative-data/company-employee-review-data/): Employee reviews
+-   [CoreSignal - Job Posting](https://coresignal.com/alternative-data/job-postings-data/)
+-   [CoreSignal - Employee data](https://coresignal.com/alternative-data/employee-data/)
 
 ## Innovation
 
@@ -50,8 +53,12 @@ Patent Data
 -   [WIPO](https://wipo-analytics.github.io/): with guide for coding
 -   [UVA Darden Global Corporate Patent Dataset](https://patents.darden.virginia.edu/)
 -   [PatCit: A Comprehensive Dataset of Patent Citations](https://doi.org/10.5281/zenodo.4391095)
+-   [CoreSignal - Repo](https://coresignal.com/alternative-data/community-and-repository-data/): software projects, experienced developers, and data analysts.
+-   [KickStarter](https://webrobots.io/indiegogo-dataset/)
+-   [KickStarter data from Kaggle](https://www.kaggle.com/datasets/kemical/kickstarter-projects)
+-   [Indiegogo](https://webrobots.io/indiegogo-dataset/)
 
-Academic Literature
+# Academic Literature
 
 -   [Microsoft Academic Knowledge Graph](https://makg.org/)
 -   [OpenAlex](http://openalex.org/)
@@ -65,12 +72,26 @@ Academic Literature
 -   Compustat
     -   Execucomp
 -   CRSP
+-   [List of private firms](https://guides.loc.gov/company-research/private)
+    -   [Crunchbase](https://www.crunchbase.com/): description on start-ups, companies, peoples
+
+    -   [Dun&Bradstreet](https://www.dnb.com/): company info
+
+    -   [Privco](https://system.privco.com/signin): financial and market intelligence on private firms
+
+    -   [Corporate Registration](https://www.nass.org/business-services/corporate-registration): search info on corporation by state
+
+    -   [SageWorks](https://www.sageworksdatabase.com/)
+
+    -   [Thomasnet](https://www.thomasnet.com/): for suppliers and buyers
+
+    -   [PitchBook](https://pitchbook.com/)
 -   [World Bank](https://www.worldbank.org/en/publication/gfdr/data)
 -   [IMF](https://www.imf.org/en/Data#data)
 -   [Mergent Online](https://www.mergentonline.com/basicsearch.php)
 -   [Orbis](https://www.bvdinfo.com/en-us/our-products/data/international/orbis)
 -   [SDC Platinum](https://www.refinitiv.com/en/products/sdc-platinum-financial-securities): historical transactions
--   [IRS Tax Statistics](https://www.irs.gov/statistics)
+-   [IRS Tax Statistics](https://www.irs.gov/statistics) [SOI Tax Stat](https://www.irs.gov/statistics/soi-tax-stats-corporation-tax-statistics)
 -   [Zillow Home Prices](https://www.zillow.com/research/data/): Zillow's API allows business access only (not for educational or research purposes). But they do allow to download small [dataset](https://www.zillow.com/research/data/)
 -   [Redfin](https://www.redfin.com/news/data-center/): [full data set](https://www.redfin.com/news/data-center/), [definition](https://www.redfin.com/news/data-center-metrics-definitions/)
 -   [National Association of Realtors](https://www.nar.realtor/research-and-statistics/housing-statistics): [Citation](https://www.nar.realtor/research-and-statistics/citation-guidelines-for-nar-research-statistics)
@@ -84,6 +105,9 @@ Academic Literature
 -   [Data Current](http://pages.stern.nyu.edu/~adamodar/New_Home_Page/datacurrent.html)
 -   [Trading Economics](https://tradingeconomics.com/): paid API service
 -   [AQR Dataset](https://www.aqr.com/Insights/Datasets)
+-   [CoreSignal - Company funding](https://coresignal.com/alternative-data/company-funding-data/)
+-   [CoreSignal Firmographic data](https://coresignal.com/alternative-data/firmographic-data/)
+-   [Failory](https://www.failory.com/cemetery): Data on failed businesses
 
 ## Risk
 
@@ -109,10 +133,50 @@ Academic Literature
 
 # Marketing
 
+## Sentiment
+
+-   [DataStreamer](https://www.datastreamer.io/): Search API returns search results from multiple sources (Twitter, Inst gram, Blogs, Forums, News, International News).
+
+## Firm
+
+-   [Fame](https://www.bvdinfo.com/en-gb/our-products/data/national/fame): data on companies in the UK and Ireland.
+
+-   [Wharton Customer Analytics](https://wca.wharton.upenn.edu/): write proposal to partner with firms to get data
+
+## Branding
+
 -   [EquiTrend The Harris Poll](https://theharrispoll.com/equitrend/) [1](https://theharrispoll.com/equitrend-ranking-page/); [2](https://theharrispoll.com/the-harris-poll-announces-this-years-brands-of-the-year-2020/):
     -   three factors -- Familiarity, Quality and Purchase Consideration
     -   45,000 US consumers assessed nearly 2,000 brands across 196 categories.
     -   91 companies were awarded the coveted Brand of the Year designation across 87 categories
+-   [World Brand Lab](http://www.worldbrandlab.com/): brand equity ranking in China.
+-   [Brand24 - Media Monitoring Tool](https://brand24.com/): monitor brand from Twitter, Facebook, and Instagram.
+
+## Advertising
+
+-   [WARC](https://www.warc.com/data)
+    -   [Adspend](https://www.warc.com/data/adspend)
+    -   [Media Owner Profile](https://www.warc.com/data/mediaownerprofiles)
+-   [AdAge](https://adage.com/article/datacenter/leading-national-advertisers-index/106348): data on ad spending
+-   [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)
+-   [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f)
+-   [Kantar Media](https://www.kantar.com/)
+
+## Others
+
+-   [American Customer Satisfaction Index (ACSI)](https://www.theacsi.org/)
+-   [Instacart](https://www.instacart.com/datasets/grocery-shopping-2017)
+-   [CMO Spend Survey 2018--2019](https://images.gartnerformarketers.com/Web/Gartner/%7Bb5a5ad17-bf4c-4ce4-adb3-4eed347852c8%7D_CMO_Spend_Survey_Note_Repackage_FINAL.pdf)
+-   [GWI](https://www.gwi.com/data) Global Consumer data (students might get free access)
+-   [Global Market Database](https://globalmarketdatabase.com/): global market data
+-   [Safeguard Data](https://www.safegraph.com/): Foot traffic, mobile data, transaction data.
+-   [comScore Media Metrix](https://www.comscore.com/): Online Traffic (direct traffic, search engine referrals, transaction counts)
+-   **Global Market Information Database** by Euromonitor International (good for studying market penetration).
+-   [IRI Marketing Data Set](https://pubsonline.informs.org/doi/10.1287/mksc.1080.0450): Panel Scanner data for academic research for 30 product categories in 5 years that include sales, pricing, promotion data.
+-   [CoreSignal Tech Product Review](https://coresignal.com/alternative-data/tech-product-review-data/) + [Technographic data](https://coresignal.com/alternative-data/technographic-data/)
+
+## Sales
+
 -   [Kilts Center for Marketing](https://www.chicagobooth.edu/research/kilts/datasets): Chicago Booth
     -   Subscription Dataset:
         -   [Nielsen Dataset](https://www.chicagobooth.edu/research/kilts/datasets/nielsen)
@@ -120,26 +184,6 @@ Academic Literature
         -   [Dominick's Dataset](https://www.chicagobooth.edu/research/kilts/datasets/dominicks): 1989 - 1994, store level data, shelf management and pricing
         -   [ERIM Dataset](https://www.chicagobooth.edu/research/kilts/datasets/erim): households, TV viewing data is available to measure exposure to commercials involving the products
         -   [BAYESM](https://www.chicagobooth.edu/research/kilts/datasets/bayesm) More like a software, but also includes some panel data.
--   [WARC](https://www.warc.com/data)
-    -   [Adspend](https://www.warc.com/data/adspend)
-    -   [Media Owner Profile](https://www.warc.com/data/mediaownerprofiles)
--   [AdAge](https://adage.com/article/datacenter/leading-national-advertisers-index/106348): data on ad spending
--   [Fame](https://www.bvdinfo.com/en-gb/our-products/data/national/fame): data on companies in the UK and Ireland.
--   [Wharton Customer Analytics](https://wca.wharton.upenn.edu/): write proposal to partner with firms to get data
--   [American Customer Satisfaction Index (ACSI)](https://www.theacsi.org/)
--   [Instacart](https://www.instacart.com/datasets/grocery-shopping-2017)
--   [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)
--   [CMO Spend Survey 2018--2019](https://images.gartnerformarketers.com/Web/Gartner/%7Bb5a5ad17-bf4c-4ce4-adb3-4eed347852c8%7D_CMO_Spend_Survey_Note_Repackage_FINAL.pdf)
--   [World Brand Lab](http://www.worldbrandlab.com/): brand equity ranking in China.
--   [GWI](https://www.gwi.com/data) Global Consumer data (students might get free access)
--   [Global Market Database](https://globalmarketdatabase.com/): global market data
--   [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f)
--   [Safeguard Data](https://www.safegraph.com/): Foot traffic, mobile data, transaction data.
--   [IRI Marketing Data Set](https://pubsonline.informs.org/doi/10.1287/mksc.1080.0450): Panel Scanner data for academic research for 30 product categories in 5 years that include sales, pricing, promotion data.
-
-Sales Data:
-
--   **Global Market Information Database** by Euromonitor International (good for studying market penetration).
 
 # Social Science
 
