@@ -5,7 +5,7 @@ education:
   - course: PhD in Marketing - minor Statistics
     institution: University of Missouri
     year: 2023
-  - course: MA in Econometric
+  - course: MA in Economics - Econometrics and Quantitative Economics
     institution: University of Missouri
     year: 2021
   - course: MBA in Marketing Analytics, Corporate Finance
