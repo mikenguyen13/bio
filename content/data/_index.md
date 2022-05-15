@@ -18,6 +18,92 @@ Rule of thumb when naming files:
 -   Compatible with every system default ordering
 -   Avoid spaces, uppercase.
 
+For data management (should be put under datasheet.md or the README.md file): see Datasheet for Datasets (Gebru et al., 2021) (these questions have been modified/simplified, to see the original questions with examples, please see the paper):
+
+-   Motivation
+
+    -   Why the dataset was created?
+
+    -   Who created the dataset?
+
+    -   Who funded the project?
+
+-   Composition
+
+    -   What do the observations represent?
+
+    -   Is the dataset the population or a small sample (random or nonrandom)?
+
+    -   Describe missing data (e.g., type and missing mechanism)
+
+    -   Describe data splits (e.g., training, testing, etc.)
+
+    -   Does the dataset contain sensitive or confidential information?
+
+        For dataset related to people
+
+    -   Can data users identify sub-population or individuals from the dataset?
+
+-   Collection process
+
+    -   How the data was collected (directly observable or indirectly inferred)
+
+    -   What procedures were used to collect data?
+
+    -   What was the sampling strategy (e.g., probaiblistic)?
+
+    -   Data time frame
+
+    -   Were any ethical review processes conducted? (e.g., institutional review board?)
+
+        For dataset related to people
+
+    -   Did you collect data from respondents or via third parties?
+
+    -   Did you obtain respondents' consents?
+
+    -   Is there any mechanism for respondents to revoke their consent?
+
+    -   Did you conduct data protection impact analysis?
+
+-   Prepossessing/cleaning/labeling
+
+    -   Describe these processes
+
+    -   Is the raw dataset still available upon request?
+
+    -   What was the software used to process data? And provide a script if possible
+
+-   Uses
+
+    -   Provide exemplary uses of the dataset (a list of published papers using the dataset is encouraged)
+
+    -   Is there anything about the dataset (e.g., composition, collection, processing) that can impact future uses?
+
+    -   In which case the dataset should not be used?
+
+-   Distribution
+
+    -   How will the dataset be distributed? (e.g., API, GitHub, data repo)
+
+    -   When will the dataset be available?
+
+    -   Does the dataset involve copyright, intellectual property (IP) license, or terms of use?
+
+-   Maintenance
+
+    -   Who support/host/maintain the dataset?
+
+    -   How to contact data maintainer?
+
+    -   Is there any error that data users need to know?
+
+    -   Will the dataset be updated?
+
+    -   Will older versions of the dataset continue to be supported?
+
+    -   How can others extend/build on/contribute to the dataset?
+
 # Management
 
 -   [MSCI](https://www.msci.com/real-time-index-data-search) (formerly GMI Ratings)
@@ -71,6 +157,7 @@ Patent Data
 
 -   Compustat
     -   Execucomp
+    -   Capital IQ - Key Developments: event types for companies
 -   CRSP
 -   [List of private firms](https://guides.loc.gov/company-research/private)
     -   [Crunchbase](https://www.crunchbase.com/): description on start-ups, companies, peoples
@@ -108,6 +195,7 @@ Patent Data
 -   [CoreSignal - Company funding](https://coresignal.com/alternative-data/company-funding-data/)
 -   [CoreSignal Firmographic data](https://coresignal.com/alternative-data/firmographic-data/)
 -   [Failory](https://www.failory.com/cemetery): Data on failed businesses
+-   [HUD](https://www.huduser.gov/portal/pdrdatas_landing.html): American Housing survey, housing data, public housing population
 
 ## Risk
 
@@ -130,6 +218,8 @@ Patent Data
 -   [Consumer Expenditure Surveys](https://www.bls.gov/cex/)
 -   [U.S. Bureau of Labor Statistics](https://www.bls.gov/cex/pumd_data.htm#csv)
     -   [Details](https://www.bls.gov/cex/pumd-getting-started-guide.htm)
+-   [Kiva](https://www.kiva.org/): micro loan data. [download snapshots](https://www.kiva.org/build/data-snapshots). To see the [data summary](http://kivadata.org/index.html)
+    -   [Preprocessed data](https://www.fodava.gatech.edu/processed-kiva-data) (Choo et al, 2014)
 
 # Marketing
 
@@ -151,6 +241,7 @@ Patent Data
     -   91 companies were awarded the coveted Brand of the Year designation across 87 categories
 -   [World Brand Lab](http://www.worldbrandlab.com/): brand equity ranking in China.
 -   [Brand24 - Media Monitoring Tool](https://brand24.com/): monitor brand from Twitter, Facebook, and Instagram.
+-   [Affectiva - Humanizing Technology : Affectiva](https://www.affectiva.com/) data on emotional reactions of 53k ads over 90 countries and 8 years.
 
 ## Advertising
 
@@ -161,6 +252,10 @@ Patent Data
 -   [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)
 -   [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f)
 -   [Kantar Media](https://www.kantar.com/)
+
+## Reports
+
+-   [Datareportal](https://datareportal.com/): on online activities
 
 ## Others
 
@@ -174,6 +269,38 @@ Patent Data
 -   **Global Market Information Database** by Euromonitor International (good for studying market penetration).
 -   [IRI Marketing Data Set](https://pubsonline.informs.org/doi/10.1287/mksc.1080.0450): Panel Scanner data for academic research for 30 product categories in 5 years that include sales, pricing, promotion data.
 -   [CoreSignal Tech Product Review](https://coresignal.com/alternative-data/tech-product-review-data/) + [Technographic data](https://coresignal.com/alternative-data/technographic-data/)
+-   [Better Marketing for a Better World](https://www.bmbw.org/data/)
+-   [GWI](https://www.gwi.com/): Paid + Free data on marketing strategy globally.
+-   [Data.ai](https://www.data.ai/en/): Paid + Free data on app store tracking, reviews, usage, optimization, paid search, revenue estimates, Game IQ, advertising estimate
+-   [Similarweb](https://www.similarweb.com/): Paid + Free data on website traffic, app analysis
+-   [Box Office Mojo](https://www.boxofficemojo.com/): data on movie box office performance
+-   [The Numbers](https://www.the-numbers.com/): Data on movie
+-   [Metacritic](https://www.metacritic.com/): Data on movie reviews
+-   [camelcamelcamel](https://camelcamelcamel.com/): Amazon price tracker
+-   [Google Trend Dataset](https://cloud.google.com/blog/products/data-analytics/top-25-google-search-terms-now-in-bigquery?utm_source=youtube&utm_medium=unpaidsoc&utm_campaign=CDR_swo_analytics_trendsvideo_trendsdatasetblog_071421&utm_content=description) available via [BigQuery](https://cloud.google.com/bigquery)
+-   [Webscrape datasets](https://web-scraping.org/docs/databases/datasets/)
+-   [Ward Intelligence](https://wardsintelligence.informa.com/datacenter): Car data
+-   [J. D. Power](https://www.jdpowervalues.com/): car data (paid)
+
+## Review
+
+-   TripAdvisorReview: [using Octoparse](https://helpcenter.octoparse.com/hc/en-us/articles/4405892648345-Scrape-customer-reviews-from-Tripadvisor-V8-4-)
+
+    -   [Small dataset of TripAdvisor](https://www.researchgate.net/publication/308968574_TripAdvisor_Dataset)
+
+-   [Epinions and Ciao](https://www.cse.msu.edu/~tangjili/datasetcode/truststudy.htm)
+
+-   [Yelp Review](https://www.yelp.com/dataset)
+
+-   [Julian McAuley](https://cseweb.ucsd.edu/~jmcauley/)'s lab [data](https://cseweb.ucsd.edu/~jmcauley/datasets.html): Recommender System and personalization dataset
+
+-   [Trust Pilot](https://developers.trustpilot.com/): [Consumer review](https://developers.trustpilot.com/consumer-api)
+
+-   [Goodread dataset](https://www.kaggle.com/datasets/b2dde9353c9d10c36e4d6b593a74c109dbaca6393a1ca0f2c7abafeba7633641): Book review. [More](https://www.kaggle.com/datasets/jealousleopard/goodreadsbooks)
+
+-   [MovieLens](https://www.tensorflow.org/datasets/catalog/movielens): Movie recommendation
+
+-   [Ratebeer](https://www.ratebeer.com/): Beer review. [Sign up for API](https://www.ratebeer.com/api.asp). Or use [SNAP data](https://snap.stanford.edu/data/web-RateBeer.html#:~:text=This%20dataset%20consists%20of%20beer%20reviews%20from%20ratebeer.,%22aspects%22%3A%20appearance%2C%20aroma%2C%20palate%2C%20taste%2C%20and%20overall%20impression.)
 
 ## Sales
 
@@ -184,6 +311,29 @@ Patent Data
         -   [Dominick's Dataset](https://www.chicagobooth.edu/research/kilts/datasets/dominicks): 1989 - 1994, store level data, shelf management and pricing
         -   [ERIM Dataset](https://www.chicagobooth.edu/research/kilts/datasets/erim): households, TV viewing data is available to measure exposure to commercials involving the products
         -   [BAYESM](https://www.chicagobooth.edu/research/kilts/datasets/bayesm) More like a software, but also includes some panel data.
+-   [International Data Corporation](https://www.idc.com/): Market share
+
+# Health
+
+-   [NHS Digital](https://digital.nhs.uk/data)
+
+-   [HealthData](https://www.healthdata.gov/)
+
+-   [WHO](https://www.who.int/data/gho)
+
+-   [AWS Registry](https://registry.opendata.aws/)
+
+-   [Medicare and Medicaid](https://www.cms.gov/Research-Statistics-Data-and-Systems/Statistics-Trends-and-Reports/Medicare-Provider-Charge-Data/Physician-and-Other-Supplier)
+
+-   [Child Health and Development Studies](https://www.chdstudies.org/research/information_for_researchers.php)
+
+-   [Human Mortality](https://www.mortality.org/)
+
+-   [NIH Data](https://healthcaredelivery.cancer.gov/seer-mhos/aboutdata/)
+
+-   [MHealth Dataset](https://archive.ics.uci.edu/ml/datasets/MHEALTH+Dataset)
+
+-   [Healthcare Cost and Utilization Project](https://hcup-us.ahrq.gov/databases.jsp)
 
 # Social Science
 
@@ -206,6 +356,9 @@ Patent Data
 -   [Government Data](https://github.com/cisagov/dotgov-data)
 -   [Political Dataset](https://marvelous.ai/resources/)
 -   [UK Data Service](https://ukdataservice.ac.uk/find-data/browse/)
+-   [GSMA Intelligence](https://www.gsmaintelligence.com/): Paid data on cellular connection, mobile subscribers, IoT
+-   [Google Cloud Dataset](https://cloud.google.com/datasets)
+-   [Paperswithcode](https://paperswithcode.com/datasets)
 
 # Network
 
@@ -224,6 +377,29 @@ Patent Data
 -   [Internet Archive](https://archive.org/details/tv)
 -   [YouTube API](https://developers.google.com/youtube/v3)
 
+## Public APIs
+
+-   [ProgrammableWeb](https://www.programmableweb.com/)
+
+-   [Public APIs](https://github.com/public-apis/public-apis)
+
+# Control Variables
+
+-   [National holiday](https://holidayapi.com/): (Datta, 2022)
+
+-   [Weather Underground](https://www.wunderground.com/about/data) [by IP Address](https://open.blockspring.com/bs/geolocation-by-ip-address-wunderground)
+
+-   Changes to website using [Wayback Machine](http://web.archive.org/): can also submit links to track changes
+
 # References
 
-Arora, A., Belenzon, S., & Sheer, L. (2021). Matching patents to compustat firms, 1980--2015: Dynamic reassignment, name changes, and ownership structures. Research Policy, 50(5), 104217. Kogan, L., Papanikolaou, D., Seru, A., & Stoffman, N. (2017). Technological innovation, resource allocation, and growth. *The Quarterly Journal of Economics*, *132*(2), 665-712.
+Arora, A., Belenzon, S., & Sheer, L. (2021). Matching patents to compustat firms, 1980--2015: Dynamic reassignment, name changes, and ownership structures. Research Policy, 50(5), 104217.
+Choo, J., Lee, C., Lee, D., Zha, H., & Park, H. (2014, February). Understanding and promoting micro-finance activities in kiva. org. In *Proceedings of the 7th ACM international conference on Web search and data mining* (pp. 583-592).
+Datta, Hannes, Harald J. van Heerde, Marnik G. Dekimpe, and Jan-Benedict E. M. Steenkamp
+(2022), "Cross-National Differences in Market Response: Line-Length, Price, and Distribution
+Elasticities in Fourteen Indo-Pacific Rim Economies," Journal of Marketing Research, 59 (2),
+251-70
+
+Kogan, L., Papanikolaou, D., Seru, A., & Stoffman, N. (2017). Technological innovation, resource allocation, and growth. *The Quarterly Journal of Economics*, *132*(2), 665-712.
+
+Gebru, T., Morgenstern, J., Vecchione, B., Vaughan, J. W., Wallach, H., Iii, H. D., & Crawford, K. (2021). Datasheets for datasets. *Communications of the ACM*, *64*(12), 86-92.
