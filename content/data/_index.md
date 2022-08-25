@@ -226,6 +226,8 @@ Patent Data
 ## Sentiment
 
 -   [DataStreamer](https://www.datastreamer.io/): Search API returns search results from multiple sources (Twitter, Inst gram, Blogs, Forums, News, International News).
+-   Bloomberg: sentiments based on news articles and Twitter
+-   [Meltwater](https://www.meltwater.com/en): paid
 
 ## Firm
 
@@ -281,6 +283,8 @@ Patent Data
 -   [Webscrape datasets](https://web-scraping.org/docs/databases/datasets/)
 -   [Ward Intelligence](https://wardsintelligence.informa.com/datacenter): Car data
 -   [J. D. Power](https://www.jdpowervalues.com/): car data (paid)
+-   [Data Provider](https://www.dataprovider.com/data/): industry data (paid) with API
+-   [Datarade](https://datarade.ai/): Data marketplace
 
 ## Review
 
@@ -301,6 +305,12 @@ Patent Data
 -   [MovieLens](https://www.tensorflow.org/datasets/catalog/movielens): Movie recommendation
 
 -   [Ratebeer](https://www.ratebeer.com/): Beer review. [Sign up for API](https://www.ratebeer.com/api.asp). Or use [SNAP data](https://snap.stanford.edu/data/web-RateBeer.html#:~:text=This%20dataset%20consists%20of%20beer%20reviews%20from%20ratebeer.,%22aspects%22%3A%20appearance%2C%20aroma%2C%20palate%2C%20taste%2C%20and%20overall%20impression.)
+
+## Search Engine Data
+
+-   [Google Trends](https://trends.google.com/trends)
+
+-   [Baidu Index](http://index.baidu.com/v2/index.html)
 
 ## Sales
 
@@ -335,6 +345,8 @@ Patent Data
 
 -   [Healthcare Cost and Utilization Project](https://hcup-us.ahrq.gov/databases.jsp)
 
+-   [Open Payments](https://openpaymentsdata.cms.gov/): payments made by firms to doctors.
+
 # Social Science
 
 -   [Institute For Social Research (ICPSR)](https://www.icpsr.umich.edu/web/pages/ICPSR/index.html): data archive at University of Michigan (free).
@@ -359,6 +371,7 @@ Patent Data
 -   [GSMA Intelligence](https://www.gsmaintelligence.com/): Paid data on cellular connection, mobile subscribers, IoT
 -   [Google Cloud Dataset](https://cloud.google.com/datasets)
 -   [Paperswithcode](https://paperswithcode.com/datasets)
+-   [Datahub](https://old.datahub.io/dataset): free
 
 # Network
 
@@ -393,12 +406,7 @@ Patent Data
 
 # References
 
-Arora, A., Belenzon, S., & Sheer, L. (2021). Matching patents to compustat firms, 1980--2015: Dynamic reassignment, name changes, and ownership structures. Research Policy, 50(5), 104217.
-Choo, J., Lee, C., Lee, D., Zha, H., & Park, H. (2014, February). Understanding and promoting micro-finance activities in kiva. org. In *Proceedings of the 7th ACM international conference on Web search and data mining* (pp. 583-592).
-Datta, Hannes, Harald J. van Heerde, Marnik G. Dekimpe, and Jan-Benedict E. M. Steenkamp
-(2022), "Cross-National Differences in Market Response: Line-Length, Price, and Distribution
-Elasticities in Fourteen Indo-Pacific Rim Economies," Journal of Marketing Research, 59 (2),
-251-70
+Arora, A., Belenzon, S., & Sheer, L. (2021). Matching patents to compustat firms, 1980--2015: Dynamic reassignment, name changes, and ownership structures. Research Policy, 50(5), 104217. Choo, J., Lee, C., Lee, D., Zha, H., & Park, H. (2014, February). Understanding and promoting micro-finance activities in kiva. org. In *Proceedings of the 7th ACM international conference on Web search and data mining* (pp. 583-592). Datta, Hannes, Harald J. van Heerde, Marnik G. Dekimpe, and Jan-Benedict E. M. Steenkamp (2022), "Cross-National Differences in Market Response: Line-Length, Price, and Distribution Elasticities in Fourteen Indo-Pacific Rim Economies," Journal of Marketing Research, 59 (2), 251-70
 
 Kogan, L., Papanikolaou, D., Seru, A., & Stoffman, N. (2017). Technological innovation, resource allocation, and growth. *The Quarterly Journal of Economics*, *132*(2), 665-712.
 

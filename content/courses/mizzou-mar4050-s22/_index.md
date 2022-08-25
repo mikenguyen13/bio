@@ -22,3 +22,24 @@ You can either download all materials [here](https://github.com/mikenguyen13/mar
  * [Qualtrics Assignment](https://github.com/mikenguyen13/mar4050_S22/raw/main/Qualtrics%20assign.docx)
 
 ![Image](https://raw.githubusercontent.com/mikenguyen13/mar4050_S22/main/download.jpg)
+
+## Student Testimonials
+
+Iclicker engaged students and extra credit
+
+I already know what to expect and what to prepare before class
+
+I really like how he offered opportunities for extra points 
+
+He graded fairly and was always there to help if we had question
+
+Mike was a fair + knowledge instructor. the course content was relevant and challenging. I learned alto from this course 
+
+Mike was very passionate about the subject 
+
+Instructor was knowledge about the topics
+
+Professor Nguyen was a fair grader. As long as you show up and try, you can pass the class and the assignments. 
+
+He is always willing to meet with you and help you out
+

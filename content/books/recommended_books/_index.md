@@ -73,11 +73,36 @@ Please enjoy!!!
 -   [Searching for a Corporate Savior - Rakes Khurana (2002)](https://www.google.com/books/edition/Searching_for_a_Corporate_Savior/y6Jvfnv9Vw8C)
 -   [Organizational Change](https://www.google.com/books/edition/_/PsB9DwAAQBAJ?hl=en&sa=X&ved=2ahUKEwjcjJrMkZ_vAhVJMawKHUVgAxAQre8FMBV6BAgLEAc)
 
+## Firm size and extinctions
+
+-   [Sole & Manrubia (1996) Extinction and self-organized criticality in a model of large-scale evolution](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.54.R42)
+
+-   [Newman (1997) A Model of Mass Extinction](https://www.sciencedirect.com/science/article/pii/S0022519397905087)
+
+-   [Buldyrev et al. (1996) Scaling Behavior in Economics](http://polymer.bu.edu/hes/articles/bahlmsss97.pdf)
+
+-   [Stanley et al. (1996) Scaling behavior in the growth of companies](http://polymer.bu.edu/hes/articles/sabhlmss96.pdf)
+
+-   [Amaral et al. (1997) Scaling behavior in economics](http://polymer.bu.edu/hes/articles/abhmsss97.pdf)
+
+-   [Plerou et al. (1999) Scaling of the distribution of price fluctuations of individual companies](http://polymer.bu.edu/hes/articles/pgams99.pdf)
+
+-   [Smith (2003) Constructivist and Ecological Rationality in Economics](https://pubs.aeaweb.org/doi/pdfplus/10.1257/000282803322156954)
+
+-   [Cook & Ormerod (2003) Power law distribution of the frequency of demises of US firms](https://www.sciencedirect.com/science/article/pii/S0378437102019556)
+
+-   [Axtell (2001) Zipf Distribution of U.S. Firm Sizes](https://www.science.org/doi/pdf/10.1126/science.1062081)
+
+-   [Guilmi et al. (2004) Scaling invariant distributions of firms' exit in OECD countries](https://www.sciencedirect.com/science/article/pii/S037843710300966X)
+
+-   [Daepp et al. (2015) The mortality of companies](https://royalsocietypublishing.org/doi/10.1098/rsif.2015.0120)
+
 # Finance / Economics
 
 -   [What I Learned Losing a Million Dollars - Brendan Moynihan and Jim Paul (1994)](https://www.google.com/books/edition/What_I_Learned_Losing_a_Million_Dollars/NV2rAgAAQBAJ?hl=en&gbpv=1&printsec=frontcover)
 -   [The Winner's Curse: Paradoxes and Anomalies of Economic Life - Richard Thaler (1992)](https://books.google.com/books/about/The_Winner_s_Curse.html?id=5AsPAQAAMAAJ)
 -   [Irrational Exuberance - Robert Shiller (2000)](https://www.google.com/books/edition/Irrational_Exuberance/_aIpBQAAQBAJ)
+-   [Theory of Financial Risk and Derivative Pricing - Bouchaud/Potters et al. (2003)](https://www.google.com/books/edition/Theory_of_Financial_Risk_and_Derivative/neT6jVyMtlIC?hl=en&gbpv=0)
 -   [The Misbehavior of Markets - Benoit Mandelbrot (2004)](https://www.google.com/books/edition/_/M0U5tAEACAAJ)
 -   [Nudge - Richard Thaler (2009)](https://books.google.com/books?id=bt6sPxiYdfkC)
 -   [Misbehaving - Richard Thaler (2015)](https://www.google.com/books/edition/Misbehaving_The_Making_of_Behavioral_Eco/xQedBAAAQBAJ)
