@@ -14,7 +14,6 @@ event: 2022 Mittelstaedt & Gentry Doctoral Symposium
 event_url: https://business.unl.edu/academic-programs/departments/marketing/about/robert-mittelstaedt-doctoral-symposium/
 featured: false
 image:
-  # caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/bzdhc5b3Bxs)'
   focal_point: Right
 links:
 # - icon: twitter
@@ -26,7 +25,7 @@ math: true
 projects:
 - brand-equity-meta
 publishDate: "2022-03-31T00:00:00Z"
-slides: example
+# slides: example
 summary: Presenter (Representative of the University of Missouri)
 tags: []
 title: Mittelstaedt & Gentry Doctoral Symposium
