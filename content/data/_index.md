@@ -312,6 +312,8 @@ Patent Data
 
 -   [Baidu Index](http://index.baidu.com/v2/index.html)
 
+-   [SerpAPI](https://serpapi.com/): paid
+
 ## Sales
 
 -   [Kilts Center for Marketing](https://www.chicagobooth.edu/research/kilts/datasets): Chicago Booth
@@ -322,6 +324,16 @@ Patent Data
         -   [ERIM Dataset](https://www.chicagobooth.edu/research/kilts/datasets/erim): households, TV viewing data is available to measure exposure to commercials involving the products
         -   [BAYESM](https://www.chicagobooth.edu/research/kilts/datasets/bayesm) More like a software, but also includes some panel data.
 -   [International Data Corporation](https://www.idc.com/): Market share
+
+## Complaints
+
+-   [Consumer Financial Protection Bureau](https://www.consumerfinance.gov/data-research/consumer-complaints/)
+
+-   [Complaints Board](https://www.complaintsboard.com/): can search for businesses
+
+-   [Federal Trade Commission](https://www.ftc.gov/news-events/data-visualizations/explore-data)
+
+-   [Ripoff Report](https://www.ripoffreport.com/): Complaints, Reviews, Scams, Lawsuits, Frauds
 
 # Health
 
@@ -346,6 +358,16 @@ Patent Data
 -   [Healthcare Cost and Utilization Project](https://hcup-us.ahrq.gov/databases.jsp)
 
 -   [Open Payments](https://openpaymentsdata.cms.gov/): payments made by firms to doctors.
+
+# Laws
+
+-   [Bloomberg Law](https://news.bloomberglaw.com/): through most university law schools
+
+-   [Google Case Law](https://scholar.google.com/): free, but no api (might be able to bypass with SerpAPI)
+
+-   [Case Law Access Project](https://case.law/): free with api
+
+-   Nexis Uni: through university (no API)
 
 # Social Science
 
