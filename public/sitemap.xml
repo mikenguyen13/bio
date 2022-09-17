@@ -8,25 +8,34 @@
     <loc>https://mikenguyen.netlify.app/courses/mizzou-mar4050-f21/</loc>
     <lastmod>2022-01-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
-    <lastmod>2022-09-08T18:26:10-05:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2022-09-17T12:37:37-05:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/github/</loc>
+    <lastmod>2022-09-17T12:37:37-05:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/github/</loc>
+    <lastmod>2022-09-17T12:37:37-05:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/</loc>
+    <lastmod>2022-09-17T12:37:37-05:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2022-09-17T12:37:37-05:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/revert-a-commit/</loc>
+    <lastmod>2022-09-17T12:37:37-05:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2022-09-17T12:37:37-05:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
     <lastmod>2022-09-08T18:26:10-05:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/correct-bibtex-format/</loc>
     <lastmod>2022-09-08T18:26:10-05:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/</loc>
-    <lastmod>2022-09-08T18:26:10-05:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2022-09-08T18:26:10-05:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2022-09-08T18:26:10-05:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2022-09-08T18:26:10-05:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/talk/2022_aug_isbm/</loc>
@@ -97,12 +106,6 @@
   </url><url>
     <loc>https://mikenguyen.netlify.app/courses/</loc>
     <lastmod>2022-01-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/github/</loc>
-    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/github/</loc>
-    <lastmod>2022-01-03T12:53:22-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/missing-git-tab-in-rstudio-on-windows-computer/</loc>
     <lastmod>2022-01-03T12:53:22-06:00</lastmod>
