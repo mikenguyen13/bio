@@ -196,6 +196,7 @@ Patent Data
 -   [CoreSignal Firmographic data](https://coresignal.com/alternative-data/firmographic-data/)
 -   [Failory](https://www.failory.com/cemetery): Data on failed businesses
 -   [HUD](https://www.huduser.gov/portal/pdrdatas_landing.html): American Housing survey, housing data, public housing population
+-   [XBRL Research](https://www.xbrlresearch.com/firm-complexity/): measure firm and accounting complexity
 
 ## Risk
 
@@ -222,6 +223,14 @@ Patent Data
     -   [Preprocessed data](https://www.fodava.gatech.edu/processed-kiva-data) (Choo et al, 2014)
 
 # Marketing
+
+## App
+
+-   [apptweak](https://www.apptweak.com/en) or [apptweak.io](https://www.apptweak.io/) (paid): app download, revenue, rating
+
+-   [Apple Search Ads service](https://searchads.apple.com/advanced): Apple Search Popularity Score
+
+-   
 
 ## Sentiment
 
@@ -368,6 +377,28 @@ Patent Data
 -   [Case Law Access Project](https://case.law/): free with api
 
 -   Nexis Uni: through university (no API)
+
+# Higher Education
+
+-   [HERI Data](https://heri.ucla.edu/heri-data-archive/): The Higher Education Research Institute by UCLA
+
+    -   CIRP Freshman Survey Trends: 1966 to 2008
+
+    -   CIRP College Senior Survey Trends: 1994 to 2008
+
+    -   HERI Faculty Survey Trends: 1989 to 1998
+
+-   [National Survey of College Graduates](https://ncsesdata.nsf.gov/datadownload/)
+
+-   [NCAA Shareable Data](https://www.ncaa.org/sports/2016/12/14/shared-ncaa-research-data.aspx): free
+
+-   [NCAA Injury Surveillance Program](https://www.datalyscenter.org/): have to contact
+
+-   [Equity in Athletics Data Analysis](https://ope.ed.gov/athletics/#/datafile/list): free
+
+-   [Donorschoose](https://help.donorschoose.org/hc/en-us/articles/360047050214-Information-for-academic-researchers-data-scientists-and-developers): (free for researchers) public school teachers can ask for classroom donations.
+
+-   [Education Data Partnership](https://www.ed-data.org/): access to K12 education data California.
 
 # Social Science
 

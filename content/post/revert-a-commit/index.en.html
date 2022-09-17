@@ -1,0 +1,29 @@
+---
+title: revert a commit
+author: Mike Nguyen
+date: '2022-09-17'
+slug: revert-a-commit
+categories:
+  - GitHub
+tags:
+  - GitHub
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-09-17T12:37:37-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>I’ve recently committed a cardinal sin of pulling a merge without checking. And then, I had to try to revert back to my original commit. However, I also encounter an error saying <code>non-fast-forward</code>. Hence, you have to do the following steps for a correct revert</p>
+<pre><code>git revert {commit_id}
+git push origin -f</code></pre>
+<p>After typing in your password, you should be reverted to the original state of the commit ID.</p>
+<p><strong>Note</strong>: To check your commit_id, on the right-hand side of Rstudio, you can see a clock next to the green up arrow. In the changes tab, you should see the column <code>SHA</code>, which is the string of the commit id that you want to get.</p>
