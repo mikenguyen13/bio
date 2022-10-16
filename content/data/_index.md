@@ -122,6 +122,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [CoreSignal- Employee Review](https://coresignal.com/alternative-data/company-employee-review-data/): Employee reviews
 -   [CoreSignal - Job Posting](https://coresignal.com/alternative-data/job-postings-data/)
 -   [CoreSignal - Employee data](https://coresignal.com/alternative-data/employee-data/)
+-   [CSRHub](https://www.csrhub.com/) by Consensus ESG ratings: Data on CSR around the world (paid)
 
 ## Innovation
 
@@ -159,6 +160,7 @@ Patent Data
     -   Execucomp
     -   Capital IQ - Key Developments: event types for companies
 -   CRSP
+-   Worldscope: fundamental data for major international firms. Searchable by company name, country, exchange, or fundamental items. 1980+. (via WRDS)
 -   [List of private firms](https://guides.loc.gov/company-research/private)
     -   [Crunchbase](https://www.crunchbase.com/): description on start-ups, companies, peoples
 
@@ -176,7 +178,7 @@ Patent Data
 -   [World Bank](https://www.worldbank.org/en/publication/gfdr/data)
 -   [IMF](https://www.imf.org/en/Data#data)
 -   [Mergent Online](https://www.mergentonline.com/basicsearch.php)
--   [Orbis](https://www.bvdinfo.com/en-us/our-products/data/international/orbis)
+-   [Orbis](https://www.bvdinfo.com/en-us/our-products/data/international/orbis): global firms including private (is survivor biased, companies are dropped after 10 years if not active)
 -   [SDC Platinum](https://www.refinitiv.com/en/products/sdc-platinum-financial-securities): historical transactions
 -   [IRS Tax Statistics](https://www.irs.gov/statistics) [SOI Tax Stat](https://www.irs.gov/statistics/soi-tax-stats-corporation-tax-statistics)
 -   [Zillow Home Prices](https://www.zillow.com/research/data/): Zillow's API allows business access only (not for educational or research purposes). But they do allow to download small [dataset](https://www.zillow.com/research/data/)
@@ -197,6 +199,16 @@ Patent Data
 -   [Failory](https://www.failory.com/cemetery): Data on failed businesses
 -   [HUD](https://www.huduser.gov/portal/pdrdatas_landing.html): American Housing survey, housing data, public housing population
 -   [XBRL Research](https://www.xbrlresearch.com/firm-complexity/): measure firm and accounting complexity
+-   International Fundamentals:
+    -   China: CSMAR (via WRDS)
+
+    -   EU: Amadeus
+
+    -   India: [Prowess](https://prowessdx.cmie.com/)
+
+    -   Canada: [SEDAR](https://www.sedar.com/homepage_en.htm)
+
+    -   Japan: [EDINET](https://disclosure.edinet-fsa.go.jp)
 
 ## Risk
 
@@ -230,13 +242,18 @@ Patent Data
 
 -   [Apple Search Ads service](https://searchads.apple.com/advanced): Apple Search Popularity Score
 
--   
+## Product Introduction
+
+-   [Mintel](https://www.mintel.com/)
+
+-   [IRI](https://www.iriworldwide.com/en-us)
 
 ## Sentiment
 
 -   [DataStreamer](https://www.datastreamer.io/): Search API returns search results from multiple sources (Twitter, Inst gram, Blogs, Forums, News, International News).
 -   Bloomberg: sentiments based on news articles and Twitter
 -   [Meltwater](https://www.meltwater.com/en): paid
+-   [Infegy](https://www.infegy.com/): paid
 
 ## Firm
 
@@ -253,6 +270,7 @@ Patent Data
 -   [World Brand Lab](http://www.worldbrandlab.com/): brand equity ranking in China.
 -   [Brand24 - Media Monitoring Tool](https://brand24.com/): monitor brand from Twitter, Facebook, and Instagram.
 -   [Affectiva - Humanizing Technology : Affectiva](https://www.affectiva.com/) data on emotional reactions of 53k ads over 90 countries and 8 years.
+-   YouGov: daily data on brands. (see Colicev et al. 2018 when using this dataset).
 
 ## Advertising
 
@@ -459,7 +477,13 @@ Patent Data
 
 # References
 
-Arora, A., Belenzon, S., & Sheer, L. (2021). Matching patents to compustat firms, 1980--2015: Dynamic reassignment, name changes, and ownership structures. Research Policy, 50(5), 104217. Choo, J., Lee, C., Lee, D., Zha, H., & Park, H. (2014, February). Understanding and promoting micro-finance activities in kiva. org. In *Proceedings of the 7th ACM international conference on Web search and data mining* (pp. 583-592). Datta, Hannes, Harald J. van Heerde, Marnik G. Dekimpe, and Jan-Benedict E. M. Steenkamp (2022), "Cross-National Differences in Market Response: Line-Length, Price, and Distribution Elasticities in Fourteen Indo-Pacific Rim Economies," Journal of Marketing Research, 59 (2), 251-70
+Arora, A., Belenzon, S., & Sheer, L. (2021). Matching patents to compustat firms, 1980--2015: Dynamic reassignment, name changes, and ownership structures. Research Policy, 50(5), 104217.
+
+Choo, J., Lee, C., Lee, D., Zha, H., & Park, H. (2014, February). Understanding and promoting micro-finance activities in kiva. org. In *Proceedings of the 7th ACM international conference on Web search and data mining* (pp. 583-592).
+
+Colicev, A., Malshe, A., Pauwels, K., & O'Connor, P. (2018). Improving consumer mindset metrics and shareholder value through social media: The different roles of owned and earned media. *Journal of Marketing*, *82*(1), 37-56.
+
+Datta, Hannes, Harald J. van Heerde, Marnik G. Dekimpe, and Jan-Benedict E. M. Steenkamp (2022), "Cross-National Differences in Market Response: Line-Length, Price, and Distribution Elasticities in Fourteen Indo-Pacific Rim Economies," Journal of Marketing Research, 59 (2), 251-70
 
 Kogan, L., Papanikolaou, D., Seru, A., & Stoffman, N. (2017). Technological innovation, resource allocation, and growth. *The Quarterly Journal of Economics*, *132*(2), 665-712.
 

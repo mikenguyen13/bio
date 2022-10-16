@@ -325,7 +325,7 @@
   <meta property="og:description" content="This site is Mike Nguyen&#39;s personal website. He is a marketing researcher with interests in branding and social media."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
   <meta property="twitter:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2022-09-08T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2022-10-15T00:00:00&#43;00:00">
   
 
   
@@ -788,6 +788,20 @@
     
     
     <div>
+      <h2><a href="/post/create-your-own-package/" >create your own package</a></h2>
+      <div class="article-style">
+        
+          library(&quot;usethis&quot;)create_package(path = &quot;../package_name&quot;)use_description()usethis::is_package()load library
+library(devtools)load_all() # Cmd/Ctrl + Shift + L# use_pipe()use_package(&quot;dplyr&quot;)You also need to modify your description file
+Imports:ggplot2dplyr# install all dependencies in DESCRIPTIONinstall_deps()create function
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
       <h2><a href="/post/learnr-to-guide-students/" >learnr to guide students</a></h2>
       <div class="article-style">
         
@@ -904,19 +918,6 @@ Change Identifiers:
 This example is from Arrow Vignettes
 arrowbest when working with big data
 Preplibrary(&quot;arrow&quot;, warn.conflicts = FALSE)library(&quot;dplyr&quot;, warn.conflicts = FALSE)check if S3 support is included.
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/post/doparallel/" >doParallel</a></h2>
-      <div class="article-style">
-        
-          Packages#install.packages(&quot;doParallel&quot;)library(&quot;doParallel&quot;)## Loading required package: foreach## Loading required package: iterators## Loading required package: parallelCheck how long a loop takes
-start &lt;- proc.time()for (i in 1:10){sqrt(i)}base_loop=(proc.
         
       </div>
     </div>

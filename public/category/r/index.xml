@@ -5,12 +5,56 @@
     <link>https://mikenguyen.netlify.app/category/r/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Thu, 08 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Sat, 15 Oct 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>R</title>
       <link>https://mikenguyen.netlify.app/category/r/</link>
     </image>
+    
+    <item>
+      <title>Handle duplicate packages in different paths</title>
+      <link>https://mikenguyen.netlify.app/post/handle-duplicate-packages-in-different-paths/</link>
+      <pubDate>Sat, 15 Oct 2022 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/handle-duplicate-packages-in-different-paths/</guid>
+      <description>
+&lt;script src=&#34;https://mikenguyen.netlify.app/post/handle-duplicate-packages-in-different-paths/index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;If you work with multiple work stations (multiple computers/laptops) sharing the same cloud folder. You might encounter this problem. Your Rstudio in different computers will have different default paths to install and load packages. For each computer, you will see something like this:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Cloud-path: “Users/yourname/cloud_drive/Documents/R/win-library/version&lt;/li&gt;
+&lt;li&gt;Local-path: “Program Files/R/R_version/library”&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To see your library path, type &lt;code&gt;.libPaths()&lt;/code&gt; in the console.&lt;/p&gt;
+&lt;p&gt;To always have the same library path on multiple devices, you have to create &lt;code&gt;.Renviron&lt;/code&gt; on each device&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::edit_r_environ()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After opening the &lt;code&gt;.Renviron&lt;/code&gt; file, type in &lt;code&gt;R_LIBS_USER = &#34;file_path&#34;&lt;/code&gt; where “file_path” is your desired cloud location.&lt;/p&gt;
+&lt;p&gt;To remove all duplicate packages, you can either remove them based on version (solution by this &lt;a href=&#34;https://stackoverflow.com/questions/15170399/change-r-default-library-path-using-libpaths-in-rprofile-site-fails-to-work&#34;&gt;post&lt;/a&gt;) or based on path location&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)
+pkgs &amp;lt;- installed.packages()
+pkgs &amp;lt;- as.data.frame(pkgs)
+
+# get the list of duplicate packages
+dupes &amp;lt;- pkgs %&amp;gt;% select(Package, Version, LibPath) %&amp;gt;% 
+  group_by(Package) %&amp;gt;% 
+  filter(n_distinct(Version, na.rm = TRUE) &amp;gt; 1)
+
+# remove duplicate packages
+# delete packages based on library path
+dupes %&amp;gt;%
+  mutate(chosen_path = if_else(LibPath == &amp;quot;chosen_file_path_to_keep&amp;quot;, 1, 0)) %&amp;gt;%
+  filter(chosen_path != 1) %&amp;gt;% 
+  purrr::pmap(~ remove.packages(..1, ..3))
+ 
+dupes %&amp;gt;%
+  # delete packages based on version (delete older ones)
+  group_by(Package) %&amp;gt;%
+  arrange(desc(Version)) %&amp;gt;%
+  filter(Version != first(Version)) %&amp;gt;%
+  purrr::pmap(~ remove.packages(..1, ..3))&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Correct Bibtex format</title>
