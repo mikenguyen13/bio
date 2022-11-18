@@ -236,11 +236,23 @@ Patent Data
 
 # Marketing
 
+## Data Breach
+
+-   [privacyright.org](https://privacyrights.org/data-breaches)
+
+-   [DLDOS: Data Loss Database - Open Source (2000-2008)](https://attrition.org/dataloss/dldos.html)
+
 ## App
 
 -   [apptweak](https://www.apptweak.com/en) or [apptweak.io](https://www.apptweak.io/) (paid): app download, revenue, rating
 
 -   [Apple Search Ads service](https://searchads.apple.com/advanced): Apple Search Popularity Score
+
+## Social Media
+
+-   [Instaloader](https://instaloader.github.io/): download content from Instagram
+
+-   [instagrapi](https://adw0rd.github.io/instagrapi/): download and push data on Instagram
 
 ## Product Introduction
 
