@@ -228,11 +228,11 @@ plugins_js  = []
     # If self-hosting Commento, enter its URL here (e.g. "https://commento.?.com"), otherwise leave empty.
     url = ""
     
-  [comments.utterances]
-    repo = "mikenguyen13/bio"
-    issue_term = "pathname"
-    label = "utterances_blog"
-    theme = "github-light"
+  #[comments.utterances]
+  #  repo = "mikenguyen13/bio"
+  #  issue-term = "pathname"
+  #  label = "utterances_blog"
+  #  theme = "github-light"
     
 
 
