@@ -5,12 +5,63 @@
     <link>https://mikenguyen.netlify.app/</link>
       <atom:link href="https://mikenguyen.netlify.app/index.xml" rel="self" type="application/rss+xml" />
     <description>Mike Nguyen</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Sat, 15 Oct 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2022</copyright><lastBuildDate>Sat, 10 Dec 2022 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Mike Nguyen</title>
       <link>https://mikenguyen.netlify.app/</link>
     </image>
+    
+    <item>
+      <title>Adding utteranc.es to blogdown academic hugo theme</title>
+      <link>https://mikenguyen.netlify.app/post/adding-utteranc-es-to-blogdown-academic-hugo-theme/</link>
+      <pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/adding-utteranc-es-to-blogdown-academic-hugo-theme/</guid>
+      <description>
+
+
+&lt;p&gt;After several hours struggling with multiple recommendations by&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.davidfong.org/post/hugoacademiccommentswithutterances/&#34;&gt;David Fong&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://masalmon.eu/2019/10/02/disqus/&#34;&gt;Salmon&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://jvelezmagic.com/blog/2021-05-06-learn-how-to-use-utterances-with-acadamic-hugo-blogdown/&#34;&gt;Jesus Velez&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.pugillum.com/posts/2021_11_28_github_issues_as_comments/&#34;&gt;pugillum&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://robb.sh/posts/add-utterances-comments-to-hugo/&#34;&gt;robb&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://mscipio.github.io/post/utterances-comment-engine/&#34;&gt;Michele Scipioni&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I still cannot see my comment section using &lt;a href=&#34;https://utteranc.es/&#34; class=&#34;uri&#34;&gt;https://utteranc.es/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I realize I did not have my webpage repo public. Hence, remembering to have your repo visibility option as &lt;strong&gt;Public&lt;/strong&gt; is very important !!! Go to your repo online, under Settings tab, you can find “Change repository visibility” at the bottom of the page, change it to &lt;strong&gt;public&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;And I recommend using the simplest method to change your theme. Alternatively, you can use sources provided above.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Install &lt;a href=&#34;https://github.com/apps/utterances&#34;&gt;utteranc.es&lt;/a&gt; on your repo. You can either
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;Choose to install to every repo (not recommended)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Install only to your blog repo (recommended)&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;Go to &lt;a href=&#34;https://utteranc.es/&#34;&gt;utteranc.es&lt;/a&gt; and fill our your form. Copy the copy snippet&lt;/li&gt;
+&lt;li&gt;Go to &lt;code&gt;themes/wowchemy/layouts/_default/single.html&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Add the code snippet provided by &lt;a href=&#34;https://utteranc.es/&#34;&gt;utteranc.es&lt;/a&gt; right above &lt;code&gt;{{ partial &#34;page_footer&#34; . }}&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- --&gt;
+&lt;pre&gt;&lt;code&gt;    &amp;lt;div class=&amp;quot;col-12 col-lg-10ish article-style&amp;quot;&amp;gt;
+    &amp;lt;script src=&amp;quot;https://utteranc.es/client.js&amp;quot;
+        repo=&amp;quot;mikenguyen13/bio&amp;quot;
+        issue-term=&amp;quot;pathname&amp;quot;
+        label=&amp;quot;utterances_blog&amp;quot;
+        theme=&amp;quot;github-light&amp;quot;
+        crossorigin=&amp;quot;anonymous&amp;quot;
+        async&amp;gt;
+    &amp;lt;/script&amp;gt;
+    &amp;lt;/div&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;5&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Go to &lt;code&gt;config/_default/params.toml&lt;/code&gt; and make sure that under “Comment”, &lt;code&gt;engine = 0&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;For the commentable section, you can customize as you wish. For example:
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;commentable = {page = false, post = true, docs = false, project = false, publication = true, talk = true}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
     
     <item>
       <title>Handle duplicate packages in different paths</title>
@@ -2602,7 +2653,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-279813564&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-421389765&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2612,7 +2663,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-279813564&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-421389765&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

@@ -1,0 +1,65 @@
+---
+title: Adding utteranc.es to blogdown academic hugo theme
+author: Mike Nguyen
+date: '2022-12-10'
+slug: adding-utteranc-es-to-blogdown-academic-hugo-theme
+categories:
+  - R
+  - Rstudio
+tags:
+  - blogdown
+  - Source Themes
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-12-10T22:31:12-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<p>After several hours struggling with multiple recommendations by</p>
+<ul>
+<li><p><a href="https://www.davidfong.org/post/hugoacademiccommentswithutterances/">David Fong</a></p></li>
+<li><p><a href="https://masalmon.eu/2019/10/02/disqus/">Salmon</a></p></li>
+<li><p><a href="https://jvelezmagic.com/blog/2021-05-06-learn-how-to-use-utterances-with-acadamic-hugo-blogdown/">Jesus Velez</a></p></li>
+<li><p><a href="https://www.pugillum.com/posts/2021_11_28_github_issues_as_comments/">pugillum</a></p></li>
+<li><p><a href="https://robb.sh/posts/add-utterances-comments-to-hugo/">robb</a></p></li>
+<li><p><a href="https://mscipio.github.io/post/utterances-comment-engine/">Michele Scipioni</a></p></li>
+</ul>
+<p>I still cannot see my comment section using <a href="https://utteranc.es/" class="uri">https://utteranc.es/</a></p>
+<p>I realize I did not have my webpage repo public. Hence, remembering to have your repo visibility option as <strong>Public</strong> is very important !!! Go to your repo online, under Settings tab, you can find “Change repository visibility” at the bottom of the page, change it to <strong>public</strong></p>
+<p>And I recommend using the simplest method to change your theme. Alternatively, you can use sources provided above.</p>
+<ol style="list-style-type: decimal">
+<li>Install <a href="https://github.com/apps/utterances">utteranc.es</a> on your repo. You can either
+<ol style="list-style-type: decimal">
+<li><p>Choose to install to every repo (not recommended)</p></li>
+<li><p>Install only to your blog repo (recommended)</p></li>
+</ol></li>
+<li>Go to <a href="https://utteranc.es/">utteranc.es</a> and fill our your form. Copy the copy snippet</li>
+<li>Go to <code>themes/wowchemy/layouts/_default/single.html</code></li>
+<li>Add the code snippet provided by <a href="https://utteranc.es/">utteranc.es</a> right above <code>{{ partial "page_footer" . }}</code></li>
+</ol>
+<!-- -->
+<pre><code>    &lt;div class=&quot;col-12 col-lg-10ish article-style&quot;&gt;
+    &lt;script src=&quot;https://utteranc.es/client.js&quot;
+        repo=&quot;mikenguyen13/bio&quot;
+        issue-term=&quot;pathname&quot;
+        label=&quot;utterances_blog&quot;
+        theme=&quot;github-light&quot;
+        crossorigin=&quot;anonymous&quot;
+        async&gt;
+    &lt;/script&gt;
+    &lt;/div&gt;</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Go to <code>config/_default/params.toml</code> and make sure that under “Comment”, <code>engine = 0</code></li>
+<li>For the commentable section, you can customize as you wish. For example:
+<ul>
+<li><code>commentable = {page = false, post = true, docs = false, project = false, publication = true, talk = true}</code></li>
+</ul></li>
+</ol>

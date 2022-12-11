@@ -1,0 +1,68 @@
+---
+title: Adding utteranc.es to blogdown academic hugo theme
+author: Mike Nguyen
+date: '2022-12-10'
+slug: adding-utteranc-es-to-blogdown-academic-hugo-theme
+categories:
+  - R
+  - Rstudio
+tags:
+  - blogdown
+  - Source Themes
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2022-12-10T22:31:12-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+After several hours struggling with multiple recommendations by
+
+-   [David Fong](https://www.davidfong.org/post/hugoacademiccommentswithutterances/)
+
+-   [Salmon](https://masalmon.eu/2019/10/02/disqus/)
+
+-   [Jesus Velez](https://jvelezmagic.com/blog/2021-05-06-learn-how-to-use-utterances-with-acadamic-hugo-blogdown/)
+
+-   [pugillum](https://www.pugillum.com/posts/2021_11_28_github_issues_as_comments/)
+
+-   [robb](https://robb.sh/posts/add-utterances-comments-to-hugo/)
+
+-   [Michele Scipioni](https://mscipio.github.io/post/utterances-comment-engine/)
+
+I still cannot see my comment section using <https://utteranc.es/>
+
+I realize I did not have my webpage repo public. Hence, remembering to have your repo visibility option as **Public** is very important !!! Go to your repo online, under Settings tab, you can find "Change repository visibility" at the bottom of the page, change it to **public**
+
+And I recommend using the simplest method to change your theme. Alternatively, you can use sources provided above.
+
+1.  Install [utteranc.es](https://github.com/apps/utterances) on your repo. You can either
+    1.  Choose to install to every repo (not recommended)
+
+    2.  Install only to your blog repo (recommended)
+2.  Go to [utteranc.es](https://utteranc.es/) and fill our your form. Copy the copy snippet
+3.  Go to `themes/wowchemy/layouts/_default/single.html`
+4.  Add the code snippet provided by [utteranc.es](https://utteranc.es/) right above `{{ partial "page_footer" . }}`
+
+```{=html}
+<!-- -->
+```
+        <div class="col-12 col-lg-10ish article-style">
+        <script src="https://utteranc.es/client.js"
+            repo="mikenguyen13/bio"
+            issue-term="pathname"
+            label="utterances_blog"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+        </script>
+        </div>
+
+5.  Go to `config/_default/params.toml` and make sure that under "Comment", `engine = 0`
+6.  For the commentable section, you can customize as you wish. For example:
+    -   `commentable = {page = false, post = true, docs = false, project = false, publication = true, talk = true}`
