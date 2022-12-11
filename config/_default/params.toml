@@ -213,9 +213,10 @@ plugins_js  = []
   #   1: Disqus (https://disqus.com)
   #   2: Commento (https://commento.io)
   engine = 0
-
+  # engine = 3
+  
   # Which page types are commentable?
-  commentable = {page = true, post = true, docs = true, project = true, publication = true, talk = true}
+  commentable = {page = false, post = true, docs = false, project = false, publication = true, talk = true}
 
   # Configuration of Disqus.
   [comments.disqus]
@@ -226,6 +227,14 @@ plugins_js  = []
   [comments.commento]
     # If self-hosting Commento, enter its URL here (e.g. "https://commento.?.com"), otherwise leave empty.
     url = ""
+    
+  [comments.utterances]
+    repo = "mikenguyen13/bio"
+    issue_term = "pathname"
+    label = "utterances_blog"
+    theme = "github-light"
+    
+
 
 ############################
 ## Search

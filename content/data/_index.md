@@ -126,8 +126,9 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 ## Innovation
 
-Patent Data
+### Patent Data
 
+-   [See this post for more details](https://mikenguyen.netlify.app/post/patent-databases/)
 -   [Global Entrepreneurship Monitor](https://www.gemconsortium.org/data)
 -   [Firm and Industry Evolution, Entrepreneurship, and Strategy](http://five.dartmouth.edu/datasets?)
 -   [NBER patent](https://sites.google.com/site/patentdataproject/Home)
@@ -245,6 +246,12 @@ Patent Data
 ## App
 
 -   [apptweak](https://www.apptweak.com/en) or [apptweak.io](https://www.apptweak.io/) (paid): app download, revenue, rating
+
+-   [apptopia](https://dev.apptopia.com/#ranked-apps) (paid)
+
+-   [sensortower](https://app.sensortower.com/) (paid)
+
+-   [appfollow](https://appfollow.io/pricing) (paid)
 
 -   [Apple Search Ads service](https://searchads.apple.com/advanced): Apple Search Popularity Score
 
