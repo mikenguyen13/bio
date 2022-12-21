@@ -2,11 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://mikenguyen.netlify.app/courses/mizzou-mar4050-s22/</loc>
+    <loc>https://mikenguyen.netlify.app/courses/02-mizzou-mar4050-s22/</loc>
     <lastmod>2022-01-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/courses/mizzou-mar4050-f21/</loc>
-    <lastmod>2022-01-09T00:00:00+00:00</lastmod>
+    <loc>https://mikenguyen.netlify.app/courses/03-pitt-mkt1481-f22/</loc>
+    <lastmod>2022-12-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/courses/01-mizzou-mar4050-f21/</loc>
+    <lastmod>2021-12-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/adding-utteranc-es-to-blogdown-academic-hugo-theme/</loc>
     <lastmod>2022-12-10T22:31:12-06:00</lastmod>
@@ -34,6 +37,9 @@
   </url><url>
     <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2022-12-10T22:31:12-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/courses/</loc>
+    <lastmod>2022-12-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/handle-duplicate-packages-in-different-paths/</loc>
     <lastmod>2022-10-15T19:25:22-05:00</lastmod>
@@ -115,9 +121,6 @@
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/setup-java-with-r/</loc>
     <lastmod>2022-01-13T13:14:07-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/courses/</loc>
-    <lastmod>2022-01-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/missing-git-tab-in-rstudio-on-windows-computer/</loc>
     <lastmod>2022-01-03T12:53:22-06:00</lastmod>

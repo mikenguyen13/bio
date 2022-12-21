@@ -49,9 +49,8 @@ And I recommend using the simplest method to change your theme. Alternatively, y
 3.  Go to `themes/wowchemy/layouts/_default/single.html`
 4.  Add the code snippet provided by [utteranc.es](https://utteranc.es/) right above `{{ partial "page_footer" . }}`
 
-```{=html}
 <!-- -->
-```
+
         <div class="col-12 col-lg-10ish article-style">
         <script src="https://utteranc.es/client.js"
             repo="mikenguyen13/bio"

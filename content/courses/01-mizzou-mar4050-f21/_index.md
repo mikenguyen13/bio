@@ -1,9 +1,9 @@
 ---
-date: "2022-01-09T00:00:00Z"
+date: "2021-12-09T00:00:00Z"
 draft: false
-lastmod: "2022-01-09T00:00:00Z"
+lastmod: "2021-12-09T00:00:00Z"
 title: Marketing Research (MAR 4050) Fall 2021
-linktitle: Overview
+linktitle: MR F21
 summary: Online materials for MAR 4050 (Marketing research) at the University of Missouri in Fall 2021.
 toc: true
 type: book
