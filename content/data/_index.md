@@ -234,6 +234,7 @@ For data management (should be put under datasheet.md or the README.md file): se
     -   [Details](https://www.bls.gov/cex/pumd-getting-started-guide.htm)
 -   [Kiva](https://www.kiva.org/): micro loan data. [download snapshots](https://www.kiva.org/build/data-snapshots). To see the [data summary](http://kivadata.org/index.html)
     -   [Preprocessed data](https://www.fodava.gatech.edu/processed-kiva-data) (Choo et al, 2014)
+-   [Unemployment rate](https://fred.stlouisfed.org/series/UNRATE): FRED Economic Data St. Louis FED
 
 # Marketing
 
@@ -359,6 +360,46 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Baidu Index](http://index.baidu.com/v2/index.html)
 
 -   [SerpAPI](https://serpapi.com/): paid
+
+## Web Traffic
+
+-   [Alexa Web Information Service](https://awis.alexa.com/): retired as of Dec 8, 2021
+
+-   [ahrefs](https://ahrefs.com/pricing): Min \$99
+
+-   [semrush](https://www.semrush.com/pricing/): Min \$119
+
+-   [kissmetrics](https://www.kissmetrics.io/): negotiable price
+
+-   [authoritas](https://www.authoritas.com/pricing/): \$99
+
+-   [watchthem](https://watchthem.live/packages-and-pricing/): \$29
+
+-   [Cisco Umbrella](https://s3-us-west-1.amazonaws.com/umbrella-static/index.html): free (relative ranking data, not actual browsing activity)
+
+-   [rankwatch](https://www.rankwatch.com/pricing.html): \$29 (keyword search)
+
+-   [SE Ranking](https://online.seranking.com/admin.dashboard.html): free trial - \$32/month (url monitor)
+
+-   [Amazon QuickSight](https://aws.amazon.com/quicksight/): fancy keyword research for enterprises
+
+-   [tranco](https://tranco-list.eu/): free for researchers (aggregate ranking lists)
+
+-   [cloudfare radar](https://radar.cloudflare.com/): Internet usage
+
+-   [comscore](https://www.comscore.com/): paid enterprise for social and web traffic
+
+-   [moz](https://moz.com/products/pro/pricing): \$99 web traffic
+
+-   [similarweb](https://pro.similarweb.com/): enterprise solution \$199 (cannot use API or request customized dataset unless you are using the ultimate package (\>\$20k)
+
+-   [infomer](https://website.informer.com/): check website safety
+
+-   [majestic](https://majestic.com/): website traffic \$49, but for API \$399
+
+-   [SE Ranking](https://online.seranking.com/admin.dashboard.html): SEO tools and dashboard API is \$192
+
+-   [serpstat](https://serpstat.com/): domain, keyword, URL, backlink analysis (recommended, [API](https://serpstat.com/api/656-the-beginning-of-work-v4/) is available for every plan, as low as \$55)
 
 ## Sales
 
@@ -486,13 +527,19 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 -   [Public APIs](https://github.com/public-apis/public-apis)
 
+# Potential Instruments
+
+-   [Internet outages worldwide](https://radar.cloudflare.com/outage-center)
+
+-   [Internet Attacks](https://radar.cloudflare.com/security-and-attacks)
+
 # Control Variables
 
 -   [National holiday](https://holidayapi.com/): (Datta, 2022)
 
 -   [Weather Underground](https://www.wunderground.com/about/data) [by IP Address](https://open.blockspring.com/bs/geolocation-by-ip-address-wunderground)
 
--   Changes to website using [Wayback Machine](http://web.archive.org/): can also submit links to track changes
+-   Changes to websites using [Wayback Machine](http://web.archive.org/): can also submit links to track changes
 
 # References
 
