@@ -5,12 +5,37 @@
     <link>https://mikenguyen.netlify.app/tag/academic/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/academic/index.xml" rel="self" type="application/rss+xml" />
     <description>Academic</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Thu, 08 Sep 2022 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Sat, 18 Feb 2023 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Academic</title>
       <link>https://mikenguyen.netlify.app/tag/academic/</link>
     </image>
+    
+    <item>
+      <title>Publish or Perish on Microsoft Windows</title>
+      <link>https://mikenguyen.netlify.app/post/publish-or-perish-on-microsoft-windows/</link>
+      <pubDate>Sat, 18 Feb 2023 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/publish-or-perish-on-microsoft-windows/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;a href=&#34;https://harzing.com/resources/publish-or-perish/windows&#34;&gt;Publish or Perish&lt;/a&gt; is a &lt;strong&gt;free&lt;/strong&gt; software for researchers to prepare for their tenure packet or performance appraisal.&lt;/p&gt;
+&lt;p&gt;This software allows users to see their research impact.&lt;/p&gt;
+&lt;p&gt;Other functions include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Provides guidance in selecting appropriate journals for article submission&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Facilitates the process of conducting comprehensive literature reviews and performing bibliometric research&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Aids in crafting laudatios or obituaries&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Enables research on notable academic figures&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Resources&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://harzing.com/resources/publish-or-perish/manual&#34;&gt;User’s Manual&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://harzing.com/resources/publish-or-perish/training&#34;&gt;YouTube instruction&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Correct Bibtex format</title>

@@ -1,0 +1,40 @@
+---
+title: Publish or Perish on Microsoft Windows
+author: Mike Nguyen
+date: '2023-02-18'
+slug: publish-or-perish-on-microsoft-windows
+categories:
+  - research
+tags:
+  - Academic
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2023-02-18T15:16:27-06:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+[Publish or Perish](https://harzing.com/resources/publish-or-perish/windows) is a **free** software for researchers to prepare for their tenure packet or performance appraisal.
+
+This software allows users to see their research impact.
+
+Other functions include:
+
+-   Provides guidance in selecting appropriate journals for article submission
+
+-   Facilitates the process of conducting comprehensive literature reviews and performing bibliometric research
+
+-   Aids in crafting laudatios or obituaries
+
+-   Enables research on notable academic figures
+
+Resources
+
+-   [User's Manual](https://harzing.com/resources/publish-or-perish/manual)
+
+-   [YouTube instruction](https://harzing.com/resources/publish-or-perish/training)
