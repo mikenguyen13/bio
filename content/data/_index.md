@@ -50,7 +50,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 
     -   What procedures were used to collect data?
 
-    -   What was the sampling strategy (e.g., probaiblistic)?
+    -   What was the sampling strategy (e.g., probabilistic)?
 
     -   Data time frame
 
@@ -123,6 +123,10 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [CoreSignal - Job Posting](https://coresignal.com/alternative-data/job-postings-data/)
 -   [CoreSignal - Employee data](https://coresignal.com/alternative-data/employee-data/)
 -   [CSRHub](https://www.csrhub.com/) by Consensus ESG ratings: Data on CSR around the world (paid)
+-   [CEO Dismissal](https://zenodo.org/record/7591606#.Y_k7M3bMKUl): by Gentry et al. (1992-2018)
+    -   A database of CEO turnover and dismissal in S&P 1500 firms, 2000--2018 (SMJ, 2021)
+
+    -   [R code](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-04-27/readme.md)
 
 ## Innovation
 
@@ -187,6 +191,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [National Association of Realtors](https://www.nar.realtor/research-and-statistics/housing-statistics): [Citation](https://www.nar.realtor/research-and-statistics/citation-guidelines-for-nar-research-statistics)
 -   [10-K Text data by Hoberg-Phillips](http://hobergphillips.tuck.dartmouth.edu/industryclass.htm)
 -   [Thomson Reuters](https://www.thomsonreuters.com/en/products-services.html)
+    -   [Eikon](https://amers2.apps.cp.thomsonreuters.com/web/Apps/Homepage/)
 -   [Pitchbook](https://pitchbook.com/data): private and public data
 -   [OANDA](https://www.oanda.com/us-en/): currency-related data
 -   [Professor French database](http://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)
@@ -211,6 +216,14 @@ For data management (should be put under datasheet.md or the README.md file): se
 
     -   Japan: [EDINET](https://disclosure.edinet-fsa.go.jp)
 
+## Factors
+
+-   [Global Factor Data](https://jkpfactors.com/)
+
+-   [Fama-French](https://mba.tuck.dartmouth.edu/pages/faculty/ken.french/data_library.html)
+
+-   [q-factors](https://global-q.org/factors.html)
+
 ## Risk
 
 -   [Sustainalytics](https://www.sustainalytics.com/)
@@ -220,6 +233,24 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [CryptoScamDB](https://cryptoscamdb.org): Report about scam (only name of blacklisted domains)
 
 -   [BitcoinAbuse](https://www.bitcoinabuse.com/): report about scam with date, abuser, description, from country, and crated_at.
+
+## Textual Network Data in Finance
+
+-   [Gerard Hoberg](https://faculty.marshall.usc.edu/Gerard-Hoberg/)
+
+    -   [Product Life Cycle](https://faculty.marshall.usc.edu/Gerard-Hoberg/HobergMaxLifeCycles/index.html)
+
+    -   [Rapidly Evolving Patent Tech Data](https://bowen.finance/bfh_data/)
+
+    -   [Vertical Relatedness and Vertical Integration](https://faculty.marshall.usc.edu/Gerard-Hoberg/FresardHobergPhillipsDataSite/index.html)
+
+    -   [Offshoring Network Data](https://faculty.marshall.usc.edu/Gerard-Hoberg/HobergMoonDataSite/index.html)
+
+    -   [Financial Instability Risk Data](https://faculty.marshall.usc.edu/Gerard-Hoberg/HanleyHobergDataSite/index.html)
+
+    -   [Financial Constraint Data](https://faculty.marshall.usc.edu/Gerard-Hoberg/MaxDataSite/index.html)
+
+-   [Hoberg-Phillips Data Library](http://hobergphillips.tuck.dartmouth.edu/)
 
 # Economics
 
@@ -540,6 +571,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Weather Underground](https://www.wunderground.com/about/data) [by IP Address](https://open.blockspring.com/bs/geolocation-by-ip-address-wunderground)
 
 -   Changes to websites using [Wayback Machine](http://web.archive.org/): can also submit links to track changes
+
+-   Interesting Dataset every week: [tidytuesday](https://github.com/rfordatascience/tidytuesday)
 
 # References
 
