@@ -150,6 +150,10 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [KickStarter data from Kaggle](https://www.kaggle.com/datasets/kemical/kickstarter-projects)
 -   [Indiegogo](https://webrobots.io/indiegogo-dataset/)
 
+### Technology Adoption
+
+-   [The CHAT (Cross-country Historical Adoption of Technology) Dataset](https://www.nber.org/papers/w15319): [download](https://data.nber.org/data-appendix/w15319/README.TXT)
+
 # Academic Literature
 
 -   [Microsoft Academic Knowledge Graph](https://makg.org/)
@@ -275,6 +279,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 -   [DLDOS: Data Loss Database - Open Source (2000-2008)](https://attrition.org/dataloss/dldos.html)
 
+-   [Darknet market archives](https://gwern.net/dnm-archive)
+
 ## App
 
 -   [apptweak](https://www.apptweak.com/en) or [apptweak.io](https://www.apptweak.io/) (paid): app download, revenue, rating
@@ -330,7 +336,7 @@ For data management (should be put under datasheet.md or the README.md file): se
     -   [Media Owner Profile](https://www.warc.com/data/mediaownerprofiles)
 -   [AdAge](https://adage.com/article/datacenter/leading-national-advertisers-index/106348): data on ad spending
 -   [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)
--   [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f)
+-   [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f): [Meta Ad Library API](https://www.facebook.com/ads/library/api/?source=nav-header)
 -   [Kantar Media](https://www.kantar.com/)
 
 ## Reports
@@ -341,6 +347,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 -   [American Customer Satisfaction Index (ACSI)](https://www.theacsi.org/)
 -   [Instacart](https://www.instacart.com/datasets/grocery-shopping-2017)
+    -   [Instacart order](https://gist.github.com/jeremystan/c3b39d947d9b88b3ccff3147dbcf6c6b): [data](https://www.instacart.com/datasets/grocery-shopping-2017)
 -   [CMO Spend Survey 2018--2019](https://images.gartnerformarketers.com/Web/Gartner/%7Bb5a5ad17-bf4c-4ce4-adb3-4eed347852c8%7D_CMO_Spend_Survey_Note_Repackage_FINAL.pdf)
 -   [GWI](https://www.gwi.com/data) Global Consumer data (students might get free access)
 -   [Global Market Database](https://globalmarketdatabase.com/): global market data
@@ -363,6 +370,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [J. D. Power](https://www.jdpowervalues.com/): car data (paid)
 -   [Data Provider](https://www.dataprovider.com/data/): industry data (paid) with API
 -   [Datarade](https://datarade.ai/): Data marketplace
+-   [Food Facts](https://world.openfoodfacts.org/data)
+-   [FDA](https://datadashboard.fda.gov/ora/cd/inspections.htm): [api](https://datadashboard.fda.gov/ora/api/index.htm)
 
 ## Review
 
@@ -534,6 +543,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Google Cloud Dataset](https://cloud.google.com/datasets)
 -   [Paperswithcode](https://paperswithcode.com/datasets)
 -   [Datahub](https://old.datahub.io/dataset): free
+-   [LGBTQ+ rights around the world](https://www.equaldex.com/) (equity index): [api](https://equaldex.stoplight.io/docs/equaldex/YXBpOjE1NjI0OTIw-equaldex-json-api)
 
 # Network
 

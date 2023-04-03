@@ -5,12 +5,26 @@
     <link>https://mikenguyen.netlify.app/</link>
       <atom:link href="https://mikenguyen.netlify.app/index.xml" rel="self" type="application/rss+xml" />
     <description>Mike Nguyen</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Sat, 18 Feb 2023 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Thu, 30 Mar 2023 17:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Mike Nguyen</title>
       <link>https://mikenguyen.netlify.app/</link>
     </image>
+    
+    <item>
+      <title>Mittelstaedt &amp; Gentry Doctoral Symposium</title>
+      <link>https://mikenguyen.netlify.app/talk/2023_mar_nebraska_symposium/</link>
+      <pubDate>Thu, 30 Mar 2023 17:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/talk/2023_mar_nebraska_symposium/</guid>
+      <description>&lt;p&gt;These slides are used in my presentation&lt;/p&gt;
+&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;div&gt;
+    Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the slides.
+  &lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Publish or Perish on Microsoft Windows</title>
@@ -2678,7 +2692,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-713864952&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-571289463&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2688,7 +2702,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-713864952&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-571289463&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
