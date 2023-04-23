@@ -149,6 +149,10 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [KickStarter](https://webrobots.io/indiegogo-dataset/)
 -   [KickStarter data from Kaggle](https://www.kaggle.com/datasets/kemical/kickstarter-projects)
 -   [Indiegogo](https://webrobots.io/indiegogo-dataset/)
+-   AI Patent Dataset: Identifying AI invention
+    -   [AI Patent Dataset from USPTO](https://www.uspto.gov/ip-policy/economic-research/research-datasets/artificial-intelligence-patent-dataset)
+
+    -   Paper: <https://doi.org/10.1007/s10961-021-09900-2>
 
 ### Technology Adoption
 
@@ -231,12 +235,13 @@ For data management (should be put under datasheet.md or the README.md file): se
 ## Risk
 
 -   [Sustainalytics](https://www.sustainalytics.com/)
+-   [Firm Level Risk](https://www.firmlevelrisk.com/download) ([paper](https://academic.oup.com/qje/article/134/4/2135/5531768))
 
 ## Crypto Currency
 
--   [CryptoScamDB](https://cryptoscamdb.org): Report about scam (only name of blacklisted domains)
+-   [CryptoScamDB](https://cryptoscamdb.org): Report about scams (only name of blacklisted domains)
 
--   [BitcoinAbuse](https://www.bitcoinabuse.com/): report about scam with date, abuser, description, from country, and crated_at.
+-   [BitcoinAbuse](https://www.bitcoinabuse.com/): report about scams with date, abuser, description, from country, and crated_at.
 
 ## Textual Network Data in Finance
 
@@ -270,6 +275,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Kiva](https://www.kiva.org/): micro loan data. [download snapshots](https://www.kiva.org/build/data-snapshots). To see the [data summary](http://kivadata.org/index.html)
     -   [Preprocessed data](https://www.fodava.gatech.edu/processed-kiva-data) (Choo et al, 2014)
 -   [Unemployment rate](https://fred.stlouisfed.org/series/UNRATE): FRED Economic Data St. Louis FED
+-   [EIA](https://www.eia.gov/opendata/): U.S. Energy Information Administration (also has API)
 
 # Marketing
 
@@ -280,6 +286,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [DLDOS: Data Loss Database - Open Source (2000-2008)](https://attrition.org/dataloss/dldos.html)
 
 -   [Darknet market archives](https://gwern.net/dnm-archive)
+
+-   <https://incidentdatabase.ai/> AI Incident Database
 
 ## App
 

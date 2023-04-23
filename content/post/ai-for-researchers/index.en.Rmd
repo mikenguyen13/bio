@@ -1,0 +1,50 @@
+---
+title: AI for researchers
+author: Mike Nguyen
+date: '2023-04-22'
+slug: ai-for-researchers
+categories:
+  - research
+tags:
+  - Academic
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2023-04-22T16:59:29-05:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+In this modern era where AI has taken over almost everything, finding the perfect AI sidekick is like searching for a needle in a haystack of silicon brains! As a researcher, I've dug deep into the matrix to bring you some fantastic resources that'll turn your research process into a smooth, AI-powered joyride. Remember, if you can't beat 'em, join 'em!
+
+When you're in the mood for writing:
+
+## Writing
+
+1. [Jenni AI](https://jenni.ai/): This clever AI has got your back with journals and web citations.
+2. [Paperpal](https://paperpal.com/): Your new AI buddy for papers.
+3. [Lex](https://lex.page/): Write in style with Lex's page.
+
+## Speed-reading like a pro
+
+1. [Scholarcy](https://www.scholarcy.com/): Summarizing papers
+2. [chatpdf](https://www.chatpdf.com/): Making PDFs chatty
+3. [Paper Digest](https://www.paper-digest.com/): Digest your PDFs with ease.
+4. [typeset](https://typeset.io/): Read, search, and conquer those PDF files.
+5. [Audiopen](https://audiopen.ai/): Transform voice notes into summarized text 
+
+## Literature Review AI Tools
+
+1. [Paperdigest](https://www.paperdigest.org/): Churning out literature reviews like a champ.
+2. [Lateral](https://www.lateral.io/): Find, organize, and revolutionize your research in one place
+3. [Scite](https://scite.ai/): A researcher's best friend for lit reviews.
+4. [ClioVis](https://cliovis.com/): Mind maps, timelines, and presentations
+5. [Elicit](https://elicit.org/): Your very own AI Research Assistant 
+
+## Searching the web like an AI-savvy detective
+
+1. [Consensus](https://consensus.app/): Consensus is a search engine that channels its inner AI to extract and distill findings straight from scientific research.

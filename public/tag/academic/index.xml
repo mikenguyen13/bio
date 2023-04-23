@@ -5,12 +5,23 @@
     <link>https://mikenguyen.netlify.app/tag/academic/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/academic/index.xml" rel="self" type="application/rss+xml" />
     <description>Academic</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Sat, 18 Feb 2023 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Sat, 22 Apr 2023 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Academic</title>
       <link>https://mikenguyen.netlify.app/tag/academic/</link>
     </image>
+    
+    <item>
+      <title>AI for researchers</title>
+      <link>https://mikenguyen.netlify.app/post/ai-for-researchers/</link>
+      <pubDate>Sat, 22 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/ai-for-researchers/</guid>
+      <description>
+
+
+</description>
+    </item>
     
     <item>
       <title>Publish or Perish on Microsoft Windows</title>
