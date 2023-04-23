@@ -23,13 +23,13 @@ In this modern era where AI has taken over almost everything, finding the perfec
 
 When you're in the mood for writing:
 
-## Writing
+ * Writing
 
 1. [Jenni AI](https://jenni.ai/): This clever AI has got your back with journals and web citations.
 2. [Paperpal](https://paperpal.com/): Your new AI buddy for papers.
 3. [Lex](https://lex.page/): Write in style with Lex's page.
 
-## Speed-reading like a pro
+ * Speed-reading like a pro
 
 1. [Scholarcy](https://www.scholarcy.com/): Summarizing papers
 2. [chatpdf](https://www.chatpdf.com/): Making PDFs chatty
@@ -37,7 +37,7 @@ When you're in the mood for writing:
 4. [typeset](https://typeset.io/): Read, search, and conquer those PDF files.
 5. [Audiopen](https://audiopen.ai/): Transform voice notes into summarized text 
 
-## Literature Review AI Tools
+ * Literature Review AI Tools
 
 1. [Paperdigest](https://www.paperdigest.org/): Churning out literature reviews like a champ.
 2. [Lateral](https://www.lateral.io/): Find, organize, and revolutionize your research in one place
@@ -45,6 +45,6 @@ When you're in the mood for writing:
 4. [ClioVis](https://cliovis.com/): Mind maps, timelines, and presentations
 5. [Elicit](https://elicit.org/): Your very own AI Research Assistant 
 
-## Searching the web like an AI-savvy detective
+ * Searching the web like an AI-savvy detective
 
 1. [Consensus](https://consensus.app/): Consensus is a search engine that channels its inner AI to extract and distill findings straight from scientific research.
