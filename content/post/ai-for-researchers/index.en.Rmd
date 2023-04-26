@@ -26,6 +26,8 @@ In this modern era where AI has taken over almost everything, finding the perfec
 1.  [Jenni AI](https://jenni.ai/): This clever AI has got your back with journals and web citations.
 2.  [Paperpal](https://paperpal.com/): Your new AI buddy for papers.
 3.  [Lex](https://lex.page/): Write in style with Lex's page.
+4.  [Writefull](https://www.writefull.com/): Academic writing.
+5.  [HeyGPT](https://heygpt.chat/): Another ChatGPT
 
 -   Speed-reading like a pro
 
@@ -42,7 +44,59 @@ In this modern era where AI has taken over almost everything, finding the perfec
 3.  [Scite](https://scite.ai/): A researcher's best friend for lit reviews.
 4.  [ClioVis](https://cliovis.com/): Mind maps, timelines, and presentations
 5.  [Elicit](https://elicit.org/): Your very own AI Research Assistant
+6.  [Perplexity](https://www.perplexity.ai/): Industry + Academic Reviews
+7.  [litmaps](https://app.litmaps.co/): connect scientific papers
 
 -   Searching the web like an AI-savvy detective
 
 1.  [Consensus](https://consensus.app/): Consensus is a search engine that channels its inner AI to extract and distill findings straight from scientific research.
+
+Voice AI
+
+-   [Otter](https://otter.ai/): Voice transcript
+
+-   [Murf](https://murf.ai/): create voices
+
+-   [Speecify](https://speechify.com/): a text-to-speech reader
+
+-   [Lovo](https://lovo.ai/): text to speech
+
+-   [AI Media](https://www.ai-media.tv/): Captioning
+
+Video AI
+
+-   [Synthesia](https://www.synthesia.io/): create professional videos
+
+-   [Steve AI](https://www.steve.ai/): Animation Videos
+
+-   [Deepbrain AI](https://www.deepbrain.io/): animation
+
+-   [Pictory](https://pictory.ai/): create videos
+
+-   [Lumen5](https://lumen5.com/): create videos
+
+Image AI
+
+-   [Nightcafe](https://nightcafe.studio/): create art
+
+-   [photosonic](https://photosonic.writesonic.com/): create images
+
+-   [stockimg](https://stockimg.ai/): generate images (free)
+
+Music AI
+
+-   [Boomy](https://boomy.com/): make generic music
+
+-   [Soundraw](https://soundraw.io/): free AI-generated free music
+
+-   [Beatoven](https://www.beatoven.ai/): royalty-free music
+
+-   [Soundful](https://soundful.com/): AI music generator
+
+Presentation AI
+
+-   [SlideGo](https://slidesgo.com/): free templates
+
+-   [Sendsteps](https://www.sendsteps.com/en/): create presentations
+
+-   [Simplified](https://simplified.com/pricing): create presentations

@@ -48,6 +48,7 @@
 &lt;li&gt;&lt;a href=&#34;https://scite.ai/&#34;&gt;Scite&lt;/a&gt;: A researcher’s best friend for lit reviews.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://cliovis.com/&#34;&gt;ClioVis&lt;/a&gt;: Mind maps, timelines, and presentations&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://elicit.org/&#34;&gt;Elicit&lt;/a&gt;: Your very own AI Research Assistant&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.perplexity.ai/&#34;&gt;Perplexity&lt;/a&gt;: Industry + Academic Reviews&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
 &lt;li&gt;Searching the web like an AI-savvy detective&lt;/li&gt;
@@ -55,6 +56,41 @@
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;&lt;a href=&#34;https://consensus.app/&#34;&gt;Consensus&lt;/a&gt;: Consensus is a search engine that channels its inner AI to extract and distill findings straight from scientific research.&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;Voice AI&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://otter.ai/&#34;&gt;Otter&lt;/a&gt;: Voice transcript&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://murf.ai/&#34;&gt;Murf&lt;/a&gt;: create voices&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://speechify.com/&#34;&gt;Speecify&lt;/a&gt;: a text-to-speech reader&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://lovo.ai/&#34;&gt;Lovo&lt;/a&gt;: text to speech&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.ai-media.tv/&#34;&gt;AI Media&lt;/a&gt;: Captioning&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Video AI&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.synthesia.io/&#34;&gt;Synthesia&lt;/a&gt;: create professional videos&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.steve.ai/&#34;&gt;Steve AI&lt;/a&gt;: Animation Videos&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.deepbrain.io/&#34;&gt;Deepbrain AI&lt;/a&gt;: animation&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://pictory.ai/&#34;&gt;Pictory&lt;/a&gt;: create videos&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://lumen5.com/&#34;&gt;Lumen5&lt;/a&gt;: create videos&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Image AI&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://nightcafe.studio/&#34;&gt;Nightcafe&lt;/a&gt;: create art&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://photosonic.writesonic.com/&#34;&gt;photosonic&lt;/a&gt;: create images&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://stockimg.ai/&#34;&gt;stockimg&lt;/a&gt;: generate images (free)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Music AI&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://boomy.com/&#34;&gt;Boomy&lt;/a&gt;: make generic music&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://soundraw.io/&#34;&gt;Soundraw&lt;/a&gt;: free AI-generated free music&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.beatoven.ai/&#34;&gt;Beatoven&lt;/a&gt;: royalty-free music&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://soundful.com/&#34;&gt;Soundful&lt;/a&gt;: AI music generator&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Presentation AI&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://slidesgo.com/&#34;&gt;SlideGo&lt;/a&gt;: free templates&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.sendsteps.com/en/&#34;&gt;Sendsteps&lt;/a&gt;: create presentations&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://simplified.com/pricing&#34;&gt;Simplified&lt;/a&gt;: create presentations&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     
@@ -2607,7 +2643,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-967185423&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-412679538&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2617,7 +2653,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-967185423&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-412679538&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
