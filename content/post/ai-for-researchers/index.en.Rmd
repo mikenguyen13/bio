@@ -100,3 +100,21 @@ Presentation AI
 -   [Sendsteps](https://www.sendsteps.com/en/): create presentations
 
 -   [Simplified](https://simplified.com/pricing): create presentations
+
+PDF Reader AI
+
+-   [Askyourpdf](https://askyourpdf.com/): upload your pdf and you can start chatting (if you want to see the [backend](https://towardsdatascience.com/building-a-question-answering-pdf-chatbot-3e3b6372528c) on [Github](https://github.com/mayooear/gpt4-pdf-chatbot-langchain))
+
+-   [Algo Docs](https://www.algodocs.com/Pricing): extract data from pdf
+
+Data Collection Companies:
+
+-   <https://www.lionbridge.com/>
+
+-   <https://www.mturk.com/>
+
+-   <https://www.clickworker.com/>
+
+-   <https://appen.com/>
+
+-   <https://www.glocalme.com/>

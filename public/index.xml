@@ -28,6 +28,8 @@
 &lt;li&gt;&lt;a href=&#34;https://jenni.ai/&#34;&gt;Jenni AI&lt;/a&gt;: This clever AI has got your back with journals and web citations.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://paperpal.com/&#34;&gt;Paperpal&lt;/a&gt;: Your new AI buddy for papers.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://lex.page/&#34;&gt;Lex&lt;/a&gt;: Write in style with Lex’s page.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.writefull.com/&#34;&gt;Writefull&lt;/a&gt;: Academic writing.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://heygpt.chat/&#34;&gt;HeyGPT&lt;/a&gt;: Another ChatGPT&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
 &lt;li&gt;Speed-reading like a pro&lt;/li&gt;
@@ -49,6 +51,7 @@
 &lt;li&gt;&lt;a href=&#34;https://cliovis.com/&#34;&gt;ClioVis&lt;/a&gt;: Mind maps, timelines, and presentations&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://elicit.org/&#34;&gt;Elicit&lt;/a&gt;: Your very own AI Research Assistant&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.perplexity.ai/&#34;&gt;Perplexity&lt;/a&gt;: Industry + Academic Reviews&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://app.litmaps.co/&#34;&gt;litmaps&lt;/a&gt;: connect scientific papers&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
 &lt;li&gt;Searching the web like an AI-savvy detective&lt;/li&gt;
@@ -90,6 +93,19 @@
 &lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://slidesgo.com/&#34;&gt;SlideGo&lt;/a&gt;: free templates&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.sendsteps.com/en/&#34;&gt;Sendsteps&lt;/a&gt;: create presentations&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://simplified.com/pricing&#34;&gt;Simplified&lt;/a&gt;: create presentations&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;PDF Reader AI&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://askyourpdf.com/&#34;&gt;Askyourpdf&lt;/a&gt;: upload your pdf and you can start chatting (if you want to see the &lt;a href=&#34;https://towardsdatascience.com/building-a-question-answering-pdf-chatbot-3e3b6372528c&#34;&gt;backend&lt;/a&gt; on &lt;a href=&#34;https://github.com/mayooear/gpt4-pdf-chatbot-langchain&#34;&gt;Github&lt;/a&gt;)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.algodocs.com/Pricing&#34;&gt;Algo Docs&lt;/a&gt;: extract data from pdf&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Data Collection Companies:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.lionbridge.com/&#34; class=&#34;uri&#34;&gt;https://www.lionbridge.com/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.mturk.com/&#34; class=&#34;uri&#34;&gt;https://www.mturk.com/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.clickworker.com/&#34; class=&#34;uri&#34;&gt;https://www.clickworker.com/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://appen.com/&#34; class=&#34;uri&#34;&gt;https://appen.com/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://www.glocalme.com/&#34; class=&#34;uri&#34;&gt;https://www.glocalme.com/&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>
@@ -2774,7 +2790,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-412679538&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-754189632&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2784,7 +2800,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-412679538&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-754189632&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
