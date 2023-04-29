@@ -25,7 +25,7 @@ interests:
 organizations:
 - name: University of Missouri
   url: https://business.missouri.edu/
-role: PhD Candidate
+role: PhD
 social:
 - icon: envelope
   icon_pack: fas
@@ -58,7 +58,7 @@ user_groups:
 - Principal Investigators
 ---
 
-My name is Mike Nguyen. I am a Ph.D. candidate and data scientist in marketing at the University of Missouri. My research interests include   
+My name is Mike Nguyen. I am a Ph.D. and data scientist in marketing at the University of Missouri. My research interests include   
 
  * **Conceptual:** Brand Equity, Virality, Charisma  
  * **Substantive:** Branding, Advertising, Online Platform
