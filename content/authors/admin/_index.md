@@ -42,15 +42,15 @@ social:
 - icon: orcid
   icon_pack: fab
   link: https://orcid.org/0000-0002-3432-8595
-- icon: researchgate
-  icon_pack: fab
-  link: https://www.researchgate.net/profile/Mike_Nguyen20
-- icon: publons
-  icon_pack: ai
-  link: https://publons.com/researcher/2928438/mike-nguyen/
-- icon: ssrn
-  icon_pack: ai
-  link: https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=4424295
+#- icon: researchgate
+#  icon_pack: fab
+#  link: https://www.researchgate.net/profile/Mike_Nguyen20
+#- icon: publons
+#  icon_pack: ai
+#  link: https://publons.com/researcher/2928438/mike-nguyen/
+#- icon: ssrn
+#  icon_pack: ai
+#  link: https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=4424295
   
 superuser: true
 title: Mike Nguyen
