@@ -2,6 +2,9 @@
 bio: My research interests include marketing, and social science.
 education:
   courses:
+  - course: Postdoc in Marketing
+    institution: University of Southern California
+#    year: 2023
   - course: PhD in Marketing - minor Statistics
     institution: University of Missouri
     year: 2023
@@ -14,7 +17,7 @@ education:
   - course: BBA in Marketing, International Business
     institution: Florida International University
     year: 2018
-email: "mikenguyen@mail.missouri.edu"
+email: "mike.nguyen@marshall.usc.edu"
 highlight_name: true
 
 interests:
@@ -23,9 +26,9 @@ interests:
 - Statistics
 
 organizations:
-- name: University of Missouri
-  url: https://business.missouri.edu/
-role: PhD
+- name: University of Southern California
+  url: https://www.marshall.usc.edu/
+role: Visitng Scholar
 social:
 - icon: envelope
   icon_pack: fas
@@ -58,7 +61,7 @@ user_groups:
 - Principal Investigators
 ---
 
-My name is Mike Nguyen. I am a Ph.D. and data scientist in marketing at the University of Missouri. My research interests include   
+My name is Mike Nguyen. I am a visiting scholar in marketing at the University of Southern California Marshall School of Business. My research interests include   
 
  * **Conceptual:** Brand Equity, Virality, Charisma  
  * **Substantive:** Branding, Advertising, Online Platform
