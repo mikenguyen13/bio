@@ -174,6 +174,7 @@ For data management (should be put under datasheet.md or the README.md file): se
     -   Capital IQ - Key Developments: event types for companies
 -   CRSP
 -   Worldscope: fundamental data for major international firms. Searchable by company name, country, exchange, or fundamental items. 1980+. (via WRDS)
+-   [Country Business Patterns (Geo data)](https://www.census.gov/programs-surveys/cbp/data/datasets.html)
 -   [List of private firms](https://guides.loc.gov/company-research/private)
     -   [Crunchbase](https://www.crunchbase.com/): description on start-ups, companies, peoples
 
@@ -276,6 +277,7 @@ For data management (should be put under datasheet.md or the README.md file): se
     -   [Preprocessed data](https://www.fodava.gatech.edu/processed-kiva-data) (Choo et al, 2014)
 -   [Unemployment rate](https://fred.stlouisfed.org/series/UNRATE): FRED Economic Data St. Louis FED
 -   [EIA](https://www.eia.gov/opendata/): U.S. Energy Information Administration (also has API)
+-   [International Financial Reforms:](https://www.imf.org/en/Publications/WP/Issues/2016/12/31/A-New-Database-of-Financial-Reforms-22485) 91 economies over 1973--2005
 
 # Marketing
 
@@ -346,6 +348,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)
 -   [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f): [Meta Ad Library API](https://www.facebook.com/ads/library/api/?source=nav-header)
 -   [Kantar Media](https://www.kantar.com/)
+-   [Ad-targeting labels](https://github.com/the-markup/xandr-audience-segments)
 
 ## Reports
 
@@ -380,10 +383,12 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Datarade](https://datarade.ai/): Data marketplace
 -   [Food Facts](https://world.openfoodfacts.org/data)
 -   [FDA](https://datadashboard.fda.gov/ora/cd/inspections.htm): [api](https://datadashboard.fda.gov/ora/api/index.htm)
+-   [Parking Reforms](https://parkingreform.org/): [map](https://parkingreform.org/resources/mandates-map/)
+-   [AI Harm Incidents](https://www.aiaaic.org/): [previously](https://incidentdatabase.ai/)
 
 ## Review
 
--   TripAdvisorReview: [using Octoparse](https://helpcenter.octoparse.com/hc/en-us/articles/4405892648345-Scrape-customer-reviews-from-Tripadvisor-V8-4-)
+-   TripAdvisor Review: [using Octoparse](https://helpcenter.octoparse.com/hc/en-us/articles/4405892648345-Scrape-customer-reviews-from-Tripadvisor-V8-4-)
 
     -   [Small dataset of TripAdvisor](https://www.researchgate.net/publication/308968574_TripAdvisor_Dataset)
 
@@ -581,6 +586,12 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Internet outages worldwide](https://radar.cloudflare.com/outage-center)
 
 -   [Internet Attacks](https://radar.cloudflare.com/security-and-attacks)
+
+-   [Crowd Accidents](https://zenodo.org/record/7523480)
+
+-   [Federal Aviation Admin](https://www.faa.gov/data_research)
+
+-   [Aviation accidents data](https://data.ntsb.gov/carol-main-public/landing-page)
 
 # Control Variables
 

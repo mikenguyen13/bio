@@ -2,6 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://mikenguyen.netlify.app/courses/04-mizzou-mar4050-s23/</loc>
+    <lastmod>2023-01-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/courses/05-mizzou-mar4050-s23/</loc>
+    <lastmod>2023-01-09T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/courses/02-mizzou-mar4050-s22/</loc>
     <lastmod>2022-01-09T00:00:00+00:00</lastmod>
   </url><url>
@@ -11,6 +17,15 @@
     <loc>https://mikenguyen.netlify.app/courses/01-mizzou-mar4050-f21/</loc>
     <lastmod>2021-12-09T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://mikenguyen.netlify.app/</loc>
+    <lastmod>2023-06-08T17:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/talk/</loc>
+    <lastmod>2023-06-08T17:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/talk/2023_mar_sci/</loc>
+    <lastmod>2023-06-08T17:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
     <lastmod>2023-04-22T16:59:29-05:00</lastmod>
   </url><url>
@@ -18,9 +33,6 @@
     <lastmod>2023-04-22T16:59:29-05:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2023-04-22T16:59:29-05:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/</loc>
     <lastmod>2023-04-22T16:59:29-05:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/</loc>
@@ -35,11 +47,11 @@
     <loc>https://mikenguyen.netlify.app/talk/2023_mar_nebraska_symposium/</loc>
     <lastmod>2023-03-30T17:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/talk/</loc>
-    <lastmod>2023-03-30T17:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/post/publish-or-perish-on-microsoft-windows/</loc>
     <lastmod>2023-02-18T15:16:27-06:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/courses/</loc>
+    <lastmod>2023-01-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/adding-utteranc-es-to-blogdown-academic-hugo-theme/</loc>
     <lastmod>2022-12-10T22:31:12-06:00</lastmod>
@@ -55,9 +67,6 @@
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/source-themes/</loc>
     <lastmod>2022-12-10T22:31:12-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/courses/</loc>
-    <lastmod>2022-12-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/handle-duplicate-packages-in-different-paths/</loc>
     <lastmod>2022-10-15T19:25:22-05:00</lastmod>
