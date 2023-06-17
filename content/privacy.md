@@ -12,4 +12,4 @@ title: Privacy Policy
 
 This page is collecting web activities.  
 However, your data will not be sold under any circumstances.  
-I simply want to who my audiences are.  
+I simply want to know who my audiences are.  

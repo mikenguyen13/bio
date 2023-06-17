@@ -89,19 +89,19 @@ show_related = {docs = true, page = true, post = true, project = true, publicati
 ############################
 
 # Enter contact details (optional). To hide a field, clear it to "".
-email = "mikenguyen@mail.missouri.edu"
+email = "mike.nguyen@marshall.usc.edu"
 phone = ""
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
-address = {street = "Cornell Hall", city = "Columbia", region = "MO", postcode = "65201", country = "United States", country_code = "US"}
+# address = {street = "Cornell Hall", city = "Columbia", region = "MO", postcode = "65201", country = "United States", country_code = "US"}
 
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-coordinates = {latitude = "38.942873", longitude = "-92.329597"}
+# coordinates = {latitude = "38.942873", longitude = "-92.329597"}
 
 # Directions for visitors to locate you.
-directions = "Enter the bulding and take the stairs to Office 417 on the 4th floor"
+# directions = "Enter the bulding and take the stairs to Office 417 on the 4th floor"
 
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
