@@ -83,6 +83,12 @@ Image AI
 
 -   [stockimg](https://stockimg.ai/): generate images (free)
 
+-   [midjourney](https://docs.midjourney.com/)
+
+-   [Dall-E](https://labs.openai.com/)
+
+-   [Stable Diffusion](https://stablediffusionweb.com/)
+
 Music AI
 
 -   [Boomy](https://boomy.com/): make generic music

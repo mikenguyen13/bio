@@ -180,7 +180,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 
     -   [Dun&Bradstreet](https://www.dnb.com/): company info
 
-    -   [Privco](https://system.privco.com/signin): financial and market intelligence on private firms
+    -   [Privco](https://system.privco.com/signin): financial and market intelligence on private firms (USC has access)
 
     -   [Corporate Registration](https://www.nass.org/business-services/corporate-registration): search info on corporation by state
 
@@ -344,6 +344,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [WARC](https://www.warc.com/data)
     -   [Adspend](https://www.warc.com/data/adspend)
     -   [Media Owner Profile](https://www.warc.com/data/mediaownerprofiles)
+-   [Winmo](https://www.winmo.com/): Adspend per firm (USC has access)
 -   [AdAge](https://adage.com/article/datacenter/leading-national-advertisers-index/106348): data on ad spending
 -   [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)
 -   [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f): [Meta Ad Library API](https://www.facebook.com/ads/library/api/?source=nav-header)
@@ -385,6 +386,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [FDA](https://datadashboard.fda.gov/ora/cd/inspections.htm): [api](https://datadashboard.fda.gov/ora/api/index.htm)
 -   [Parking Reforms](https://parkingreform.org/): [map](https://parkingreform.org/resources/mandates-map/)
 -   [AI Harm Incidents](https://www.aiaaic.org/): [previously](https://incidentdatabase.ai/)
+-   [Data Axle:](https://www.data-axle.com/) Consumer Data
+-   [decadata](https://decadata.io/data): consumer data
 
 ## Review
 
@@ -592,6 +595,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Federal Aviation Admin](https://www.faa.gov/data_research)
 
 -   [Aviation accidents data](https://data.ntsb.gov/carol-main-public/landing-page)
+
+-   [International Court of Justice](https://zenodo.org/record/7876286)
 
 # Control Variables
 
