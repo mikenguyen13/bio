@@ -56,7 +56,7 @@ social:
 #  link: https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=4424295
   
 superuser: true
-title: Mike Nguyen
+title: Mike Nguyen, PhD
 user_groups:
 - Principal Investigators
 ---

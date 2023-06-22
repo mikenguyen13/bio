@@ -136,6 +136,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Global Entrepreneurship Monitor](https://www.gemconsortium.org/data)
 -   [Firm and Industry Evolution, Entrepreneurship, and Strategy](http://five.dartmouth.edu/datasets?)
 -   [NBER patent](https://sites.google.com/site/patentdataproject/Home)
+-   [Matching USPTO Patent Assignees to Compustat Public Firms and SDC Private Firms](https://github.com/danielm-github/patentsmatch_bingsearchapproach)
 -   [Google Patents Public Datasets on BigQuery](https://github.com/google/patents-public-data): worldwide + USPTO full-text
 -   [USPTO PatentsView](https://patentsview.org/): US only (with raw data)
 -   [PATSTAT](https://www.epo.org/searching-for-patents/business/patstat.html#tab3): Europe patent from EPO

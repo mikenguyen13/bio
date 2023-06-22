@@ -94,11 +94,11 @@ phone = ""
 
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
-# address = {street = "Cornell Hall", city = "Columbia", region = "MO", postcode = "65201", country = "United States", country_code = "US"}
+address = {street = "USC Marshall School of Business", city = "Los Angeles", region = "CA", postcode = "90089", country = "United States", country_code = "US"}
 
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
-# coordinates = {latitude = "38.942873", longitude = "-92.329597"}
+coordinates = {latitude = "34.018886", longitude = "-118.286015"}
 
 # Directions for visitors to locate you.
 # directions = "Enter the bulding and take the stairs to Office 417 on the 4th floor"
