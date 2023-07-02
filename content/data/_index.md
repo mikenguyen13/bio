@@ -263,6 +263,14 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 -   [Hoberg-Phillips Data Library](http://hobergphillips.tuck.dartmouth.edu/)
 
+## Bankruptcy
+
+-   [Florida-UCLA-LoPucki Bankruptcy Research Database (BRD)](https://lopucki.law.ufl.edu/index.php): until December 2022
+
+## Heir
+
+-   [heirbase](https://heirbase.com/)
+
 # Economics
 
 -   [Journal of Applied Econometrics](http://qed.econ.queensu.ca/jae/)
