@@ -376,6 +376,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [comScore Media Metrix](https://www.comscore.com/): Online Traffic (direct traffic, search engine referrals, transaction counts)
 -   **Global Market Information Database** by Euromonitor International (good for studying market penetration).
 -   [IRI Marketing Data Set](https://pubsonline.informs.org/doi/10.1287/mksc.1080.0450): Panel Scanner data for academic research for 30 product categories in 5 years that include sales, pricing, promotion data.
+-   [AiMark Scanner Data](http://aimark.org/microscanner-data/)
 -   [CoreSignal Tech Product Review](https://coresignal.com/alternative-data/tech-product-review-data/) + [Technographic data](https://coresignal.com/alternative-data/technographic-data/)
 -   [Better Marketing for a Better World](https://www.bmbw.org/data/)
 -   [GWI](https://www.gwi.com/): Paid + Free data on marketing strategy globally.

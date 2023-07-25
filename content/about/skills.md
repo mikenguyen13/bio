@@ -24,7 +24,7 @@ subtitle = ""
   icon = "laptop-code"
   icon_pack = "fas"
   name = "Computer Programs"
-  description = "Python, NetLogo, Gephi"  
+  description = "Python, Bash (HPC), NetLogo, Gephi"  
   
 [[feature]]
   icon = "database"
