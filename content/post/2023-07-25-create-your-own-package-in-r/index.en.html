@@ -156,6 +156,12 @@ data &lt;- readRDS(data_file_path)</code></pre>
 <li><p><strong>Test your package:</strong> Make sure to thoroughly test your package before releasing it. This includes checking that all functions work as expected and that all documentation is clear and accurate.</p></li>
 <li><p><strong>Keep learning:</strong> Creating an R package is a learning process. Don’t be afraid to make mistakes and keep improving your package over time.</p></li>
 </ul>
+<pre class="r"><code># Alway remember to 
+devtools::document()
+usethis::use_test(&quot;yournewfunction&quot;)</code></pre>
+<p>put <code>export(yournewfunction)</code> and <code>import(needed_package)</code> in NAMESPACE file</p>
+<p>put the packages requirements under <code>Import:</code> in DESCRIPTION file</p>
+<p>put an example of the function in the Vignette file</p>
 </div>
 <div id="installing-and-using-your-r-package" class="section level2">
 <h2><strong>Installing and Using Your R Package</strong></h2>

@@ -49,7 +49,6 @@ knitr::include_graphics("https://i.redd.it/qkkqz6wsiox11.jpg")
 
 3.  **Learning and Development:** Creating your own R package is a great way to deepen your understanding of R and programming principles. It encourages good practices such as writing clear, concise code and thorough documentation.
 
-
 ```{r echo=FALSE, eval = TRUE, out.width = '80%', fig.align = 'center'}
 knitr::include_graphics("http://www.quickmeme.com/img/ea/ea3b264e0bf73802d8311049b216a708736c38f492a21aec265324d0c6e800b0.jpg")
 ```
@@ -59,7 +58,6 @@ knitr::include_graphics("http://www.quickmeme.com/img/ea/ea3b264e0bf73802d831104
 ```{r echo=FALSE, eval = TRUE, out.width = '80%', fig.align = 'center'}
 knitr::include_graphics("https://img.devrant.com/devrant/rant/r_2137728_nYacL.jpg")
 ```
-
 
 5.  **Career Advancement:** Having your own R package can be a significant feather in your cap professionally. It demonstrates your proficiency in R and your ability to create reusable, efficient code. This can be a great selling point in job interviews or grant applications.
 
@@ -215,6 +213,18 @@ Here are a few rules of thumb and industry hacks to keep in mind when creating y
 -   **Test your package:** Make sure to thoroughly test your package before releasing it. This includes checking that all functions work as expected and that all documentation is clear and accurate.
 
 -   **Keep learning:** Creating an R package is a learning process. Don't be afraid to make mistakes and keep improving your package over time.
+
+```{r}
+# Alway remember to 
+devtools::document()
+usethis::use_test("yournewfunction")
+```
+
+put `export(yournewfunction)` and `import(needed_package)` in NAMESPACE file
+
+put the packages requirements under `Import:` in DESCRIPTION file
+
+put an example of the function in the Vignette file
 
 ## **Installing and Using Your R Package**
 

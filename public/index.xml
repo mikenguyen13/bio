@@ -151,6 +151,12 @@ data &amp;lt;- readRDS(data_file_path)&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Test your package:&lt;/strong&gt; Make sure to thoroughly test your package before releasing it. This includes checking that all functions work as expected and that all documentation is clear and accurate.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Keep learning:&lt;/strong&gt; Creating an R package is a learning process. Don’t be afraid to make mistakes and keep improving your package over time.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Alway remember to 
+devtools::document()
+usethis::use_test(&amp;quot;yournewfunction&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;put &lt;code&gt;export(yournewfunction)&lt;/code&gt; and &lt;code&gt;import(needed_package)&lt;/code&gt; in NAMESPACE file&lt;/p&gt;
+&lt;p&gt;put the packages requirements under &lt;code&gt;Import:&lt;/code&gt; in DESCRIPTION file&lt;/p&gt;
+&lt;p&gt;put an example of the function in the Vignette file&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;installing-and-using-your-r-package&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;&lt;strong&gt;Installing and Using Your R Package&lt;/strong&gt;&lt;/h2&gt;
@@ -2984,7 +2990,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-519867234&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-564398127&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2994,7 +3000,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-519867234&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-564398127&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
