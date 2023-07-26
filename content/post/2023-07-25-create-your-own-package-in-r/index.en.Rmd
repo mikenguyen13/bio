@@ -271,7 +271,7 @@ remotes::install_github("mikenguyen13/mikenguyen")
 
 Feel free to use it for your research, whether you're in marketing, science, or just a data enthusiast like me. Happy coding!
 
-```{r echo=FALSE, eval = TRUE, out.width="40%", fig.show='hold'}
+```{r echo=FALSE, eval = TRUE, out.width="100%", fig.show='hold'}
 knitr::include_graphics("https://undo.io/media/uploads/files/Code_for_six_minutes_meme.jpg")
 knitr::include_graphics("https://i.redd.it/m0xy5opltgm11.jpg")
 ```

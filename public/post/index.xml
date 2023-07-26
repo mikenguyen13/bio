@@ -189,7 +189,7 @@ git push -u origin master
 &lt;p&gt;And that’s it! You’ve successfully created, documented, installed, and distributed your very own R package. But wait, there’s more! You can also check out my own package on GitHub. To install it, simply run:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;remotes::install_github(&amp;quot;mikenguyen13/mikenguyen&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Feel free to use it for your research, whether you’re in marketing, science, or just a data enthusiast like me. Happy coding!&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://undo.io/media/uploads/files/Code_for_six_minutes_meme.jpg&#34; width=&#34;40%&#34; /&gt;&lt;img src=&#34;https://i.redd.it/m0xy5opltgm11.jpg&#34; width=&#34;40%&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://undo.io/media/uploads/files/Code_for_six_minutes_meme.jpg&#34; width=&#34;100%&#34; /&gt;&lt;img src=&#34;https://i.redd.it/m0xy5opltgm11.jpg&#34; width=&#34;100%&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
@@ -2845,7 +2845,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-564398127&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-836214957&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2855,7 +2855,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-564398127&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-836214957&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
