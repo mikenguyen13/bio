@@ -1,0 +1,193 @@
+---
+title: Create your own package in R
+author: Mike Nguyen
+date: '2023-07-25'
+slug: create-your-own-package-in-r
+categories:
+  - GitHub
+  - R
+  - Rstudio
+tags:
+  - Academic
+  - GitHub
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2023-07-25T19:53:26-07:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<div id="from-.r-files-to-r-packages-a-game-changer-for-empirical-researchers" class="section level1">
+<h1><strong>From .R Files to R Packages: A Game Changer for Empirical Researchers</strong></h1>
+<p><img src="https://media.tenor.com/YZPnGuPeZv8AAAAd/coding.gif" width="80%" style="display: block; margin: auto;" /></p>
+<p>Hello, fellow data enthusiasts! Today, we’re going to embark on a journey that will take us from a scattered mess of .R files to the organized, efficient world of R packages. Why, you ask? Well, let me tell you a story.</p>
+<p>Once upon a time, I was just like you. I had a bunch of utility functions scattered across numerous .R files. Every time I needed a function I wrote months, weeks, or even days ago, I had to embark on a treasure hunt through my files. More often than not, I ended up re-writing the function because it was faster than searching for it. Sound familiar?</p>
+<p>Well, I finally decided it was time to take the next step and start wrapping all my utility functions into R packages. And let me tell you, it was a game-changer. Here’s why:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Efficiency:</strong> Having your own R package can significantly speed up your workflow. Instead of re-writing the same functions over and over again, you can simply call them from your package. This not only saves time but also ensures consistency in your analyses.</p></li>
+<li><p><strong>Reproducibility:</strong> Reproducibility is a cornerstone of good research. With an R package, you can ensure that your analyses are reproducible and transparent. This is especially important when collaborating with others or when your work is subject to peer review.</p></li>
+</ol>
+<p><img src="https://i.redd.it/qkkqz6wsiox11.jpg" width="80%" style="display: block; margin: auto;" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li><strong>Learning and Development:</strong> Creating your own R package is a great way to deepen your understanding of R and programming principles. It encourages good practices such as writing clear, concise code and thorough documentation.</li>
+</ol>
+<p><img src="http://www.quickmeme.com/img/ea/ea3b264e0bf73802d8311049b216a708736c38f492a21aec265324d0c6e800b0.jpg" width="80%" style="display: block; margin: auto;" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Sharing and Collaboration:</strong> R packages are an excellent way to share your work and collaborate with others. By making your code available as a package, you make it easy for others to use and build upon your work. This can lead to collaborations and advancements that you may not have achieved on your own.</li>
+</ol>
+<p><img src="https://img.devrant.com/devrant/rant/r_2137728_nYacL.jpg" width="80%" style="display: block; margin: auto;" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li><p><strong>Career Advancement:</strong> Having your own R package can be a significant feather in your cap professionally. It demonstrates your proficiency in R and your ability to create reusable, efficient code. This can be a great selling point in job interviews or grant applications.</p></li>
+<li><p><strong>Customization:</strong> With your own R package, you can create functions tailored to your specific needs. For example, if you’re a marketing researcher, you might create a function that generates plots in the style required by the American Marketing Association, like this:</p></li>
+</ol>
+<pre class="r"><code>#&#39; @export
+amatheme &lt;- function() {
+  ggplot2::theme_bw(base_size = 14, base_family = &quot;serif&quot;) + 
+    ggplot2::theme(
+      panel.grid.major = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+      panel.border = ggplot2::element_blank(),
+      line = ggplot2::element_line(),
+      text = ggplot2::element_text(),
+      legend.title = ggplot2::element_text(size = ggplot2::rel(0.6), face = &quot;bold&quot;),
+      legend.text = ggplot2::element_text(size = ggplot2::rel(0.6)),
+      legend.background = ggplot2::element_rect(color = &quot;black&quot;),
+      plot.title = ggplot2::element_text(
+        size = ggplot2::rel(1.2),
+        face = &quot;bold&quot;,
+        hjust = 0.5,
+        margin = ggplot2::margin(b = 15)
+      ),
+      plot.margin = ggplot2::unit(c(1, 1, 1, 1), &quot;cm&quot;),
+      axis.line = ggplot2::element_line(colour = &quot;black&quot;, linewidth = 0.8),
+      axis.ticks = ggplot2::element_line(),
+      axis.title.x = ggplot2::element_text(size = ggplot2::rel(1.2), face = &quot;bold&quot;),
+      axis.title.y = ggplot2::element_text(size = ggplot2::rel(1.2), face = &quot;bold&quot;),
+      axis.text.y = ggplot2::element_text(size = ggplot2::rel(1)),
+      axis.text.x = ggplot2::element_text(size = ggplot2::rel(1))
+    )
+}</code></pre>
+<p>This function creates a custom ggplot2 theme that complies with the American Marketing Association style. With this function in your R package, you can easily generate plots that are ready for your next marketing paper.</p>
+<p>But the beauty of R packages is that they’re not just for marketing researchers. Anyone can use them. For example, you can check out my own package on GitHub. To install it, simply run:</p>
+<pre class="r"><code>remotes::install_github(&quot;mikenguyen13/mikenguyen&quot;)</code></pre>
+<p>Feel free to use it for your research, whether you’re in marketing, science, or just a data enthusiast like me.</p>
+<p>So, are you ready to dive into the world of R packages? Great! Let’s get started.</p>
+<div id="setting-up" class="section level2">
+<h2><strong>Setting Up</strong></h2>
+<p>First things first, we need to install a couple of packages that will make our lives easier: devtools and roxygen2. You can install them using the following commands:</p>
+<pre class="r"><code>install.packages(&quot;devtools&quot;)
+install.packages(&quot;roxygen2&quot;)</code></pre>
+</div>
+<div id="creating-the-framework-for-your-first-package" class="section level2">
+<h2><strong>Creating the Framework for Your First Package</strong></h2>
+<p>Now that we have our tools, we can start building the framework for our package. We can do this using devtools:</p>
+<pre class="r"><code>devtools::create(&quot;myfirstpackage&quot;)</code></pre>
+<p>This command creates a folder with the same name as your package name and populates it with a few files. For now, we’ll focus on the DESCRIPTION file (where all the meta-data about your package goes) and the R folder (where all your R code goes).</p>
+</div>
+<div id="adding-your-r-functions" class="section level2">
+<h2><strong>Adding Your R Functions</strong></h2>
+<p>All your R functions that you want in your R package belong in the R directory. You can create an .R file that has the same name as the function you want in it. For instance, let’s create a file called R/amatheme.R and add our function to it.</p>
+<p>Remember to add the #’ @export tag above the function. This tag indicates that the function should be “exposed” to users to use.</p>
+<p>Let’s say we have a function <strong><code>amatheme</code></strong> that we want to include in our package. We would create a new .R file in the R directory of our package, let’s call it <strong><code>amatheme.R</code></strong>. In this file, we would define our function:</p>
+<pre class="r"><code>#&#39; @export
+amatheme &lt;- function() {
+  # Function body goes here
+}</code></pre>
+</div>
+<div id="documenting-your-functions" class="section level2">
+<h2><strong>Documenting Your Functions</strong></h2>
+<p>Now, let’s talk about documentation. You know when you type ?amatheme in R and get that nice documentation? That’s what we’re going to do next. We can leverage off the roxygen2 package to document our functions.</p>
+<p>To document our <strong><code>amatheme</code></strong> function, we would add special comments above the function definition in the <strong><code>amatheme.R</code></strong> file:</p>
+<pre class="r"><code>#&#39; Title of the function
+#&#39;
+#&#39; @description A detailed description of what the function does.
+#&#39; @param param1 Description of the first parameter.
+#&#39; @param param2 Description of the second parameter.
+#&#39; @return Description of the return value.
+#&#39; @examples 
+#&#39; example1
+#&#39; example2
+#&#39; @export
+amatheme &lt;- function(param1, param2) {
+  # Function body goes here
+}</code></pre>
+<p>Once you’ve got your documentation completed, you can run <strong><code>devtools::document()</code></strong> to generate the .Rd files.</p>
+</div>
+<div id="package-documentation" class="section level2">
+<h2><strong>Package Documentation</strong></h2>
+<p>One of the key aspects of creating an R package is documentation. Good documentation is crucial for ensuring that others can understand and use your package. This includes not only commenting your code but also creating help files for each function and a detailed package vignette.</p>
+<p>To create a vignette for our package, we would use the <strong><code>usethis::use_vignette("introduction")</code></strong> function. This creates a template R Markdown file in the vignettes directory of our package. We can edit this file to provide a detailed introduction to our package.</p>
+<p>A package vignette is a long-form guide that provides a comprehensive overview of your package. It typically includes an introduction to the package, detailed examples of how to use each function, and any other information that users might need to understand your package.</p>
+</div>
+<div id="dependencies" class="section level2">
+<h2><strong>Dependencies</strong></h2>
+<p>When creating an R package, it’s important to carefully manage your package dependencies. These are other R packages that your package relies on. You should aim to minimize your dependencies to reduce the likelihood of conflicts and errors. When you do need to use other packages, make sure to specify them in the Imports field of your DESCRIPTION file.</p>
+<p>For example, if our package depends on ggplot2, we would add the following line to the DESCRIPTION file:</p>
+<pre><code>Imports:
+  ggplot2</code></pre>
+</div>
+<div id="data" class="section level2">
+<h2><strong>Data</strong></h2>
+<p>If you want to include raw data files (like .csv, .tsv, .txt, etc.) in your R package, you should place them in the <strong><code>inst/extdata</code></strong> directory of your package. This is a standard location for storing raw data in R packages.</p>
+<p>Here’s how you can use such data:</p>
+<ol style="list-style-type: decimal">
+<li><p>Add your raw data file to the <strong><code>inst/extdata</code></strong> directory in your package. For example, you might add a file called <strong><code>model-coef.rds</code></strong>.</p></li>
+<li><p>After installing your package, you can access the data file using the <strong><code>system.file()</code></strong> function. Here’s how you can do it:</p></li>
+</ol>
+<pre class="r"><code>data_file_path &lt;- system.file(&quot;extdata&quot;, &quot;model-coef.rds&quot;, package = &quot;myfirstpackage&quot;)
+data &lt;- readRDS(data_file_path)</code></pre>
+<p>In this example, <strong><code>system.file()</code></strong> generates the full system path to the data file within the installed package. Then <strong><code>readRDS()</code></strong> is used to read the data into R.</p>
+<p>Remember, the <strong><code>inst</code></strong> directory in an R package is for “installed files” - these are files that are not R code or data, but which should be included with the package. The contents of the <strong><code>inst</code></strong> directory are copied by R into the root of the package when it is installed, which is why you don’t include <strong><code>inst</code></strong> in the path when using <strong><code>system.file()</code></strong>.</p>
+</div>
+<div id="rules-of-thumb-and-industry-hacks" class="section level2">
+<h2><strong>Rules of Thumb and Industry Hacks</strong></h2>
+<p>Here are a few rules of thumb and industry hacks to keep in mind when creating your R package:</p>
+<ul>
+<li><p><strong>Keep it simple:</strong> Try to keep your package focused on one task or theme. This makes it easier for others to understand what your package does and how to use it.</p></li>
+<li><p><strong>Use meaningful function names:</strong> Your function names should be descriptive and follow a consistent naming convention. This makes it easier for users to understand what each function does.</p></li>
+<li><p><strong>Test your package:</strong> Make sure to thoroughly test your package before releasing it. This includes checking that all functions work as expected and that all documentation is clear and accurate.</p></li>
+<li><p><strong>Keep learning:</strong> Creating an R package is a learning process. Don’t be afraid to make mistakes and keep improving your package over time.</p></li>
+</ul>
+</div>
+<div id="installing-and-using-your-r-package" class="section level2">
+<h2><strong>Installing and Using Your R Package</strong></h2>
+<p>So, we’ve got our functions, we’ve got our documentation, what’s next? It’s time to install and use our package! We can use the <strong><code>devtools::install()</code></strong> function to install our R package into our R system library. Then we can load up our package with <strong><code>library("myfirstpackage")</code></strong>.</p>
+</div>
+<div id="distributing-your-r-package" class="section level2">
+<h2><strong>Distributing Your R Package</strong></h2>
+<p>Now that we’ve got our shiny new R package, how do we share it with the world? The easiest way is to distribute it through GitHub.</p>
+<p>To distribute our package on GitHub, we first need to create a new repository on GitHub. Then, we can use Git to commit our package files and push them to the GitHub repository. Here’s an example of how to do this in the terminal:</p>
+<pre class="bash"><code># Navigate to the directory of your package
+cd path/to/your/package
+
+# Initialize a new Git repository
+git init
+
+# Add all files in the directory to the Git repository
+git add .
+
+# Commit the files
+git commit -m &quot;Initial commit&quot;
+
+# Add the GitHub repository as a remote
+git remote add origin https://github.com/yourusername/yourrepository.git
+
+# Push the files to the GitHub repository
+git push -u origin master
+</code></pre>
+<p>Once you’ve pushed your package to GitHub, anyone can install it using the following command:</p>
+<pre class="r"><code>devtools::install_github(&quot;yourusername/myfirstpackage&quot;)</code></pre>
+<p>And that’s it! You’ve successfully created, documented, installed, and distributed your very own R package. But wait, there’s more! You can also check out my own package on GitHub. To install it, simply run:</p>
+<pre class="r"><code>remotes::install_github(&quot;mikenguyen13/mikenguyen&quot;)</code></pre>
+<p>Feel free to use it for your research, whether you’re in marketing, science, or just a data enthusiast like me. Happy coding!</p>
+<p><img src="https://undo.io/media/uploads/files/Code_for_six_minutes_meme.jpg" width="40%" /><img src="https://i.redd.it/m0xy5opltgm11.jpg" width="40%" /></p>
+</div>
+</div>
