@@ -5,12 +5,44 @@
     <link>https://mikenguyen.netlify.app/</link>
       <atom:link href="https://mikenguyen.netlify.app/index.xml" rel="self" type="application/rss+xml" />
     <description>Mike Nguyen</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Tue, 25 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Wed, 09 Aug 2023 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Mike Nguyen</title>
       <link>https://mikenguyen.netlify.app/</link>
     </image>
+    
+    <item>
+      <title>AI Bot for MKT 562</title>
+      <link>https://mikenguyen.netlify.app/post/ai-bot-for-mkt-562/</link>
+      <pubDate>Wed, 09 Aug 2023 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/ai-bot-for-mkt-562/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;strong&gt;Welcome to Advertising and Social Media - MKT 526&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This page gives you a quick way to ask all questions related to the class syllabus.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;What is it?&lt;/strong&gt; AdBot is an AI-powered Teaching Assistant (TA) bot, specifically designed to support students in the Advertising and Social Media class.
+Whether you have questions about advertising campaigns, social media trends, or digital marketing strategies, AdBot is here to provide insights and answers.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;: AdBot is a cutting-edge tool developed quickly for educational purposes using advanced AI technologies.
+Please refrain from sharing personal or sensitive information with it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Here are some sample questions you can ask AdBot:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Course Logistics:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;What are the grading criteria for the social media project?
+When is the deadline for our advertising campaign proposal?
+Can you show me the schedule for guest lectures?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Language Options:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Feel free to ask questions in any language, and AdBot will reply in the language of your question.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Feedback and Comments:&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Please direct any comments or suggestions to your course teaching assistant’s email.&lt;/p&gt;
+&lt;p&gt;If you can’t see the widget, please access via this &lt;a href=&#34;https://widget.getcody.ai/99d9d523-c1dd-4c06-8823-176c69f39d4c&#34;&gt;url&lt;/a&gt;&lt;/p&gt;
+&lt;div id=&#34;ai-teaching-assistant&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;AI Teaching Assistant&lt;/h2&gt;
+&lt;iframe src=&#34;https://widget.getcody.ai/99d9d523-c1dd-4c06-8823-176c69f39d4c&#34; style=&#34;border:0px;&#34; name=&#34;codyai&#34; scrolling=&#34;no&#34; frameborder=&#34;1&#34; marginheight=&#34;0&#34; marginwidth=&#34;0&#34; height=&#34;800px&#34; width=&#34;100%&#34; allowfullscreen&gt;
+&lt;/iframe&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Create your own package in R</title>
@@ -2990,7 +3022,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-469783251&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-352867194&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -3000,7 +3032,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-469783251&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-352867194&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
