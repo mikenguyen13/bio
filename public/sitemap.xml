@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://mikenguyen.netlify.app/courses/06-usc-mkt526-f23/</loc>
+    <lastmod>2023-08-09T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/courses/04-mizzou-mar4050-s23/</loc>
     <lastmod>2023-01-09T00:00:00+00:00</lastmod>
   </url><url>
@@ -25,6 +28,9 @@
   </url><url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
     <lastmod>2023-08-09T13:37:48-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/courses/</loc>
+    <lastmod>2023-08-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/</loc>
     <lastmod>2023-08-09T13:37:48-07:00</lastmod>
@@ -73,9 +79,6 @@
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/publish-or-perish-on-microsoft-windows/</loc>
     <lastmod>2023-02-18T15:16:27-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/courses/</loc>
-    <lastmod>2023-01-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/adding-utteranc-es-to-blogdown-academic-hugo-theme/</loc>
     <lastmod>2022-12-10T22:31:12-06:00</lastmod>
