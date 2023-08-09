@@ -35,9 +35,6 @@ This page gives you a quick way to ask all questions related to the class syllab
 
 -   When is the deadline for our group project proposal?
 
-```{=html}
-<!-- -->
-```
 -   Can you show me the schedule for guest lectures?
 
 **Language Options:**

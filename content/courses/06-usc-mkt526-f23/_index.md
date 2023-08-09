@@ -40,9 +40,3 @@ This page gives you a quick way to ask all questions related to the class syllab
 -   Please direct any comments or suggestions to your course teaching assistant's email.
 
 If you can't see the widget, please access via this [url](https://widget.getcody.ai/99d9d523-c1dd-4c06-8823-176c69f39d4c)
-
-## AI Teaching Assistant
-
-<iframe src="https://widget.getcody.ai/99d9d523-c1dd-4c06-8823-176c69f39d4c" style="border:0px;" name="codyai" scrolling="no" frameborder="1" marginheight="0" marginwidth="0" height="800px" width="100%" allowfullscreen>
-
-</iframe>
