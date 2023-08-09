@@ -8,9 +8,6 @@ summary: Online materials for MKT 526 (Advertising and Social Media) at the Univ
 toc: true
 type: book
 weight: 90
-editor_options: 
-  markdown: 
-    wrap: sentence
 ---
 
 **Welcome to Advertising and Social Media - MKT 526**
