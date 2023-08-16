@@ -5,12 +5,57 @@
     <link>https://mikenguyen.netlify.app/category/data/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/data/index.xml" rel="self" type="application/rss+xml" />
     <description>Data</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Thu, 14 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Sun, 13 Aug 2023 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Data</title>
       <link>https://mikenguyen.netlify.app/category/data/</link>
     </image>
+    
+    <item>
+      <title>Save Your Research</title>
+      <link>https://mikenguyen.netlify.app/post/save-your-research/</link>
+      <pubDate>Sun, 13 Aug 2023 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/save-your-research/</guid>
+      <description>
+
+
+&lt;div id=&#34;my-2-cents-on-sharing-your-research-or-how-not-to-get-lost-in-the-data-jungle&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;My 2 Cents on Sharing Your Research (Or How Not to Get Lost in the Data Jungle)&lt;/h3&gt;
+&lt;p&gt;Sharing research data is like hosting a party. You want everything to be in the right place, accessible to everyone, but not too chaotic. Let’s navigate the data jungle together, shall we?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;possible-data-repositories&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Possible Data Repositories&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://dataverse.harvard.edu/&#34;&gt;&lt;strong&gt;Harvard Dataverse&lt;/strong&gt;&lt;/a&gt;: Great if you’re a minimalist, with a cap of 1TB per researcher. Supports only JSON and XML, so it’s like a party with a strict dress code.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://zenodo.org/&#34;&gt;&lt;strong&gt;Zenodo&lt;/strong&gt;&lt;/a&gt;: The friendly neighbor who never says no. Unlimited space, supports everything, and even merged with Dryad.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://datadryad.org/&#34;&gt;&lt;strong&gt;Dryad&lt;/strong&gt;&lt;/a&gt;: Must involve your institution. It’s like needing a chaperone for a night out.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://figshare.com/category&#34;&gt;&lt;strong&gt;Figshare&lt;/strong&gt;&lt;/a&gt;: Got categories? Figshare is the librarian of data sharing.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://data.mendeley.com/&#34;&gt;&lt;strong&gt;Mendeley Data&lt;/strong&gt;&lt;/a&gt;: Like a sophisticated social club for data enthusiasts.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://osf.io/&#34;&gt;&lt;strong&gt;OSF&lt;/strong&gt;&lt;/a&gt;: If data repositories had a welcoming committee, OSF would be it.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://vivli.org/&#34;&gt;&lt;strong&gt;VIVLI&lt;/strong&gt;&lt;/a&gt;: The specialized clinic for clinical research data. Not for the faint of heart!&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://f1000research.com/&#34;&gt;&lt;strong&gt;F1000Research&lt;/strong&gt;&lt;/a&gt;: It’s there if you need it. Kind of like your in-laws.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you’re the indecisive type and need a full-on spreadsheet to make your life choices, here’s a &lt;a href=&#34;https://www.agu.org/-/media/Files/Publications/Generalist-Data-Repository-Grid.pdf&#34;&gt;comparison chart&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;sharing-tips-or-how-to-be-the-life-of-the-data-party&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Sharing Tips (or How to be the Life of the Data Party)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;For Datasets&lt;/strong&gt;: &lt;a href=&#34;https://zenodo.org/&#34;&gt;Zenodo&lt;/a&gt; is your buffet table of unlimited choices. &lt;a href=&#34;https://blog.zenodo.org/2020/03/10/dryad-and-zenodo-our-path-ahead/&#34;&gt;More on Zenodo &amp;amp; Dryad’s merger&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;For Presentations&lt;/strong&gt;: &lt;a href=&#34;https://f1000research.com/&#34;&gt;f1000research&lt;/a&gt;, where slide decks go to party. No limit means the dance floor is always open.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;If you want to share everything (e.g., data, slides, posters, etc.) in one place (i.e., project), &lt;a href=&#34;https://figshare.com/category&#34;&gt;Figshare&lt;/a&gt; is your best bet (but it’s just not my personal favorite).&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;For Code or Procedures&lt;/strong&gt;: &lt;a href=&#34;https://zenodo.org/&#34;&gt;Zenodo&lt;/a&gt; again! They’re like that friend who’s good at everything. Even better, publish your documentation as an article on the &lt;a href=&#34;https://joss.theoj.org/&#34;&gt;Journal of Open Source Software&lt;/a&gt; (my personal favorite) or the &lt;a href=&#34;https://openresearchsoftware.metajnl.com/articles&#34;&gt;Journal of Open Research Software&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-last-crumb&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;The Last Crumb&lt;/h3&gt;
+&lt;p&gt;Remember, these repositories are like different rooms at a party. They all come with a DOI and support an embargo period (that’s the bouncer keeping things under control). Choose wisely, or you might end up in the metaphorical coatroom of the data-sharing party.&lt;/p&gt;
+&lt;p&gt;Happy sharing and don’t get lost in the data jungle!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Experimentation at Scale</title>

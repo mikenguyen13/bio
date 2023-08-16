@@ -125,9 +125,44 @@ devtools::create("myfirstpackage")
 
 This command creates a folder with the same name as your package name and populates it with a few files. For now, we'll focus on the DESCRIPTION file (where all the meta-data about your package goes) and the R folder (where all your R code goes).
 
+Alternatively, you can use the `usethis` package. It should give you all the skeleton files you need.
+
+```{r}
+usethis::create_package("package_name")
+```
+
+But this way won't allow you to do it within a directory linked with github. You will have to manually make a git repo
+
+```{r}
+usethis::use_git()
+```
+
+## Add a DESCRIPTION file
+
+```{r}
+usethis::use_description()
+```
+
+When you open this file, you will see it is pretty much self-explanatory
+
+## Add a license
+
+There are many options for you to choose from. I typically just type `usethis::uselicense` (I know this is incorrect; there is no such function, but R will suggest functions that are close in spelling). The most common license is GPL-3.
+
+```{r}
+usethis::use_gpl3_license("Mike Nguyen")
+```
+
 ## **Adding Your R Functions**
 
 All your R functions that you want in your R package belong in the R directory. You can create an .R file that has the same name as the function you want in it. For instance, let's create a file called R/amatheme.R and add our function to it.
+
+Even easier, just use this function
+
+```{r}
+usethis::use_r("your_function")
+usethis::use_test("your_function")
+```
 
 Remember to add the \#' \@export tag above the function. This tag indicates that the function should be "exposed" to users to use.
 
@@ -140,9 +175,25 @@ amatheme <- function() {
 }
 ```
 
+## Load Your Package
+
+To install and and load your package, you can simply
+
+```{r}
+library(usethis)
+library(devtools)
+# don't even need to specify your library
+install()
+library("your_library")
+```
+
 ## **Documenting Your Functions**
 
 Now, let's talk about documentation. You know when you type ?amatheme in R and get that nice documentation? That's what we're going to do next. We can leverage off the roxygen2 package to document our functions.
+
+```{r}
+usethis::use_roxygen_md()
+```
 
 To document our **`amatheme`** function, we would add special comments above the function definition in the **`amatheme.R`** file:
 
@@ -168,9 +219,21 @@ Once you've got your documentation completed, you can run **`devtools::document(
 
 One of the key aspects of creating an R package is documentation. Good documentation is crucial for ensuring that others can understand and use your package. This includes not only commenting your code but also creating help files for each function and a detailed package vignette.
 
-To create a vignette for our package, we would use the **`usethis::use_vignette("introduction")`** function. This creates a template R Markdown file in the vignettes directory of our package. We can edit this file to provide a detailed introduction to our package.
+To create a vignette (i.e., tutorial) for our package, we would use the **`usethis::use_vignette("introduction")`** function. This creates a template R Markdown file in the vignettes directory of our package. We can edit this file to provide a detailed introduction to our package.
 
 A package vignette is a long-form guide that provides a comprehensive overview of your package. It typically includes an introduction to the package, detailed examples of how to use each function, and any other information that users might need to understand your package.
+
+To install the vignette with the package
+
+```{r}
+install(build_vignettes = T)
+```
+
+To see the vignette
+
+```{r}
+vignette("package_name")
+```
 
 ## **Dependencies**
 
@@ -181,6 +244,12 @@ For example, if our package depends on ggplot2, we would add the following line 
 ```         
 Imports:
   ggplot2
+```
+
+## Add a ReadMe file
+
+```{r}
+usethis::use_readme_md()
 ```
 
 ## **Data**
@@ -262,6 +331,8 @@ Once you've pushed your package to GitHub, anyone can install it using the follo
 ```{r}
 devtools::install_github("yourusername/myfirstpackage")
 ```
+
+To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the [Journal of Open Source Software](https://joss.theoj.org/) or the [Journal of Open Research Software](https://openresearchsoftware.metajnl.com/articles). Personally, I'd give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat
 
 And that's it! You've successfully created, documented, installed, and distributed your very own R package. But wait, there's more! You can also check out my own package on GitHub. To install it, simply run:
 

@@ -353,14 +353,16 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [WARC](https://www.warc.com/data)
     -   [Adspend](https://www.warc.com/data/adspend)
     -   [Media Owner Profile](https://www.warc.com/data/mediaownerprofiles)
--   [Winmo](https://www.winmo.com/): Adspend per firm (USC has access)
+-   [Winmo](https://www.winmo.com/): Adspend per firm/brand
 -   [AdAge](https://adage.com/article/datacenter/leading-national-advertisers-index/106348): data on ad spending
 -   [IAB Advertising Spend and Revenue Research](https://www.iab.com/topics/ad-revenue/?spend=1)
 -   [Facebook Ads API](https://www.facebook.com/ads/library/api/?source=archive-landing-page&session_id=583e8a37-b100-468a-8266-70538cc17b6f): [Meta Ad Library API](https://www.facebook.com/ads/library/api/?source=nav-header)
 -   [Kantar Media](https://www.kantar.com/)
+    -   [Vivvix](https://www.vivvix.com/home): combine Kantar and Numerator into an independent firm (IU, Penn State, and Emory subscribe)
 -   [Ad-targeting labels](https://github.com/the-markup/xandr-audience-segments)
+-   [eMarketer](https://www.insiderintelligence.com/topics/topic/total-media-ad-spending) (Insider Intelligence): total media ad spending by media (digital, newspaper, magazine, radio, mobile, TV, out-of-home) and digital format (display, video, rich media, classified, paid search, radio, podcast, social media)
 
-## Reports
+<!-- -->
 
 -   [Datareportal](https://datareportal.com/): on online activities
 
@@ -398,6 +400,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [AI Harm Incidents](https://www.aiaaic.org/): [previously](https://incidentdatabase.ai/)
 -   [Data Axle:](https://www.data-axle.com/) Consumer Data
 -   [decadata](https://decadata.io/data): consumer data
+-   [SimplyAnalytics](https://simplyanalytics.com/): demographic, historic census, business, health, real estate, housing, employment, consumer spending, and marketing
 
 ## Review
 

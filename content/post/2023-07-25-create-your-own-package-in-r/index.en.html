@@ -91,10 +91,27 @@ install.packages(&quot;roxygen2&quot;)</code></pre>
 <p>Now that we have our tools, we can start building the framework for our package. We can do this using devtools:</p>
 <pre class="r"><code>devtools::create(&quot;myfirstpackage&quot;)</code></pre>
 <p>This command creates a folder with the same name as your package name and populates it with a few files. For now, we’ll focus on the DESCRIPTION file (where all the meta-data about your package goes) and the R folder (where all your R code goes).</p>
+<p>Alternatively, you can use the <code>usethis</code> package. It should give you all the skeleton files you need.</p>
+<pre class="r"><code>usethis::create_package(&quot;package_name&quot;)</code></pre>
+<p>But this way won’t allow you to do it within a directory linked with github. You will have to manually make a git repo</p>
+<pre class="r"><code>usethis::use_git()</code></pre>
+</div>
+<div id="add-a-description-file" class="section level2">
+<h2>Add a DESCRIPTION file</h2>
+<pre class="r"><code>usethis::use_description()</code></pre>
+<p>When you open this file, you will see it is pretty much self-explanatory</p>
+</div>
+<div id="add-a-license" class="section level2">
+<h2>Add a license</h2>
+<p>There are many options for you to choose from. I typically just type <code>usethis::uselicense</code> (I know this is incorrect; there is no such function, but R will suggest functions that are close in spelling). The most common license is GPL-3.</p>
+<pre class="r"><code>usethis::use_gpl3_license(&quot;Mike Nguyen&quot;)</code></pre>
 </div>
 <div id="adding-your-r-functions" class="section level2">
 <h2><strong>Adding Your R Functions</strong></h2>
 <p>All your R functions that you want in your R package belong in the R directory. You can create an .R file that has the same name as the function you want in it. For instance, let’s create a file called R/amatheme.R and add our function to it.</p>
+<p>Even easier, just use this function</p>
+<pre class="r"><code>usethis::use_r(&quot;your_function&quot;)
+usethis::use_test(&quot;your_function&quot;)</code></pre>
 <p>Remember to add the #’ @export tag above the function. This tag indicates that the function should be “exposed” to users to use.</p>
 <p>Let’s say we have a function <strong><code>amatheme</code></strong> that we want to include in our package. We would create a new .R file in the R directory of our package, let’s call it <strong><code>amatheme.R</code></strong>. In this file, we would define our function:</p>
 <pre class="r"><code>#&#39; @export
@@ -102,9 +119,19 @@ amatheme &lt;- function() {
   # Function body goes here
 }</code></pre>
 </div>
+<div id="load-your-package" class="section level2">
+<h2>Load Your Package</h2>
+<p>To install and and load your package, you can simply</p>
+<pre class="r"><code>library(usethis)
+library(devtools)
+# don&#39;t even need to specify your library
+install()
+library(&quot;your_library&quot;)</code></pre>
+</div>
 <div id="documenting-your-functions" class="section level2">
 <h2><strong>Documenting Your Functions</strong></h2>
 <p>Now, let’s talk about documentation. You know when you type ?amatheme in R and get that nice documentation? That’s what we’re going to do next. We can leverage off the roxygen2 package to document our functions.</p>
+<pre class="r"><code>usethis::use_roxygen_md()</code></pre>
 <p>To document our <strong><code>amatheme</code></strong> function, we would add special comments above the function definition in the <strong><code>amatheme.R</code></strong> file:</p>
 <pre class="r"><code>#&#39; Title of the function
 #&#39;
@@ -124,8 +151,12 @@ amatheme &lt;- function(param1, param2) {
 <div id="package-documentation" class="section level2">
 <h2><strong>Package Documentation</strong></h2>
 <p>One of the key aspects of creating an R package is documentation. Good documentation is crucial for ensuring that others can understand and use your package. This includes not only commenting your code but also creating help files for each function and a detailed package vignette.</p>
-<p>To create a vignette for our package, we would use the <strong><code>usethis::use_vignette("introduction")</code></strong> function. This creates a template R Markdown file in the vignettes directory of our package. We can edit this file to provide a detailed introduction to our package.</p>
+<p>To create a vignette (i.e., tutorial) for our package, we would use the <strong><code>usethis::use_vignette("introduction")</code></strong> function. This creates a template R Markdown file in the vignettes directory of our package. We can edit this file to provide a detailed introduction to our package.</p>
 <p>A package vignette is a long-form guide that provides a comprehensive overview of your package. It typically includes an introduction to the package, detailed examples of how to use each function, and any other information that users might need to understand your package.</p>
+<p>To install the vignette with the package</p>
+<pre class="r"><code>install(build_vignettes = T)</code></pre>
+<p>To see the vignette</p>
+<pre class="r"><code>vignette(&quot;package_name&quot;)</code></pre>
 </div>
 <div id="dependencies" class="section level2">
 <h2><strong>Dependencies</strong></h2>
@@ -133,6 +164,10 @@ amatheme &lt;- function(param1, param2) {
 <p>For example, if our package depends on ggplot2, we would add the following line to the DESCRIPTION file:</p>
 <pre><code>Imports:
   ggplot2</code></pre>
+</div>
+<div id="add-a-readme-file" class="section level2">
+<h2>Add a ReadMe file</h2>
+<pre class="r"><code>usethis::use_readme_md()</code></pre>
 </div>
 <div id="data" class="section level2">
 <h2><strong>Data</strong></h2>
@@ -191,6 +226,7 @@ git push -u origin master
 </code></pre>
 <p>Once you’ve pushed your package to GitHub, anyone can install it using the following command:</p>
 <pre class="r"><code>devtools::install_github(&quot;yourusername/myfirstpackage&quot;)</code></pre>
+<p>To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the <a href="https://joss.theoj.org/">Journal of Open Source Software</a> or the <a href="https://openresearchsoftware.metajnl.com/articles">Journal of Open Research Software</a>. Personally, I’d give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat</p>
 <p>And that’s it! You’ve successfully created, documented, installed, and distributed your very own R package. But wait, there’s more! You can also check out my own package on GitHub. To install it, simply run:</p>
 <pre class="r"><code>remotes::install_github(&quot;mikenguyen13/mikenguyen&quot;)</code></pre>
 <p>Feel free to use it for your research, whether you’re in marketing, science, or just a data enthusiast like me. Happy coding!</p>

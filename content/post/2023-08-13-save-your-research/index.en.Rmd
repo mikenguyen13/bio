@@ -1,0 +1,60 @@
+---
+title: Save Your Research
+author: Mike Nguyen
+date: '2023-08-13'
+slug: save-your-research
+categories:
+  - Data
+tags:
+  - Academic
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2023-08-13T18:28:54-07:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+### My 2 Cents on Sharing Your Research (Or How Not to Get Lost in the Data Jungle)
+
+Sharing research data is like hosting a party. You want everything to be in the right place, accessible to everyone, but not too chaotic. Let's navigate the data jungle together, shall we?
+
+### Possible Data Repositories
+
+-   [**Harvard Dataverse**](https://dataverse.harvard.edu/): Great if you're a minimalist, with a cap of 1TB per researcher. Supports only JSON and XML, so it's like a party with a strict dress code.
+
+-   [**Zenodo**](https://zenodo.org/): The friendly neighbor who never says no. Unlimited space, supports everything, and even merged with Dryad.
+
+-   [**Dryad**](https://datadryad.org/): Must involve your institution. It's like needing a chaperone for a night out.
+
+-   [**Figshare**](https://figshare.com/category): Got categories? Figshare is the librarian of data sharing.
+
+-   [**Mendeley Data**](https://data.mendeley.com/): Like a sophisticated social club for data enthusiasts.
+
+-   [**OSF**](https://osf.io/): If data repositories had a welcoming committee, OSF would be it.
+
+-   [**VIVLI**](https://vivli.org/): The specialized clinic for clinical research data. Not for the faint of heart!
+
+-   [**F1000Research**](https://f1000research.com/): It's there if you need it. Kind of like your in-laws.
+
+If you're the indecisive type and need a full-on spreadsheet to make your life choices, here's a [comparison chart](https://www.agu.org/-/media/Files/Publications/Generalist-Data-Repository-Grid.pdf).
+
+### Sharing Tips (or How to be the Life of the Data Party)
+
+-   **For Datasets**: [Zenodo](https://zenodo.org/) is your buffet table of unlimited choices. [More on Zenodo & Dryad's merger](https://blog.zenodo.org/2020/03/10/dryad-and-zenodo-our-path-ahead/).
+
+-   **For Presentations**: [f1000research](https://f1000research.com/), where slide decks go to party. No limit means the dance floor is always open.
+
+    -   If you want to share everything (e.g., data, slides, posters, etc.) in one place (i.e., project), [Figshare](https://figshare.com/category) is your best bet (but it's just not my personal favorite).
+
+-   **For Code or Procedures**: [Zenodo](https://zenodo.org/) again! They're like that friend who's good at everything. Even better, publish your documentation as an article on the [Journal of Open Source Software](https://joss.theoj.org/) (my personal favorite) or the [Journal of Open Research Software](https://openresearchsoftware.metajnl.com/articles)
+
+### The Last Crumb
+
+Remember, these repositories are like different rooms at a party. They all come with a DOI and support an embargo period (that's the bouncer keeping things under control). Choose wisely, or you might end up in the metaphorical coatroom of the data-sharing party.
+
+Happy sharing and don't get lost in the data jungle!

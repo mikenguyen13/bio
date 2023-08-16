@@ -86,10 +86,27 @@ install.packages(&amp;quot;roxygen2&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now that we have our tools, we can start building the framework for our package. We can do this using devtools:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::create(&amp;quot;myfirstpackage&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This command creates a folder with the same name as your package name and populates it with a few files. For now, we’ll focus on the DESCRIPTION file (where all the meta-data about your package goes) and the R folder (where all your R code goes).&lt;/p&gt;
+&lt;p&gt;Alternatively, you can use the &lt;code&gt;usethis&lt;/code&gt; package. It should give you all the skeleton files you need.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::create_package(&amp;quot;package_name&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But this way won’t allow you to do it within a directory linked with github. You will have to manually make a git repo&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::use_git()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;add-a-description-file&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Add a DESCRIPTION file&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::use_description()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;When you open this file, you will see it is pretty much self-explanatory&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;add-a-license&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Add a license&lt;/h2&gt;
+&lt;p&gt;There are many options for you to choose from. I typically just type &lt;code&gt;usethis::uselicense&lt;/code&gt; (I know this is incorrect; there is no such function, but R will suggest functions that are close in spelling). The most common license is GPL-3.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::use_gpl3_license(&amp;quot;Mike Nguyen&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;adding-your-r-functions&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;&lt;strong&gt;Adding Your R Functions&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;All your R functions that you want in your R package belong in the R directory. You can create an .R file that has the same name as the function you want in it. For instance, let’s create a file called R/amatheme.R and add our function to it.&lt;/p&gt;
+&lt;p&gt;Even easier, just use this function&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::use_r(&amp;quot;your_function&amp;quot;)
+usethis::use_test(&amp;quot;your_function&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Remember to add the #’ @export tag above the function. This tag indicates that the function should be “exposed” to users to use.&lt;/p&gt;
 &lt;p&gt;Let’s say we have a function &lt;strong&gt;&lt;code&gt;amatheme&lt;/code&gt;&lt;/strong&gt; that we want to include in our package. We would create a new .R file in the R directory of our package, let’s call it &lt;strong&gt;&lt;code&gt;amatheme.R&lt;/code&gt;&lt;/strong&gt;. In this file, we would define our function:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#&amp;#39; @export
@@ -97,9 +114,19 @@ amatheme &amp;lt;- function() {
   # Function body goes here
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;div id=&#34;load-your-package&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Load Your Package&lt;/h2&gt;
+&lt;p&gt;To install and and load your package, you can simply&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(usethis)
+library(devtools)
+# don&amp;#39;t even need to specify your library
+install()
+library(&amp;quot;your_library&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;div id=&#34;documenting-your-functions&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;&lt;strong&gt;Documenting Your Functions&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;Now, let’s talk about documentation. You know when you type ?amatheme in R and get that nice documentation? That’s what we’re going to do next. We can leverage off the roxygen2 package to document our functions.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::use_roxygen_md()&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To document our &lt;strong&gt;&lt;code&gt;amatheme&lt;/code&gt;&lt;/strong&gt; function, we would add special comments above the function definition in the &lt;strong&gt;&lt;code&gt;amatheme.R&lt;/code&gt;&lt;/strong&gt; file:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;#&amp;#39; Title of the function
 #&amp;#39;
@@ -119,8 +146,12 @@ amatheme &amp;lt;- function(param1, param2) {
 &lt;div id=&#34;package-documentation&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;&lt;strong&gt;Package Documentation&lt;/strong&gt;&lt;/h2&gt;
 &lt;p&gt;One of the key aspects of creating an R package is documentation. Good documentation is crucial for ensuring that others can understand and use your package. This includes not only commenting your code but also creating help files for each function and a detailed package vignette.&lt;/p&gt;
-&lt;p&gt;To create a vignette for our package, we would use the &lt;strong&gt;&lt;code&gt;usethis::use_vignette(&#34;introduction&#34;)&lt;/code&gt;&lt;/strong&gt; function. This creates a template R Markdown file in the vignettes directory of our package. We can edit this file to provide a detailed introduction to our package.&lt;/p&gt;
+&lt;p&gt;To create a vignette (i.e., tutorial) for our package, we would use the &lt;strong&gt;&lt;code&gt;usethis::use_vignette(&#34;introduction&#34;)&lt;/code&gt;&lt;/strong&gt; function. This creates a template R Markdown file in the vignettes directory of our package. We can edit this file to provide a detailed introduction to our package.&lt;/p&gt;
 &lt;p&gt;A package vignette is a long-form guide that provides a comprehensive overview of your package. It typically includes an introduction to the package, detailed examples of how to use each function, and any other information that users might need to understand your package.&lt;/p&gt;
+&lt;p&gt;To install the vignette with the package&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install(build_vignettes = T)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To see the vignette&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vignette(&amp;quot;package_name&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;dependencies&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;&lt;strong&gt;Dependencies&lt;/strong&gt;&lt;/h2&gt;
@@ -128,6 +159,10 @@ amatheme &amp;lt;- function(param1, param2) {
 &lt;p&gt;For example, if our package depends on ggplot2, we would add the following line to the DESCRIPTION file:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Imports:
   ggplot2&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;add-a-readme-file&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Add a ReadMe file&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::use_readme_md()&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;&lt;strong&gt;Data&lt;/strong&gt;&lt;/h2&gt;
@@ -186,6 +221,7 @@ git push -u origin master
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Once you’ve pushed your package to GitHub, anyone can install it using the following command:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::install_github(&amp;quot;yourusername/myfirstpackage&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the &lt;a href=&#34;https://joss.theoj.org/&#34;&gt;Journal of Open Source Software&lt;/a&gt; or the &lt;a href=&#34;https://openresearchsoftware.metajnl.com/articles&#34;&gt;Journal of Open Research Software&lt;/a&gt;. Personally, I’d give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat&lt;/p&gt;
 &lt;p&gt;And that’s it! You’ve successfully created, documented, installed, and distributed your very own R package. But wait, there’s more! You can also check out my own package on GitHub. To install it, simply run:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;remotes::install_github(&amp;quot;mikenguyen13/mikenguyen&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Feel free to use it for your research, whether you’re in marketing, science, or just a data enthusiast like me. Happy coding!&lt;/p&gt;
@@ -1716,41 +1752,6 @@ result  = df %&amp;gt;%
 
 &lt;p&gt;To have faster performance with Shiny App, you can pass this command to yoru script.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# %&amp;gt;% bindCache()&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>create your own package</title>
-      <link>https://mikenguyen.netlify.app/post/create-your-own-package/</link>
-      <pubDate>Fri, 19 Feb 2021 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/post/create-your-own-package/</guid>
-      <description>
-
-
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(&amp;quot;usethis&amp;quot;)
-create_package(path = &amp;quot;../package_name&amp;quot;)
-use_description()
-usethis::is_package()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;load library&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(devtools)
-load_all() # Cmd/Ctrl + Shift + L
-
-# use_pipe()
-use_package(&amp;quot;dplyr&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;You also need to modify your description file&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Imports:
-  ggplot2
-  dplyr
-
-# install all dependencies in DESCRIPTION
-install_deps()&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;create function&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;your_own_function &amp;lt;- function(){
-  
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Test your package&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;test() # Cmd/Ctrl + Shift + T&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;check Malcolm Barrett’s &lt;a href=&#34;https://zenartofrpkgs.netlify.app/#1&#34;&gt;slides&lt;/a&gt; for more detail&lt;/p&gt;
 </description>
     </item>
     
