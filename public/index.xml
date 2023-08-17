@@ -246,7 +246,7 @@ amatheme &amp;lt;- function(param1, param2) {
 &lt;div id=&#34;readme-file&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;ReadMe file&lt;/h3&gt;
 &lt;p&gt;So, you’ve heard me blabber about creating your own package in R. But what if you don’t want to stop at just pushing it to your GitHub folder and hoping someone stumbles upon it during their 3 a.m. coding binge? What if you want to make it &lt;strong&gt;official&lt;/strong&gt;, put a badge on it, and show it off to the world like a proud pet owner?&lt;/p&gt;
-&lt;p&gt;Let&#39;s Start Simple&lt;/p&gt;
+&lt;p&gt;Let’s Start Simple&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::use_readme_md()&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Think of your README as the flashy storefront of your package. You wouldn’t walk into a store without a sign, right? (Unless you’re an adventurer, in which case, hats off to you!)&lt;/p&gt;
 &lt;p&gt;The README should cover:&lt;/p&gt;
@@ -258,11 +258,11 @@ amatheme &amp;lt;- function(param1, param2) {
 &lt;/div&gt;
 &lt;div id=&#34;a-logo-because-even-r-packages-need-swag&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;&lt;strong&gt;A Logo: Because Even R Packages Need Swag&lt;/strong&gt;&lt;/h3&gt;
-&lt;p&gt;Did someone say branding? Just as you wouldn&#39;t forget your grandmother&#39;s face, you want people to remember your package. Create a chic logo that screams “I mean business... but in a fun, R-related way.”&lt;/p&gt;
+&lt;p&gt;Did someone say branding? Just as you wouldn’t forget your grandmother’s face, you want people to remember your package. Create a chic logo that screams “I mean business... but in a fun, R-related way.”&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;use_logo()&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;citation-give-credit-where-its-due&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;&lt;strong&gt;Citation: Give Credit Where It&#39;s Due&lt;/strong&gt;&lt;/h3&gt;
+&lt;h3&gt;&lt;strong&gt;Citation: Give Credit Where It’s Due&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;If someone uses your package for their groundbreaking research and ends up winning a Nobel Prize, you want a slice of that credit pie (or at least a mention in the footnotes). Always provide a way for folks to cite your work. A little fame never hurt anybody!&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;use_citation()&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -334,7 +334,7 @@ git push -u origin master
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Once you’ve pushed your package to GitHub, anyone can install it using the following command:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::install_github(&amp;quot;yourusername/myfirstpackage&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the &lt;a href=&#34;https://joss.theoj.org/&#34;&gt;Journal of Open Source Software&lt;/a&gt; or the &lt;a href=&#34;https://openresearchsoftware.metajnl.com/articles&#34;&gt;Journal of Open Research Software&lt;/a&gt;. Personally, I’d give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat&lt;/p&gt;
+&lt;p&gt;To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the &lt;a href=&#34;https://joss.theoj.org/&#34;&gt;Journal of Open Source Software&lt;/a&gt; or the &lt;a href=&#34;https://openresearchsoftware.metajnl.com/articles&#34;&gt;Journal of Open Research Software&lt;/a&gt; (specifically for R is &lt;a href=&#34;https://journal.r-project.org/&#34;&gt;The R Journal&lt;/a&gt;). Personally, I’d give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat&lt;/p&gt;
 &lt;p&gt;And that’s it! You’ve successfully created, documented, installed, and distributed your very own R package. But wait, there’s more! You can also check out my own package on GitHub. To install it, simply run:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;remotes::install_github(&amp;quot;mikenguyen13/mikenguyen&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Feel free to use it for your research, whether you’re in marketing, science, or just a data enthusiast like me. Happy coding!&lt;/p&gt;
@@ -3118,7 +3118,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-671328954&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-475329681&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -3128,7 +3128,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-671328954&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-475329681&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

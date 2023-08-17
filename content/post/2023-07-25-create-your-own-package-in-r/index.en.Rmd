@@ -246,13 +246,13 @@ Imports:
   ggplot2
 ```
 
-## Add Bells and Whistles 
+## Add Bells and Whistles
 
 ### ReadMe file
 
 So, you've heard me blabber about creating your own package in R. But what if you don't want to stop at just pushing it to your GitHub folder and hoping someone stumbles upon it during their 3 a.m. coding binge? What if you want to make it **official**, put a badge on it, and show it off to the world like a proud pet owner?
 
-Let\'s Start Simple
+Let's Start Simple
 
 ```{r}
 usethis::use_readme_md()
@@ -270,13 +270,13 @@ The README should cover:
 
 ### **A Logo: Because Even R Packages Need Swag**
 
-Did someone say branding? Just as you wouldn\'t forget your grandmother\'s face, you want people to remember your package. Create a chic logo that screams "I mean business\... but in a fun, R-related way."
+Did someone say branding? Just as you wouldn't forget your grandmother's face, you want people to remember your package. Create a chic logo that screams "I mean business\... but in a fun, R-related way."
 
 ```{r}
 use_logo()
 ```
 
-### **Citation: Give Credit Where It\'s Due**
+### **Citation: Give Credit Where It's Due**
 
 If someone uses your package for their groundbreaking research and ends up winning a Nobel Prize, you want a slice of that credit pie (or at least a mention in the footnotes). Always provide a way for folks to cite your work. A little fame never hurt anybody!
 
@@ -380,7 +380,7 @@ Once you've pushed your package to GitHub, anyone can install it using the follo
 devtools::install_github("yourusername/myfirstpackage")
 ```
 
-To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the [Journal of Open Source Software](https://joss.theoj.org/) or the [Journal of Open Research Software](https://openresearchsoftware.metajnl.com/articles). Personally, I'd give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat
+To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the [Journal of Open Source Software](https://joss.theoj.org/) or the [Journal of Open Research Software](https://openresearchsoftware.metajnl.com/articles) (specifically for R is [The R Journal](https://journal.r-project.org/)). Personally, I'd give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat
 
 And that's it! You've successfully created, documented, installed, and distributed your very own R package. But wait, there's more! You can also check out my own package on GitHub. To install it, simply run:
 
