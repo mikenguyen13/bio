@@ -846,7 +846,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    10 min read
+    12 min read
   </span>
   
 
@@ -1022,7 +1022,7 @@ amatheme &lt;- function(param1, param2) {
 <p>To install the vignette with the package</p>
 <pre class="r"><code>install(build_vignettes = T)</code></pre>
 <p>To see the vignette</p>
-<pre class="r"><code>vignette(&quot;package_name&quot;)</code></pre>
+<pre class="r"><code>vignette(&quot;vignette_name&quot;)</code></pre>
 </div>
 <div id="dependencies" class="section level2">
 <h2><strong>Dependencies</strong></h2>
@@ -1031,9 +1031,41 @@ amatheme &lt;- function(param1, param2) {
 <pre><code>Imports:
   ggplot2</code></pre>
 </div>
-<div id="add-a-readme-file" class="section level2">
-<h2>Add a ReadMe file</h2>
+<div id="add-bells-and-whistles" class="section level2">
+<h2>Add Bells and Whistles</h2>
+<div id="readme-file" class="section level3">
+<h3>ReadMe file</h3>
+<p>So, you’ve heard me blabber about creating your own package in R. But what if you don’t want to stop at just pushing it to your GitHub folder and hoping someone stumbles upon it during their 3 a.m. coding binge? What if you want to make it <strong>official</strong>, put a badge on it, and show it off to the world like a proud pet owner?</p>
+<p>Let's Start Simple</p>
 <pre class="r"><code>usethis::use_readme_md()</code></pre>
+<p>Think of your README as the flashy storefront of your package. You wouldn’t walk into a store without a sign, right? (Unless you’re an adventurer, in which case, hats off to you!)</p>
+<p>The README should cover:</p>
+<ul>
+<li><p><strong>Purpose:</strong> Why did you make this? (And please don’t say “just because.”)</p></li>
+<li><p><strong>Installation:</strong> We’re all eager beavers, but how do we get our paws on it?</p></li>
+<li><p><strong>Usage:</strong> Once we have it, how do we use it without breaking our R session?</p></li>
+</ul>
+</div>
+<div id="a-logo-because-even-r-packages-need-swag" class="section level3">
+<h3><strong>A Logo: Because Even R Packages Need Swag</strong></h3>
+<p>Did someone say branding? Just as you wouldn't forget your grandmother's face, you want people to remember your package. Create a chic logo that screams “I mean business... but in a fun, R-related way.”</p>
+<pre class="r"><code>use_logo()</code></pre>
+</div>
+<div id="citation-give-credit-where-its-due" class="section level3">
+<h3><strong>Citation: Give Credit Where It's Due</strong></h3>
+<p>If someone uses your package for their groundbreaking research and ends up winning a Nobel Prize, you want a slice of that credit pie (or at least a mention in the footnotes). Always provide a way for folks to cite your work. A little fame never hurt anybody!</p>
+<pre class="r"><code>use_citation()</code></pre>
+</div>
+<div id="badge-of-honor-the-bling-bling-for-your-package" class="section level3">
+<h3><strong>Badge of Honor: The Bling-Bling for Your Package</strong></h3>
+<pre class="r"><code>use_badge()</code></pre>
+<p>Your package aced its tests? Has a 100% download rate by all three members of your family? Slap on a badge! It’s the jewelry of the coding world.</p>
+</div>
+<div id="lifecycle-badge-is-your-package-a-baby-or-a-grandmaster" class="section level3">
+<h3><strong>Lifecycle Badge: Is Your Package a Baby or a Grandmaster?</strong></h3>
+<pre class="r"><code>use_lifecycle_badge()</code></pre>
+<p>Let people know the maturity of your package. Is it experimental or stable? Is it questioning its place in the R universe? A lifecycle badge gives a quick glance into the evolutionary stage of your creation.</p>
+</div>
 </div>
 <div id="data" class="section level2">
 <h2><strong>Data</strong></h2>

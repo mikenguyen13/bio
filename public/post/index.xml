@@ -232,7 +232,7 @@ amatheme &amp;lt;- function(param1, param2) {
 &lt;p&gt;To install the vignette with the package&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install(build_vignettes = T)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;To see the vignette&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vignette(&amp;quot;package_name&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;vignette(&amp;quot;vignette_name&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;dependencies&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;&lt;strong&gt;Dependencies&lt;/strong&gt;&lt;/h2&gt;
@@ -241,9 +241,41 @@ amatheme &amp;lt;- function(param1, param2) {
 &lt;pre&gt;&lt;code&gt;Imports:
   ggplot2&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;div id=&#34;add-a-readme-file&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Add a ReadMe file&lt;/h2&gt;
+&lt;div id=&#34;add-bells-and-whistles&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Add Bells and Whistles&lt;/h2&gt;
+&lt;div id=&#34;readme-file&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;ReadMe file&lt;/h3&gt;
+&lt;p&gt;So, you’ve heard me blabber about creating your own package in R. But what if you don’t want to stop at just pushing it to your GitHub folder and hoping someone stumbles upon it during their 3 a.m. coding binge? What if you want to make it &lt;strong&gt;official&lt;/strong&gt;, put a badge on it, and show it off to the world like a proud pet owner?&lt;/p&gt;
+&lt;p&gt;Let&#39;s Start Simple&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;usethis::use_readme_md()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Think of your README as the flashy storefront of your package. You wouldn’t walk into a store without a sign, right? (Unless you’re an adventurer, in which case, hats off to you!)&lt;/p&gt;
+&lt;p&gt;The README should cover:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Purpose:&lt;/strong&gt; Why did you make this? (And please don’t say “just because.”)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Installation:&lt;/strong&gt; We’re all eager beavers, but how do we get our paws on it?&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Usage:&lt;/strong&gt; Once we have it, how do we use it without breaking our R session?&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;a-logo-because-even-r-packages-need-swag&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;strong&gt;A Logo: Because Even R Packages Need Swag&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;Did someone say branding? Just as you wouldn&#39;t forget your grandmother&#39;s face, you want people to remember your package. Create a chic logo that screams “I mean business... but in a fun, R-related way.”&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;use_logo()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;citation-give-credit-where-its-due&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;strong&gt;Citation: Give Credit Where It&#39;s Due&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;If someone uses your package for their groundbreaking research and ends up winning a Nobel Prize, you want a slice of that credit pie (or at least a mention in the footnotes). Always provide a way for folks to cite your work. A little fame never hurt anybody!&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;use_citation()&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;badge-of-honor-the-bling-bling-for-your-package&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;strong&gt;Badge of Honor: The Bling-Bling for Your Package&lt;/strong&gt;&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;use_badge()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Your package aced its tests? Has a 100% download rate by all three members of your family? Slap on a badge! It’s the jewelry of the coding world.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;lifecycle-badge-is-your-package-a-baby-or-a-grandmaster&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;strong&gt;Lifecycle Badge: Is Your Package a Baby or a Grandmaster?&lt;/strong&gt;&lt;/h3&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;use_lifecycle_badge()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Let people know the maturity of your package. Is it experimental or stable? Is it questioning its place in the R universe? A lifecycle badge gives a quick glance into the evolutionary stage of your creation.&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div id=&#34;data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;&lt;strong&gt;Data&lt;/strong&gt;&lt;/h2&gt;
@@ -2927,7 +2959,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-216739485&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-671328954&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -2937,7 +2969,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-216739485&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-671328954&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
