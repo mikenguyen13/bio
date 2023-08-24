@@ -1124,7 +1124,23 @@ git push -u origin master
 </code></pre>
 <p>Once you’ve pushed your package to GitHub, anyone can install it using the following command:</p>
 <pre class="r"><code>devtools::install_github(&quot;yourusername/myfirstpackage&quot;)</code></pre>
-<p>To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the <a href="https://joss.theoj.org/">Journal of Open Source Software</a> or the <a href="https://openresearchsoftware.metajnl.com/articles">Journal of Open Research Software</a> (specifically for R is <a href="https://journal.r-project.org/">The R Journal</a>). Personally, I’d give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat</p>
+<p>To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the <a href="https://joss.theoj.org/">Journal of Open Source Software</a> or the <a href="https://openresearchsoftware.metajnl.com/articles">Journal of Open Research Software</a> (specifically for R is <a href="https://journal.r-project.org/">The R Journal</a>). Personally, I’d give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat.</p>
+<p>Feeling even fancier? Consider creating a website to showcase all your vignettes. This not only provides a platform for your work but also allows you to monitor traffic and track visitors. For this, the pkgdown package is a splendid tool. It effortlessly transforms your R package documentation into a polished website, integrating your README, vignettes, function documentation, and other essential files to craft a cohesive online presence.</p>
+<p>Setting up:</p>
+<pre class="r"><code># Install the pkgdown package if you haven&#39;t already:
+# install.packages(&quot;pkgdown&quot;, dependencies = TRUE)
+
+# Build the website. Ensure you&#39;re in your package directory:
+pkgdown::build_site()</code></pre>
+<p>Upon execution, a <strong><code>docs</code></strong> directory will be generated, containing your website.</p>
+<p><strong>Upload to GitHub</strong>: Ensure you commit and push all updates, especially the <strong><code>docs</code></strong> folder, to GitHub.</p>
+<p><strong>Activating GitHub Pages</strong>:</p>
+<ul>
+<li><p>Navigate to your GitHub repository’s settings.</p></li>
+<li><p>Under the “GitHub Pages” section, set the source to the master branch, specifically pointing to the <strong><code>/docs</code></strong> folder.</p></li>
+</ul>
+<p><strong>Accessing Your Site</strong>: Your tailored package website is readily available at:</p>
+<p><code>https://&lt;username&gt;.github.io/&lt;repository&gt;/</code></p>
 <p>And that’s it! You’ve successfully created, documented, installed, and distributed your very own R package. But wait, there’s more! You can also check out my own package on GitHub. To install it, simply run:</p>
 <pre class="r"><code>remotes::install_github(&quot;mikenguyen13/mikenguyen&quot;)</code></pre>
 <p>Feel free to use it for your research, whether you’re in marketing, science, or just a data enthusiast like me. Happy coding!</p>

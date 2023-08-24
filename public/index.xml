@@ -334,7 +334,23 @@ git push -u origin master
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Once you’ve pushed your package to GitHub, anyone can install it using the following command:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::install_github(&amp;quot;yourusername/myfirstpackage&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the &lt;a href=&#34;https://joss.theoj.org/&#34;&gt;Journal of Open Source Software&lt;/a&gt; or the &lt;a href=&#34;https://openresearchsoftware.metajnl.com/articles&#34;&gt;Journal of Open Research Software&lt;/a&gt; (specifically for R is &lt;a href=&#34;https://journal.r-project.org/&#34;&gt;The R Journal&lt;/a&gt;). Personally, I’d give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat&lt;/p&gt;
+&lt;p&gt;To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the &lt;a href=&#34;https://joss.theoj.org/&#34;&gt;Journal of Open Source Software&lt;/a&gt; or the &lt;a href=&#34;https://openresearchsoftware.metajnl.com/articles&#34;&gt;Journal of Open Research Software&lt;/a&gt; (specifically for R is &lt;a href=&#34;https://journal.r-project.org/&#34;&gt;The R Journal&lt;/a&gt;). Personally, I’d give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat.&lt;/p&gt;
+&lt;p&gt;Feeling even fancier? Consider creating a website to showcase all your vignettes. This not only provides a platform for your work but also allows you to monitor traffic and track visitors. For this, the pkgdown package is a splendid tool. It effortlessly transforms your R package documentation into a polished website, integrating your README, vignettes, function documentation, and other essential files to craft a cohesive online presence.&lt;/p&gt;
+&lt;p&gt;Setting up:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Install the pkgdown package if you haven&amp;#39;t already:
+# install.packages(&amp;quot;pkgdown&amp;quot;, dependencies = TRUE)
+
+# Build the website. Ensure you&amp;#39;re in your package directory:
+pkgdown::build_site()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Upon execution, a &lt;strong&gt;&lt;code&gt;docs&lt;/code&gt;&lt;/strong&gt; directory will be generated, containing your website.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Upload to GitHub&lt;/strong&gt;: Ensure you commit and push all updates, especially the &lt;strong&gt;&lt;code&gt;docs&lt;/code&gt;&lt;/strong&gt; folder, to GitHub.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Activating GitHub Pages&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Navigate to your GitHub repository’s settings.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Under the “GitHub Pages” section, set the source to the master branch, specifically pointing to the &lt;strong&gt;&lt;code&gt;/docs&lt;/code&gt;&lt;/strong&gt; folder.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Accessing Your Site&lt;/strong&gt;: Your tailored package website is readily available at:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;https://&amp;lt;username&amp;gt;.github.io/&amp;lt;repository&amp;gt;/&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;And that’s it! You’ve successfully created, documented, installed, and distributed your very own R package. But wait, there’s more! You can also check out my own package on GitHub. To install it, simply run:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;remotes::install_github(&amp;quot;mikenguyen13/mikenguyen&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Feel free to use it for your research, whether you’re in marketing, science, or just a data enthusiast like me. Happy coding!&lt;/p&gt;
@@ -3118,7 +3134,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-475329681&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-932156847&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -3128,7 +3144,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-475329681&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-932156847&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

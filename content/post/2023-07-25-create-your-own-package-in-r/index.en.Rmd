@@ -380,7 +380,33 @@ Once you've pushed your package to GitHub, anyone can install it using the follo
 devtools::install_github("yourusername/myfirstpackage")
 ```
 
-To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the [Journal of Open Source Software](https://joss.theoj.org/) or the [Journal of Open Research Software](https://openresearchsoftware.metajnl.com/articles) (specifically for R is [The R Journal](https://journal.r-project.org/)). Personally, I'd give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat
+To add a touch of academic flair to your distribution, why not submit it to a journal? Perhaps to the [Journal of Open Source Software](https://joss.theoj.org/) or the [Journal of Open Research Software](https://openresearchsoftware.metajnl.com/articles) (specifically for R is [The R Journal](https://journal.r-project.org/)). Personally, I'd give a thumbs up to The Journal of Open Source Software. Not only because I can spell it correctly, but also because they cozy up to your GitHub or ORCID account right off the bat.
+
+Feeling even fancier? Consider creating a website to showcase all your vignettes. This not only provides a platform for your work but also allows you to monitor traffic and track visitors. For this, the pkgdown package is a splendid tool. It effortlessly transforms your R package documentation into a polished website, integrating your README, vignettes, function documentation, and other essential files to craft a cohesive online presence.
+
+Setting up:
+
+```{r}
+# Install the pkgdown package if you haven't already:
+# install.packages("pkgdown", dependencies = TRUE)
+
+# Build the website. Ensure you're in your package directory:
+pkgdown::build_site()
+```
+
+Upon execution, a **`docs`** directory will be generated, containing your website.
+
+**Upload to GitHub**: Ensure you commit and push all updates, especially the **`docs`** folder, to GitHub.
+
+**Activating GitHub Pages**:
+
+-   Navigate to your GitHub repository's settings.
+
+-   Under the "GitHub Pages" section, set the source to the master branch, specifically pointing to the **`/docs`** folder.
+
+**Accessing Your Site**: Your tailored package website is readily available at:
+
+`https://<username>.github.io/<repository>/`
 
 And that's it! You've successfully created, documented, installed, and distributed your very own R package. But wait, there's more! You can also check out my own package on GitHub. To install it, simply run:
 
