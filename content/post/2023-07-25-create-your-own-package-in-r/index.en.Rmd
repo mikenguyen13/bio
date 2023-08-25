@@ -268,6 +268,16 @@ The README should cover:
 
 -   **Usage:** Once we have it, how do we use it without breaking our R session?
 
+### Add A PDF Manual
+
+I always put the manual in the folder as my package so that I can sync it on GitHub
+
+```{r}
+devtools::build_manual(path = getwd())
+# alternatively you can do 
+devtools::check(manual=TRUE)
+```
+
 ### **A Logo: Because Even R Packages Need Swag**
 
 Did someone say branding? Just as you wouldn't forget your grandmother's face, you want people to remember your package. Create a chic logo that screams "I mean business\... but in a fun, R-related way."

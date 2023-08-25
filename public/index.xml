@@ -256,6 +256,13 @@ amatheme &amp;lt;- function(param1, param2) {
 &lt;li&gt;&lt;p&gt;&lt;strong&gt;Usage:&lt;/strong&gt; Once we have it, how do we use it without breaking our R session?&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
+&lt;div id=&#34;add-a-pdf-manual&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Add A PDF Manual&lt;/h3&gt;
+&lt;p&gt;I always put the manual in the folder as my package so that I can sync it on GitHub&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::build_manual(path = getwd())
+# alternatively you can do 
+devtools::check(manual=TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 &lt;div id=&#34;a-logo-because-even-r-packages-need-swag&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;&lt;strong&gt;A Logo: Because Even R Packages Need Swag&lt;/strong&gt;&lt;/h3&gt;
 &lt;p&gt;Did someone say branding? Just as you wouldn’t forget your grandmother’s face, you want people to remember your package. Create a chic logo that screams “I mean business... but in a fun, R-related way.”&lt;/p&gt;
@@ -3134,7 +3141,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-932156847&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-791428365&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -3144,7 +3151,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-932156847&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-791428365&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();

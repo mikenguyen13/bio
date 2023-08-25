@@ -846,7 +846,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    12 min read
+    13 min read
   </span>
   
 
@@ -1045,6 +1045,13 @@ amatheme &lt;- function(param1, param2) {
 <li><p><strong>Installation:</strong> We’re all eager beavers, but how do we get our paws on it?</p></li>
 <li><p><strong>Usage:</strong> Once we have it, how do we use it without breaking our R session?</p></li>
 </ul>
+</div>
+<div id="add-a-pdf-manual" class="section level3">
+<h3>Add A PDF Manual</h3>
+<p>I always put the manual in the folder as my package so that I can sync it on GitHub</p>
+<pre class="r"><code>devtools::build_manual(path = getwd())
+# alternatively you can do 
+devtools::check(manual=TRUE)</code></pre>
 </div>
 <div id="a-logo-because-even-r-packages-need-swag" class="section level3">
 <h3><strong>A Logo: Because Even R Packages Need Swag</strong></h3>

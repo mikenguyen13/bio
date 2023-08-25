@@ -180,6 +180,13 @@ amatheme &lt;- function(param1, param2) {
 <li><p><strong>Usage:</strong> Once we have it, how do we use it without breaking our R session?</p></li>
 </ul>
 </div>
+<div id="add-a-pdf-manual" class="section level3">
+<h3>Add A PDF Manual</h3>
+<p>I always put the manual in the folder as my package so that I can sync it on GitHub</p>
+<pre class="r"><code>devtools::build_manual(path = getwd())
+# alternatively you can do 
+devtools::check(manual=TRUE)</code></pre>
+</div>
 <div id="a-logo-because-even-r-packages-need-swag" class="section level3">
 <h3><strong>A Logo: Because Even R Packages Need Swag</strong></h3>
 <p>Did someone say branding? Just as you wouldn’t forget your grandmother’s face, you want people to remember your package. Create a chic logo that screams “I mean business... but in a fun, R-related way.”</p>
