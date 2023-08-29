@@ -288,6 +288,14 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [EIA](https://www.eia.gov/opendata/): U.S. Energy Information Administration (also has API)
 -   [International Financial Reforms:](https://www.imf.org/en/Publications/WP/Issues/2016/12/31/A-New-Database-of-Financial-Reforms-22485) 91 economies over 1973--2005
 
+## Pay Records/ Salary
+
+-   [Plaid](https://plaid.com/docs/income/)
+
+-   [Payscale](https://www.payscale.com/products/data/data-api/)
+
+    -   [Developer](https://developers.payscale.com/)
+
 # Marketing
 
 ## Data Breach

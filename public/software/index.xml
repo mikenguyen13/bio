@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Software | Mike Nguyen</title>
+    <link>https://mikenguyen.netlify.app/software/</link>
+      <atom:link href="https://mikenguyen.netlify.app/software/index.xml" rel="self" type="application/rss+xml" />
+    <description>Software</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2023</copyright><lastBuildDate>Thu, 17 Aug 2023 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
+      <title>Software</title>
+      <link>https://mikenguyen.netlify.app/software/</link>
+    </image>
+    
+    <item>
+      <title>CausalVerse Package in R</title>
+      <link>https://mikenguyen.netlify.app/software/causalverse/</link>
+      <pubDate>Thu, 17 Aug 2023 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/software/causalverse/</guid>
+      <description>&lt;p&gt;An R package that helps streamline the research process, particularly data analysis, for researchers working in causal inference.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://mikenguyen13.github.io/causalverse/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Website/Vignette&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
