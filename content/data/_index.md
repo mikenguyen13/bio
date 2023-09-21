@@ -168,6 +168,12 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Scopus](https://www.scopus.com/home.uri)
 -   [Reliance on Science in Patenting](https://doi.org/10.5281/zenodo.5803985): front-page and in-text citations from patents to scientific articles through 2020
 
+# Geography
+
+-   [Country Business Patterns (Geo data)](https://www.census.gov/programs-surveys/cbp/data/datasets.html)
+-   [Google Open Buildings](https://sites.research.google/open-buildings/): A dataset of building footprints
+    -   [Leafmap](https://github.com/opengeos/leafmap) ([Python code](https://leafmap.org/notebooks/81_buildings/))
+
 # Finance
 
 -   Compustat
@@ -175,7 +181,6 @@ For data management (should be put under datasheet.md or the README.md file): se
     -   Capital IQ - Key Developments: event types for companies
 -   CRSP
 -   Worldscope: fundamental data for major international firms. Searchable by company name, country, exchange, or fundamental items. 1980+. (via WRDS)
--   [Country Business Patterns (Geo data)](https://www.census.gov/programs-surveys/cbp/data/datasets.html)
 -   [List of private firms](https://guides.loc.gov/company-research/private)
     -   [Crunchbase](https://www.crunchbase.com/): description on start-ups, companies, peoples
 
