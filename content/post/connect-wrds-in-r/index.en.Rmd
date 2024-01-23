@@ -27,56 +27,123 @@ projects: []
 
 Connect from R to Wharton Research Data Services
 
-```{r, echo=FALSE, message=FALSE}
-# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
+to set up connection from R to WRDS ([here](https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/))
+
+```{r, message=FALSE}
 library(RPostgres)
 library(dplyr)
-wrds <- dbConnect(Postgres(),
-                  host='wrds-pgdata.wharton.upenn.edu',
-                  port=9737,
-                  dbname='wrds',
-                  sslmode='require',
-                  user='nghia130')
+
+
+# I've set up wrds connection before hand. 
+# Please use your username and password here.
+wrds <- dbConnect(
+  Postgres(),
+  host = 'wrds-pgdata.wharton.upenn.edu',
+  port = 9737,
+  dbname = 'wrds',
+  sslmode = 'require',
+  user = Sys.getenv("wrds_user"),
+  pass = Sys.getenv("wrds_pass")
+)
 knitr::opts_chunk$set(message = FALSE)
 ```
 
+Example
 
+Check variables (column headers) in COMP ANNUAL FUNDAMENTAL
 
 ```{r}
-# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
-library(RPostgres)
-library(dplyr)
-
-# I've set up wrds connection before hand. Please use your username and password here.
-
-# wrds <- dbConnect(Postgres(),
-#                   host='wrds-pgdata.wharton.upenn.edu',
-#                   port=9737,
-#                   dbname='wrds',
-#                   sslmode='require',
-#                   user='')
-
-# Check variables (column headers) in COMP ANNUAL FUNDAMENTAL
-#uses the already-established wrds connection to prepare the SQL query string and save the query as the result res.
-# check avaiable databases: https://wrds-web.wharton.upenn.edu/wrds/tools/variable.cfm?vendor_id=7
-res <- dbSendQuery(wrds, "select column_name
+res <- dbSendQuery(
+  wrds,
+  "select column_name
                    from information_schema.columns
                    where table_schema='compa'
                    and table_name='funda'
-                   order by column_name")
-data <- dbFetch(res, n=-1) # fetches the data that results from running the query res against wrds and stores it as data
+                   order by column_name"
+)
+# data <- dbFetch(res, n=-1) 
+data <- dbFetch(res, n = 10)
 dbClearResult(res) # closes the connection
 head(data)
+```
 
-# select everything
-res <- dbSendQuery(wrds, "select * from compa.funda")
+## Overview
 
-# from compa.funda
+All data libraries available at WRDS
 
-# only select the following variables
-res <- dbSendQuery(wrds, "select gvkey, datadate, fyear, indfmt, consol, popsrc, datafmt, tic, cusip, conm, curcd, fyr, act, at, bkvlps, ceq, ch, che, dltt, dlc, emp, np, exchg, cik, costat, naicsh,mkvalt from compa.funda") #check variables from (https://wrds-web.wharton.upenn.edu/wrds/ds/comp/funda/index.cfm?navId=80)
-data <- dbFetch(res, n=-1)
+```{r}
+res <- dbSendQuery(wrds, "select distinct table_schema
+                   from information_schema.tables
+                   order by table_schema")
+all_lib <- dbFetch(res, n=-1)
 dbClearResult(res)
+head(all_lib)
+```
 
+datasets within a given library
+
+```{r}
+res <- dbSendQuery(wrds, "select distinct table_name
+                   from information_schema.columns
+                   where table_schema='comp_na_daily_all'
+                   order by table_name")
+df_in_lib <- dbFetch(res, n=-1)
+dbClearResult(res)
+head(df_in_lib)
+```
+
+variables within a given dataset
+
+```{r}
+res <- dbSendQuery(wrds, "select column_name
+                   from information_schema.columns
+                   where table_schema='comp_na_daily_all'
+                   and table_name='funda'
+                   order by column_name")
+variables <- dbFetch(res, n=-1)
+dbClearResult(res)
+head(variables)
+```
+
+## Specific Example
+
+Get advertising and R&D data
+
+```{r}
+# from comp_na_daily_all.funda
+res <- dbSendQuery(wrds, "select gvkey, fyear, xad, xrd
+                   from comp_na_daily_all.funda
+                   where fyear between 2000 and 2010 
+                     and xad is not null 
+                     and xrd is not null")
+
+# res <- dbSendQuery(wrds, "select gvkey, fyear
+#                    from comp_na_daily_all.funda
+#                    where fyear between 2000 and 2020")
+
+data <- dbFetch(res, n=10) |> 
+# data <- dbFetch(res, n=-1) |> 
+    unique()
+dbClearResult(res)
 head(data)
+```
+
+Get industry data
+
+In WRDS, the industry classifications visible on the web version differ from those in the code version. This discrepancy arises because the web dataset undergoes (behind the scene) a merging process where different variables are combined to produce the final table. Consequently, in the library dataset `comp_na_daily_all.funda`, key classifications such as `gind`, `gsubind`, `naics`, and `sic` are absent. Instead, it includes naics historical and sic historical, which often contain incomplete data. To obtain a complete view, users must merge this dataset with the [industry dataset](https://wrds-www.wharton.upenn.edu/data-dictionary/comp_na_daily_all/names/).
+
+```{r}
+# get industry data
+res <- dbSendQuery(wrds,
+                   "select gvkey, gind, gsubind, naics, sic
+                   from comp_na_daily_all.names")
+ind <- dbFetch(res, n = -1)
+dbClearResult(res)
+head(ind)
+```
+
+```{r}
+df <- data |> 
+    left_join(ind)
+head(df)
 ```

@@ -231,6 +231,12 @@ For data management (should be put under datasheet.md or the README.md file): se
 
     -   Japan: [EDINET](https://disclosure.edinet-fsa.go.jp)
 
+## Housing
+
+-   [Inside Airbnb](http://insideairbnb.com/): Free
+
+-   [airdna](https://www.airdna.co/): paid
+
 ## Factors
 
 -   [Global Factor Data](https://jkpfactors.com/)
@@ -528,7 +534,13 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 -   [Open Payments](https://openpaymentsdata.cms.gov/): payments made by firms to doctors.
 
+# Politics
+
+-   [Open Secret](https://www.opensecrets.org/): Elections and Fundraising Data
+
 # Laws
+
+-   [State Tracking (free)](https://www.ncsl.org/technology-and-communication/ncsl-50-state-searchable-bill-tracking-databases)
 
 -   [Bloomberg Law](https://news.bloomberglaw.com/): through most university law schools
 
@@ -537,6 +549,12 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Case Law Access Project](https://case.law/): free with api
 
 -   Nexis Uni: through university (no API)
+
+-   Fair [Trade](https://www.copyright.gov/fair-use/):
+
+    -   [Github](https://github.com/rfordatascience/tidytuesday/blob/master/data/2023/2023-08-29/readme.md)
+
+    -   [Copyright](https://www.copyright.gov/fair-use/fair-index.html)
 
 # Higher Education
 
@@ -586,6 +604,94 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Paperswithcode](https://paperswithcode.com/datasets)
 -   [Datahub](https://old.datahub.io/dataset): free
 -   [LGBTQ+ rights around the world](https://www.equaldex.com/) (equity index): [api](https://equaldex.stoplight.io/docs/equaldex/YXBpOjE1NjI0OTIw-equaldex-json-api)
+
+# Sports
+
+## NFL
+
+-   [NFL in R](https://github.com/ryurko/nflscrapR-data)
+
+    -   [another one](https://github.com/maksimhorowitz/nflscrapR)
+
+-   [NFL savant 2013-2023](https://nflsavant.com/about.php)
+
+-   [NFL Concussion 2012-2014](https://www.kaggle.com/datasets/rishidamarla/concussions-in-the-nfl-20122014)
+
+-   [NFL Scores and Betting 1978-2013](https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data)
+
+-   [NFL Play-by-play 2009-2018](https://www.kaggle.com/datasets/maxhorowitz/nflplaybyplay2009to2016)
+
+## Soccer
+
+-   [fifa 2022](https://sports-statistics.com/sports-data/fifa-2022-dataset-csvs/)
+
+-   [soccer 1994-2020](https://sports-statistics.com/sports-data/soccer-datasets/)
+
+-   [international football results 1872-2023](https://www.kaggle.com/datasets/martj42/international-football-results-from-1872-to-2017)
+
+-   [World football in R](https://jaseziv.github.io/worldfootballR/)
+
+-   [European Soccer Database](https://www.kaggle.com/datasets/hugomathien/soccer)
+
+## Baseball
+
+-   [Baseball 2010-2021](https://sports-statistics.com/sports-data/mlb-historical-odds-scores-datasets/)
+
+-   [1871-2015](https://www.kaggle.com/datasets/open-source-sports/baseball-databank)
+
+-   [Play-by-play 2016](https://www.kaggle.com/datasets/sportradar/baseball)
+
+-   [Korean Pitching 1982-2021](https://www.kaggle.com/datasets/mattop/korean-baseball-pitching-data-1982-2021)
+
+-   [Baseball in Py](https://github.com/jldbc/pybaseball)
+
+-   [Baseball in R](https://billpetti.github.io/baseballr/)
+
+## Basketball
+
+-   [NBA Baskeball](https://sports-statistics.com/sports-data/nba-basketball-datasets-csv-files/) 2000-2020
+
+-   [Games data 2004-2020](NBA%20games%20data)
+
+-   [NBA Player Stat 2016-2024](https://www.nbastuffer.com/nba-stats/player/)
+
+-   [NBA schedule and travel metrics](https://github.com/josedv82/airball)
+
+-   [1991-2021 NBA Stats: Players, Teams, MVPs](https://www.kaggle.com/datasets/vivovinco/19912021-nba-stats)
+
+-   [NBA in R](https://hoopr.sportsdataverse.org/articles/getting-started-hoopR.html)
+
+## College
+
+-   [Football 2009-2018](https://sports-statistics.com/sports-data/college-football-stats-datasets-csv-database/)
+
+-   [College Football Team Stats 2013-2022](https://www.kaggle.com/datasets/jeffgallini/college-football-team-stats-2019/)
+
+-   [Women's college and professional basketball data](https://github.com/sportsdataverse/wehoop)
+
+-   [NCAA Basketball 1894-2018](https://www.kaggle.com/datasets/ncaa/ncaa-basketball/data?select=mascots)
+
+-   [College Football in R](https://cfbfastr.sportsdataverse.org/)
+
+## Hockey
+
+-   [NHL Stanley Cup Playoffs (1918 - 2022)](https://www.kaggle.com/datasets/mattop/nhl-stanley-cup-playoffs-1918-2022)
+
+-   [NHL Draft Hockey Player Data (1963 - 2022)](https://www.kaggle.com/datasets/mattop/nhl-draft-hockey-player-data-1963-2022)
+
+-   [Data for all skaters, goalies, lines/defensive pairings, and teams 2008-2024](https://moneypuck.com/data.htm)
+
+## Others
+
+-   [Formula 1 Race](https://www.kaggle.com/datasets/cjgdev/formula-1-race-data-19502017) 1950 - 2017
+
+-   [Olympic History 1896-2016](https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results)
+
+-   [PGA Tour Golf Data - (2015-2022)](https://www.kaggle.com/datasets/robikscube/pga-tour-golf-data-20152022)
+
+-   [High School Participation Survey Archive 2009-2023](https://www.nfhs.org/sports-resource-content/high-school-participation-survey-archive/)
+
+-   [Olympic Medals in Biathlon, 1960-2022](https://www.kaggle.com/datasets/piterfm/olympic-results-biathlon)
 
 # Network
 

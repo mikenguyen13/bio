@@ -35,7 +35,8 @@
     
   
   <meta name="description" content="Connect from R to Wharton Research Data Services
-# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)library(RPostgres)library(dplyr)# I&#39;ve set up wrds connection before hand. Please use your username and password here.">
+to set up connection from R to WRDS (here)
+library(RPostgres)library(dplyr)# I&#39;ve set up wrds connection before hand. # Please use your username and password here.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://mikenguyen.netlify.app/post/connect-wrds-in-r/">
@@ -322,7 +323,8 @@
   <meta property="og:url" content="https://mikenguyen.netlify.app/post/connect-wrds-in-r/">
   <meta property="og:title" content="Connect WRDS in R | Mike Nguyen">
   <meta property="og:description" content="Connect from R to Wharton Research Data Services
-# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)library(RPostgres)library(dplyr)# I&#39;ve set up wrds connection before hand. Please use your username and password here."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
+to set up connection from R to WRDS (here)
+library(RPostgres)library(dplyr)# I&#39;ve set up wrds connection before hand. # Please use your username and password here."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
   <meta property="twitter:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png"><meta property="og:locale" content="en-us">
   
     
@@ -372,7 +374,7 @@
       "url": "https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_192x192_fill_lanczos_center_3.png"
     }
   },
-  "description": "Connect from R to Wharton Research Data Services\n# to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)\rlibrary(RPostgres)\rlibrary(dplyr)\r# I\u0026#39;ve set up wrds connection before hand. Please use your username and password here."
+  "description": "Connect from R to Wharton Research Data Services\nto set up connection from R to WRDS (here)\nlibrary(RPostgres)\rlibrary(dplyr)\r# I\u0026#39;ve set up wrds connection before hand. # Please use your username and password here."
 }
 </script>
 
@@ -891,33 +893,38 @@
 
     <div class="article-style">
       
-<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
-<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
 
 
 <p>Connect from R to Wharton Research Data Services</p>
-<pre class="r"><code># to set up connection from R to WRDS (https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/)
-library(RPostgres)
+<p>to set up connection from R to WRDS (<a href="https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/">here</a>)</p>
+<pre class="r"><code>library(RPostgres)
 library(dplyr)
 
-# I&#39;ve set up wrds connection before hand. Please use your username and password here.
 
-# wrds &lt;- dbConnect(Postgres(),
-#                   host=&#39;wrds-pgdata.wharton.upenn.edu&#39;,
-#                   port=9737,
-#                   dbname=&#39;wrds&#39;,
-#                   sslmode=&#39;require&#39;,
-#                   user=&#39;&#39;)
-
-# Check variables (column headers) in COMP ANNUAL FUNDAMENTAL
-#uses the already-established wrds connection to prepare the SQL query string and save the query as the result res.
-# check avaiable databases: https://wrds-web.wharton.upenn.edu/wrds/tools/variable.cfm?vendor_id=7
-res &lt;- dbSendQuery(wrds, &quot;select column_name
+# I&#39;ve set up wrds connection before hand. 
+# Please use your username and password here.
+wrds &lt;- dbConnect(
+  Postgres(),
+  host = &#39;wrds-pgdata.wharton.upenn.edu&#39;,
+  port = 9737,
+  dbname = &#39;wrds&#39;,
+  sslmode = &#39;require&#39;,
+  user = Sys.getenv(&quot;wrds_user&quot;),
+  pass = Sys.getenv(&quot;wrds_pass&quot;)
+)
+knitr::opts_chunk$set(message = FALSE)</code></pre>
+<p>Example</p>
+<p>Check variables (column headers) in COMP ANNUAL FUNDAMENTAL</p>
+<pre class="r"><code>res &lt;- dbSendQuery(
+  wrds,
+  &quot;select column_name
                    from information_schema.columns
                    where table_schema=&#39;compa&#39;
                    and table_name=&#39;funda&#39;
-                   order by column_name&quot;)
-data &lt;- dbFetch(res, n=-1) # fetches the data that results from running the query res against wrds and stores it as data
+                   order by column_name&quot;
+)
+# data &lt;- dbFetch(res, n=-1) 
+data &lt;- dbFetch(res, n = 10)
 dbClearResult(res) # closes the connection
 head(data)</code></pre>
 <pre><code>##   column_name
@@ -927,40 +934,108 @@ head(data)</code></pre>
 ## 4     acctchg
 ## 5     acctstd
 ## 6        acdo</code></pre>
-<pre class="r"><code># select everything
-res &lt;- dbSendQuery(wrds, &quot;select * from compa.funda&quot;)
-
-# from compa.funda
-
-# only select the following variables
-res &lt;- dbSendQuery(wrds, &quot;select gvkey, datadate, fyear, indfmt, consol, popsrc, datafmt, tic, cusip, conm, curcd, fyr, act, at, bkvlps, ceq, ch, che, dltt, dlc, emp, np, exchg, cik, costat, naicsh,mkvalt from compa.funda&quot;) #check variables from (https://wrds-web.wharton.upenn.edu/wrds/ds/comp/funda/index.cfm?navId=80)</code></pre>
-<pre><code>## Warning in result_create(conn@ptr, statement): Closing open result set,
-## cancelling previous query</code></pre>
-<pre class="r"><code>data &lt;- dbFetch(res, n=-1)
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>All data libraries available at WRDS</p>
+<pre class="r"><code>res &lt;- dbSendQuery(wrds, &quot;select distinct table_schema
+                   from information_schema.tables
+                   order by table_schema&quot;)
+all_lib &lt;- dbFetch(res, n=-1)
 dbClearResult(res)
+head(all_lib)</code></pre>
+<pre><code>##           table_schema
+## 1                  aha
+## 2     aha_hcris_3years
+## 3 aha_hcris_3years_old
+## 4     aha_hcris_recent
+## 5 aha_hcris_recent_old
+## 6 aha_it_survey_3years</code></pre>
+<p>datasets within a given library</p>
+<pre class="r"><code>res &lt;- dbSendQuery(wrds, &quot;select distinct table_name
+                   from information_schema.columns
+                   where table_schema=&#39;comp_na_daily_all&#39;
+                   order by table_name&quot;)
+df_in_lib &lt;- dbFetch(res, n=-1)
+dbClearResult(res)
+head(df_in_lib)</code></pre>
+<pre><code>##      table_name
+## 1      aco_amda
+## 2      aco_imda
+## 3   aco_indfnta
+## 4   aco_indfntq
+## 5 aco_indfntytd
+## 6    aco_indsta</code></pre>
+<p>variables within a given dataset</p>
+<pre class="r"><code>res &lt;- dbSendQuery(wrds, &quot;select column_name
+                   from information_schema.columns
+                   where table_schema=&#39;comp_na_daily_all&#39;
+                   and table_name=&#39;funda&#39;
+                   order by column_name&quot;)
+variables &lt;- dbFetch(res, n=-1)
+dbClearResult(res)
+head(variables)</code></pre>
+<pre><code>##   column_name
+## 1       acchg
+## 2        acco
+## 3       accrt
+## 4     acctchg
+## 5     acctstd
+## 6        acdo</code></pre>
+</div>
+<div id="specific-example" class="section level2">
+<h2>Specific Example</h2>
+<p>Get advertising and R&amp;D data</p>
+<pre class="r"><code># from comp_na_daily_all.funda
+res &lt;- dbSendQuery(wrds, &quot;select gvkey, fyear, xad, xrd
+                   from comp_na_daily_all.funda
+                   where fyear between 2000 and 2010 
+                     and xad is not null 
+                     and xrd is not null&quot;)
 
+# res &lt;- dbSendQuery(wrds, &quot;select gvkey, fyear
+#                    from comp_na_daily_all.funda
+#                    where fyear between 2000 and 2020&quot;)
+
+data &lt;- dbFetch(res, n=10) |&gt; 
+# data &lt;- dbFetch(res, n=-1) |&gt; 
+    unique()
+dbClearResult(res)
 head(data)</code></pre>
-<pre><code>##    gvkey   datadate fyear indfmt consol popsrc datafmt  tic     cusip
-## 1 001000 1961-12-31  1961   INDL      C      D     STD AE.2 000032102
-## 2 001000 1962-12-31  1962   INDL      C      D     STD AE.2 000032102
-## 3 001000 1963-12-31  1963   INDL      C      D     STD AE.2 000032102
-## 4 001000 1964-12-31  1964   INDL      C      D     STD AE.2 000032102
-## 5 001000 1965-12-31  1965   INDL      C      D     STD AE.2 000032102
-## 6 001000 1966-12-31  1966   INDL      C      D     STD AE.2 000032102
-##                    conm curcd fyr   act    at bkvlps   ceq ch   che  dltt   dlc
-## 1 A &amp; E PLASTIK PAK INC   USD  12    NA    NA 2.4342    NA NA    NA 0.100    NA
-## 2 A &amp; E PLASTIK PAK INC   USD  12    NA    NA 3.0497 0.552 NA    NA 0.000    NA
-## 3 A &amp; E PLASTIK PAK INC   USD  12 0.408    NA 2.9731 0.553 NA    NA 0.015    NA
-## 4 A &amp; E PLASTIK PAK INC   USD  12 0.718 1.416 3.0969 0.607 NA 0.269 0.522 0.088
-## 5 A &amp; E PLASTIK PAK INC   USD  12 0.725 2.310 2.3835 0.491 NA 0.031 1.154 0.300
-## 6 A &amp; E PLASTIK PAK INC   USD  12 1.015 2.430 3.8082 0.834 NA 0.063 1.109 0.124
-##   emp    np exchg  cik costat naicsh mkvalt
-## 1  NA    NA    12 &lt;NA&gt;      I     NA     NA
-## 2  NA    NA    12 &lt;NA&gt;      I     NA     NA
-## 3  NA    NA    12 &lt;NA&gt;      I     NA     NA
-## 4  NA 0.000    12 &lt;NA&gt;      I     NA     NA
-## 5  NA 0.225    12 &lt;NA&gt;      I     NA     NA
-## 6  NA 0.050    12 &lt;NA&gt;      I     NA     NA</code></pre>
+<pre><code>##    gvkey fyear     xad     xrd
+## 1 001050  2000   0.188   0.140
+## 2 001084  2000   1.711   0.036
+## 3 001104  2000   3.170   0.046
+## 4 001111  2000  16.500  41.396
+## 5 001117  2000   0.161   1.175
+## 6 001161  2000 148.000 641.799</code></pre>
+<p>Get industry data</p>
+<p>In WRDS, the industry classifications visible on the web version differ from those in the code version. This discrepancy arises because the web dataset undergoes (behind the scene) a merging process where different variables are combined to produce the final table. Consequently, in the library dataset comp_na_daily_all.funda, key classifications such as gind, gsubind, naics, and sic are absent. Instead, it includes naics historical and sic historical, which often contain incomplete data. To obtain a complete view, users must merge this dataset with the <a href="https://wrds-www.wharton.upenn.edu/data-dictionary/comp_na_daily_all/names/">industry dataset</a>.</p>
+<pre class="r"><code># get industry data
+res &lt;- dbSendQuery(wrds,
+                   &quot;select gvkey, gind, gsubind, naics, sic
+                   from comp_na_daily_all.names&quot;)
+ind &lt;- dbFetch(res, n = -1)
+dbClearResult(res)
+head(ind)</code></pre>
+<pre><code>##    gvkey   gind  gsubind  naics  sic
+## 1 001000   &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt; 3089
+## 2 001001 253010 25301040    722 5812
+## 3 001002   &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt; 3825
+## 4 001003 255040 25504040 442110 5712
+## 5 001004 201010 20101010 423860 5080
+## 6 001005   &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt; 3724</code></pre>
+<pre class="r"><code>df &lt;- data |&gt; 
+    left_join(ind)
+
+head(df)</code></pre>
+<pre><code>##    gvkey fyear     xad     xrd   gind  gsubind  naics  sic
+## 1 001050  2000   0.188   0.140 202010 20201050 333413 3564
+## 2 001084  2000   1.711   0.036 502030 50203010 519290 7370
+## 3 001104  2000   3.170   0.046 202010 20201060 332215 3420
+## 4 001111  2000  16.500  41.396 451030 45103030 511210 7372
+## 5 001117  2000   0.161   1.175 452010 45201020 334220 3663
+## 6 001161  2000 148.000 641.799 453010 45301020 334413 3674</code></pre>
+</div>
 
     </div>
     
@@ -1279,7 +1354,7 @@ head(data)</code></pre>
   
 
   <p class="powered-by">
-    © Mike Nguyen 2023
+    © Mike Nguyen 2024
   </p>
 
   
