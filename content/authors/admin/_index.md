@@ -4,7 +4,7 @@ education:
   courses:
   - course: Postdoc in Marketing
     institution: University of Southern California
-#    year: 2023
+    year: 2024
   - course: PhD in Marketing - minor Statistics
     institution: University of Missouri
     year: 2023
@@ -28,7 +28,7 @@ interests:
 organizations:
 - name: University of Southern California
   url: https://www.marshall.usc.edu/
-role: Visitng Scholar
+role: Visitng Professor of Data Sciences and Operations
 social:
 - icon: envelope
   icon_pack: fas
@@ -61,7 +61,7 @@ user_groups:
 - Principal Investigators
 ---
 
-My name is Mike Nguyen. I am a visiting scholar in marketing at the University of Southern California Marshall School of Business. My research interests include   
+My name is Mike Nguyen. I am a Visiting Professor of Data Sciences and Operations at the University of Southern California Marshall School of Business. My research interests include   
 
  * **Conceptual:** Brand Equity, Virality, Charisma  
  * **Substantive:** Branding, Online Platform, Privacy, Advertising

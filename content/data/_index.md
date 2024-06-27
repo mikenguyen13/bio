@@ -168,9 +168,29 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Scopus](https://www.scopus.com/home.uri)
 -   [Reliance on Science in Patenting](https://doi.org/10.5281/zenodo.5803985): front-page and in-text citations from patents to scientific articles through 2020
 
+# Demographic Data
+
+-   [Decennial Census](www.census.gov)
+
+-   [American Community Survey](www.census.gov/programs-surveys/acs/)
+
+-   [Current Population Survey](www.census.gov/cps)
+
+-   [Longitudinal Employment-Household Dynamics](https://lehd.ces.census.gov/)
+
+-   [US Population Migration Data](www.irs.gov/uac/Tax-Stats-2)
+
+-   [US Bureau of Labor Statistics Data](https://www.bls.gov/data/)
+
+## Politics
+
+-   [Realtime NOMINATE Ideology](https://voteview.com/data)
+
+-   [State Ideology data](https://rcfording.wordpress.com/state-ideology-data/): only to 2017
+
 # Geography
 
--   [Country Business Patterns (Geo data)](https://www.census.gov/programs-surveys/cbp/data/datasets.html)
+-   [County Business Patterns (Geo data)](https://www.census.gov/programs-surveys/cbp/data/datasets.html)
 -   [Google Open Buildings](https://sites.research.google/open-buildings/): A dataset of building footprints
     -   [Leafmap](https://github.com/opengeos/leafmap) ([Python code](https://leafmap.org/notebooks/81_buildings/))
 
@@ -200,7 +220,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [Mergent Online](https://www.mergentonline.com/basicsearch.php)
 -   [Orbis](https://www.bvdinfo.com/en-us/our-products/data/international/orbis): global firms including private (is survivor biased, companies are dropped after 10 years if not active)
 -   [SDC Platinum](https://www.refinitiv.com/en/products/sdc-platinum-financial-securities): historical transactions
--   [IRS Tax Statistics](https://www.irs.gov/statistics) [SOI Tax Stat](https://www.irs.gov/statistics/soi-tax-stats-corporation-tax-statistics)
+-   [States of Incorporation](https://corpgov.law.harvard.edu/2020/01/02/a-new-dataset-of-historical-states-of-incorporation-of-u-s-stocks-1994-2019/)
 -   [Zillow Home Prices](https://www.zillow.com/research/data/): Zillow's API allows business access only (not for educational or research purposes). But they do allow to download small [dataset](https://www.zillow.com/research/data/)
 -   [Redfin](https://www.redfin.com/news/data-center/): [full data set](https://www.redfin.com/news/data-center/), [definition](https://www.redfin.com/news/data-center-metrics-definitions/)
 -   [National Association of Realtors](https://www.nar.realtor/research-and-statistics/housing-statistics): [Citation](https://www.nar.realtor/research-and-statistics/citation-guidelines-for-nar-research-statistics)
@@ -230,6 +250,17 @@ For data management (should be put under datasheet.md or the README.md file): se
     -   Canada: [SEDAR](https://www.sedar.com/homepage_en.htm)
 
     -   Japan: [EDINET](https://disclosure.edinet-fsa.go.jp)
+-   [Economic Policy Uncertainty](https://www.policyuncertainty.com/index.html)
+
+## Taxes
+
+-   [IRS Tax Statistics](https://www.irs.gov/statistics) [SOI Tax Stat](https://www.irs.gov/statistics/soi-tax-stats-corporation-tax-statistics)
+-   [Tax Foundation](https://taxfoundation.org/location/united-states/#results)
+    -   [in R](https://github.com/TaxFoundation)
+    -   [Consumption Tax](https://github.com/TaxFoundation/consumption-taxes)
+-   [Quarterly State & Local Tax Revenue](https://www.census.gov/programs-surveys/qtax.html)
+-   [Census Data](https://www.census.gov/data/datasets.html)
+-   [Annual Survey of State and Local Government Finances](https://www.census.gov/programs-surveys/gov-finances.html)
 
 ## Housing
 
@@ -388,6 +419,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 ## Others
 
 -   [American Customer Satisfaction Index (ACSI)](https://www.theacsi.org/)
+-   [Marketing Science Data Resource](https://higherlogicdownload.s3.amazonaws.com/INFORMS/7781897f-9239-4a47-a48b-aaca091306c8/UploadedFiles/Tx87JAMiQ4d5nPM5AXOJ_DATASETS%20AND%20RESOURCES%20FOR%20MARKETING%20SCIENCE%20RESEARCH_AB1%20(1).pdf)
 -   [Instacart](https://www.instacart.com/datasets/grocery-shopping-2017)
     -   [Instacart order](https://gist.github.com/jeremystan/c3b39d947d9b88b3ccff3147dbcf6c6b): [data](https://www.instacart.com/datasets/grocery-shopping-2017)
 -   [CMO Spend Survey 2018--2019](https://images.gartnerformarketers.com/Web/Gartner/%7Bb5a5ad17-bf4c-4ce4-adb3-4eed347852c8%7D_CMO_Spend_Survey_Note_Repackage_FINAL.pdf)
@@ -578,6 +610,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 -   [Education Data Partnership](https://www.ed-data.org/): access to K12 education data California.
 
+-   [College Enrollment Data by OpenSDP](https://opensdp.github.io/college-going-r)
+
 # Social Science
 
 -   [Institute For Social Research (ICPSR)](https://www.icpsr.umich.edu/web/pages/ICPSR/index.html): data archive at University of Michigan (free).
@@ -672,6 +706,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [NCAA Basketball 1894-2018](https://www.kaggle.com/datasets/ncaa/ncaa-basketball/data?select=mascots)
 
 -   [College Football in R](https://cfbfastr.sportsdataverse.org/)
+
+-   [Opportunity Inisghts](https://opportunityinsights.org/data/)
 
 ## Hockey
 

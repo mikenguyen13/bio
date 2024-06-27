@@ -31,7 +31,7 @@ to set up connection from R to WRDS ([here](https://wrds-www.wharton.upenn.edu/p
 
 ```{r, message=FALSE}
 library(RPostgres)
-library(dplyr)
+library(tidyverse)
 
 
 # I've set up wrds connection before hand. 

@@ -823,7 +823,7 @@ call conda deactivate&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Connect from R to Wharton Research Data Services&lt;/p&gt;
 &lt;p&gt;to set up connection from R to WRDS (&lt;a href=&#34;https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/&#34;&gt;here&lt;/a&gt;)&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(RPostgres)
-library(dplyr)
+library(tidyverse)
 
 
 # I&amp;#39;ve set up wrds connection before hand. 
@@ -934,7 +934,7 @@ head(data)&lt;/code&gt;&lt;/pre&gt;
 ## 5 001117  2000   0.161   1.175
 ## 6 001161  2000 148.000 641.799&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Get industry data&lt;/p&gt;
-&lt;p&gt;In WRDS, the industry classifications visible on the web version differ from those in the code version. This discrepancy arises because the web dataset undergoes (behind the scene) a merging process where different variables are combined to produce the final table. Consequently, in the library dataset comp_na_daily_all.funda, key classifications such as gind, gsubind, naics, and sic are absent. Instead, it includes naics historical and sic historical, which often contain incomplete data. To obtain a complete view, users must merge this dataset with the &lt;a href=&#34;https://wrds-www.wharton.upenn.edu/data-dictionary/comp_na_daily_all/names/&#34;&gt;industry dataset&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In WRDS, the industry classifications visible on the web version differ from those in the code version. This discrepancy arises because the web dataset undergoes (behind the scene) a merging process where different variables are combined to produce the final table. Consequently, in the library dataset &lt;code&gt;comp_na_daily_all.funda&lt;/code&gt;, key classifications such as &lt;code&gt;gind&lt;/code&gt;, &lt;code&gt;gsubind&lt;/code&gt;, &lt;code&gt;naics&lt;/code&gt;, and &lt;code&gt;sic&lt;/code&gt; are absent. Instead, it includes naics historical and sic historical, which often contain incomplete data. To obtain a complete view, users must merge this dataset with the &lt;a href=&#34;https://wrds-www.wharton.upenn.edu/data-dictionary/comp_na_daily_all/names/&#34;&gt;industry dataset&lt;/a&gt;.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# get industry data
 res &amp;lt;- dbSendQuery(wrds,
                    &amp;quot;select gvkey, gind, gsubind, naics, sic
@@ -951,7 +951,6 @@ head(ind)&lt;/code&gt;&lt;/pre&gt;
 ## 6 001005   &amp;lt;NA&amp;gt;     &amp;lt;NA&amp;gt;   &amp;lt;NA&amp;gt; 3724&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df &amp;lt;- data |&amp;gt; 
     left_join(ind)
-
 head(df)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    gvkey fyear     xad     xrd   gind  gsubind  naics  sic
 ## 1 001050  2000   0.188   0.140 202010 20201050 333413 3564

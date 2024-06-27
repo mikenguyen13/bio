@@ -36,7 +36,7 @@
   
   <meta name="description" content="Connect from R to Wharton Research Data Services
 to set up connection from R to WRDS (here)
-library(RPostgres)library(dplyr)# I&#39;ve set up wrds connection before hand. # Please use your username and password here.">
+library(RPostgres)library(tidyverse)# I&#39;ve set up wrds connection before hand. # Please use your username and password here.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://mikenguyen.netlify.app/post/connect-wrds-in-r/">
@@ -324,7 +324,7 @@ library(RPostgres)library(dplyr)# I&#39;ve set up wrds connection before hand.
   <meta property="og:title" content="Connect WRDS in R | Mike Nguyen">
   <meta property="og:description" content="Connect from R to Wharton Research Data Services
 to set up connection from R to WRDS (here)
-library(RPostgres)library(dplyr)# I&#39;ve set up wrds connection before hand. # Please use your username and password here."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
+library(RPostgres)library(tidyverse)# I&#39;ve set up wrds connection before hand. # Please use your username and password here."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
   <meta property="twitter:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png"><meta property="og:locale" content="en-us">
   
     
@@ -374,7 +374,7 @@ library(RPostgres)library(dplyr)# I&#39;ve set up wrds connection before hand.
       "url": "https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_192x192_fill_lanczos_center_3.png"
     }
   },
-  "description": "Connect from R to Wharton Research Data Services\nto set up connection from R to WRDS (here)\nlibrary(RPostgres)\rlibrary(dplyr)\r# I\u0026#39;ve set up wrds connection before hand. # Please use your username and password here."
+  "description": "Connect from R to Wharton Research Data Services\nto set up connection from R to WRDS (here)\nlibrary(RPostgres)\rlibrary(tidyverse)\r# I\u0026#39;ve set up wrds connection before hand. # Please use your username and password here."
 }
 </script>
 
@@ -898,7 +898,7 @@ library(RPostgres)library(dplyr)# I&#39;ve set up wrds connection before hand.
 <p>Connect from R to Wharton Research Data Services</p>
 <p>to set up connection from R to WRDS (<a href="https://wrds-www.wharton.upenn.edu/pages/support/programming-wrds/programming-r/r-from-your-computer/">here</a>)</p>
 <pre class="r"><code>library(RPostgres)
-library(dplyr)
+library(tidyverse)
 
 
 # I&#39;ve set up wrds connection before hand. 
@@ -1009,7 +1009,7 @@ head(data)</code></pre>
 ## 5 001117  2000   0.161   1.175
 ## 6 001161  2000 148.000 641.799</code></pre>
 <p>Get industry data</p>
-<p>In WRDS, the industry classifications visible on the web version differ from those in the code version. This discrepancy arises because the web dataset undergoes (behind the scene) a merging process where different variables are combined to produce the final table. Consequently, in the library dataset comp_na_daily_all.funda, key classifications such as gind, gsubind, naics, and sic are absent. Instead, it includes naics historical and sic historical, which often contain incomplete data. To obtain a complete view, users must merge this dataset with the <a href="https://wrds-www.wharton.upenn.edu/data-dictionary/comp_na_daily_all/names/">industry dataset</a>.</p>
+<p>In WRDS, the industry classifications visible on the web version differ from those in the code version. This discrepancy arises because the web dataset undergoes (behind the scene) a merging process where different variables are combined to produce the final table. Consequently, in the library dataset <code>comp_na_daily_all.funda</code>, key classifications such as <code>gind</code>, <code>gsubind</code>, <code>naics</code>, and <code>sic</code> are absent. Instead, it includes naics historical and sic historical, which often contain incomplete data. To obtain a complete view, users must merge this dataset with the <a href="https://wrds-www.wharton.upenn.edu/data-dictionary/comp_na_daily_all/names/">industry dataset</a>.</p>
 <pre class="r"><code># get industry data
 res &lt;- dbSendQuery(wrds,
                    &quot;select gvkey, gind, gsubind, naics, sic
@@ -1026,7 +1026,6 @@ head(ind)</code></pre>
 ## 6 001005   &lt;NA&gt;     &lt;NA&gt;   &lt;NA&gt; 3724</code></pre>
 <pre class="r"><code>df &lt;- data |&gt; 
     left_join(ind)
-
 head(df)</code></pre>
 <pre><code>##    gvkey fyear     xad     xrd   gind  gsubind  naics  sic
 ## 1 001050  2000   0.188   0.140 202010 20201050 333413 3564
@@ -1185,7 +1184,7 @@ head(df)</code></pre>
 
     <div class="media-body">
       <h5 class="card-title"><a href="https://mikenguyen.netlify.app/">Mike Nguyen, PhD</a></h5>
-      <h6 class="card-subtitle">Visitng Scholar</h6>
+      <h6 class="card-subtitle">Visitng Professor of Data Sciences and Operations</h6>
       <p class="card-text">My research interests include marketing, and social science.</p>
       <ul class="network-icon" aria-hidden="true">
   
