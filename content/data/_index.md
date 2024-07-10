@@ -155,6 +155,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 
     -   Paper: <https://doi.org/10.1007/s10961-021-09900-2>
 
+    -   [Private Sector AI Indicators](https://eto.tech/dataset-docs/private-sector-ai-indicators)
+
 ### Technology Adoption
 
 -   [The CHAT (Cross-country Historical Adoption of Technology) Dataset](https://www.nber.org/papers/w15319): [download](https://data.nber.org/data-appendix/w15319/README.TXT)

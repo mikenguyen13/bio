@@ -28,7 +28,7 @@ interests:
 organizations:
 - name: University of Southern California
   url: https://www.marshall.usc.edu/
-role: Visitng Professor of Data Sciences and Operations
+role: Visiting Professor of Data Sciences and Operations
 social:
 - icon: envelope
   icon_pack: fas
