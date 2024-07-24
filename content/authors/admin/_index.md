@@ -63,8 +63,7 @@ user_groups:
 
 My name is Mike Nguyen. I am a Visiting Professor of Data Sciences and Operations at the University of Southern California Marshall School of Business. My research interests include   
 
- * **Conceptual:** Brand Equity, Virality, Charisma  
- * **Substantive:** Branding, Online Platform, Privacy, Advertising
+ * **Substantive:** Digital Marketing, Social Media, Management of Customer Interactions
  * **Methodological:** Econometrics, Machine Learning, Causal Inference
 
 {{< icon name="download" pack="fas" >}} Download my resume in {{< staticref "media/Mike Nguyen CV.pdf" "newtab" >}} PDF {{< /staticref >}} and {{< staticref "media/Mike Nguyen CV.docx" "newtab" >}} Word {{< /staticref >}}.
