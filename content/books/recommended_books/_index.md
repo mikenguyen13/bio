@@ -37,6 +37,9 @@ Please enjoy!!!
 -   [The Quick Fix: Why Fad Psychology Can't Cure Our Social Ills - Jesse Singal (2021)](https://books.google.com/books?id=JLniDwAAQBAJ&source=gbs_book_other_versions)
 -   [Chaos: Making a New Science - James Gleick (2008)](https://www.google.com/books/edition/Chaos/de4PAQAAQBAJ?hl=en&gbpv=0)
 -   [The Pragmatic Programmer - Andy Hunt and Dave Thomas (2020)](https://www.google.com/books/edition/The_Pragmatic_Programmer/5wBQEp6ruIAC?hl=en&gbpv=0)
+-   [The Singularity Is Near: When Humans Transcend Biology - Ray Kurzweil (2005)](https://books.google.com/books/about/The_Singularity_is_Near.html?id=88U6hdUi6D0C)
+-   [The Singularity Is Nearer: When We Merge with AI - Ray Kurzweil (2024)](https://books.google.com/books/about/The_Singularity_Is_Nearer.html?id=xtYhEAAAQBAJ)
+-   [Power and Progress: Our Thousand-Year Struggle Over Technology and Prosperity - Daron Acemoglu, Simon Johnson (2023)](https://books.google.com/books/about/Power_and_Progress.html?id=ttxfzwEACAAJ)
 
 <br>
 
