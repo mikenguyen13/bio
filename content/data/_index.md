@@ -195,6 +195,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 -   [County Business Patterns (Geo data)](https://www.census.gov/programs-surveys/cbp/data/datasets.html)
 -   [Google Open Buildings](https://sites.research.google/open-buildings/): A dataset of building footprints
     -   [Leafmap](https://github.com/opengeos/leafmap) ([Python code](https://leafmap.org/notebooks/81_buildings/))
+-   [Foursquare OS Places](https://opensource.foursquare.com/os-places/)
+-   [Overture Maps Data](https://overturemaps.org/download/)
 
 # Finance
 
