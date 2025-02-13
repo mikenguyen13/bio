@@ -4,19 +4,19 @@ education:
   courses:
   - course: Postdoc in Marketing
     institution: University of Southern California
-    # year: 2024
+    # year: XXXX
   - course: PhD in Marketing - minor Statistics
     institution: University of Missouri
-    # year: 2023
+    # year: XXXX
   - course: MA in Economics - Econometrics and Quantitative Economics
     institution: University of Missouri
-    # year: 2021
+    # year: XXXX
   - course: MBA in Marketing Analytics, Corporate Finance
     institution: University of Delaware
-    # year: 2019
+    # year: XXXX
   - course: BBA in Marketing, International Business
     institution: Florida International University
-    # year: 2018
+    # year: XXXX
 email: "mike.nguyen@marshall.usc.edu"
 highlight_name: true
 
