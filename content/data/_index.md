@@ -570,6 +570,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 -   [Open Payments](https://openpaymentsdata.cms.gov/): payments made by firms to doctors.
 
+-   [IQVIA](https://www.iqvia.com/insights/the-iqvia-institute/available-iqvia-data): Drug data.
+
 # Politics
 
 -   [Open Secret](https://www.opensecrets.org/): Elections and Fundraising Data
