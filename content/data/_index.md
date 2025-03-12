@@ -255,6 +255,7 @@ For data management (should be put under datasheet.md or the README.md file): se
 
     -   Japan: [EDINET](https://disclosure.edinet-fsa.go.jp)
 -   [Economic Policy Uncertainty](https://www.policyuncertainty.com/index.html)
+-   [DataCore](https://datacore.vn/): Data provider in Vietnam
 
 ## Taxes
 
@@ -560,13 +561,23 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 -   [Child Health and Development Studies](https://www.chdstudies.org/research/information_for_researchers.php)
 
+-   [National Vital Statistics System](https://www.cdc.gov/nchs/nvss/index.htm)
+
+-   [National Syndrome Surveillance Problem](https://www.cdc.gov/nssp/index.html)
+
+    -   [R Implementation](https://cdcgov.github.io/Rnssp/)
+
 -   [Human Mortality](https://www.mortality.org/)
 
 -   [NIH Data](https://healthcaredelivery.cancer.gov/seer-mhos/aboutdata/)
 
 -   [MHealth Dataset](https://archive.ics.uci.edu/ml/datasets/MHEALTH+Dataset)
 
+-   [Agency for Healthcare Research and Quality](https://datatools.ahrq.gov/)
+
 -   [Healthcare Cost and Utilization Project](https://hcup-us.ahrq.gov/databases.jsp)
+
+    -   [R implementation](https://github.com/HunterRatliff1/hcup)
 
 -   [Open Payments](https://openpaymentsdata.cms.gov/): payments made by firms to doctors.
 
