@@ -9,6 +9,26 @@ bibliography: references.bib
 headless: false
 ---
 
+Over the years, I\'ve had the opportunity to work with a range of anonymized datasets that offer deep insight into consumer behavior, telecommunications usage, credit dynamics, and personal finance patterns. These datasets are real-world, large-scale, and well-suited for empirical research across several disciplines.
+
+Examples include:
+
+-   Behavioral telco data covering mobile usage patterns
+
+-   Credit score and payment history insights across diverse demographics
+
+-   Household-level financial and transactional records
+
+I\'m always open to thoughtful, research-driven collaborations---especially with those who have a strong background in data science, economics, or quantitative social sciences. If you're exploring real-world applications of your work and enjoy working with complex, meaningful data, I\'d love to hear from you.
+
+Academic researchers, especially those based in institutions with active research programs in these areas, are particularly encouraged to reach out.
+
+Let\'s explore what\'s possible---feel free to get in touch.
+
+------------------------------------------------------------------------
+
+# Reproducible Data Management Standards
+
 Rule of thumb when naming files:
 
 -   Human readable: info about content
@@ -103,6 +123,8 @@ For data management (should be put under datasheet.md or the README.md file): se
     -   Will older versions of the dataset continue to be supported?
 
     -   How can others extend/build on/contribute to the dataset?
+
+------------------------------------------------------------------------
 
 # Management
 
