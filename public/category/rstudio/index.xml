@@ -5,12 +5,172 @@
     <link>https://mikenguyen.netlify.app/category/rstudio/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/rstudio/index.xml" rel="self" type="application/rss+xml" />
     <description>Rstudio</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2025</copyright><lastBuildDate>Tue, 25 Jul 2023 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2025</copyright><lastBuildDate>Wed, 07 May 2025 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Rstudio</title>
       <link>https://mikenguyen.netlify.app/category/rstudio/</link>
     </image>
+    
+    <item>
+      <title>Resolving the &#34;expl3.sty&#34; and Format File Mismatch Error in LaTeX (TeX Live/TinyTeX)</title>
+      <link>https://mikenguyen.netlify.app/post/resolving-the-expl3-sty-and-format-file-mismatch-error-in-latex-tex-live-tinytex/</link>
+      <pubDate>Wed, 07 May 2025 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/resolving-the-expl3-sty-and-format-file-mismatch-error-in-latex-tex-live-tinytex/</guid>
+      <description>
+
+
+&lt;p&gt;If you’re encountering the following LaTeX error when compiling a Bookdown or Quarto PDF document:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;! LaTeX Error: Mismatched LaTeX support files detected.
+(LaTeX)        Loading &amp;#39;expl3.sty&amp;#39; aborted!
+(LaTeX)        The L3 programming layer in the LaTeX format
+(LaTeX)        is dated 2025-03-26, but in your TeX tree the files require
+(LaTeX)        at least 2025-04-14.&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You’re not alone. This issue typically arises from a partial or inconsistent update to your LaTeX distribution — especially with &lt;strong&gt;TeX Live&lt;/strong&gt; or &lt;strong&gt;TinyTeX&lt;/strong&gt; — where the base format files (&lt;code&gt;*.fmt&lt;/code&gt;) are out of sync with newer packages like &lt;code&gt;expl3.sty&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;This blog post offers a &lt;strong&gt;comprehensive, step-by-step fix&lt;/strong&gt;, especially for Windows users, and documents solutions to every roadblock you may hit — from missing binaries to Perl errors and administrative permissions.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;div id=&#34;problem-summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Problem Summary&lt;/h2&gt;
+&lt;p&gt;LaTeX is complaining because the date of the internal format (e.g., &lt;code&gt;latex.fmt&lt;/code&gt;) is &lt;strong&gt;older than what updated packages expect&lt;/strong&gt;. This happens when:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;You run &lt;code&gt;tlmgr update --all&lt;/code&gt;, but it doesn’t regenerate format files.&lt;/li&gt;
+&lt;li&gt;You update only parts of TinyTeX or TeX Live.&lt;/li&gt;
+&lt;li&gt;You switch between different LaTeX installations (e.g., TinyTeX + full TeX Live).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;quick-fix-summary&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Quick Fix Summary&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you’re an expert and want the short answer:&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&#34;sh&#34;&gt;&lt;code&gt;# In Windows Command Prompt (Run as Administrator)
+perl C:\texlive\2025\texmf-dist\scripts\texlive\fmtutil.pl --sys --all&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But chances are you’ll hit several issues before getting this to work. Read on for the full guide.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;step-by-step-solution-for-windows-tex-live-2025&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Step-by-Step Solution (for Windows + TeX Live 2025)&lt;/h2&gt;
+&lt;div id=&#34;step-1-confirm-the-error&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Step 1: Confirm the Error&lt;/h3&gt;
+&lt;p&gt;In R or Quarto, your error log will say:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Error: LaTeX failed to compile data_analysis.tex. See https://yihui.org/tinytex/r/#debugging&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;step-2-check-version-mismatch&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Step 2: Check Version Mismatch&lt;/h3&gt;
+&lt;p&gt;From a terminal:&lt;/p&gt;
+&lt;pre class=&#34;cmd&#34;&gt;&lt;code&gt;kpsewhich expl3.sty&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then inspect the header of that file:&lt;/p&gt;
+&lt;pre class=&#34;latex&#34;&gt;&lt;code&gt;%% File: expl3.sty 2025-04-14&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If your LaTeX format is older (e.g., 2025-03-26), you have a mismatch.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;step-3-try-updating-tex-live&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Step 3: Try Updating TeX Live&lt;/h3&gt;
+&lt;pre class=&#34;cmd&#34;&gt;&lt;code&gt;tlmgr update --self --all&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This updates packages, but &lt;strong&gt;does not rebuild the formats&lt;/strong&gt;. Hence, the problem remains.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;step-4-rebuild-format-files-manually&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Step 4: Rebuild Format Files Manually&lt;/h3&gt;
+&lt;p&gt;This is where most people get stuck.&lt;/p&gt;
+&lt;p&gt;Try:&lt;/p&gt;
+&lt;pre class=&#34;cmd&#34;&gt;&lt;code&gt;fmtutil-sys --all&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;But you might get this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#39;kpsewhich&amp;#39; is not recognized as an internal or external command&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;step-5-fix-kpsewhich-and-path-issues&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Step 5: Fix &lt;code&gt;kpsewhich&lt;/code&gt; and PATH Issues&lt;/h3&gt;
+&lt;p&gt;Ensure TeX Live’s binaries are in your PATH:&lt;/p&gt;
+&lt;p&gt;Add this to your environment variables:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;C:\texlive\2025\bin\windows&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then restart your Command Prompt and verify:&lt;/p&gt;
+&lt;pre class=&#34;cmd&#34;&gt;&lt;code&gt;where kpsewhich&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Should return:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;C:\texlive\2025\bin\windows\kpsewhich.exe&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;step-6-use-a-valid-perl-interpreter&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Step 6: Use a Valid Perl Interpreter&lt;/h3&gt;
+&lt;p&gt;TeX Live relies on Perl scripts like &lt;code&gt;fmtutil.pl&lt;/code&gt;, but many Windows users:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Don’t have Perl&lt;/li&gt;
+&lt;li&gt;Have the wrong Perl (e.g., Rtools)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Install &lt;a href=&#34;https://strawberryperl.com/&#34;&gt;Strawberry Perl&lt;/a&gt; — use the &lt;code&gt;.msi&lt;/code&gt; version.&lt;/p&gt;
+&lt;p&gt;After installation:&lt;/p&gt;
+&lt;pre class=&#34;cmd&#34;&gt;&lt;code&gt;where perl&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ensure it returns:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;C:\Strawberry\perl\bin\perl.exe&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;If it still shows Rtools Perl (&lt;code&gt;C:\rtools44\usr\bin\perl.exe&lt;/code&gt;), reorder your system &lt;code&gt;PATH&lt;/code&gt; so that &lt;code&gt;Strawberry\perl\bin&lt;/code&gt; comes first.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;step-7-run-the-fix&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Step 7: Run the Fix&lt;/h3&gt;
+&lt;p&gt;Now you’re ready. In &lt;strong&gt;Administrator Command Prompt&lt;/strong&gt;, run:&lt;/p&gt;
+&lt;pre class=&#34;cmd&#34;&gt;&lt;code&gt;set PATH=C:\texlive\2025\bin\windows;%PATH% &amp;amp;&amp;amp; perl C:\texlive\2025\texmf-dist\scripts\texlive\fmtutil.pl --sys --all&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This rebuilds all format files (57 in total). Success will look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[INFO]: successfully rebuilt formats: 54
+[INFO]: exiting with status 0&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;common-errors-and-their-fixes&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Common Errors and Their Fixes&lt;/h2&gt;
+&lt;div id=&#34;kpsewhich-is-not-recognized&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;&#39;kpsewhich&#39; is not recognized&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Add &lt;code&gt;C:\texlive\2025\bin\windows&lt;/code&gt; to your PATH.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;perl.exe-not-recognized&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;&#39;perl.exe&#39; not recognized&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Install &lt;a href=&#34;https://strawberryperl.com/&#34;&gt;Strawberry Perl&lt;/a&gt;, &lt;strong&gt;not&lt;/strong&gt; Rtools Perl.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;cant-locate-win32shortcut.pm&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;Can&#39;t locate Win32/Shortcut.pm&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Run:&lt;/p&gt;
+&lt;pre class=&#34;cmd&#34;&gt;&lt;code&gt;cpan Win32::Shortcut&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;permission-denied-to-create-temp-directory&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;&lt;code&gt;Permission denied to create temp directory&lt;/code&gt;&lt;/h3&gt;
+&lt;p&gt;Run the command as Administrator.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;final-test&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Final Test&lt;/h2&gt;
+&lt;p&gt;Once the formats are rebuilt, return to R or Quarto:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bookdown::render_book(&amp;quot;index.Rmd&amp;quot;, &amp;quot;bookdown::pdf_book&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This should now compile without errors.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;notes-for-tinytex-users&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Notes for TinyTeX Users&lt;/h2&gt;
+&lt;p&gt;If you use &lt;code&gt;tinytex::install_tinytex()&lt;/code&gt;, you can also try:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tinytex::reinstall_tinytex()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This wipes and reinstalls TinyTeX, usually resolving the mismatch. However, it may still miss &lt;code&gt;Win32::Shortcut.pm&lt;/code&gt;, so you might need to install Strawberry Perl anyway for advanced fixes.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;save-yourself-the-trouble-next-time&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Save Yourself the Trouble Next Time&lt;/h2&gt;
+&lt;p&gt;Create a &lt;code&gt;.bat&lt;/code&gt; file with this content:&lt;/p&gt;
+&lt;pre class=&#34;bat&#34;&gt;&lt;code&gt;@echo off
+set PATH=C:\texlive\2025\bin\windows;%PATH%
+perl C:\texlive\2025\texmf-dist\scripts\texlive\fmtutil.pl --sys --all
+pause&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Right-click → &lt;strong&gt;Run as Administrator&lt;/strong&gt; whenever you update TeX Live.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;closing-thoughts&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Closing Thoughts&lt;/h2&gt;
+&lt;p&gt;This issue is a perfect storm of LaTeX ecosystem complexity:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TeX Live doesn’t auto-rebuild format files&lt;/li&gt;
+&lt;li&gt;Windows doesn’t ship Perl&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tlmgr&lt;/code&gt; updates break things if not followed up with &lt;code&gt;fmtutil&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;PATH precedence is fragile&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;By following the steps above, you ensure your LaTeX system remains consistent and stable — and your academic PDF documents continue compiling smoothly.&lt;/p&gt;
+&lt;p&gt;Feel free to share this guide or embed it in your internal documentation.&lt;/p&gt;
+&lt;p&gt;If you have suggestions or spot new errors not covered here, leave a comment!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Create your own package in R</title>

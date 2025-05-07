@@ -20,10 +20,28 @@
     <loc>https://mikenguyen.netlify.app/courses/01-mizzou-mar4050-f21/</loc>
     <lastmod>2021-12-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/software/causalverse/</loc>
-    <lastmod>2023-08-17T00:00:00+00:00</lastmod>
+    <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/</loc>
+    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/python/</loc>
+    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/resolving-the-expl3-sty-and-format-file-mismatch-error-in-latex-tex-live-tinytex/</loc>
+    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/rstudio/</loc>
+    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/software/causalverse/</loc>
     <lastmod>2023-08-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/software/</loc>
@@ -32,13 +50,7 @@
     <loc>https://mikenguyen.netlify.app/tag/academic/</loc>
     <lastmod>2023-08-13T18:28:54-07:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2023-08-13T18:28:54-07:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/category/data/</loc>
-    <lastmod>2023-08-13T18:28:54-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
     <lastmod>2023-08-13T18:28:54-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/save-your-research/</loc>
@@ -66,12 +78,6 @@
     <lastmod>2023-07-25T19:53:26-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/r/</loc>
-    <lastmod>2023-07-25T19:53:26-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2023-07-25T19:53:26-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/rstudio/</loc>
     <lastmod>2023-07-25T19:53:26-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/talk/</loc>
@@ -153,9 +159,6 @@
     <lastmod>2022-02-15T20:46:03-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/python/</loc>
-    <lastmod>2022-02-15T20:46:03-06:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/python/</loc>
     <lastmod>2022-02-15T20:46:03-06:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/rstudio/</loc>
