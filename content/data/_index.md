@@ -500,6 +500,8 @@ For data management (should be put under datasheet.md or the README.md file): se
 
 -   [Ratebeer](https://www.ratebeer.com/): Beer review. [Sign up for API](https://www.ratebeer.com/api.asp). Or use [SNAP data](https://snap.stanford.edu/data/web-RateBeer.html#:~:text=This%20dataset%20consists%20of%20beer%20reviews%20from%20ratebeer.,%22aspects%22%3A%20appearance%2C%20aroma%2C%20palate%2C%20taste%2C%20and%20overall%20impression.)
 
+-   [Fake Review](https://github.com/bretthollenbeck/fake-reviews-data)
+
 ## Search Engine Data
 
 -   [Google Trends](https://trends.google.com/trends)
