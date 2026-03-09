@@ -45,6 +45,8 @@ Please enjoy!!!
 
 # Marketing
 
+[Driving Digital Strategy - Sunil Gupta](https://www.hbs.edu/faculty/Pages/profile.aspx?facId=261323)
+
 ## Brand Equity
 
 -   [Managing Brand Equity - David Aaker (1991)](https://www.google.com/books/edition/Managing_Brand_Equity/r_TSY5sxnO8C)
