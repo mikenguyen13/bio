@@ -45,7 +45,7 @@ Please enjoy!!!
 
 # Marketing
 
-[Driving Digital Strategy - Sunil Gupta](https://www.hbs.edu/faculty/Pages/profile.aspx?facId=261323)
+[Driving Digital Strategy - Sunil Gupta (2018)](https://www.hbs.edu/faculty/Pages/profile.aspx?facId=261323)
 
 ## Brand Equity
 
