@@ -17,7 +17,7 @@ education:
   - course: BBA in Marketing, International Business
     institution: Florida International University
     # year: XXXX
-email: "mike.nguyen@marshall.usc.edu"
+email: "mikenguyen.contact@gmail.com"
 highlight_name: true
 
 interests:
@@ -25,10 +25,10 @@ interests:
 - Finance
 - Statistics
 
-organizations:
-- name: University of Southern California
-  url: https://www.marshall.usc.edu/
-role: Visiting Professor of Data Sciences and Operations
+# organizations:
+# - name: University of Southern California
+#   url: https://www.marshall.usc.edu/
+# role: Visiting Professor of Data Sciences and Operations
 social:
 - icon: envelope
   icon_pack: fas
@@ -61,7 +61,7 @@ user_groups:
 - Principal Investigators
 ---
 
-My name is Mike Nguyen. I am a Visiting Professor of Data Sciences and Operations at the University of Southern California Marshall School of Business. My research interests include   
+My name is Mike Nguyen. My research interests include   
 
  * **Substantive:** Digital Marketing, Social Media, Management of Customer Interactions
  * **Methodological:** Econometrics, Machine Learning, Causal Inference
