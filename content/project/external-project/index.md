@@ -4,8 +4,9 @@ external_link: https://github.com/mikenguyen13/data_analysis
 image:
   caption: Photo by Toa Heftiba on Unsplash
   focal_point: Smart
-summary: An example of linking directly to an external project website using `external_link`.
+summary: An open-source book and R package covering statistical and machine learning methods for data analysis.
 tags:
-- Demo
-title: Example External Project
+- Data Analysis
+- R
+title: Data Analysis
 ---

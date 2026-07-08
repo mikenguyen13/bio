@@ -2,6 +2,8 @@
 title: "Brand Equity Meta-Analysis"
 author: "Mike Nguyen"
 date: "`r Sys.Date()`"
+aliases:
+- /project/brannd-equity-meta/
 output:
   html_document: default
 image:
