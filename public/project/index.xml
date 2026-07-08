@@ -14,11 +14,11 @@
     
     <item>
       <title>Brand Equity Meta-Analysis</title>
-      <link>https://mikenguyen.netlify.app/project/brannd-equity-meta/</link>
+      <link>https://mikenguyen.netlify.app/project/brand-equity-meta/</link>
       <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/project/brannd-equity-meta/</guid>
+      <guid>https://mikenguyen.netlify.app/project/brand-equity-meta/</guid>
       <description>
-&lt;script src=&#34;https://mikenguyen.netlify.app/project/brannd-equity-meta/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+&lt;script src=&#34;https://mikenguyen.netlify.app/project/brand-equity-meta/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
 
 
 &lt;p&gt;You can find additional information for my meta-analysis on this page.&lt;/p&gt;
@@ -85,21 +85,12 @@ new_cor$upper_rho&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
-      <title>Example External Project</title>
+      <title>Data Analysis</title>
       <link>https://mikenguyen.netlify.app/project/external-project/</link>
       <pubDate>Wed, 09 Mar 2022 00:00:00 +0000</pubDate>
       <guid>https://mikenguyen.netlify.app/project/external-project/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>Internal Project Demo</title>
-      <link>https://mikenguyen.netlify.app/project/example-internal/</link>
-      <pubDate>Wed, 09 Mar 2022 00:00:00 +0000</pubDate>
-      <guid>https://mikenguyen.netlify.app/project/example-internal/</guid>
-      <description>&lt;p&gt;This is an example if you use &lt;code&gt;md&lt;/code&gt; file instead of &lt;code&gt;Rmd&lt;/code&gt;&lt;/p&gt;
-</description>
-    </item>
-    
+
   </channel>
 </rss>
