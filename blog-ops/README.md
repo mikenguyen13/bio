@@ -45,3 +45,39 @@ names rather than reaching for an en dash, so "Callaway-Sant'Anna" and never
 statement across two lines anyway so none appears on the page.
 
 Check for all three characters before handing over any draft.
+
+## Where things live
+
+Everything needed to run this system, so no knowledge depends on a chat session existing.
+
+| Thing | Where |
+|---|---|
+| Live site | <https://mikenguyen.netlify.app> |
+| Repo | <https://github.com/mikenguyen13/bio> (Netlify deploys from `public/` on push to master) |
+| Scheduled routine | `trig_01AVRDPRKvtTVMr2K83foFQ5` <https://claude.ai/code/routines/trig_01AVRDPRKvtTVMr2K83foFQ5> |
+| Routine schedule | `0 13 * * 2,5` UTC, which is Tue and Fri 6am Pacific |
+| Pending uplift draft | <https://claude.ai/code/session_01UsRVfrgjSQ1aVYJhNVdPFQ> (patch attached, see REVIEW-NOW.md) |
+| First post review page | <https://claude.ai/code/artifact/a1b9e177-6f4a-4fa1-9484-3b1b2f61e7ec> |
+
+## Local environment notes
+
+Rendering needs this machine. The cloud routine cannot do it.
+
+- R lives at `C:\Program Files\R\R-4.4.3`. Its library is not writable without admin, so extra
+  packages go to the per-user library at `%LOCALAPPDATA%\R\win-library\4.4`.
+- Pandoc is not on the PATH. Before rendering, run:
+  `Sys.setenv(RSTUDIO_PANDOC = "C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools")`
+- Render one post with:
+  `blogdown::build_site(build_rmd = "content/post/<dir>/index.en.Rmd", run_hugo = FALSE)`
+  then `blogdown::hugo_build()` to refresh `public/`.
+- Hugo is pinned to 0.113.0 in `.Rprofile`.
+- `install.packages` segfaults when run through the Git Bash shell on this machine. Run it
+  through PowerShell, or from a script file, instead of an inline `-e` expression.
+- There is no working Python here. The `python.exe` on the PATH is a Microsoft Store stub, and
+  WSL fails to start because Docker's distro is missing its disk image. Any Python in a post is
+  therefore unverified unless it is run elsewhere.
+
+## Commit convention
+
+Commits are authored as `mike <nguyennghia1301@gmail.com>`. Never add a Co-Authored-By trailer
+and never mention Claude or AI in a commit message. This applies to the cloud routine too.
