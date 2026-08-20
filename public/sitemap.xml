@@ -21,19 +21,40 @@
     <lastmod>2021-12-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/causal-inference/</loc>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/causal-inference/</loc>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/difference-in-differences/</loc>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/experimentation/</loc>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/staggered-rollouts-break-twfe/</loc>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/marketing-analytics/</loc>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/</loc>
-    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/category/python/</loc>
-    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2025-05-07T13:43:00-07:00</lastmod>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/resolving-the-expl3-sty-and-format-file-mismatch-error-in-latex-tex-live-tinytex/</loc>
     <lastmod>2025-05-07T13:43:00-07:00</lastmod>
@@ -54,9 +75,6 @@
     <lastmod>2023-08-13T18:28:54-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/save-your-research/</loc>
-    <lastmod>2023-08-13T18:28:54-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2023-08-13T18:28:54-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/ai-bot-for-mkt-562/</loc>
@@ -143,13 +161,10 @@
     <loc>https://mikenguyen.netlify.app/project/</loc>
     <lastmod>2022-03-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/demo/</loc>
+    <loc>https://mikenguyen.netlify.app/tag/data-analysis/</loc>
     <lastmod>2022-03-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/project/external-project/</loc>
-    <lastmod>2022-03-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/project/example-internal/</loc>
     <lastmod>2022-03-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/johnson-neyman-for-meta-analysis/</loc>
@@ -323,22 +338,13 @@
     <loc>https://mikenguyen.netlify.app/post/writing-technical-content-in-academic/</loc>
     <lastmod>2019-07-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/publication-type/3/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/authors/</loc>
     <lastmod>2019-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/author/mike-nguyen-phd/</loc>
+    <loc>https://mikenguyen.netlify.app/post/display-jupyter-notebooks-with-academic/</loc>
     <lastmod>2019-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/publication_types/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/publication/</loc>
-    <lastmod>2019-04-07T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/post/display-jupyter-notebooks-with-academic/</loc>
+    <loc>https://mikenguyen.netlify.app/author/mike-nguyen-phd/</loc>
     <lastmod>2019-09-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/slides/</loc>
@@ -350,12 +356,6 @@
     <loc>https://mikenguyen.netlify.app/post/academic-the-website-builder-for-hugo/</loc>
     <lastmod>2019-04-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/publication-type/2/</loc>
-    <lastmod>2015-09-01T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/publication-type/1/</loc>
-    <lastmod>2013-07-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/about/</loc>
   </url><url>
     <loc>https://mikenguyen.netlify.app/projects/</loc>
@@ -365,6 +365,10 @@
     <loc>https://mikenguyen.netlify.app/books/</loc>
   </url><url>
     <loc>https://mikenguyen.netlify.app/data/</loc>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/publication_types/</loc>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/publication/</loc>
   </url><url>
     <loc>https://mikenguyen.netlify.app/books/recommended_books/</loc>
   </url><url>

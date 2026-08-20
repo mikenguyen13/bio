@@ -5,12 +5,196 @@
     <link>https://mikenguyen.netlify.app/category/r/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Wed, 07 May 2025 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Wed, 19 Aug 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>R</title>
       <link>https://mikenguyen.netlify.app/category/r/</link>
     </image>
+    
+    <item>
+      <title>If You Roll Out Market by Market, Your Lift Estimate Is Probably Too Low</title>
+      <link>https://mikenguyen.netlify.app/post/staggered-rollouts-break-twfe/</link>
+      <pubDate>Wed, 19 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/staggered-rollouts-break-twfe/</guid>
+      <description>
+
+
+&lt;p&gt;Geo experiments are having a moment. With a large share of individual-level conversion
+signal now gone, measurement has moved back up to the market level: split the country into
+regions, turn the campaign on in some of them, compare. It survives signal loss because it
+never needed to track a person in the first place.&lt;/p&gt;
+&lt;p&gt;But almost nobody turns a campaign on everywhere at once. Budget, inventory, and legal
+approvals mean markets go live in waves: ten DMAs in March, ten more in May, the rest in
+July. That is a &lt;em&gt;staggered rollout&lt;/em&gt;, and it quietly breaks the regression that most teams
+reach for first.&lt;/p&gt;
+&lt;p&gt;Here is the problem on data where I know the right answer, because I generated it.&lt;/p&gt;
+&lt;div id=&#34;a-rollout-where-the-truth-is-known&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;A rollout where the truth is known&lt;/h2&gt;
+&lt;p&gt;Three hundred markets, twenty weeks. Markets go live in three waves (weeks 8, 12, and 16),
+and a quarter of them never launch at all. The campaign builds. It lifts sales by 0.30 in
+its first week and grows with exposure, which is what a real campaign does as awareness
+accumulates.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(data.table)
+library(fixest)
+library(did)
+
+set.seed(2026)
+n_geo &amp;lt;- 300
+n_per &amp;lt;- 20
+
+geo &amp;lt;- data.table(
+  geo_id = 1:n_geo,
+  g      = sample(c(8, 12, 16, Inf), n_geo, replace = TRUE, prob = rep(.25, 4)),
+  geo_fe = rnorm(n_geo, 0, 1)
+)
+
+panel &amp;lt;- CJ(geo_id = 1:n_geo, week = 1:n_per)
+panel &amp;lt;- merge(panel, geo, by = &amp;quot;geo_id&amp;quot;)
+
+panel[, exposure := fifelse(is.finite(g) &amp;amp; week &amp;gt;= g, week - g, NA_real_)]
+panel[, tau      := fifelse(is.na(exposure), 0, 0.30 * (exposure + 1))]
+panel[, treated  := as.integer(!is.na(exposure))]
+panel[, sales    := 10 + geo_fe + 0.05 * week + tau + rnorm(.N, 0, 0.5)]
+
+true_att &amp;lt;- panel[treated == 1, mean(tau)]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Averaged over every treated market-week, the true average effect is
+&lt;strong&gt;1.65&lt;/strong&gt;. That is the number any honest estimator should return.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-default-answer-is-far-too-low&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The default answer is far too low&lt;/h2&gt;
+&lt;p&gt;The standard move is a two-way fixed effects regression with market effects, week effects,
+and one treatment dummy:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;m_twfe &amp;lt;- feols(sales ~ treated | geo_id + week, data = panel)
+twfe   &amp;lt;- coef(m_twfe)[[&amp;quot;treated&amp;quot;]]
+twfe
+## [1] 0.9809783&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## True ATT : 1.652
+## TWFE     : 0.981
+## Bias     : -40.6%&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The regression is fine. The standard error is small. Nothing in the output looks wrong. And
+the answer is off by roughly &lt;strong&gt;41%&lt;/strong&gt;
+in the direction that costs you budget. It makes the campaign look weaker than it is.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;why-it-happens&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Why it happens&lt;/h2&gt;
+&lt;p&gt;Two-way fixed effects doesn’t compute one comparison. It computes a weighted average of
+&lt;em&gt;every&lt;/em&gt; two-group, two-period comparison available in the panel, and some of those
+comparisons use &lt;strong&gt;already-treated markets as the control group&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;That is the flaw. When the wave-2 markets go live in week 12, the regression happily uses
+the wave-1 markets, treated since week 8 and by now four weeks into a &lt;em&gt;growing&lt;/em&gt; effect, as a
+comparison. Their outcome is still rising because of the campaign. Subtracting that rise
+treats real campaign lift as if it were the baseline trend, and the estimate gets dragged
+down. &lt;a href=&#34;https://doi.org/10.1016/j.jeconom.2021.03.014&#34;&gt;Goodman-Bacon (2021)&lt;/a&gt; decomposed
+exactly this. Those bad comparisons can even enter with negative weight, which is how a
+genuinely positive campaign can produce a negative coefficient.&lt;/p&gt;
+&lt;p&gt;The condition that triggers it is not exotic. You need only two things: &lt;strong&gt;staggered timing&lt;/strong&gt;
+and &lt;strong&gt;effects that change with exposure&lt;/strong&gt;. Every campaign rollout I have seen has both.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-fix&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The fix&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://doi.org/10.1016/j.jeconom.2020.12.001&#34;&gt;Callaway and Sant’Anna (2021)&lt;/a&gt; estimate the
+effect separately for each cohort at each period, using only clean controls, meaning markets
+that are not yet live, and then aggregate. In R that is the &lt;code&gt;did&lt;/code&gt; package:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;panel[, gvar := fifelse(is.finite(g), g, 0)]   # 0 codes &amp;quot;never treated&amp;quot;
+
+cs &amp;lt;- att_gt(
+  yname = &amp;quot;sales&amp;quot;, tname = &amp;quot;week&amp;quot;, idname = &amp;quot;geo_id&amp;quot;, gname = &amp;quot;gvar&amp;quot;,
+  data = as.data.frame(panel),
+  control_group = &amp;quot;notyettreated&amp;quot;,
+  bstrap = TRUE, cband = FALSE
+)
+
+simple &amp;lt;- aggte(cs, type = &amp;quot;simple&amp;quot;, na.rm = TRUE)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## True ATT      : 1.652
+## TWFE          : 0.981  (bias -40.6%)
+## Callaway-SA   : 1.713  (bias +3.7%)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That recovers the truth to within sampling error. The small remaining gap is weighting.
+&lt;code&gt;aggte(type = &#34;simple&#34;)&lt;/code&gt; weights group-time cells by their size, which is not identical to
+averaging over treated market-weeks. It is noise rather than bias, about
+1.1 standard errors,
+against a TWFE gap of
+21.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;read-the-curve-not-the-scalar&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Read the curve, not the scalar&lt;/h2&gt;
+&lt;p&gt;The single number was never the interesting part. Because the effect grows, what you
+actually want is the shape:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figs/event-study-1.png&#34; width=&#34;1050&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Pre-launch estimates sit flat at zero, which is the design check. After launch the effect
+climbs steadily, and the flat grey line shows what the single TWFE coefficient claims
+instead. A campaign that pays back over six weeks and one that pays back instantly can
+produce the same scalar. Only one of them justifies a longer flight.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-same-trap-in-python&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The same trap in Python&lt;/h2&gt;
+&lt;p&gt;Nothing here is an R problem. It is a data problem, and the identical bias appears in
+Python. For a balanced panel you don’t even need a package, because the two-way within
+estimator is just OLS on the double-demeaned series.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np, pandas as pd
+
+rng = np.random.default_rng(2026)
+n_geo, n_per = 300, 20
+
+g      = rng.choice([8, 12, 16, np.inf], size=n_geo, p=[.25] * 4)
+geo_fe = rng.normal(0, 1, n_geo)
+
+geo_id = np.repeat(np.arange(n_geo), n_per)
+week   = np.tile(np.arange(1, n_per + 1), n_geo)
+
+df = pd.DataFrame({&amp;quot;geo_id&amp;quot;: geo_id, &amp;quot;week&amp;quot;: week,
+                   &amp;quot;g&amp;quot;: g[geo_id], &amp;quot;geo_fe&amp;quot;: geo_fe[geo_id]})
+
+df[&amp;quot;exposure&amp;quot;] = np.where(df.week &amp;gt;= df.g, df.week - df.g, np.nan)
+df[&amp;quot;tau&amp;quot;]      = np.where(df.exposure.notna(), 0.30 * (df.exposure + 1), 0.0)
+df[&amp;quot;treated&amp;quot;]  = df.exposure.notna().astype(int)
+df[&amp;quot;sales&amp;quot;]    = (10 + df.geo_fe + 0.05 * df.week + df.tau
+                  + rng.normal(0, 0.5, len(df)))
+
+def twoway_demean(col):
+    x = df[col] - df[col].mean()
+    x = x - x.groupby(df.geo_id).transform(&amp;quot;mean&amp;quot;)
+    x = x - x.groupby(df.week).transform(&amp;quot;mean&amp;quot;)
+    return x
+
+y, d = twoway_demean(&amp;quot;sales&amp;quot;), twoway_demean(&amp;quot;treated&amp;quot;)
+twfe = (d @ y) / (d @ d)
+
+print(f&amp;quot;True ATT : {df.loc[df.treated == 1, &amp;#39;tau&amp;#39;].mean():.3f}&amp;quot;)
+print(f&amp;quot;TWFE     : {twfe:.3f}&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Same understatement, different random draws. R and NumPy do not share a generator, so the
+digits will not match, only the conclusion. For the Callaway-Sant’Anna estimator itself,
+Python has &lt;a href=&#34;https://github.com/bernardodionisi/differences&#34;&gt;&lt;code&gt;differences&lt;/code&gt;&lt;/a&gt; and
+&lt;a href=&#34;https://pypi.org/project/diff-diff/&#34;&gt;&lt;code&gt;diff-diff&lt;/code&gt;&lt;/a&gt;. The latter also covers synthetic DiD and
+Honest DiD sensitivity analysis.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-to-do-on-monday&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What to do on Monday&lt;/h2&gt;
+&lt;p&gt;If you are measuring a staggered rollout:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Check whether your timing is actually staggered.&lt;/strong&gt; If every market launched the same
+week, plain DiD is fine and none of this applies.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Assume your effect is dynamic.&lt;/strong&gt; Awareness builds, and so does the bias. Treating the
+effect as one constant number is the assumption that breaks TWFE, not the staggering
+itself.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Never let an already-treated market serve as a control.&lt;/strong&gt; This is the whole bug. Use
+not-yet-treated or never-treated markets.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Report the event-study curve, not one coefficient.&lt;/strong&gt; The shape is the decision-relevant
+output. It tells you the payback period.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Treat flat pre-trends as a check you passed, not a proof.&lt;/strong&gt; Parallel trends is an
+assumption about an unobservable counterfactual. If the decision is expensive, run a
+sensitivity analysis rather than pointing at the pre-period.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The uncomfortable version of this: if you have been sizing incrementality off staggered
+rollouts with a TWFE regression, your campaigns may have looked systematically weaker than
+they are, and the budget decisions that followed inherited that error.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Estimator details, the Goodman-Bacon decomposition, and the assumptions behind each of these
+designs are covered in &lt;a href=&#34;https://link.springer.com/book/9783032018380&#34;&gt;Experimental Design&lt;/a&gt;,
+Volume 4 of A Guide on Data Analysis.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Resolving the &#34;expl3.sty&#34; and Format File Mismatch Error in LaTeX (TeX Live/TinyTeX)</title>

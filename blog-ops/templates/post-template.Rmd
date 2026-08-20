@@ -1,0 +1,39 @@
+---
+title: TITLE
+author: Mike Nguyen
+date: 'YYYY-MM-DD'
+slug: SLUG
+categories:
+  - R
+tags: []
+subtitle: ''
+summary: 'One sentence. This is what shows in listings and link previews. Write it last.'
+authors: []
+lastmod: 'YYYY-MM-DDTHH:MM:SS-07:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE, warning = FALSE,
+                      # Keep figures OUT of `*_files/`. The ignoreFiles setting
+                      # drops `_files$`, so those images never reach the live site.
+                      fig.path = "figs/")
+```
+
+<!-- HOOK: the problem, in two sentences. Lead with the cost of getting it wrong. -->
+
+<!-- RESULT: show the number or the plot before explaining it. -->
+
+<!-- MECHANISM: why it happens. -->
+
+<!-- FIX: the code that does it right. -->
+
+<!-- TAKEAWAY: a short checklist the reader can apply on Monday. -->
+
+<!-- CTA: exactly one link to the relevant book. -->

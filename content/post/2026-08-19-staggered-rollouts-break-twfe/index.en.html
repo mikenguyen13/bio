@@ -1,0 +1,202 @@
+---
+title: "If You Roll Out Market by Market, Your Lift Estimate Is Probably Too Low"
+author: Mike Nguyen
+date: '2026-08-19'
+slug: staggered-rollouts-break-twfe
+categories:
+  - R
+  - Python
+  - Causal Inference
+tags:
+  - causal inference
+  - experimentation
+  - marketing analytics
+  - difference-in-differences
+subtitle: 'Staggered geo rollouts break the regression almost everyone reaches for first.'
+summary: 'The two-way fixed effects regression is the default for staggered geo rollouts. On simulated data where the true lift is known, it understates the effect by 41%. Here is why, and the estimator that fixes it, in R and Python.'
+authors: []
+lastmod: '2026-08-19T09:00:00-07:00'
+featured: no
+draft: false
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<p>Geo experiments are having a moment. With a large share of individual-level conversion
+signal now gone, measurement has moved back up to the market level: split the country into
+regions, turn the campaign on in some of them, compare. It survives signal loss because it
+never needed to track a person in the first place.</p>
+<p>But almost nobody turns a campaign on everywhere at once. Budget, inventory, and legal
+approvals mean markets go live in waves: ten DMAs in March, ten more in May, the rest in
+July. That is a <em>staggered rollout</em>, and it quietly breaks the regression that most teams
+reach for first.</p>
+<p>Here is the problem on data where I know the right answer, because I generated it.</p>
+<div id="a-rollout-where-the-truth-is-known" class="section level2">
+<h2>A rollout where the truth is known</h2>
+<p>Three hundred markets, twenty weeks. Markets go live in three waves (weeks 8, 12, and 16),
+and a quarter of them never launch at all. The campaign builds. It lifts sales by 0.30 in
+its first week and grows with exposure, which is what a real campaign does as awareness
+accumulates.</p>
+<pre class="r"><code>library(data.table)
+library(fixest)
+library(did)
+
+set.seed(2026)
+n_geo &lt;- 300
+n_per &lt;- 20
+
+geo &lt;- data.table(
+  geo_id = 1:n_geo,
+  g      = sample(c(8, 12, 16, Inf), n_geo, replace = TRUE, prob = rep(.25, 4)),
+  geo_fe = rnorm(n_geo, 0, 1)
+)
+
+panel &lt;- CJ(geo_id = 1:n_geo, week = 1:n_per)
+panel &lt;- merge(panel, geo, by = &quot;geo_id&quot;)
+
+panel[, exposure := fifelse(is.finite(g) &amp; week &gt;= g, week - g, NA_real_)]
+panel[, tau      := fifelse(is.na(exposure), 0, 0.30 * (exposure + 1))]
+panel[, treated  := as.integer(!is.na(exposure))]
+panel[, sales    := 10 + geo_fe + 0.05 * week + tau + rnorm(.N, 0, 0.5)]
+
+true_att &lt;- panel[treated == 1, mean(tau)]</code></pre>
+<p>Averaged over every treated market-week, the true average effect is
+<strong>1.65</strong>. That is the number any honest estimator should return.</p>
+</div>
+<div id="the-default-answer-is-far-too-low" class="section level2">
+<h2>The default answer is far too low</h2>
+<p>The standard move is a two-way fixed effects regression with market effects, week effects,
+and one treatment dummy:</p>
+<pre class="r"><code>m_twfe &lt;- feols(sales ~ treated | geo_id + week, data = panel)
+twfe   &lt;- coef(m_twfe)[[&quot;treated&quot;]]
+twfe
+## [1] 0.9809783</code></pre>
+<pre><code>## True ATT : 1.652
+## TWFE     : 0.981
+## Bias     : -40.6%</code></pre>
+<p>The regression is fine. The standard error is small. Nothing in the output looks wrong. And
+the answer is off by roughly <strong>41%</strong>
+in the direction that costs you budget. It makes the campaign look weaker than it is.</p>
+</div>
+<div id="why-it-happens" class="section level2">
+<h2>Why it happens</h2>
+<p>Two-way fixed effects doesn’t compute one comparison. It computes a weighted average of
+<em>every</em> two-group, two-period comparison available in the panel, and some of those
+comparisons use <strong>already-treated markets as the control group</strong>.</p>
+<p>That is the flaw. When the wave-2 markets go live in week 12, the regression happily uses
+the wave-1 markets, treated since week 8 and by now four weeks into a <em>growing</em> effect, as a
+comparison. Their outcome is still rising because of the campaign. Subtracting that rise
+treats real campaign lift as if it were the baseline trend, and the estimate gets dragged
+down. <a href="https://doi.org/10.1016/j.jeconom.2021.03.014">Goodman-Bacon (2021)</a> decomposed
+exactly this. Those bad comparisons can even enter with negative weight, which is how a
+genuinely positive campaign can produce a negative coefficient.</p>
+<p>The condition that triggers it is not exotic. You need only two things: <strong>staggered timing</strong>
+and <strong>effects that change with exposure</strong>. Every campaign rollout I have seen has both.</p>
+</div>
+<div id="the-fix" class="section level2">
+<h2>The fix</h2>
+<p><a href="https://doi.org/10.1016/j.jeconom.2020.12.001">Callaway and Sant’Anna (2021)</a> estimate the
+effect separately for each cohort at each period, using only clean controls, meaning markets
+that are not yet live, and then aggregate. In R that is the <code>did</code> package:</p>
+<pre class="r"><code>panel[, gvar := fifelse(is.finite(g), g, 0)]   # 0 codes &quot;never treated&quot;
+
+cs &lt;- att_gt(
+  yname = &quot;sales&quot;, tname = &quot;week&quot;, idname = &quot;geo_id&quot;, gname = &quot;gvar&quot;,
+  data = as.data.frame(panel),
+  control_group = &quot;notyettreated&quot;,
+  bstrap = TRUE, cband = FALSE
+)
+
+simple &lt;- aggte(cs, type = &quot;simple&quot;, na.rm = TRUE)</code></pre>
+<pre><code>## True ATT      : 1.652
+## TWFE          : 0.981  (bias -40.6%)
+## Callaway-SA   : 1.713  (bias +3.7%)</code></pre>
+<p>That recovers the truth to within sampling error. The small remaining gap is weighting.
+<code>aggte(type = "simple")</code> weights group-time cells by their size, which is not identical to
+averaging over treated market-weeks. It is noise rather than bias, about
+1.1 standard errors,
+against a TWFE gap of
+21.</p>
+</div>
+<div id="read-the-curve-not-the-scalar" class="section level2">
+<h2>Read the curve, not the scalar</h2>
+<p>The single number was never the interesting part. Because the effect grows, what you
+actually want is the shape:</p>
+<p><img src="figs/event-study-1.png" width="1050" /></p>
+<p>Pre-launch estimates sit flat at zero, which is the design check. After launch the effect
+climbs steadily, and the flat grey line shows what the single TWFE coefficient claims
+instead. A campaign that pays back over six weeks and one that pays back instantly can
+produce the same scalar. Only one of them justifies a longer flight.</p>
+</div>
+<div id="the-same-trap-in-python" class="section level2">
+<h2>The same trap in Python</h2>
+<p>Nothing here is an R problem. It is a data problem, and the identical bias appears in
+Python. For a balanced panel you don’t even need a package, because the two-way within
+estimator is just OLS on the double-demeaned series.</p>
+<pre class="python"><code>import numpy as np, pandas as pd
+
+rng = np.random.default_rng(2026)
+n_geo, n_per = 300, 20
+
+g      = rng.choice([8, 12, 16, np.inf], size=n_geo, p=[.25] * 4)
+geo_fe = rng.normal(0, 1, n_geo)
+
+geo_id = np.repeat(np.arange(n_geo), n_per)
+week   = np.tile(np.arange(1, n_per + 1), n_geo)
+
+df = pd.DataFrame({&quot;geo_id&quot;: geo_id, &quot;week&quot;: week,
+                   &quot;g&quot;: g[geo_id], &quot;geo_fe&quot;: geo_fe[geo_id]})
+
+df[&quot;exposure&quot;] = np.where(df.week &gt;= df.g, df.week - df.g, np.nan)
+df[&quot;tau&quot;]      = np.where(df.exposure.notna(), 0.30 * (df.exposure + 1), 0.0)
+df[&quot;treated&quot;]  = df.exposure.notna().astype(int)
+df[&quot;sales&quot;]    = (10 + df.geo_fe + 0.05 * df.week + df.tau
+                  + rng.normal(0, 0.5, len(df)))
+
+def twoway_demean(col):
+    x = df[col] - df[col].mean()
+    x = x - x.groupby(df.geo_id).transform(&quot;mean&quot;)
+    x = x - x.groupby(df.week).transform(&quot;mean&quot;)
+    return x
+
+y, d = twoway_demean(&quot;sales&quot;), twoway_demean(&quot;treated&quot;)
+twfe = (d @ y) / (d @ d)
+
+print(f&quot;True ATT : {df.loc[df.treated == 1, &#39;tau&#39;].mean():.3f}&quot;)
+print(f&quot;TWFE     : {twfe:.3f}&quot;)</code></pre>
+<p>Same understatement, different random draws. R and NumPy do not share a generator, so the
+digits will not match, only the conclusion. For the Callaway-Sant’Anna estimator itself,
+Python has <a href="https://github.com/bernardodionisi/differences"><code>differences</code></a> and
+<a href="https://pypi.org/project/diff-diff/"><code>diff-diff</code></a>. The latter also covers synthetic DiD and
+Honest DiD sensitivity analysis.</p>
+</div>
+<div id="what-to-do-on-monday" class="section level2">
+<h2>What to do on Monday</h2>
+<p>If you are measuring a staggered rollout:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Check whether your timing is actually staggered.</strong> If every market launched the same
+week, plain DiD is fine and none of this applies.</li>
+<li><strong>Assume your effect is dynamic.</strong> Awareness builds, and so does the bias. Treating the
+effect as one constant number is the assumption that breaks TWFE, not the staggering
+itself.</li>
+<li><strong>Never let an already-treated market serve as a control.</strong> This is the whole bug. Use
+not-yet-treated or never-treated markets.</li>
+<li><strong>Report the event-study curve, not one coefficient.</strong> The shape is the decision-relevant
+output. It tells you the payback period.</li>
+<li><strong>Treat flat pre-trends as a check you passed, not a proof.</strong> Parallel trends is an
+assumption about an unobservable counterfactual. If the decision is expensive, run a
+sensitivity analysis rather than pointing at the pre-period.</li>
+</ol>
+<p>The uncomfortable version of this: if you have been sizing incrementality off staggered
+rollouts with a TWFE regression, your campaigns may have looked systematically weaker than
+they are, and the budget decisions that followed inherited that error.</p>
+<hr />
+<p><em>Estimator details, the Goodman-Bacon decomposition, and the assumptions behind each of these
+designs are covered in <a href="https://link.springer.com/book/9783032018380">Experimental Design</a>,
+Volume 4 of A Guide on Data Analysis.</em></p>
+</div>
