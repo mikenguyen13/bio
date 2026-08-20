@@ -58,6 +58,27 @@ than write more.
 The only genuine failure mode is a month of silence, because that is the state we just spent
 15 months in.
 
+### How drafts actually arrive (set up 2026-08-20)
+
+A scheduled cloud agent runs **Tuesday and Friday at 6am Pacific**. It researches, picks a
+topic, writes the post, and commits it to a branch as `draft: true`. It cannot run R, so the
+code it writes is unverified and it marks it as such.
+
+Your two-step, twice a week:
+
+1. Open a local session and say **"render and publish the new draft"**. Claude pulls the
+   branch, runs every code block, fixes anything that breaks, renders, and rebuilds the site.
+   About two minutes of waiting.
+2. Review for 15 minutes using the three questions above. Then it ships.
+
+The split exists because the cloud has no R, no pandoc, and no Hugo, and the standing rule is
+that nothing publishes with code that was never executed. The cloud does the part that needs
+research and writing. This machine does the part that needs a working R installation.
+
+**If the rendered numbers contradict the draft's prose, the numbers win.** The cloud agent is
+guessing at what the code will produce. Rewrite the prose around the real output rather than
+tuning the code until it matches the story.
+
 ### One way to stop relying on memory
 
 None of this runs unless you open a session. If you would rather not be the trigger, Claude

@@ -91,3 +91,54 @@ than a new post and improves an existing URL.
 - [ ] **Academic theme demo posts still live**: `getting-started`,
       `writing-technical-content`, `jupyter`. Same category of demo content you removed
       elsewhere in recent commits. Deleting published URLs is your call.
+
+## INDUSTRY AND SEO TRACK (added 2026-08-20)
+
+Posts do not have to be academic. The best ones sit where a commercially valuable search
+query meets something Mike can actually execute rigorously. That overlap is the moat, because
+the people writing for those queries today mostly cannot run the methods, and the people who
+can run the methods mostly write for other academics.
+
+### How to pick for SEO
+
+1. **One post targets one primary query.** Write the query down before writing the post.
+   If you cannot name it, the post has no search job.
+2. **Prefer exact long-tail phrasing over broad terms.** "uplift modeling in R" beats
+   "machine learning for marketing". Broad terms are already owned.
+3. **New packages are an open window.** The first decent tutorial for a package ranks for
+   years. `contdid` (May 2026) has essentially no practitioner content. So do `synthdid`,
+   `HonestDiD`, `policytree`, and `fdid`.
+4. **Error messages are free traffic.** People paste them verbatim into search. The existing
+   expl3.sty and "cannot allocate vector of size" posts already work this way.
+5. **Put the query in the H1, the URL slug, and the first paragraph.** Once each, naturally.
+6. **Industry vocabulary, academic rigor.** Say incrementality, not ATE, in the title. Then
+   be correct in the body. Titling it ATE loses the search, titling it incrementality and
+   being sloppy loses the credibility.
+
+### High-value candidates, all runnable with packages already installed
+
+Commercial intent, low competition, and Mike has the tooling:
+
+- [ ] **Uplift modeling and who to actually target.** `grf` plus `policytree`. Industry calls
+      it uplift, academics call it CATE and policy learning. Very high commercial intent,
+      almost no rigorous R content. Probably the single best SEO opportunity on this list.
+- [ ] **Customer lifetime value the right way.** `CLVTools` and `BTYD`. High and steady
+      search volume, and most existing content is a naive average-revenue formula.
+- [ ] **Multi-touch attribution and why it disagrees with your incrementality test.**
+      `ChannelAttribution`. Huge industry search, and the honest answer is genuinely useful.
+- [ ] **Synthetic control for a market launch.** `synthdid` and `gsynth`. Industry framing is
+      matched-market testing.
+- [ ] **Spillovers between test and control markets.** `inferference`. Marketplaces and geo
+      tests both break on interference, and nobody writes about it in R.
+- [ ] **Honest DiD, or what to report instead of a pre-trend plot.** `HonestDiD`.
+- [ ] **RFM segmentation, and when it misleads.** `rfm`. Very high search volume, mostly
+      shallow content, easy to do better.
+- [ ] **How long should an A/B test run.** Sequential testing and peeking. Perennial query.
+- [ ] **Price elasticity from observational data.** `BLPestimatoR` and `micEconAids`.
+- [ ] **Google Trends as a real covariate.** `gtrendsR`. Cheap to write, easy to rank.
+
+### Rule for the mix
+
+Roughly one industry or SEO post for every academic or method post. The Tuesday slot leans
+trend and industry, the Friday slot leans evergreen and method. Neither slot is required to
+be academic.
