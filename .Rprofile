@@ -7,6 +7,18 @@ if (file.exists("~/.Rprofile")) {
   base::sys.source("~/.Rprofile", envir = environment())
 }
 
+# The system library at C:/Program Files/R/R-4.4.3/library is not writable without
+# admin, so packages installed here land in the per-user library instead. That
+# directory is not on the default search path on this machine, and blogdown renders
+# each post in a fresh R session, so without this a post using any user-installed
+# package fails to knit with "there is no package called ...".
+local({
+  user_lib <- file.path(Sys.getenv("LOCALAPPDATA"), "R", "win-library", "4.4")
+  if (nzchar(Sys.getenv("LOCALAPPDATA")) && dir.exists(user_lib)) {
+    .libPaths(c(user_lib, .libPaths()))
+  }
+})
+
 # Now set options to customize the behavior of blogdown for this project. Below
 # are a few sample options; for more options, see
 # https://bookdown.org/yihui/blogdown/global-options.html
