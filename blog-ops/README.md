@@ -65,6 +65,12 @@ Rendering needs this machine. The cloud routine cannot do it.
 
 - R lives at `C:\Program Files\R\R-4.4.3`. Its library is not writable without admin, so extra
   packages go to the per-user library at `%LOCALAPPDATA%\R\win-library\4.4`.
+- **That per-user library is not on R's default search path here**, and blogdown renders each
+  post in a fresh R session, so a post using a newly installed package used to fail with
+  "there is no package called ...". The repo `.Rprofile` now prepends it to `.libPaths()`.
+  Leave that block in place. When installing, still pass `lib =` explicitly, because
+  `R_LIBS_USER` is empty in this environment and `install.packages` otherwise aims at the
+  unwritable system library.
 - Pandoc is not on the PATH. Before rendering, run:
   `Sys.setenv(RSTUDIO_PANDOC = "C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools")`
 - Render one post with:

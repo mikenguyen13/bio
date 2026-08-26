@@ -1,48 +1,39 @@
 # Review Queue
 
-**One draft exists but is not in this repo yet.**
+## Shipped: Tuesday 2026-08-25 trend-jack
 
 | | |
 |---|---|
-| Title | Uplift Modeling in R: Your Best Customers Are the Wrong Target |
-| Target query | uplift modeling in R |
-| Slot | Friday evergreen |
-| Packages | `grf` and `policytree`, both already installed |
-| Status | written by the cloud routine, push blocked by a 403 |
+| Title | Difference-in-Differences With a Continuous Treatment in R: The Dose Coefficient Is Not Marginal ROI |
+| Target query | difference in differences with a continuous treatment in R |
+| Slot | Tuesday trend-jack |
+| Package | `contdid` 0.1.1, on CRAN 2026-07-21, so five weeks old and clear of the freshness rule |
+| Status | published 2026-08-25, see POSTS-LOG.md |
+| Review page | <https://claude.ai/code/artifact/8b6d4364-86f4-4e5a-b4bb-77400f140c50> |
 
-The routine could not push because the cloud session's GitHub token is read-only. It packaged
-the work as a git-am-able patch instead. Recover it from the run session:
+Headline: with a randomly assigned dose and no confounding anywhere, the two-way fixed effects
+spend coefficient still overstates the true average marginal return by 31%. The bias is in the
+weights rather than in selection. `contdid` recovers 4.61 against a truth of 4.51.
 
-<https://claude.ai/code/session_01UsRVfrgjSQ1aVYJhNVdPFQ>
+Nothing in this post is unverified. There is no Python block.
 
-Download the `.patch` file, then from the repo root:
+## Blocker cleared on the way through
 
-```
-git checkout master
-git am <path-to-patch>
-```
+Packages installed on this machine go to the per-user library, and that directory was not on
+R's default search path. blogdown renders each post in a fresh R session, so any post using a
+newly installed package failed to knit with "there is no package called ...". Fixed by adding
+the per-user library to `.libPaths()` in the repo `.Rprofile`. That change is uncommitted and
+part of the current diff.
 
-Then open a local session and say "render and publish the new draft".
+## Correction to the previous entry
 
-## Known blocker
+`policytree` is **not installed**, contrary to what this file said. `grf` 2.5.0 is. Friday's
+uplift draft depends on both, so install `policytree` before that render.
 
-Cloud routine runs cannot write to `mikenguyen13/bio`. Fix is to grant the Claude GitHub App
-`contents: write` on the repo at <https://github.com/settings/installations>, or to grant the
-GitHub connection write access at <https://claude.ai/settings/connectors>. Until that is done,
-every run will fall back to delivering a patch instead of a branch. The routine now handles
-that fallback deliberately rather than by improvising.
+## Still open
 
-## Unverified in that draft
-
-- No code was executed, so every number is an inline expression waiting on a real render.
-- The run reported one specific uncertainty: the post claims a response-model ranking scores
-  near zero on the Qini RATE. If the render disagrees, the numbers win and that section gets
-  rewritten around the real output.
-- Some documentation domains were blocked by the sandbox proxy, so parts of the `grf` and
-  `policytree` API were verified from GitHub source rather than from the reference manual.
-
-## Also still open
-
-The Python block in the shipped `staggered-rollouts-break-twfe` post has never been executed.
-Python is not installed on this machine and WSL is broken. Run it once wherever you have
-Python, or say the word and it gets removed.
+| Item | Status |
+|---|---|
+| Uplift draft (Friday evergreen) | Written by the cloud routine, push blocked by a 403, recover the patch from <https://claude.ai/code/session_01UsRVfrgjSQ1aVYJhNVdPFQ> then `git am` it |
+| Cloud routine cannot push | Grant the Claude GitHub App `contents: write` at <https://github.com/settings/installations>, or grant write at <https://claude.ai/settings/connectors> |
+| Python block in `staggered-rollouts-break-twfe` | Never executed. No working Python here. Run it elsewhere or say the word and it goes |

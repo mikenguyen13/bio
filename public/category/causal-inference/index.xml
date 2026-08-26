@@ -5,12 +5,207 @@
     <link>https://mikenguyen.netlify.app/category/causal-inference/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/causal-inference/index.xml" rel="self" type="application/rss+xml" />
     <description>Causal Inference</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Wed, 19 Aug 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Tue, 25 Aug 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Causal Inference</title>
       <link>https://mikenguyen.netlify.app/category/causal-inference/</link>
     </image>
+    
+    <item>
+      <title>Difference-in-Differences With a Continuous Treatment in R: The Dose Coefficient Is Not Marginal ROI</title>
+      <link>https://mikenguyen.netlify.app/post/continuous-treatment-did-in-r/</link>
+      <pubDate>Tue, 25 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/continuous-treatment-did-in-r/</guid>
+      <description>
+
+
+&lt;p&gt;Most measurement questions are not “did we run the campaign.” They are “we spent somewhere
+between two and forty thousand dollars per market, so what did the next dollar buy.” That is
+difference-in-differences with a continuous treatment, and the obvious move is to put spend on
+the right-hand side of a two-way fixed effects regression and read the coefficient as marginal
+return.&lt;/p&gt;
+&lt;p&gt;That coefficient is not marginal return. On data where I chose the true answer myself, it
+misses by 31%, and there is no confounding anywhere in the simulation to blame it on.&lt;/p&gt;
+&lt;div id=&#34;a-dose-where-the-truth-is-known&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;A dose where the truth is known&lt;/h2&gt;
+&lt;p&gt;Four thousand markets, four periods, treatment switching on in period 3. Sixty percent of
+markets get a spend increase drawn uniformly between 0.1 and 1.0, and the rest get nothing and
+serve as controls.&lt;/p&gt;
+&lt;p&gt;The important detail is that I assign the dose &lt;strong&gt;at random&lt;/strong&gt;. No market chooses its budget, so
+there is no selection, no reverse causality, and no correlation between spend and pre-existing
+trends. Every problem below survives in a world where the dose was randomized.&lt;/p&gt;
+&lt;p&gt;The true response to dose is concave, which is just the formal way of saying diminishing
+returns:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(contdid)
+library(fixest)
+library(dplyr)
+set.seed(20260825)
+
+n_mkt &amp;lt;- 4000
+
+# 40% of markets get nothing. The rest get a random spend increase.
+dose &amp;lt;- ifelse(rbinom(n_mkt, 1, 0.6) == 1, runif(n_mkt, 0.1, 1.0), 0)
+mkt_fe &amp;lt;- rnorm(n_mkt, mean = 100, sd = 10)
+
+# TRUE dose-response and its derivative
+att_fn  &amp;lt;- function(d) 10 * d - 5 * d^2   # effect of dose d versus zero
+acrt_fn &amp;lt;- function(d) 10 - 10 * d        # marginal return at dose d
+
+# Draw the noise once so later variations differ only in the response shape
+noise &amp;lt;- rnorm(n_mkt * 4)
+
+panel &amp;lt;- expand.grid(id = 1:n_mkt, t = 1:4) |&amp;gt;
+  mutate(
+    dose = .env$dose[id],
+    g    = ifelse(dose &amp;gt; 0, 3, 0),                  # period of first treatment
+    post = as.integer(t &amp;gt;= 3 &amp;amp; dose &amp;gt; 0),
+    y    = mkt_fe[id] + 2 * t + post * att_fn(dose) + .env$noise,
+    dose_post = dose * post
+  )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Two numbers describe the truth, and they are not the same number.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;treated_dose &amp;lt;- dose[dose &amp;gt; 0]
+c(mean_ATT  = mean(att_fn(treated_dose)),    # average effect of the spend that happened
+  mean_ACRT = mean(acrt_fn(treated_dose)))   # average marginal return to one more unit
+##  mean_ATT mean_ACRT 
+##  3.650137  4.512328&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The first is the average effect of the spend versus not spending. The second is the average
+slope, which is what “what did the next dollar buy” actually means. Now the regression
+everyone runs:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;twfe &amp;lt;- feols(y ~ dose_post | id + t, data = panel)
+twfe
+## OLS estimation, Dep. Var.: y
+## Observations: 16,000
+## Fixed-effects: id: 4,000,  t: 4
+## Standard-errors: IID 
+##           Estimate Std. Error t value  Pr(&amp;gt;|t|)    
+## dose_post   5.9044   0.047895 123.279 &amp;lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## RMSE: 0.877639     Adj. R2: 0.990841
+##                  Within R2: 0.558868&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The coefficient is 5.90. The true average marginal return is 4.51. The regression overstates
+the return on the next dollar by 31%, on randomized data.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-weights-not-the-confounding&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The weights, not the confounding&lt;/h2&gt;
+&lt;p&gt;Callaway, Goodman-Bacon, and Sant’Anna set this out in a paper that has circulated as
+&lt;a href=&#34;https://www.nber.org/papers/w32117&#34;&gt;NBER working paper 32117&lt;/a&gt; and reached CRAN as the
+&lt;a href=&#34;https://cran.r-project.org/web/packages/contdid/index.html&#34;&gt;&lt;code&gt;contdid&lt;/code&gt;&lt;/a&gt; package on 2026-07-21.
+Their point separates two things that a single regression coefficient blurs together.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ATT(d)&lt;/code&gt; is the effect of receiving dose &lt;code&gt;d&lt;/code&gt; rather than zero. &lt;code&gt;ACRT(d)&lt;/code&gt;, the average causal
+response, is its derivative: the payoff to a marginal increase at dose &lt;code&gt;d&lt;/code&gt;. When treatment is a
+binary switch these collapse into one quantity. When treatment is a dose they do not, and the
+fixed effects coefficient estimates neither of them.&lt;/p&gt;
+&lt;p&gt;What it estimates is a weighted average of &lt;code&gt;ACRT(d)&lt;/code&gt; across doses, with weights determined by
+the variance of the dose variable rather than by how much spend actually sat at each level.
+Those weights lean on the middle of the dose distribution and underweight the tails. If
+&lt;code&gt;ACRT(d)&lt;/code&gt; is the same everywhere, any set of weights averaging to one returns the right answer
+and nothing goes wrong. If &lt;code&gt;ACRT(d)&lt;/code&gt; varies with dose, the weights bite.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ACRT(d)&lt;/code&gt; is constant only when the dose-response is a straight line. So the condition that
+makes the regression trustworthy is the absence of diminishing returns, which is usually the
+thing the analysis was commissioned to measure.&lt;/p&gt;
+&lt;p&gt;The direction of the error follows the curvature:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bias_check &amp;lt;- function(att_fn, acrt_fn, label) {
+  p &amp;lt;- expand.grid(id = 1:n_mkt, t = 1:4) |&amp;gt;
+    mutate(dose = .env$dose[id],
+           post = as.integer(t &amp;gt;= 3 &amp;amp; dose &amp;gt; 0),
+           y = mkt_fe[id] + 2 * t + post * att_fn(dose) + .env$noise,
+           dose_post = dose * post)
+  b &amp;lt;- coef(feols(y ~ dose_post | id + t, data = p))[[&amp;quot;dose_post&amp;quot;]]
+  truth &amp;lt;- mean(acrt_fn(treated_dose))
+  data.frame(shape = label, twfe = round(b, 3), truth = round(truth, 3),
+             error_pct = round(100 * (b / truth - 1), 1))
+}
+
+rbind(
+  bias_check(function(d) 10 * d - 5 * d^2, function(d) 10 - 10 * d,       &amp;quot;concave&amp;quot;),
+  bias_check(function(d) 6 * d,            function(d) rep(6, length(d)), &amp;quot;linear&amp;quot;),
+  bias_check(function(d) 2 * d + 4 * d^2,  function(d) 2 + 8 * d,         &amp;quot;convex&amp;quot;)
+)
+##     shape  twfe truth error_pct
+## 1 concave 5.904 4.512      30.9
+## 2  linear 5.994 6.000      -0.1
+## 3  convex 5.265 6.390     -17.6&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Concave dose-response, the case every media mix deck assumes, pushes the coefficient &lt;strong&gt;above&lt;/strong&gt;
+the truth. Convex pulls it below. Linear is the only shape the regression handles, and there
+the small residual gap is sampling noise: averaged over 200 replications the linear case
+returns 5.9991 against a truth of 6.&lt;/p&gt;
+&lt;p&gt;The practical reading is uncomfortable. If returns diminish and you measure them with a spend
+coefficient, the estimate is biased toward telling you to spend more.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-contdid-does-instead&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What &lt;code&gt;contdid&lt;/code&gt; does instead&lt;/h2&gt;
+&lt;p&gt;The package estimates the whole &lt;code&gt;ATT(d)&lt;/code&gt; curve and its derivative rather than compressing them
+into one slope, and it reports the aggregate with the weights you would have chosen yourself.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cd &amp;lt;- cont_did(
+  yname = &amp;quot;y&amp;quot;, dname = &amp;quot;dose&amp;quot;, gname = &amp;quot;g&amp;quot;, tname = &amp;quot;t&amp;quot;, idname = &amp;quot;id&amp;quot;,
+  data = panel,
+  target_parameter = &amp;quot;slope&amp;quot;,      # &amp;quot;level&amp;quot; for ATT(d), &amp;quot;slope&amp;quot; for ACRT(d)
+  aggregation      = &amp;quot;dose&amp;quot;,
+  treatment_type   = &amp;quot;continuous&amp;quot;,
+  dose_est_method  = &amp;quot;parametric&amp;quot;, # B-spline. Use &amp;quot;cck&amp;quot; for nonparametric.
+  control_group    = &amp;quot;nevertreated&amp;quot;,
+  num_knots = 0, degree = 3, biters = 200
+)
+
+c(ACRT = cd$overall_acrt, ATT = cd$overall_att)
+##     ACRT      ATT 
+## 4.608057 3.637010&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;4.61 against a truth of 4.51, and 3.64 against a truth of 3.65. The regression that ignores
+curvature returned 5.90.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;num_knots&lt;/code&gt; is the one dial worth understanding. It buys flexibility in the shape at the cost
+of much wider tails, and on a smooth response like this one the extra knots mostly buy noise.
+I used none.&lt;/p&gt;
+&lt;p&gt;The aggregate is the least interesting output, though. The curve is the thing you actually want,
+because it tells you where the next dollar should go:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figs/acrt-curve-1.png&#34; width=&#34;1050&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The dashed line is the truth, the blue line is &lt;code&gt;contdid&lt;/code&gt; with a uniform confidence band, and the
+orange line is the fixed effects coefficient, which is flat by construction. The estimate runs a
+little above the truth and its band widens at both ends, which is the honest report of how
+little data sits out there. The shape is right, and the shape is what the budget question needs.&lt;/p&gt;
+&lt;p&gt;The flat orange line crosses the truth at a dose near 0.4 and stays above it from there. At the
+top of the range it still reports a marginal return close to 5.9, where the real one has fallen
+to roughly zero. That is the gap that funds a campaign extension nobody should have approved.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;one-caveat-that-makes-real-data-worse&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;One caveat that makes real data worse&lt;/h2&gt;
+&lt;p&gt;Everything above happened under randomized dose. Real spend is chosen, and larger markets tend
+to get larger budgets for reasons that also drive their trends. That adds a second problem on
+top of the weighting one: comparing a high-dose market to a low-dose market is itself a
+difference-in-differences comparison, and it is only valid under what the paper calls strong
+parallel trends, meaning markets that chose different doses would have responded identically to
+the same dose. Selection into dose is exactly what breaks that. The 31% here is the error you
+cannot escape even when assignment is clean.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-to-do-on-monday&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What to do on Monday&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;strong&gt;Say which estimand you want out loud.&lt;/strong&gt; “Effect of the spend we did” is &lt;code&gt;ATT(d)&lt;/code&gt;. “Return
+on the next dollar” is &lt;code&gt;ACRT(d)&lt;/code&gt;. They are different numbers and the second is usually the
+one driving the budget.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Do not read a spend coefficient as marginal ROI.&lt;/strong&gt; It is a variance-weighted average of
+marginal returns, and it equals marginal ROI only if returns are constant.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;If you believe in diminishing returns, you have already assumed the regression is
+biased.&lt;/strong&gt; Those two beliefs cannot both be held at once.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Report the dose-response curve.&lt;/strong&gt; Deciding where to spend needs &lt;code&gt;ACRT(d)&lt;/code&gt; at the doses you
+are choosing between, not one average across all of them.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Check the support.&lt;/strong&gt; The curve is only estimable over doses you observed. &lt;code&gt;contdid&lt;/code&gt;
+defaults to trimming the tails for good reason, so do not extrapolate past them.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Remember randomization does not rescue you here.&lt;/strong&gt; It fixes selection into dose. It does
+not fix the weights.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Binarizing the dose into treated versus untreated is a defensible fallback when the dose
+distribution is thin, but it answers a smaller question. If the decision is how much to spend
+rather than whether to spend, the curve is the deliverable.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;em&gt;Identification under continuous and multi-valued treatments, and the parallel trends
+assumptions each design needs, are covered in
+&lt;a href=&#34;https://link.springer.com/book/9783032018380&#34;&gt;Experimental Design&lt;/a&gt;, Volume 4 of A Guide on
+Data Analysis.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>If You Roll Out Market by Market, Your Lift Estimate Is Probably Too Low</title>
