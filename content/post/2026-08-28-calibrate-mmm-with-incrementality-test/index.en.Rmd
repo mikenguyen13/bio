@@ -1,7 +1,7 @@
 ---
 title: "Calibrating a Marketing Mix Model With an Incrementality Test in R: Why the Experiment Loses"
 author: Mike Nguyen
-date: '2026-08-28'
+date: '2026-08-26'
 slug: calibrate-mmm-with-incrementality-test
 categories:
   - R
@@ -17,9 +17,9 @@ tags:
 subtitle: 'Everyone in 2026 says to feed your geo test into your MMM as a prior. On data where I set the true ROI myself, doing exactly that left the answer 77% too high.'
 summary: 'The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate only two thirds of the way to the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything.'
 authors: []
-lastmod: '2026-08-28T09:00:00-07:00'
+lastmod: '2026-08-26T09:00:00-07:00'
 featured: no
-draft: true
+draft: false
 image:
   caption: ''
   focal_point: ''

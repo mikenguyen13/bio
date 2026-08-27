@@ -20,13 +20,49 @@
     <loc>https://mikenguyen.netlify.app/courses/01-mizzou-mar4050-f21/</loc>
     <lastmod>2021-12-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2026-08-25T09:00:00-07:00</lastmod>
+    <loc>https://mikenguyen.netlify.app/tag/bayesian/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/causal-inference/</loc>
-    <lastmod>2026-08-25T09:00:00-07:00</lastmod>
+    <loc>https://mikenguyen.netlify.app/post/calibrate-mmm-with-incrementality-test/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/category/causal-inference/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/geo-experiments/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/incrementality/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/marketing-analytics/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/marketing-mix-modeling/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/measurement/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/rstanarm/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/causal-inference/</loc>
     <lastmod>2026-08-25T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/contdid/</loc>
@@ -39,21 +75,6 @@
     <lastmod>2026-08-25T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/marketing-analytics/</loc>
-    <lastmod>2026-08-25T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/measurement/</loc>
-    <lastmod>2026-08-25T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/</loc>
-    <lastmod>2026-08-25T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2026-08-25T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2026-08-25T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2026-08-25T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/experimentation/</loc>
