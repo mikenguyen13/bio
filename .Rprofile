@@ -19,6 +19,16 @@ local({
   }
 })
 
+# Python for reticulate, so `{python}` chunks actually execute at render time.
+# The `python` on PATH is a Microsoft Store stub that does nothing. The real
+# interpreter is a uv-managed CPython 3.12 in a venv outside the repo, created with
+#   uv venv --python 3.12 C:/Users/miken/.venvs/bio-blog
+# Keep this out of individual posts so no published .Rmd carries a machine path.
+local({
+  py <- "C:/Users/miken/.venvs/bio-blog/Scripts/python.exe"
+  if (file.exists(py)) Sys.setenv(RETICULATE_PYTHON = py)
+})
+
 # Now set options to customize the behavior of blogdown for this project. Below
 # are a few sample options; for more options, see
 # https://bookdown.org/yihui/blogdown/global-options.html

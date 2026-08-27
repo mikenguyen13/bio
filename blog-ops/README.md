@@ -79,9 +79,24 @@ Rendering needs this machine. The cloud routine cannot do it.
 - Hugo is pinned to 0.113.0 in `.Rprofile`.
 - `install.packages` segfaults when run through the Git Bash shell on this machine. Run it
   through PowerShell, or from a script file, instead of an inline `-e` expression.
-- There is no working Python here. The `python.exe` on the PATH is a Microsoft Store stub, and
-  WSL fails to start because Docker's distro is missing its disk image. Any Python in a post is
-  therefore unverified unless it is run elsewhere.
+- **Python works. It did not used to, and the old note here was wrong.** The `python.exe` on the
+  PATH is still a Microsoft Store stub that does nothing, and WSL still fails to start, which is
+  what the earlier claim was based on. But `uv` is installed at `~/.local/bin/uv` and already
+  manages real CPython builds (3.10, 3.12, 3.13, 3.14) under `%APPDATA%\uv\python`. Nothing
+  needed admin rights.
+- The blog's Python lives in a venv **outside the repo** at `C:\Users\miken\.venvs\bio-blog`,
+  built with `uv venv --python 3.12 C:/Users/miken/.venvs/bio-blog`. Install into it with
+  `uv pip install --python C:/Users/miken/.venvs/bio-blog/Scripts/python.exe <pkg>`.
+  Currently holds numpy, pandas, scipy, and `google-meridian` 1.8.0 with TensorFlow 2.21.
+- `.Rprofile` sets `RETICULATE_PYTHON` to that venv, so **`{python}` chunks execute at render
+  time** like any R chunk. Keep the path in `.Rprofile` rather than in a post, so no published
+  `.Rmd` carries a machine-specific path. Verify with `reticulate::py_config()`.
+- Pass R values into a Python chunk with `r.<name>`, so a Python block cannot drift away from
+  the R numbers above it. The MMM calibration post does this.
+- TensorFlow writes oneDNN and absl notices to stderr on import. They appear in the render log
+  but not in the page. Set `TF_CPP_MIN_LOG_LEVEL=3` before importing to quiet most of it.
+- **The old rule still stands for anything that cannot run here.** No block ships unexecuted.
+  The difference is that Python is no longer an automatic exception.
 
 ## Commit convention
 
