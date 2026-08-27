@@ -34,7 +34,7 @@
   
     
   
-  <meta name="description" content="The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate only two thirds of the way to the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything.">
+  <meta name="description" content="The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate about two thirds of the way to the experiment&#39;s answer and then stopped, leaving it 77% above the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://mikenguyen.netlify.app/post/calibrate-mmm-with-incrementality-test/">
@@ -320,7 +320,7 @@
   <meta property="og:site_name" content="Mike Nguyen">
   <meta property="og:url" content="https://mikenguyen.netlify.app/post/calibrate-mmm-with-incrementality-test/">
   <meta property="og:title" content="Calibrating a Marketing Mix Model With an Incrementality Test in R: Why the Experiment Loses | Mike Nguyen">
-  <meta property="og:description" content="The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate only two thirds of the way to the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
+  <meta property="og:description" content="The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate about two thirds of the way to the experiment&#39;s answer and then stopped, leaving it 77% above the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
   <meta property="twitter:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png"><meta property="og:locale" content="en-us">
   
     
@@ -370,7 +370,7 @@
       "url": "https://mikenguyen.netlify.app/images/icon_huef6d9e7391192e98fbb8d5b03794bb07_956_192x192_fill_lanczos_center_3.png"
     }
   },
-  "description": "The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate only two thirds of the way to the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything."
+  "description": "The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate about two thirds of the way to the experiment's answer and then stopped, leaving it 77% above the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything."
 }
 </script>
 
@@ -820,7 +820,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    11 min read
+    14 min read
   </span>
   
 
@@ -924,10 +924,13 @@ round(summary(naive)$coefficients, 3)
 <p>Video returns 5.88 dollars per dollar against a truth of 2.00, with a 95%
 interval of [5.18, 6.57]. Social
 comes back at 0.14 with a p-value of 0.77,
-which in a real deck becomes the slide arguing that social does nothing. Its true return is 1.50.</p>
+which in a real deck becomes the slide arguing that social does nothing. Its true return is 1.50.
+Search, which nobody is going to test, lands at 2.02 against a truth of
+3.00, understated by a third. Keep that one in mind, because it decides how this story ends.</p>
 <p>This is the failure mode behind the <a href="https://www.iab.com/insights/2026-state-of-data-report/">IAB’s February 2026 State of Data report</a>,
 where a majority of buy-side marketers said their measurement stack falls short on rigor and
-trust. The model is not noisy. It is precise and wrong.</p>
+trust. The model is not uniformly noisy. On video it is precise and wrong, and precise and wrong
+is the combination that survives into a budget decision.</p>
 </div>
 <div id="what-the-experiment-says" class="section level2">
 <h2>What the experiment says</h2>
@@ -1003,8 +1006,14 @@ likelihood. The prior carries precision <code>1 / se_exp^2</code>. The likelihoo
 c(weight_on_experiment = w_prior, weight_on_model = 1 - w_prior)
 ## weight_on_experiment      weight_on_model 
 ##            0.5874092            0.4125908</code></pre>
-<p>The experiment gets 59% of the vote and the model keeps the rest. That
-split is defensible only if the MMM’s standard error means what a standard error normally means.
+<p>The experiment gets 59% of the vote and the model keeps the rest.</p>
+<p>Take that split literally and it predicts a posterior of
+3.77. The fit returned
+3.55. The two do not match exactly because the other two
+coefficients carry priors of their own and the three media variables are collinear, so video’s
+marginal posterior is not the one-parameter textbook case. The weighting is the mechanism rather
+than an identity, and it accounts for the direction and most of the magnitude.</p>
+<p>That split is defensible only if the MMM’s standard error means what a standard error normally means.
 It does not. 0.35 is the sampling error of a coefficient conditional on the
 specification being correct, and the specification is off by 3.9 dollars
 per dollar. Setting the prior scale equal to the experiment’s standard error is an implicit claim
@@ -1023,11 +1032,18 @@ that claim.</p>
 ## 2    0.148 2.645  2.725  1.596
 ## 3    0.074 2.389  2.809  1.713
 ## 4    0.030 2.312  2.844  1.739</code></pre>
-<p>At one tenth of the experimental standard error the posterior finally sits on the experiment, and
-search and social both move toward their true 3.00 and 1.50 on the way. Pinning one collinear
-channel reallocates the shared variance across the others, which is the genuinely useful part of
-calibration and the part that has nothing to do with the channel you tested.</p>
-<p>But look at what tightening actually did. It did not improve the model. It deleted the model’s
+<p>At one tenth of the experimental standard error the posterior finally sits on the experiment. The
+untested channels move too, and that is the part worth watching. Search climbs from
+2.53 to 2.84, closing most of the
+distance to its true 3.00 without ever arriving. Social does something less comfortable. It
+starts 0.33 below its true 1.50, crosses it by the second row,
+and finishes at 1.74, overshooting by about as much as it began
+short.</p>
+<p>So pinning one collinear channel does reallocate the shared variance across the others, and that
+is the genuinely useful part of calibration, the part that has nothing to do with the channel you
+tested. But it is reallocation rather than correction. The variance the media variables share has
+to land somewhere, and nothing in the procedure aims it at the truth.</p>
+<p>And look at what tightening actually did. It did not improve the model. It deleted the model’s
 opinion and substituted the experiment’s. That is a legitimate choice. It should be made
 deliberately rather than reached by tuning a scale parameter until the output looks reasonable.</p>
 </div>
@@ -1035,7 +1051,7 @@ deliberately rather than reached by tuning a scale parameter until the output lo
 <h2>Fix the specification first, then calibrate</h2>
 <p>The disagreement statistic said a variable was missing. Category search interest is a cheap and
 observable proxy for the demand pressure the media plan was chasing, correlated
-0.8 with the real thing here:</p>
+0.80 with the real thing here:</p>
 <pre class="r"><code>cal_spec &lt;- fit_cal(revenue ~ a_search + a_social + a_video + trends,
                     loc = c(0, 0, roi_exp, 0), sc = c(10, 10, se_exp, 100))</code></pre>
 <pre class="r"><code>out &lt;- data.frame(
@@ -1057,16 +1073,46 @@ round(sapply(out[-1], function(x) mean(abs(x - out$truth))), 3)   # mean absolut
 <p>Mean absolute error across the three channels falls from
 2.07 to
 0.78 with the prior, and to
-0.47 when the missing driver goes in first. Search
-recovers to 2.97 against a truth of 3.00. Calibration is
-worth doing. It is worth doing second.</p>
+0.47 when the missing driver goes in first.</p>
+<p>Now read the video row before celebrating that average. Video still sits at
+3.02 against a truth of 2.00, which is
+51% too high. The mean improved. The channel
+this entire post is about did not get fixed, and it is worth being exact about where the gain came
+from. Search is the one that genuinely recovers, from
+2.53 to 2.97 against its
+true 3.00, an error of 0.03. Video improves by more in absolute terms,
+0.53, but from so much further away that it still
+carries an error of 1.02, more than twice the mean anyone would quote.
+Social moves the wrong way, from 1.17 to
+1.14.</p>
+<p>The reason video survives the repair is sitting in the proxy. <code>trends</code> correlates
+0.80 with real demand, so about a third of the confounder’s variance
+is still unmodeled, and that residual keeps loading onto the one channel whose spend was written
+to chase demand. A noisy proxy buys a partial correction, roughly in proportion to how good the
+proxy is. It does not buy exoneration.</p>
+<p>Which leaves an uncomfortable ranking. For video, the four numbers available on this data are
+5.88 from the MMM alone,
+3.55 calibrated,
+3.02 with the specification fixed first, and
+2.30 from the experiment on its own. The experiment wins, and it was
+always going to win, because it is the only one of the four that never needed the specification to
+be right.</p>
+<p>So calibration is worth doing, and it is worth doing second. But neither ordering recovers the
+tested channel here, and that is the part the triangulation pitch leaves out. What this procedure
+reliably buys is the channels you did not test, where search went from
+2.02 to 2.97. What it
+does not buy is permission to keep reporting the model’s number for the channel you did test. For
+that channel you already have a better number sitting in the test readout.</p>
 </div>
 <div id="what-to-do-on-monday" class="section level2">
 <h2>What to do on Monday</h2>
 <ol style="list-style-type: decimal">
 <li><strong>Run the disagreement test before the calibration.</strong> Divide the gap between model and
-experiment by the square root of the summed squared standard errors. Under three, reconcile.
-Over five, the model is misspecified and calibration will paper over it.</li>
+experiment by the square root of the summed squared standard errors. Under three, the two are
+compatible and calibration is doing the job it was designed for. Between three and five, treat
+it as a warning and go looking for the missing variable before you touch a prior. Over five, as
+here at 7.8, the model is misspecified
+and calibration will paper over it rather than repair it.</li>
 <li><strong>Do not read an MMM standard error as total uncertainty.</strong> It is conditional on a
 specification you may already have evidence against.</li>
 <li><strong>Treat the prior scale as a stated belief about relative credibility, not a default.</strong> Setting
@@ -1077,8 +1123,13 @@ experiment points at whichever one you forgot.</li>
 <li><strong>Remember the experiment measured one channel, in one window, in one set of markets.</strong> An ROI
 prior extrapolates it to three years of national data. That argues for widening the prior, not
 narrowing it, and it pulls against point 3. Deciding between them is judgment rather than code.</li>
-<li><strong>Expect the untested channels to move.</strong> With collinear media, pinning one coefficient shifts
-the others, and that is a feature rather than a bug.</li>
+<li><strong>Expect the untested channels to move, and check which way.</strong> With collinear media, pinning
+one coefficient shifts the others. That is mostly a feature, but the shift is reallocation
+rather than correction, and it can carry a channel past its true value as readily as toward it.
+Social overshot 1.50 in the sweep above.</li>
+<li><strong>For the channel you actually tested, report the test.</strong> Calibration earns its keep by
+propagating what the test implies about everything else. It is not a laundering step that turns
+the model’s number for the tested channel into a number you can trust.</li>
 </ol>
 </div>
 <div id="what-this-post-did-not-do" class="section level2">
@@ -1120,12 +1171,25 @@ with no R interface, and this is an R blog. But the mechanism does not live in M
 A posterior sitting between a sharp likelihood and a diffuse prior is a property of Bayesian
 updating, and it shows up in <code>stan_glm</code> for the same reason it would show up anywhere else. What
 Meridian’s hierarchical geo structure changes is the magnitude, not the direction.</p>
-<p>The other simplifications run the same way. This is a national linear MMM rather than the
+<p>Most of the other simplifications run the same way. This is a national linear MMM rather than the
 hierarchical geo-level model Meridian actually fits, the response carries no saturation curve,
-and the adstock rates are known rather than estimated. Every one of those makes the real problem
+and the adstock rates are known rather than estimated. Each of those makes the real problem
 harder, not easier. A saturation curve in particular makes ROI a function of spend level, so an
 experiment run at last year’s budget calibrates a point on the curve you may not be sitting on
 any more.</p>
+<p>One simplification runs the other way, and since it flatters the side I am arguing for it deserves
+naming. The geo experiment is generated without adstock. The blackout has no carryover, so the
+in-window ratio of the revenue difference to the spend difference recovers the truth cleanly. Put
+the same 0.6 carryover into the geo world and the identical estimator comes back near 1.8 rather
+than 2.0, biased low by roughly a tenth, because treated markets keep earning on spend that
+predates the blackout. A real geo test is noisier than this one and slightly biased in a direction
+this one is not.</p>
+<p>That cuts against the advice above rather than for it. If the test carries its own bias, the
+disagreement statistic is measuring the sum of two problems and the experiment stops being a clean
+anchor to calibrate against. The direction of the main result survives, because a gap of
+7.8 standard errors does not come out of a
+tenth of a dollar. The tidy version, where the experiment is simply right, is a property of the
+simulation rather than a promise about your next readout.</p>
 <p>None of which you have to take on faith. The repository is public and the disagreement test is
 one line of arithmetic. Run it against your own model and your own last geo test before you touch
 a prior.</p>

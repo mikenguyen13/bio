@@ -15,7 +15,7 @@ tags:
   - measurement
   - rstanarm
 subtitle: 'Everyone in 2026 says to feed your geo test into your MMM as a prior. On data where I set the true ROI myself, doing exactly that left the answer 77% too high.'
-summary: 'The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate only two thirds of the way to the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything.'
+summary: 'The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate about two thirds of the way to the experiment''s answer and then stopped, leaving it 77% above the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything.'
 authors: []
 lastmod: '2026-08-26T09:00:00-07:00'
 featured: no
@@ -110,10 +110,13 @@ Video returns `r round(v_naive, 2)` dollars per dollar against a truth of 2.00, 
 interval of [`r round(v_naive - 1.96 * v_se, 2)`, `r round(v_naive + 1.96 * v_se, 2)`]. Social
 comes back at `r round(cn["a_social", 1], 2)` with a p-value of `r round(cn["a_social", 4], 2)`,
 which in a real deck becomes the slide arguing that social does nothing. Its true return is 1.50.
+Search, which nobody is going to test, lands at `r round(cn["a_search", 1], 2)` against a truth of
+3.00, understated by a third. Keep that one in mind, because it decides how this story ends.
 
 This is the failure mode behind the [IAB's February 2026 State of Data report](https://www.iab.com/insights/2026-state-of-data-report/),
 where a majority of buy-side marketers said their measurement stack falls short on rigor and
-trust. The model is not noisy. It is precise and wrong.
+trust. The model is not uniformly noisy. On video it is precise and wrong, and precise and wrong
+is the combination that survives into a budget decision.
 
 ## What the experiment says
 
@@ -201,8 +204,16 @@ w_prior <- (1 / se_exp^2) / (1 / se_exp^2 + 1 / v_se^2)
 c(weight_on_experiment = w_prior, weight_on_model = 1 - w_prior)
 ```
 
-The experiment gets `r round(100 * w_prior)`% of the vote and the model keeps the rest. That
-split is defensible only if the MMM's standard error means what a standard error normally means.
+The experiment gets `r round(100 * w_prior)`% of the vote and the model keeps the rest.
+
+Take that split literally and it predicts a posterior of
+`r sprintf("%.2f", w_prior * roi_exp + (1 - w_prior) * v_naive)`. The fit returned
+`r sprintf("%.2f", coef(cal)["a_video"])`. The two do not match exactly because the other two
+coefficients carry priors of their own and the three media variables are collinear, so video's
+marginal posterior is not the one-parameter textbook case. The weighting is the mechanism rather
+than an identity, and it accounts for the direction and most of the magnitude.
+
+That split is defensible only if the MMM's standard error means what a standard error normally means.
 It does not. `r round(v_se, 2)` is the sampling error of a coefficient conditional on the
 specification being correct, and the specification is off by `r round(v_naive - 2, 1)` dollars
 per dollar. Setting the prior scale equal to the experiment's standard error is an implicit claim
@@ -224,12 +235,24 @@ sweep <- lapply(c(1, 1/2, 1/4, 1/10), function(f) {
 round(do.call(rbind, sweep), 3)
 ```
 
-At one tenth of the experimental standard error the posterior finally sits on the experiment, and
-search and social both move toward their true 3.00 and 1.50 on the way. Pinning one collinear
-channel reallocates the shared variance across the others, which is the genuinely useful part of
-calibration and the part that has nothing to do with the channel you tested.
+```{r sweep-numbers, include=FALSE}
+sw <- do.call(rbind, sweep)
+```
 
-But look at what tightening actually did. It did not improve the model. It deleted the model's
+At one tenth of the experimental standard error the posterior finally sits on the experiment. The
+untested channels move too, and that is the part worth watching. Search climbs from
+`r sprintf("%.2f", sw$search[1])` to `r sprintf("%.2f", sw$search[4])`, closing most of the
+distance to its true 3.00 without ever arriving. Social does something less comfortable. It
+starts `r sprintf("%.2f", 1.5 - sw$social[1])` below its true 1.50, crosses it by the second row,
+and finishes at `r sprintf("%.2f", sw$social[4])`, overshooting by about as much as it began
+short.
+
+So pinning one collinear channel does reallocate the shared variance across the others, and that
+is the genuinely useful part of calibration, the part that has nothing to do with the channel you
+tested. But it is reallocation rather than correction. The variance the media variables share has
+to land somewhere, and nothing in the procedure aims it at the truth.
+
+And look at what tightening actually did. It did not improve the model. It deleted the model's
 opinion and substituted the experiment's. That is a legitimate choice. It should be made
 deliberately rather than reached by tuning a scale parameter until the output looks reasonable.
 
@@ -237,7 +260,7 @@ deliberately rather than reached by tuning a scale parameter until the output lo
 
 The disagreement statistic said a variable was missing. Category search interest is a cheap and
 observable proxy for the demand pressure the media plan was chasing, correlated
-`r round(cor(trends, demand), 2)` with the real thing here:
+`r sprintf("%.2f", cor(trends, demand))` with the real thing here:
 
 ```{r proxy, results='hide'}
 cal_spec <- fit_cal(revenue ~ a_search + a_social + a_video + trends,
@@ -284,18 +307,57 @@ ggplot(long, aes(est, ypos, colour = method)) +
   theme(legend.position = "top", panel.grid.minor = element_blank())
 ```
 
+```{r results-numbers, include=FALSE}
+e_cal  <- setNames(abs(out$calibrated - out$truth), rownames(out))
+e_spec <- setNames(abs(out$spec_first - out$truth), rownames(out))
+```
+
 Mean absolute error across the three channels falls from
 `r round(mean(abs(out$mmm_alone - out$truth)), 2)` to
 `r round(mean(abs(out$calibrated - out$truth)), 2)` with the prior, and to
-`r round(mean(abs(out$spec_first - out$truth)), 2)` when the missing driver goes in first. Search
-recovers to `r round(out["search", "spec_first"], 2)` against a truth of 3.00. Calibration is
-worth doing. It is worth doing second.
+`r round(mean(abs(out$spec_first - out$truth)), 2)` when the missing driver goes in first.
+
+Now read the video row before celebrating that average. Video still sits at
+`r round(out["video", "spec_first"], 2)` against a truth of 2.00, which is
+`r round(100 * (out["video", "spec_first"] / 2 - 1))`% too high. The mean improved. The channel
+this entire post is about did not get fixed, and it is worth being exact about where the gain came
+from. Search is the one that genuinely recovers, from
+`r round(out["search", "calibrated"], 2)` to `r round(out["search", "spec_first"], 2)` against its
+true 3.00, an error of `r round(e_spec["search"], 2)`. Video improves by more in absolute terms,
+`r round(e_cal["video"] - e_spec["video"], 2)`, but from so much further away that it still
+carries an error of `r round(e_spec["video"], 2)`, more than twice the mean anyone would quote.
+Social moves the wrong way, from `r round(out["social", "calibrated"], 2)` to
+`r round(out["social", "spec_first"], 2)`.
+
+The reason video survives the repair is sitting in the proxy. `trends` correlates
+`r sprintf("%.2f", cor(trends, demand))` with real demand, so about a third of the confounder's variance
+is still unmodeled, and that residual keeps loading onto the one channel whose spend was written
+to chase demand. A noisy proxy buys a partial correction, roughly in proportion to how good the
+proxy is. It does not buy exoneration.
+
+Which leaves an uncomfortable ranking. For video, the four numbers available on this data are
+`r round(out["video", "mmm_alone"], 2)` from the MMM alone,
+`r round(out["video", "calibrated"], 2)` calibrated,
+`r round(out["video", "spec_first"], 2)` with the specification fixed first, and
+`r sprintf("%.2f", roi_exp)` from the experiment on its own. The experiment wins, and it was
+always going to win, because it is the only one of the four that never needed the specification to
+be right.
+
+So calibration is worth doing, and it is worth doing second. But neither ordering recovers the
+tested channel here, and that is the part the triangulation pitch leaves out. What this procedure
+reliably buys is the channels you did not test, where search went from
+`r round(out["search", "mmm_alone"], 2)` to `r round(out["search", "spec_first"], 2)`. What it
+does not buy is permission to keep reporting the model's number for the channel you did test. For
+that channel you already have a better number sitting in the test readout.
 
 ## What to do on Monday
 
 1. **Run the disagreement test before the calibration.** Divide the gap between model and
-   experiment by the square root of the summed squared standard errors. Under three, reconcile.
-   Over five, the model is misspecified and calibration will paper over it.
+   experiment by the square root of the summed squared standard errors. Under three, the two are
+   compatible and calibration is doing the job it was designed for. Between three and five, treat
+   it as a warning and go looking for the missing variable before you touch a prior. Over five, as
+   here at `r round((v_naive - roi_exp) / sqrt(v_se^2 + se_exp^2), 1)`, the model is misspecified
+   and calibration will paper over it rather than repair it.
 2. **Do not read an MMM standard error as total uncertainty.** It is conditional on a
    specification you may already have evidence against.
 3. **Treat the prior scale as a stated belief about relative credibility, not a default.** Setting
@@ -306,8 +368,13 @@ worth doing. It is worth doing second.
 5. **Remember the experiment measured one channel, in one window, in one set of markets.** An ROI
    prior extrapolates it to three years of national data. That argues for widening the prior, not
    narrowing it, and it pulls against point 3. Deciding between them is judgment rather than code.
-6. **Expect the untested channels to move.** With collinear media, pinning one coefficient shifts
-   the others, and that is a feature rather than a bug.
+6. **Expect the untested channels to move, and check which way.** With collinear media, pinning
+   one coefficient shifts the others. That is mostly a feature, but the shift is reallocation
+   rather than correction, and it can carry a channel past its true value as readily as toward it.
+   Social overshot 1.50 in the sweep above.
+7. **For the channel you actually tested, report the test.** Calibration earns its keep by
+   propagating what the test implies about everything else. It is not a laundering step that turns
+   the model's number for the tested channel into a number you can trust.
 
 ## What this post did not do
 
@@ -348,12 +415,27 @@ A posterior sitting between a sharp likelihood and a diffuse prior is a property
 updating, and it shows up in `stan_glm` for the same reason it would show up anywhere else. What
 Meridian's hierarchical geo structure changes is the magnitude, not the direction.
 
-The other simplifications run the same way. This is a national linear MMM rather than the
+Most of the other simplifications run the same way. This is a national linear MMM rather than the
 hierarchical geo-level model Meridian actually fits, the response carries no saturation curve,
-and the adstock rates are known rather than estimated. Every one of those makes the real problem
+and the adstock rates are known rather than estimated. Each of those makes the real problem
 harder, not easier. A saturation curve in particular makes ROI a function of spend level, so an
 experiment run at last year's budget calibrates a point on the curve you may not be sitting on
 any more.
+
+One simplification runs the other way, and since it flatters the side I am arguing for it deserves
+naming. The geo experiment is generated without adstock. The blackout has no carryover, so the
+in-window ratio of the revenue difference to the spend difference recovers the truth cleanly. Put
+the same 0.6 carryover into the geo world and the identical estimator comes back near 1.8 rather
+than 2.0, biased low by roughly a tenth, because treated markets keep earning on spend that
+predates the blackout. A real geo test is noisier than this one and slightly biased in a direction
+this one is not.
+
+That cuts against the advice above rather than for it. If the test carries its own bias, the
+disagreement statistic is measuring the sum of two problems and the experiment stops being a clean
+anchor to calibrate against. The direction of the main result survives, because a gap of
+`r round((v_naive - roi_exp) / sqrt(v_se^2 + se_exp^2), 1)` standard errors does not come out of a
+tenth of a dollar. The tidy version, where the experiment is simply right, is a property of the
+simulation rather than a promise about your next readout.
 
 None of which you have to take on faith. The repository is public and the disagreement test is
 one line of arithmetic. Run it against your own model and your own last geo test before you touch

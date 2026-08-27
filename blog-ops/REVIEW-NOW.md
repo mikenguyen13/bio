@@ -8,7 +8,8 @@
 | Target query | calibrate MMM with incrementality test |
 | Slot | Friday, filled with an industry/SEO post rather than an evergreen |
 | Freshness | Meridian generally available Jan 2025 (19 months). IAB State of Data 2026 published Feb 2026. Clears the rule. |
-| Status | committed and pushed as `draft: true`, so it is on GitHub but not on the live site (/post/calibrate-mmm-with-incrementality-test/ returns 404 by design) |
+| Status | **LIVE** at </post/calibrate-mmm-with-incrementality-test/> (`draft: false`, published 2026-08-26). Note the folder is named `2026-08-28-...` for the Friday slot but the front matter date is 2026-08-26, and the front matter is what Hugo uses. Do not forward-date it to the 28th, that would unpublish it. |
+| Amended | 2026-08-26, prose only. See "Post-publication correction" below. |
 | File | `content/post/2026-08-28-calibrate-mmm-with-incrementality-test/index.en.Rmd` |
 | Review page | <https://claude.ai/code/artifact/62aa2fe0-7faa-4877-98c2-c7357defa62f> |
 
@@ -52,6 +53,52 @@ running Meridian 1.8.0.
   calibrated estimate and the truth. So the result is not an artifact of the prior family. What
   remains untested is whether a hierarchical geo-level model shrinks the 77%. That paragraph is
   the one that decides whether the criticism reads as fair, so it is worth your eyes.
+
+## Post-publication correction, 2026-08-26
+
+A read-through of the live page found four claims that the post's own printed tables contradict.
+No code changed and no computed output changed. Every number re-rendered byte-identical, verified
+against an independent re-run. What changed is prose that was reading the tables wrong.
+
+1. **The front matter summary said the recipe moved the estimate "only two thirds of the way to
+   the truth."** It moved 65% of the way to *the experiment's answer* of 2.30, which is 60% of the
+   way to the truth of 2.00. The summary conflated the experiment with the truth, which is exactly
+   the conflation the post exists to attack. Rewritten.
+2. **The "fix the specification first" section declared victory on a mean and never showed the
+   video row.** With the proxy added, video is 3.02 against a truth of 2.00, still 51% high and
+   still worse than the experiment's own 2.30. The section quoted MAE 0.47 and search recovering
+   to 2.97 and stopped there, which is the single best cell in the table. It now states the video
+   result outright, decomposes where the MAE gain came from (search error 0.47 to 0.03, video
+   1.55 to 1.02, social slightly worse at 1.17 to 1.14), explains why video survives the repair
+   (the proxy correlates 0.80 with demand, so about a third of the confounder's variance is still
+   unmodeled and loads onto the channel whose spend chases demand), and ranks all four video
+   estimates honestly. The experiment wins.
+3. **The prior-sweep paragraph said search and social "both move toward" their true values.**
+   Search does, 2.53 to 2.84. Social crosses 1.50 by the second row and finishes at 1.74, so it
+   overshoots by about as much as it began short. Rewritten to say reallocation rather than
+   correction, with a matching change to Monday checklist point 6.
+4. **The precision-weighting section presented the 59/41 split as the explanation without
+   checking it.** The formula predicts 3.77 and the fit returned 3.55. The gap is collinearity
+   plus priors on the other two slopes, so video's marginal posterior is not the one-parameter
+   case. Now stated rather than left for a reader to catch.
+
+Two additions in the same pass:
+
+- **An undisclosed simplification that favored the post's own argument.** The geo experiment is
+  generated with no adstock, so the blackout has no carryover and the Wald estimator recovers the
+  truth cleanly. Putting the same 0.6 carryover into the geo world drops the identical estimator
+  to about 1.8 against a truth of 2.0, biased low by roughly a tenth, because treated markets keep
+  earning on pre-blackout spend. Verified by simulation, 400 replications. This one makes the
+  experiment look better than a real one would, which is the side the post argues for, so leaving
+  it out was the strongest fair attack available on the post. It is now named in "What this post
+  did not do" along with what it does and does not cost the conclusion.
+- **The disagreement test had a hole in its own rule.** Checklist point 1 said "under three,
+  reconcile. Over five, misspecified" and said nothing about three to five. Filled in. A seventh
+  checklist point was added: for the channel you actually tested, report the test.
+
+Net effect on the thesis: unchanged and better defended. The headline result (77% high after
+calibration, 7.8 standard errors of disagreement) was always correct. What was wrong was the
+constructive half overselling its own fix.
 
 ## Correction to the previous entry
 
