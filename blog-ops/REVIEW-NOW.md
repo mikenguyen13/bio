@@ -8,7 +8,7 @@
 | Target query | calibrate MMM with incrementality test |
 | Slot | Friday, filled with an industry/SEO post rather than an evergreen |
 | Freshness | Meridian generally available Jan 2025 (19 months). IAB State of Data 2026 published Feb 2026. Clears the rule. |
-| Status | rendered, `draft: true`, not committed |
+| Status | committed and pushed as `draft: true`, so it is on GitHub but not on the live site (/post/calibrate-mmm-with-incrementality-test/ returns 404 by design) |
 | File | `content/post/2026-08-28-calibrate-mmm-with-incrementality-test/index.en.Rmd` |
 | Review page | <https://claude.ai/code/artifact/62aa2fe0-7faa-4877-98c2-c7357defa62f> |
 
@@ -23,15 +23,17 @@ The constructive half: run the disagreement test first, use a failed test to fin
 variable, then calibrate. Mean absolute error across three channels goes 2.07 (MMM alone), 0.78
 (calibrated), 0.47 (specification fixed first).
 
-Nothing in this post is unverified. There is no Python block.
+Nothing in this post is unverified. Six `stan_glm` fits in R, plus one executed Python chunk
+running Meridian 1.8.0.
 
 ### The three questions, with what I would look at
 
 1. **Is the claim right?** The numbers are real, but this post argues against the current
-   industry consensus and names Google's Meridian documentation while doing it. The post is
-   careful to say the recipe helps (MAE more than halves) and that the demo is a linear national
-   MMM rather than Meridian's hierarchical geo model. Check that the criticism reads as fair
-   rather than as a straw man, because that is the one thing that would embarrass you.
+   industry consensus and names Google's Meridian while doing it. The post is careful to say the
+   recipe helps (MAE more than halves), links the public repo, and now carries a section headed
+   "What this post did not do" separating the recipe (tested) from Meridian's own model (not
+   fitted). Check that the criticism reads as fair rather than as a straw man, because that is
+   the one thing that would embarrass you.
 2. **Is the hook right?** It leads on "I ran that recipe on data where I picked the true ROI
    myself. The experiment was right. The calibrated model was not."
 3. **Ship, fix, or kill?**
@@ -43,12 +45,13 @@ Nothing in this post is unverified. There is no Python block.
   post says so explicitly rather than hiding it. Confirm you are happy admitting that.
 - The bias magnitude is a choice. Video loads on unlogged demand hard enough to produce a 194%
   overstatement. Realistic for MMM, but a skeptic could call it staged.
-- I did not run Meridian, and an early draft of this post never said so. Meridian is
-  Apache-licensed Python (v1.8.0, no R interface) at <https://github.com/google/meridian>, and
-  there is no working Python on this machine. The post now carries a section headed "What this
-  post did not do" that states the scope limit outright, links the repo, and explains that the
-  mechanism is a property of Bayesian updating rather than of Meridian's code. Worth a look,
-  because it is the paragraph that decides whether the criticism reads as fair.
+- I did not fit Meridian's own model, and an early draft never said so. That is now stated
+  outright in "What this post did not do". Meridian 1.8.0 **is** installed and running here, and
+  the post uses it to kill the strongest objection: its lognormal ROI prior and the normal prior
+  used in the post differ by at most 0.055 across the central 95%, against a 1.55 gap between the
+  calibrated estimate and the truth. So the result is not an artifact of the prior family. What
+  remains untested is whether a hierarchical geo-level model shrinks the 77%. That paragraph is
+  the one that decides whether the criticism reads as fair, so it is worth your eyes.
 
 ## Correction to the previous entry
 
