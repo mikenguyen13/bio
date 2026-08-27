@@ -29,9 +29,26 @@ your audience actually is: analytics leads who read papers, and academics who wa
 methods used.
 
 - [x] **Staggered geo rollouts break TWFE.** SHIPPED 2026-08-20 as an EVERGREEN, not a trend. See POSTS-LOG.md.
-- [ ] **Calibrating MMM with geo experiments.** MMM investment is up sharply for 2026 and the
-      defensible setups anchor the model to experimental ground truth. Show the calibration
-      step concretely: priors from a geo lift test, then the MMM. R + Python.
+- [x] **Calibrating MMM with geo experiments.** SHIPPED 2026-08-28, and the angle inverted on
+      contact with the data. The recommended recipe (prior mean and scale taken straight from
+      the experiment) left video ROI 77% high, because the misspecified MMM likelihood is
+      sharper than the experiment. See POSTS-LOG.md. Two follow-ups fell out of it and are
+      listed below.
+- [ ] **The disagreement statistic as a standing MMM diagnostic.** This post introduced it in
+      one line. It deserves its own short evergreen: how far apart can a model and an
+      experiment be before the model is disqualified, and what to do at each threshold.
+- [ ] **Saturation curves change what an ROI prior even means.** The calibration post used a
+      linear response so ROI was a single number. Under a Hill curve, ROI depends on spend
+      level, and an experiment run at last year's budget calibrates the wrong point on the
+      curve. Nobody writes this down. The calibration post gives this one sentence, so the
+      follow-up has room to do it properly with an actual Hill curve.
+- [ ] **Meridian in anger, from R.** UNBLOCKED 2026-08-26. Meridian 1.8.0 is installed in the
+      blog venv and runs, `reticulate` reaches it, and `{python}` chunks execute at render time.
+      The calibration post only touches its prior helper. The real post is fitting an actual
+      Meridian model from an R workflow and rerunning this post's experiment against it, which
+      would answer the one question the calibration post has to leave open: how much of the
+      77% overstatement survives a hierarchical geo-level model. Nobody has written Meridian
+      from R at all, so the search window is wide open.
 - [ ] **LLMs as synthetic survey respondents, and where they break.**
       Very hot in academic marketing. Run a small conjoint, compare LLM respondents against
       a human benchmark, report where WTP estimates diverge. High attention, high citation
@@ -64,7 +81,12 @@ methods used.
 
 Append the moment something costs you time. One line is enough.
 
-- [ ] (add here)
+- [x] 2026-08-26: `geom_segment()` with numeric `y`/`yend` against a discrete y axis throws
+      "Example values: search, social, and video" from `scale_y_continuous`. Dodge by hand onto
+      a continuous axis with `scale_y_continuous(breaks =, labels =)` instead.
+- [ ] 2026-08-26: `bookdown.org/mike/*` now 301 redirects to
+      `mike-data-analysis.share.connect.posit.cloud`. Links still resolve, so no action is
+      forced, but every book CTA on the site is one hop from broken if that redirect lapses.
 
 ## SALVAGE (thin existing posts worth rebuilding)
 
@@ -142,3 +164,11 @@ Commercial intent, low competition, and Mike has the tooling:
 Roughly one industry or SEO post for every academic or method post. The Tuesday slot leans
 trend and industry, the Friday slot leans evergreen and method. Neither slot is required to
 be academic.
+
+## RESOLVED FRICTION (2026-08-26)
+
+- **"There is no working Python here" was wrong for weeks and blocked real work.** `uv` was
+  already installed and already had four CPython builds. The Microsoft Store stub on the PATH
+  and the broken WSL were both real, and both were dead ends that nobody looked past. Lesson
+  worth keeping: when an environment note says something is impossible, check whether it says
+  *impossible* or just *the first two things I tried failed*.

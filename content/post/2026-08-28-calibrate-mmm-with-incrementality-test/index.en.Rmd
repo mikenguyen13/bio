@@ -1,0 +1,367 @@
+---
+title: "Calibrating a Marketing Mix Model With an Incrementality Test in R: Why the Experiment Loses"
+author: Mike Nguyen
+date: '2026-08-28'
+slug: calibrate-mmm-with-incrementality-test
+categories:
+  - R
+  - Causal Inference
+  - Marketing Analytics
+tags:
+  - marketing mix modeling
+  - incrementality
+  - geo experiments
+  - Bayesian
+  - measurement
+  - rstanarm
+subtitle: 'Everyone in 2026 says to feed your geo test into your MMM as a prior. On data where I set the true ROI myself, doing exactly that left the answer 77% too high.'
+summary: 'The 2026 measurement consensus is triangulation: calibrate the MMM with an incrementality test. On simulated data with a known answer, the recommended recipe moved a badly biased ROI estimate only two thirds of the way to the truth. The prior lost to the likelihood, because a misspecified MMM is confidently wrong. Here is the diagnostic to run before you calibrate anything.'
+authors: []
+lastmod: '2026-08-28T09:00:00-07:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE, warning = FALSE,
+                      fig.width = 7, fig.height = 3.6, dpi = 150,
+                      # NOT the default `*_files/figure-html/`. The ignoreFiles
+                      # setting in config.toml drops `_files$`, so images written
+                      # there never reach the published site.
+                      fig.path = "figs/")
+```
+
+Every measurement roadmap published this year lands on the same advice. Stop arguing about
+marketing mix modeling versus incrementality testing and triangulate instead. Run the geo test,
+turn its result into a prior, and let the MMM reconcile itself against experimental ground truth.
+This is not vague advice any more, which is what makes it worth testing. Google's Meridian is
+the reference implementation, it replaced the deprecated LightweightMMM in January 2025, and the
+whole thing is public: Apache-licensed Python at
+[github.com/google/meridian](https://github.com/google/meridian), with the calibration path
+[documented step by step](https://developers.google.com/meridian/docs/advanced-modeling/set-custom-priors-past-experiments).
+Its helper for the job takes the experiment's point estimate as the prior mean and the
+experiment's standard error as the prior standard deviation.
+
+I ran that recipe on simulated data where I picked the true ROI myself. The experiment was right.
+The calibrated model was not.
+
+```{r simulate}
+library(rstanarm)
+library(ggplot2)
+options(mc.cores = 4)
+set.seed(20260826)
+
+n <- 156                                   # three years of weekly national data
+ar1 <- function(n, rho) as.numeric(stats::filter(rnorm(n), rho, method = "recursive"))
+z <- function(x) as.numeric(scale(x))
+
+demand <- z(ar1(n, 0.80))   # category demand, promo pressure, competitor pullback: UNLOGGED
+budget <- z(ar1(n, 0.90))   # the total media budget cycle, which moves every channel at once
+
+search <- pmax(60 + 12 * budget + 8 * z(ar1(n, .4)), 5)
+social <- pmax(45 + 10 * budget + 6 * z(ar1(n, .4)), 5)
+video  <- pmax(35 +  7 * budget + 5 * z(ar1(n, .4)) + 6 * demand, 5)
+```
+
+The only editorial choice in there is the last one. Video spend loads on `demand`, because media
+plans are written by people who push harder into a strong quarter. Nobody logged that variable,
+so the MMM cannot condition on it. That is the entire disease.
+
+Geometric adstock, normalized so a channel's coefficient reads directly as revenue per dollar of
+spend:
+
+```{r response}
+adstock <- function(x, rate) {
+  as.numeric(stats::filter(x, rate, method = "recursive")) * (1 - rate)
+}
+
+a_search <- adstock(search, 0.3)
+a_social <- adstock(social, 0.5)
+a_video  <- adstock(video,  0.6)
+
+roi <- c(search = 3.0, social = 1.5, video = 2.0)          # the answers, chosen by me
+
+revenue <- 800 + roi["search"] * a_search + roi["social"] * a_social +
+  roi["video"] * a_video + 45 * demand + rnorm(n, 0, 25)
+
+trends <- z(demand + rnorm(n, 0, 0.75))    # a noisy but observable proxy, used later
+mmm <- data.frame(revenue, a_search, a_social, a_video, trends)[13:n, ]
+```
+
+## What the MMM says
+
+```{r naive}
+naive <- lm(revenue ~ a_search + a_social + a_video, data = mmm)
+round(summary(naive)$coefficients, 3)
+```
+
+```{r naive-numbers, include=FALSE}
+cn <- summary(naive)$coefficients
+v_naive <- cn["a_video", 1]
+v_se <- cn["a_video", 2]
+```
+
+Video returns `r round(v_naive, 2)` dollars per dollar against a truth of 2.00, with a 95%
+interval of [`r round(v_naive - 1.96 * v_se, 2)`, `r round(v_naive + 1.96 * v_se, 2)`]. Social
+comes back at `r round(cn["a_social", 1], 2)` with a p-value of `r round(cn["a_social", 4], 2)`,
+which in a real deck becomes the slide arguing that social does nothing. Its true return is 1.50.
+
+This is the failure mode behind the [IAB's February 2026 State of Data report](https://www.iab.com/insights/2026-state-of-data-report/),
+where a majority of buy-side marketers said their measurement stack falls short on rigor and
+trust. The model is not noisy. It is precise and wrong.
+
+## What the experiment says
+
+Half of 120 markets go dark on video for eight weeks. Assignment is random, so the ratio of the
+revenue difference to the spend difference estimates incremental ROI with no modeling assumption
+at all.
+
+```{r experiment}
+set.seed(99)
+n_geo <- 120
+weeks <- 8
+
+treat     <- rep(0:1, each = n_geo / 2)[sample(n_geo)]
+mkt_rate  <- runif(n_geo, 0.4, 1.6)        # normal weekly video spend per market
+base_rate <- rnorm(n_geo, 10, 1.5)         # baseline weekly revenue per market
+spend_tot <- ifelse(treat == 1, 0, mkt_rate * weeks)
+rev_tot   <- base_rate * weeks + roi["video"] * spend_tot + rnorm(n_geo, 0, 6)
+
+wald <- function(y, s, tr) {
+  (mean(y[tr == 0]) - mean(y[tr == 1])) / (mean(s[tr == 0]) - mean(s[tr == 1]))
+}
+
+roi_exp <- wald(rev_tot, spend_tot, treat)
+se_exp <- sd(replicate(2000, {
+  i <- sample(n_geo, replace = TRUE)
+  wald(rev_tot[i], spend_tot[i], treat[i])
+}))
+
+c(estimate = roi_exp, se = se_exp,
+  lo = roi_exp - 1.96 * se_exp, hi = roi_exp + 1.96 * se_exp)
+```
+
+The experiment lands at `r sprintf("%.2f", roi_exp)` with an interval that covers the true 2.00. It is
+unbiased and vague. The MMM is biased and sharp. That asymmetry is the whole problem, and it is
+the thing the triangulation advice never quantifies.
+
+## The disagreement is the finding
+
+Before reconciling two numbers, check whether they are reconcilable.
+
+```{r disagree}
+(v_naive - roi_exp) / sqrt(v_se^2 + se_exp^2)
+```
+
+The model and the experiment disagree by
+`r round((v_naive - roi_exp) / sqrt(v_se^2 + se_exp^2), 1)` standard errors. Sampling variation
+does not produce that. Only misspecification does. At this point the honest reading is that the
+MMM is broken, and a broken model is not a thing you average against.
+
+## Calibrate anyway
+
+Here is the recommended move. A normal prior on the video coefficient, centered on the
+experiment, with the experiment's standard error as the prior scale. The untested channels keep
+weak priors.
+
+```{r calibrate, results='hide'}
+fit_cal <- function(form, loc, sc, dat = mmm) {
+  stan_glm(form, data = dat,
+           prior           = normal(loc, sc, autoscale = FALSE),
+           prior_intercept = normal(0, 500, autoscale = FALSE),
+           seed = 1, refresh = 0, chains = 2, iter = 1500)
+}
+
+cal <- fit_cal(revenue ~ a_search + a_social + a_video,
+               loc = c(0, 0, roi_exp), sc = c(10, 10, se_exp))
+```
+
+```{r calibrate-show}
+round(coef(cal)[-1], 3)
+```
+
+Video comes out at `r sprintf("%.2f", coef(cal)["a_video"])`. The experiment said
+`r sprintf("%.2f", roi_exp)`. The truth is 2.00. Calibration moved the estimate about
+`r round(100 * (v_naive - coef(cal)["a_video"]) / (v_naive - roi_exp))`% of the way to the
+experimental answer and then stopped, leaving video overstated by
+`r round(100 * (coef(cal)["a_video"] / 2 - 1))`%.
+
+## The prior did not lose an argument, it lost an arithmetic problem
+
+A posterior for a coefficient is close to a precision-weighted average of the prior and the
+likelihood. The prior carries precision `1 / se_exp^2`. The likelihood carries `1 / v_se^2`.
+
+```{r weights}
+w_prior <- (1 / se_exp^2) / (1 / se_exp^2 + 1 / v_se^2)
+c(weight_on_experiment = w_prior, weight_on_model = 1 - w_prior)
+```
+
+The experiment gets `r round(100 * w_prior)`% of the vote and the model keeps the rest. That
+split is defensible only if the MMM's standard error means what a standard error normally means.
+It does not. `r round(v_se, 2)` is the sampling error of a coefficient conditional on the
+specification being correct, and the specification is off by `r round(v_naive - 2, 1)` dollars
+per dollar. Setting the prior scale equal to the experiment's standard error is an implicit claim
+that model and experiment are about equally credible, and the disagreement test already rejected
+that claim.
+
+Tighten the prior and the arithmetic changes:
+
+```{r sweep, results='hide'}
+sweep <- lapply(c(1, 1/2, 1/4, 1/10), function(f) {
+  m <- fit_cal(revenue ~ a_search + a_social + a_video,
+               loc = c(0, 0, roi_exp), sc = c(10, 10, se_exp * f))
+  data.frame(prior_sd = se_exp * f, video = unname(coef(m)["a_video"]),
+             search = unname(coef(m)["a_search"]), social = unname(coef(m)["a_social"]))
+})
+```
+
+```{r sweep-show}
+round(do.call(rbind, sweep), 3)
+```
+
+At one tenth of the experimental standard error the posterior finally sits on the experiment, and
+search and social both move toward their true 3.00 and 1.50 on the way. Pinning one collinear
+channel reallocates the shared variance across the others, which is the genuinely useful part of
+calibration and the part that has nothing to do with the channel you tested.
+
+But look at what tightening actually did. It did not improve the model. It deleted the model's
+opinion and substituted the experiment's. That is a legitimate choice. It should be made
+deliberately rather than reached by tuning a scale parameter until the output looks reasonable.
+
+## Fix the specification first, then calibrate
+
+The disagreement statistic said a variable was missing. Category search interest is a cheap and
+observable proxy for the demand pressure the media plan was chasing, correlated
+`r round(cor(trends, demand), 2)` with the real thing here:
+
+```{r proxy, results='hide'}
+cal_spec <- fit_cal(revenue ~ a_search + a_social + a_video + trends,
+                    loc = c(0, 0, roi_exp, 0), sc = c(10, 10, se_exp, 100))
+```
+
+```{r results}
+out <- data.frame(
+  truth      = roi,
+  mmm_alone  = coef(naive)[-1],
+  calibrated = coef(cal)[-1],
+  spec_first = coef(cal_spec)[2:4]
+)
+round(out, 2)
+
+round(sapply(out[-1], function(x) mean(abs(x - out$truth))), 3)   # mean absolute error
+```
+
+```{r plot, echo=FALSE}
+long <- data.frame(
+  channel = rep(rownames(out), 3),
+  method  = rep(c("MMM alone", "MMM + experiment prior",
+                  "Specification fixed, then prior"), each = 3),
+  est     = c(out$mmm_alone, out$calibrated, out$spec_first)
+)
+lev <- rownames(out)
+meths <- unique(long$method)
+long$method <- factor(long$method, levels = meths)
+# Dodge by hand so the truth marker can span all three points on a continuous axis.
+long$ypos <- match(long$channel, lev) - (match(long$method, meths) - 2) * 0.22
+truth_df <- data.frame(y = seq_along(lev), est = out$truth)
+
+ggplot(long, aes(est, ypos, colour = method)) +
+  geom_segment(data = truth_df, inherit.aes = FALSE,
+               aes(x = est, xend = est, y = y - 0.38, yend = y + 0.38),
+               colour = "grey30", linewidth = 0.9) +
+  geom_point(size = 3) +
+  scale_y_continuous(breaks = seq_along(lev), labels = lev,
+                     limits = c(0.5, length(lev) + 0.5)) +
+  scale_colour_manual(values = c("#B4453C", "#D9964A", "#2F7D74"), name = NULL) +
+  labs(x = "estimated revenue per dollar of spend", y = NULL,
+       caption = "Grey bar marks the true ROI.") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top", panel.grid.minor = element_blank())
+```
+
+Mean absolute error across the three channels falls from
+`r round(mean(abs(out$mmm_alone - out$truth)), 2)` to
+`r round(mean(abs(out$calibrated - out$truth)), 2)` with the prior, and to
+`r round(mean(abs(out$spec_first - out$truth)), 2)` when the missing driver goes in first. Search
+recovers to `r round(out["search", "spec_first"], 2)` against a truth of 3.00. Calibration is
+worth doing. It is worth doing second.
+
+## What to do on Monday
+
+1. **Run the disagreement test before the calibration.** Divide the gap between model and
+   experiment by the square root of the summed squared standard errors. Under three, reconcile.
+   Over five, the model is misspecified and calibration will paper over it.
+2. **Do not read an MMM standard error as total uncertainty.** It is conditional on a
+   specification you may already have evidence against.
+3. **Treat the prior scale as a stated belief about relative credibility, not a default.** Setting
+   it to the experiment's standard error is a claim, and often the wrong one.
+4. **Spend a failed test on finding the missing variable.** Pricing, promotion calendars,
+   distribution, competitor activity, category search interest. The gap between model and
+   experiment points at whichever one you forgot.
+5. **Remember the experiment measured one channel, in one window, in one set of markets.** An ROI
+   prior extrapolates it to three years of national data. That argues for widening the prior, not
+   narrowing it, and it pulls against point 3. Deciding between them is judgment rather than code.
+6. **Expect the untested channels to move.** With collinear media, pinning one coefficient shifts
+   the others, and that is a feature rather than a bug.
+
+## What this post did not do
+
+I did not fit a Meridian model. What I tested is the recipe, meaning an ROI prior centered on an
+experiment with the experiment's standard error as its scale, and not the software that
+recommends it. The distinction matters, so here is the honest version of the gap.
+
+One piece of it is checkable directly, and it is the piece most likely to be wrong. Meridian's
+ROI prior is lognormal. Mine is normal. That is exactly the substitution that invites the
+objection that the whole result is an artifact of the wrong prior family, so here is Meridian's
+own helper run on this post's experiment values:
+
+```{python meridian-prior}
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"     # tensorflow is chatty on import
+
+import meridian
+from meridian.model.prior_distribution import lognormal_dist_from_mean_std
+from scipy import stats
+
+m, s = float(r.roi_exp), float(r.se_exp)     # the geo experiment, straight from R above
+
+ln = lognormal_dist_from_mean_std(m, s)
+gap = max(abs(float(ln.quantile(q)) - stats.norm.ppf(q, m, s))
+          for q in (0.025, 0.25, 0.5, 0.75, 0.975))
+
+print(f"meridian {meridian.__version__}")
+print(f"largest prior gap, lognormal vs normal: {gap:.3f}")
+```
+
+Across the central 95% of the prior the two families differ by at most that much, against a gap
+of `r round(coef(cal)["a_video"] - 2, 2)` between the calibrated estimate and the truth. The
+prior family is not what drives the result. The precision is.
+
+What I did not do is fit Meridian's actual model, and that is a real limit. Meridian is Python
+with no R interface, and this is an R blog. But the mechanism does not live in Meridian's code.
+A posterior sitting between a sharp likelihood and a diffuse prior is a property of Bayesian
+updating, and it shows up in `stan_glm` for the same reason it would show up anywhere else. What
+Meridian's hierarchical geo structure changes is the magnitude, not the direction.
+
+The other simplifications run the same way. This is a national linear MMM rather than the
+hierarchical geo-level model Meridian actually fits, the response carries no saturation curve,
+and the adstock rates are known rather than estimated. Every one of those makes the real problem
+harder, not easier. A saturation curve in particular makes ROI a function of spend level, so an
+experiment run at last year's budget calibrates a point on the curve you may not be sitting on
+any more.
+
+None of which you have to take on faith. The repository is public and the disagreement test is
+one line of arithmetic. Run it against your own model and your own last geo test before you touch
+a prior.
+
+---
+
+*Omitted variable bias, why it survives a model that fits well, and what an experiment can and
+cannot repair are covered in the
+[endogeneity chapter](https://bookdown.org/mike/data_analysis/sec-endogeneity.html)
+of A Guide on Data Analysis.*
