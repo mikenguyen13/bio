@@ -103,16 +103,35 @@ than a new post and improves an existing URL.
 
 ## SITE BUGS (found 2026-08-19)
 
-- [ ] **Three live posts have broken plot images.** `config.toml` sets
-      `ignoreFiles = [... "_files$" ...]`, so knitr's default `*_files/figure-html/` output is
-      never copied to `public/`. The HTML still links to it. Affected:
-      `2021-08-16-create-your-own-hexagon-in-r`, `2022-03-03-johnson-neyman-for-meta-analysis`,
-      `r-rmarkdown`. Fix is `fig.path = "figs/"` in the setup chunk (now standard in the
-      template) plus a re-render. Held back because re-rendering 2021 code under 2026 package
-      versions may change more than the figure path, so your call.
+- [ ] **Broken plot images. Re-audited 2026-08-26 against `public/` and against the live site,
+      and the earlier entry undercounted.** `config.toml` sets `ignoreFiles = [... "_files$" ...]`,
+      so knitr's default `*_files/figure-html/` output never reaches `public/` while the HTML
+      still links to it. Every reference below was confirmed 404 on the live site.
+
+      Real posts, three as originally listed:
+      `2021-08-16-create-your-own-hexagon-in-r` (absolute-URL ref, so a naive grep for relative
+      `src=` misses it), `2022-03-03-johnson-neyman-for-meta-analysis` (same), and `r-rmarkdown`.
+
+      Fix is `fig.path = "figs/"` in the setup chunk (now standard in the template) plus a
+      re-render. Still held back because re-rendering 2021 code under 2026 package versions may
+      change more than the figure path, so your call.
+- [ ] **Three orphaned duplicate URLs of the same demo post are live with no source.**
+      `content/post/r-rmarkdown/` is the stock blogdown demo ("Hello R Markdown", 2020-11-23),
+      and it is published four times: `/post/r-rmarkdown/`, `/post/hello-r-markdown/`,
+      `/post/2015-07-23-r-rmarkdown/`, and `/post/copyofr-rmarkdown/`. Only the first has a
+      source in `content/`. The other three are committed `index.html` files in `public/` that
+      Hugo does not manage and therefore never cleans, so they will survive every rebuild
+      forever. All four have broken images. Deleting the three orphans is a `git rm` of
+      `public/post/{hello-r-markdown,2015-07-23-r-rmarkdown,copyofr-rmarkdown}` and removes
+      nothing that any source generates, but it does remove live URLs, so your call.
+- [ ] **Two theme demo posts link a dead external image.**
+      `getting-started` and `academic-the-website-builder-for-hugo` both embed
+      `raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png`, which 404s. Moot if
+      the demo posts get deleted, which is the item below.
 - [ ] **Academic theme demo posts still live**: `getting-started`,
-      `writing-technical-content`, `jupyter`. Same category of demo content you removed
-      elsewhere in recent commits. Deleting published URLs is your call.
+      `writing-technical-content`, `jupyter`, and now also the whole `r-rmarkdown` family above,
+      which is stock blogdown demo content rather than anything you wrote. Same category of demo
+      content you removed elsewhere in recent commits. Deleting published URLs is your call.
 
 ## INDUSTRY AND SEO TRACK (added 2026-08-20)
 
