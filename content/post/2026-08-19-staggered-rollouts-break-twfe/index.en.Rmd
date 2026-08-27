@@ -193,7 +193,7 @@ Nothing here is an R problem. It is a data problem, and the identical bias appea
 Python. For a balanced panel you don't even need a package, because the two-way within
 estimator is just OLS on the double-demeaned series.
 
-```python
+```{python twfe-python}
 import numpy as np, pandas as pd
 
 rng = np.random.default_rng(2026)

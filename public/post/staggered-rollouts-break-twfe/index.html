@@ -1006,7 +1006,9 @@ y, d = twoway_demean(&quot;sales&quot;), twoway_demean(&quot;treated&quot;)
 twfe = (d @ y) / (d @ d)
 
 print(f&quot;True ATT : {df.loc[df.treated == 1, &#39;tau&#39;].mean():.3f}&quot;)
-print(f&quot;TWFE     : {twfe:.3f}&quot;)</code></pre>
+## True ATT : 1.634
+print(f&quot;TWFE     : {twfe:.3f}&quot;)
+## TWFE     : 0.919</code></pre>
 <p>Same understatement, different random draws. R and NumPy do not share a generator, so the
 digits will not match, only the conclusion. For the Callaway-Sant’Anna estimator itself,
 Python has <a href="https://github.com/bernardodionisi/differences"><code>differences</code></a> and

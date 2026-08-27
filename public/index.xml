@@ -356,7 +356,9 @@ y, d = twoway_demean(&amp;quot;sales&amp;quot;), twoway_demean(&amp;quot;treated
 twfe = (d @ y) / (d @ d)
 
 print(f&amp;quot;True ATT : {df.loc[df.treated == 1, &amp;#39;tau&amp;#39;].mean():.3f}&amp;quot;)
-print(f&amp;quot;TWFE     : {twfe:.3f}&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+## True ATT : 1.634
+print(f&amp;quot;TWFE     : {twfe:.3f}&amp;quot;)
+## TWFE     : 0.919&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Same understatement, different random draws. R and NumPy do not share a generator, so the
 digits will not match, only the conclusion. For the Callaway-Sant’Anna estimator itself,
 Python has &lt;a href=&#34;https://github.com/bernardodionisi/differences&#34;&gt;&lt;code&gt;differences&lt;/code&gt;&lt;/a&gt; and
@@ -3753,7 +3755,7 @@ data.head()
 &lt;p&gt;Demo:&lt;/p&gt;
 
 
-&lt;div id=&#34;chart-183427659&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
+&lt;div id=&#34;chart-561829473&#34; class=&#34;chart&#34;&gt;&lt;/div&gt;
 &lt;script&gt;
   (function() {
     let a = setInterval( function() {
@@ -3763,7 +3765,7 @@ data.head()
       clearInterval( a );
 
       Plotly.d3.json(&#34;./line-chart.json&#34;, function(chart) {
-        Plotly.plot(&#39;chart-183427659&#39;, chart.data, chart.layout, {responsive: true});
+        Plotly.plot(&#39;chart-561829473&#39;, chart.data, chart.layout, {responsive: true});
       });
     }, 500 );
   })();
