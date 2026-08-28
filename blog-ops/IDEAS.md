@@ -67,7 +67,19 @@ methods used.
 
 ## EVERGREEN (search traffic that compounds)
 
-- [ ] Power analysis for interaction effects (the thing everyone underpowers)
+- [~] Power analysis for interaction effects (the thing everyone underpowers). DRAFTED 2026-08-28,
+      awaiting review. Headline: a study sized for 80% power on the main effect has 15% power on
+      the interaction, and the significant ones exaggerate by 2.6x. Two follow-ups fell out of it,
+      listed immediately below.
+- [ ] **Type M and Type S error for any experiment, not just interactions.** The interaction post
+      shows the significance filter inflating a subgroup effect 2.6x and spends four sentences on
+      it. The general version (Gelman and Carlin design analysis, `retrodesign`) applies to every
+      underpowered test on the site and to most A/B readouts. It answers the question people
+      actually have, which is what to believe about a result that already came back significant.
+- [ ] **Interaction power under cluster randomization.** The interaction post assumes independent
+      observations. Geo tests randomize markets, so the design effect multiplies the 4x variance
+      penalty by another `1 + (m - 1) * ICC`. That compounding is why geo tests essentially never
+      resolve a moderator, and it connects directly to the geo experiments item above.
 - [ ] Fixed effects vs. random effects, decided by what you're estimating not by a Hausman test
 - [ ] Clustered standard errors: which level, and what happens when you get it wrong
 - [ ] Multiple testing in marketing experiments without killing your power
@@ -87,6 +99,12 @@ Append the moment something costs you time. One line is enough.
 - [ ] 2026-08-26: `bookdown.org/mike/*` now 301 redirects to
       `mike-data-analysis.share.connect.posit.cloud`. Links still resolve, so no action is
       forced, but every book CTA on the site is one hop from broken if that redirect lapses.
+- [x] 2026-08-28: **the em dash style check can report a false pass.** `grep -P` is unavailable in
+      this Git Bash ("-P supports only unibyte and UTF-8 locales"), so the usual
+      `grep -P '[\x{2013}\x{2014}]' file || echo CLEAN` prints CLEAN because grep *errored*, not
+      because the file was clean. Check with fixed strings instead, from an R script file rather
+      than `Rscript -e`, which segfaults here. Working version at
+      `blog-ops/stylecheck.R`.
 
 ## SALVAGE (thin existing posts worth rebuilding)
 

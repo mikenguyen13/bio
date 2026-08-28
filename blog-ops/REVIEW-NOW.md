@@ -1,6 +1,55 @@
 # Review Queue
 
-## Awaiting review: Friday 2026-08-28 industry post
+## Awaiting review: 2026-08-28 evergreen method post
+
+| | |
+|---|---|
+| Title | Power Analysis for Interaction Effects in R: Your 80% Powered Experiment Is 15% Powered for the Moderator |
+| Target query | power analysis for interaction effects in R |
+| Slot | Extra post, written on request. Restores the academic/method half of the one-for-one mix after the MMM industry post. |
+| Freshness | Not claimed. The SE-doubling result is textbook and the Type M framing traces to Gelman and Carlin, so this is filed evergreen rather than dressed as a trend. |
+| Status | **DRAFT** (`draft: true`). Rendered and rebuilt, so it is not on the live site until the flag flips. |
+| File | `content/post/2026-08-28-power-analysis-for-interaction-effects-in-r/index.en.Rmd` |
+
+Headline: size a study for 80% power on a treatment effect of 0.30 and you get 352 people. That
+same study has 15% power to detect whether the effect differs between two segments. The standard
+error of an interaction is exactly twice the standard error of a main effect, which is structural
+and no design fixes it, and the interaction is usually the smaller quantity. The multiplier is
+`4 * (main / interaction)^2`, so the folklore "16x" is just the special case where the
+interaction is half the main effect. Here it is 9x.
+
+The part that makes it worse than low power: among the runs that clear p < 0.05, the average
+estimate is 0.53 against a truth of 0.20, a 2.6x exaggeration. Underpowered subgroup analysis
+does not fail quietly, it publishes inflated numbers.
+
+Every block executed, no Python. The headline power agrees three ways: normal approximation
+0.155, exact non-central t 0.155, Monte Carlo 0.153 over 20,000 runs.
+
+### The three questions, with what I would look at
+
+1. **Is the claim right?** The statistics are standard and verified three ways, so the risk is
+   not the math. It is the last line, which says a large share of published subgroup findings
+   come from studies sized for something else. That is a strong claim about other people's work,
+   stated without a citation to a prevalence study, because I did not run one. If you want it
+   softened or sourced, say so.
+2. **Is the hook right?** It leads on "80% powered for the main effect, 15% for the moderator,
+   same participants."
+3. **Ship, fix, or kill?**
+
+### Known soft spots
+
+- The 0.20 and 0.40 segment effects are my choice, and the 9x multiplier follows directly from
+  that choice. The post is explicit that the multiplier is a formula rather than a constant, and
+  the table shows it ranging from 4x to 64x, so this is disclosed rather than hidden. Still worth
+  confirming you are happy with an example tuned to a ratio of 1.5.
+- The design assumes independent observations, equal cell sizes, and a normal outcome. Geo tests
+  and anything cluster-randomized are worse, not better, because the design effect multiplies the
+  4x variance penalty. That is flagged as a follow-up in IDEAS.md rather than covered here.
+- The `power_interaction()` demo returns 0.798 rather than 0.80 at N = 3140. The post explains
+  why (it randomizes segment membership rather than fixing cell counts) instead of tuning the
+  seed until it hit 0.80.
+
+## Shipped 2026-08-26: Friday 2026-08-28 industry post
 
 | | |
 |---|---|
