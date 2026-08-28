@@ -1,54 +1,70 @@
 # Review Queue
 
-## Awaiting review: 2026-08-28 evergreen method post
+## Awaiting review: two AI posts, 2026-08-28
+
+Both are the AI lane, written after the interaction power draft was killed for topic mix. They are
+a deliberate pair, cross-linked, one on the input side and one on the output side of the same
+question: what are you actually paying for when you call a model.
+
+### 1. Unicode Normalization and LLM Token Costs
 
 | | |
 |---|---|
-| Title | Power Analysis for Interaction Effects in R: Your 80% Powered Experiment Is 15% Powered for the Moderator |
-| Target query | power analysis for interaction effects in R |
-| Slot | Extra post, written on request. Restores the academic/method half of the one-for-one mix after the MMM industry post. |
-| Freshness | Not claimed. The SE-doubling result is textbook and the Type M framing traces to Gelman and Carlin, so this is filed evergreen rather than dressed as a trend. |
-| Status | **DRAFT** (`draft: true`). Rendered and rebuilt, so it is not on the live site until the flag flips. |
-| File | `content/post/2026-08-28-power-analysis-for-interaction-effects-in-r/index.en.Rmd` |
-| Review page | <https://claude.ai/code/artifact/97c6d492-922d-4715-8a07-f4568a5dd2b3> |
+| Target query | unicode normalization llm token costs |
+| Status | **DRAFT** (`draft: true`), rendered, not live |
+| File | `content/post/2026-08-28-unicode-normalization-and-llm-token-costs/index.en.Rmd` |
 
-Headline: size a study for 80% power on a treatment effect of 0.30 and you get 352 people. That
-same study has 15% power to detect whether the effect differs between two segments. The standard
-error of an interaction is exactly twice the standard error of a main effect, which is structural
-and no design fixes it, and the interaction is usually the smaller quantity. The multiplier is
-`4 * (main / interaction)^2`, so the folklore "16x" is just the special case where the
-interaction is half the main effect. Here it is 9x.
+The same Korean greeting is 2 tokens composed (NFC) and 36 decomposed (NFD). The two strings are
+canonically equivalent, so they render identically everywhere and differ only on the bill. Across
+UDHR Article 1 in 11 languages, Korean pays 9.82x decomposed and Vietnamese 3.02x, while several
+languages pay nothing because their scripts have no composed forms to pull apart.
 
-The part that makes it worse than low power: among the runs that clear p < 0.05, the average
-estimate is 0.53 against a truth of 0.20, a 2.6x exaggeration. Underpowered subgroup analysis
-does not fail quietly, it publishes inflated numbers.
+The calibration that makes it a post rather than a curiosity: once everything is normalized, the
+gap *between languages* tops out near 2x. The gap *between normal forms within one language*
+reaches ten. Normalization is the bigger lever and it is the one you control.
 
-Every block executed, no Python. The headline power agrees three ways: normal approximation
-0.155, exact non-central t 0.155, Monte Carlo 0.153 over 20,000 runs.
+Not hypothetical: 1 of the 11 translations in the Unicode Consortium's own reference corpus ships
+decomposed. Fixing it is one function call and cuts that entry by 55%.
 
-### The three questions, with what I would look at
+### 2. What Structured Output Costs You in Tokens
 
-1. **Is the claim right?** The statistics are standard and verified three ways, so the risk is
-   not the math. It is the last line, which says a large share of published subgroup findings
-   come from studies sized for something else. That is a strong claim about other people's work,
-   stated without a citation to a prevalence study, because I did not run one. If you want it
-   softened or sourced, say so.
-2. **Is the hook right?** It leads on "80% powered for the main effect, 15% for the moderator,
-   same participants."
-3. **Ship, fix, or kill?**
+| | |
+|---|---|
+| Target query | llm structured output token cost |
+| Status | **DRAFT** (`draft: true`), rendered, not live |
+| File | `content/post/2026-08-28-what-structured-output-costs-you-in-tokens/index.en.Rmd` |
+
+Fifty records, five formats, identical information. Pretty printed JSON is 3.59x tab separated
+text. Decoding every token and classifying it: 45% content, 34% punctuation, 21% whitespace. The
+repeated key names are 69% of a minified payload and that share is flat from about twenty records
+upward, so unlike the schema (188 tokens, paid once) it never amortizes.
+
+### The three questions
+
+1. **Is the claim right?** Both are measurement posts with no modeling, so the numbers are as
+   solid as `tiktoken` itself. The judgment calls are the framing ones. The normalization post
+   says normalization matters more than language choice, which is true in the measured range but
+   is a comparison between a thing you fix once and a thing you cannot change at all. The JSON
+   post recommends TSV over JSON on cost grounds while explicitly not having tested accuracy.
+2. **Is the hook right?** Post 1 opens on 2 tokens against 36 for the same word. Post 2 opens on
+   a fifty row extraction priced five ways.
+3. **Ship, fix, or kill?** They can ship separately. Post 1 is the stronger of the two.
 
 ### Known soft spots
 
-- The 0.20 and 0.40 segment effects are my choice, and the 9x multiplier follows directly from
-  that choice. The post is explicit that the multiplier is a formula rather than a constant, and
-  the table shows it ranging from 4x to 64x, so this is disclosed rather than hidden. Still worth
-  confirming you are happy with an example tuned to a ratio of 1.5.
-- The design assumes independent observations, equal cell sizes, and a normal outcome. Geo tests
-  and anything cluster-randomized are worse, not better, because the design effect multiplies the
-  4x variance penalty. That is flagged as a follow-up in IDEAS.md rather than covered here.
-- The `power_interaction()` demo returns 0.798 rather than 0.80 at N = 3140. The post explains
-  why (it randomizes segment membership rather than fixing cell counts) instead of tuning the
-  seed until it hit 0.80.
+- **Post 1 nearly shipped a wrong headline.** The first draft reported Vietnamese at 3.55x English
+  and framed the post as a multilingual cost gap. That number was an artifact of the source file
+  being partly decomposed rather than a property of Vietnamese. Normalizing every language
+  consistently drops it to 1.54x and moved the post onto its real subject. Worth knowing the
+  original framing was wrong, because the corrected one is a stronger claim.
+- **Post 1 measures OpenAI tokenizers only** (`o200k_base`). Llama, Gemma, and Claude tokenizers
+  are not tested. The byte-fallback mechanism is general, but the exact multipliers are not.
+- **Post 2 measures cost and nothing else.** Descriptive key names plausibly help the model fill
+  values correctly, and TSV means writing a parser and handling embedded tabs. The post says this
+  outright in a "What this post did not measure" section rather than burying it, but confirm you
+  are happy recommending a format change on cost evidence alone.
+- **The 50 record example is synthetic** with short, regular values. Real extractions with long
+  free text values would shift the content share up and the overhead share down.
 
 ## Shipped 2026-08-26: Friday 2026-08-28 industry post
 

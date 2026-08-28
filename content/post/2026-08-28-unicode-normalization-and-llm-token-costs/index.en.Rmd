@@ -1,0 +1,235 @@
+---
+title: "Unicode Normalization and LLM Token Costs: The Same Korean Word Is 2 Tokens or 36"
+author: Mike Nguyen
+date: '2026-08-28'
+slug: unicode-normalization-and-llm-token-costs
+categories:
+  - R
+  - AI
+tags:
+  - llm
+  - tokenization
+  - unicode
+  - text analysis
+  - reticulate
+subtitle: 'Two strings that render identically on screen can differ eighteenfold in what you pay for them.'
+summary: 'A Unicode normal form you have probably never checked can multiply your LLM token bill by ten. The same Korean greeting costs 2 tokens composed and 36 tokens decomposed, and one of the eleven translations in the Unicode Consortium own reference corpus ships decomposed. Measured in R with stringi and tiktoken.'
+authors: []
+lastmod: '2026-08-28T15:00:00-07:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE, warning = FALSE,
+                      fig.width = 7, fig.height = 4.4, dpi = 150,
+                      # NOT the default `*_files/figure-html/`. The ignoreFiles
+                      # setting in config.toml drops `_files$`, so images written
+                      # there never reach the published site.
+                      fig.path = "figs/")
+```
+
+
+You pay LLM providers by the token, so token count is the price of everything you send and
+everything you get back. Two strings that are indistinguishable on screen, that compare equal to
+a human reader and pass every eyeball test, can differ eighteenfold in what they cost. The
+difference is a Unicode normal form nobody on your team has checked.
+
+Here is the Korean word for hello, tokenized twice.
+
+```{r hello}
+library(reticulate)
+library(stringi)
+
+enc <- import("tiktoken")$get_encoding("o200k_base")   # GPT-4o and later
+ntok <- function(s) length(enc$encode(s))
+
+hello <- "안녕하세요"
+
+c(composed_NFC   = ntok(stri_trans_nfc(hello)),
+  decomposed_NFD = ntok(stri_trans_nfd(hello)))
+```
+
+```{r hello-ratio, include=FALSE}
+hello_ratio <- ntok(stri_trans_nfd(hello)) / ntok(stri_trans_nfc(hello))
+```
+
+Same word. Same rendering in your browser, your terminal, and your database client. One costs
+`r round(hello_ratio)` times more than the other.
+
+## What the two forms are
+
+Unicode lets you spell an accented character two ways. **NFC** composes it into a single code
+point. **NFD** decomposes it into a base letter followed by combining marks. Korean goes
+further: a Hangul syllable like 안 is one code point composed, and three separate jamo
+decomposed.
+
+The two forms are *canonically equivalent*, which is the Unicode standard's way of saying they
+mean the same thing and must display the same way.
+
+```{r equivalence}
+nfc <- stri_trans_nfc(hello)
+nfd <- stri_trans_nfd(hello)
+
+identical(stri_trans_nfc(nfd), nfc)          # same text once you re-compose
+identical(charToRaw(nfc), charToRaw(nfd))    # same bytes on the wire
+c(codepoints_nfc = stri_length(nfc), codepoints_nfd = stri_length(nfd))
+```
+
+Equivalent to a reader, different to a tokenizer. String equality in most languages compares
+bytes, so these two also fail `==` in the databases and caches sitting in front of your model.
+
+## How big is it across real text
+
+Article 1 of the Universal Declaration of Human Rights, in eleven languages, taken verbatim from
+the Unicode Consortium's own reference corpus. Each one tokenized composed and decomposed.
+
+The corpus sits next to this post as a tab separated file, written straight from the upstream XML
+and never opened in an editor. That detail matters more than it sounds: editors, clipboards, and
+some version control settings silently recompose text, which would quietly erase the exact thing
+being measured here.
+
+```{r corpus}
+udhr <- read.delim("udhr_article1.tsv", encoding = "UTF-8",
+                   quote = "", stringsAsFactors = FALSE)
+udhr <- setNames(udhr$text, udhr$language)
+length(udhr)
+```
+
+```{r table}
+tok_both <- function(s) {
+  c(nfc = ntok(stri_trans_nfc(s)), nfd = ntok(stri_trans_nfd(s)))
+}
+
+res <- t(sapply(udhr, tok_both))
+res <- data.frame(
+  language = rownames(res),
+  nfc      = res[, "nfc"],
+  nfd      = res[, "nfd"],
+  penalty  = round(res[, "nfd"] / res[, "nfc"], 2),
+  vs_english = round(res[, "nfc"] / res["English", "nfc"], 2),
+  row.names = NULL
+)
+res[order(-res$penalty), ]
+```
+
+Korean pays `r res$penalty[res$language == "Korean"]` times more decomposed than composed.
+Vietnamese pays `r res$penalty[res$language == "Vietnamese"]` times more.
+Several languages pay nothing at all, and the reason they are safe is that they have no composed
+forms to decompose: Chinese, Japanese kana, Russian Cyrillic, and Devanagari are already written
+as separate code points.
+
+Now look at the last column, because it is the one that calibrates the whole post. The gap
+between languages, once everything is normalized properly, tops out near a factor of two. The
+gap between normal forms *within a single language* reaches ten. **Normalization is the larger
+lever, and unlike the language your customers speak, it is one you control.**
+
+```{r plot, echo=FALSE, fig.cap="Token cost of the same sentence, composed against decomposed. Where only one point is visible the two forms are identical, because that script has no composed characters to pull apart."}
+library(ggplot2)
+
+d <- res[order(res$penalty), ]
+d$language <- factor(d$language, levels = d$language)
+
+ggplot(d, aes(y = language)) +
+  geom_segment(aes(x = nfc, xend = nfd, yend = language),
+               colour = "grey70", linewidth = 1.1) +
+  # NFD first, NFC on top, so the languages that pay nothing read as green
+  geom_point(aes(x = nfd, colour = "Decomposed (NFD)"), size = 2.9) +
+  geom_point(aes(x = nfc, colour = "Composed (NFC)"), size = 2.9) +
+  geom_text(data = subset(d, penalty > 1.3),
+            aes(x = nfd, label = paste0(penalty, "x")),
+            hjust = -0.35, size = 3.3, colour = "#b5451b") +
+  scale_x_continuous(limits = c(0, 560), expand = expansion(mult = c(0.01, 0.08))) +
+  scale_colour_manual(values = c("Composed (NFC)" = "#2f6f4f",
+                                 "Decomposed (NFD)" = "#b5451b")) +
+  labs(x = "Tokens for the same sentence", y = NULL, colour = NULL,
+       title = "The same text, two Unicode normal forms") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top", panel.grid.major.y = element_blank(),
+        plot.title = element_text(size = 11.5))
+```
+
+## Why decomposing is so expensive
+
+A byte pair encoding vocabulary is built from text as it usually appears, which is composed. The
+composed syllable 안 earns its own entry. An isolated jamo almost never appears in training text,
+so it earns nothing, and the tokenizer falls back to encoding it as raw UTF-8 bytes.
+
+```{r mechanism}
+one <- "안"
+rbind(NFC = c(bytes = length(charToRaw(stri_trans_nfc(one))),
+              tokens = ntok(stri_trans_nfc(one))),
+      NFD = c(bytes = length(charToRaw(stri_trans_nfd(one))),
+              tokens = ntok(stri_trans_nfd(one))))
+```
+
+Three jamo, three bytes each, one token per byte. That is the ten times, and it is not a quirk of
+Korean so much as the general behaviour of any tokenizer meeting characters outside its
+vocabulary.
+
+## This is not a hypothetical
+
+The tempting response is that nobody actually stores decomposed text. Check the corpus this post
+is built from, which is maintained by the Unicode Consortium itself.
+
+```{r wild}
+already_nfc <- sapply(udhr, function(s) identical(s, stri_trans_nfc(s)))
+names(already_nfc)[!already_nfc]
+```
+
+`r sum(!already_nfc)` of the `r length(udhr)`
+translations arrives decomposed, in the reference corpus for Unicode text, published by the
+organization that defines Unicode. Decomposed text also comes from macOS, whose filesystem
+normalized filenames to NFD for years, from several input methods for Korean and Vietnamese, and
+from any pipeline that decomposes for accent-insensitive search and forgets to recompose before
+storing.
+
+You will not see it. That is the whole problem. It renders correctly at every step.
+
+## The fix is one line
+
+```{r fix}
+raw   <- udhr[["Vietnamese"]]          # as it arrived
+clean <- stri_trans_nfc(raw)           # the whole fix
+
+c(tokens_before = ntok(raw),
+  tokens_after  = ntok(clean),
+  percent_saved = round(100 * (1 - ntok(clean) / ntok(raw))))
+```
+
+That is a `r round(100 * (1 - ntok(stri_trans_nfc(udhr[["Vietnamese"]])) / ntok(udhr[["Vietnamese"]])))`% reduction on real upstream text, from one function call, with no change to
+a single character anyone can see.
+
+In Python it is `unicodedata.normalize("NFC", s)`. In R it is `stringi::stri_trans_nfc()`. Put it
+at the boundary where text enters your system, not next to the API call, so that everything
+downstream (your cache keys, your deduplication, your embeddings) agrees on one spelling.
+
+## What to do on Monday
+
+1. **Normalize to NFC on ingest.** One line, at the edge, before anything is stored or hashed.
+   Doing it at the API call leaves your cache and your database disagreeing with each other.
+2. **Audit what you already have.** Run the `identical(s, stri_trans_nfc(s))` check over a sample
+   of stored prompts and documents. It is cheap and it is the only way to find this.
+3. **Suspect this first when token counts look wrong for one locale.** A Korean or Vietnamese
+   segment costing several times what you modeled is this bug until proven otherwise.
+4. **Do not blame the language.** Properly normalized, the spread across languages is roughly
+   twofold, which is a real fairness issue but a much smaller number than the one you can fix
+   this afternoon.
+5. **Normalize before you hash, cache, or deduplicate.** Two canonically equivalent strings are
+   different bytes, so a prompt cache will miss and you will pay twice for the same request.
+6. **Check the fix survived.** Some libraries re-decompose on write. Assert the invariant in a
+   test rather than trusting it.
+
+The reason this survives in production is that every layer looks correct. The text displays
+correctly, the database returns it correctly, the model answers correctly. The only thing that
+is wrong is the bill.
+
+---
+
+*Tokenization, encoding, and the preprocessing decisions that quietly change what a model sees
+are covered in [AI in Action](https://mikenguyen13.github.io/ai_in_action/).*

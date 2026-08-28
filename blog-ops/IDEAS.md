@@ -20,6 +20,32 @@ Mike caught it, and he was right.
 The test: **name the paper or package and its date.** If that date is more than two years
 back, file it as evergreen and stop calling it a trend. State the age when proposing a topic.
 
+## THE DIVERSIFY RULE (added 2026-08-28)
+
+**Never ship three consecutive posts from the same methodological family.** Check the last three
+rows of POSTS-LOG.md before picking. If all three sit in the same lane, the next post leaves that
+lane even if a better idea exists inside it.
+
+This rule exists because the first four posts were all causal inference and applied stats: TWFE,
+continuous-dose DiD, MMM calibration, and an interaction power post that got killed on review for
+exactly this reason. Each was individually fine. Together they read as a single-subject blog, and
+that is not what this site is.
+
+The site covers tech, coding, AI, and data work, not only econometrics. Mike's stats rigor is the
+*advantage* he brings to those topics, not the topic itself. An AI post written with real
+measurement discipline is more differentiated than another causal inference post, because almost
+nobody in the AI-tooling space measures anything properly.
+
+The lanes, so "same family" is unambiguous:
+
+1. **Causal inference and experiments** (DiD, geo tests, power, uplift)
+2. **Marketing and measurement** (MMM, attribution, CLV)
+3. **AI and LLM engineering** (tokenizers, embeddings, RAG, agents, evals)
+4. **Coding and tooling** (R and Python performance, Arrow, reproducibility, workflow)
+5. **Career and research process** (writing, reviewing, project management)
+
+Lanes 3 and 4 are badly underweighted. Prefer them until the log balances.
+
 ## TREND-JACK (hot right now, Aug 2026, recheck monthly)
 
 Re-audited against the freshness rule on 2026-08-20. Ages shown.
@@ -67,10 +93,11 @@ methods used.
 
 ## EVERGREEN (search traffic that compounds)
 
-- [~] Power analysis for interaction effects (the thing everyone underpowers). DRAFTED 2026-08-28,
-      awaiting review. Headline: a study sized for 80% power on the main effect has 15% power on
-      the interaction, and the significant ones exaggerate by 2.6x. Two follow-ups fell out of it,
-      listed immediately below.
+- [ ] Power analysis for interaction effects (the thing everyone underpowers). DRAFTED and
+      **KILLED on review 2026-08-28**. Nothing wrong with the draft (numbers verified three ways,
+      15% power against 80%, 2.6x Type M exaggeration). It was killed on **topic mix**: it would
+      have been the fourth causal-inference and stats post in a row. The draft is recoverable from
+      git history at commit 67f42d4 if this ever gets pulled again. See the DIVERSIFY rule below.
 - [ ] **Type M and Type S error for any experiment, not just interactions.** The interaction post
       shows the significance filter inflating a subgroup effect 2.6x and spends four sentences on
       it. The general version (Gelman and Carlin design analysis, `retrodesign`) applies to every
@@ -99,6 +126,21 @@ Append the moment something costs you time. One line is enough.
 - [ ] 2026-08-26: `bookdown.org/mike/*` now 301 redirects to
       `mike-data-analysis.share.connect.posit.cloud`. Links still resolve, so no action is
       forced, but every book CTA on the site is one hop from broken if that redirect lapses.
+- [x] 2026-08-28: **Unicode text is silently recomposed by ordinary tooling, and it corrupted a
+      post's central finding twice before it was caught.** Decomposed (NFD) text pasted through an
+      editor, a clipboard, or a tool result comes back composed (NFC). The Unicode post measures
+      exactly that difference, so every attempt to embed the decomposed sample as a literal in the
+      `.Rmd` destroyed the thing being measured, and the post rendered a confident "0 of the 11"
+      where the truth is 1 of 11. Escaping to `\uXXXX` by hand failed too, for the same reason.
+      The fix that works: have a script write the corpus to a data file straight from the upstream
+      source, never routing the bytes through an editor, and have the post read that file. General
+      lesson: when the bytes are the subject, do not let any hand-editing step touch them.
+- [x] 2026-08-28: `install`ing a package that needs a C++ toolchain fails here. `hnswlib` dies in
+      `uv pip install` with an MSVC build error, so anything needing compilation from source is
+      out unless a wheel exists. `tiktoken` has wheels and installs in under a second.
+- [x] 2026-08-28: printing non-ASCII from Python through Git Bash raises
+      `UnicodeEncodeError: 'charmap' codec` because the console defaults to cp1252. Set
+      `PYTHONIOENCODING=utf-8` on the command. Does not affect knitr, which handles it correctly.
 - [x] 2026-08-28: **the em dash style check can report a false pass.** `grep -P` is unavailable in
       this Git Bash ("-P supports only unibyte and UTF-8 locales"), so the usual
       `grep -P '[\x{2013}\x{2014}]' file || echo CLEAN` prints CLEAN because grep *errored*, not
@@ -120,6 +162,16 @@ than a new post and improves an existing URL.
 - [ ] `arrow` (113 w): Arrow is far more relevant now than in 2021, and worth a real benchmark
 
 ## SITE BUGS (found 2026-08-19)
+
+- [ ] **The Text Analysis book returns 403 and is linked from the books page.** Found 2026-08-28
+      while looking for a CTA for the tokenization post.
+      `https://bookdown.org/mike/text_analysis/` returns HTTP 403, while
+      `https://bookdown.org/mike/data_analysis/` returns 200 from the same client, so this is not
+      bot blocking. It is linked from `content/books/written_books/_index.md`. Worth checking the
+      other books on that page the same way, since only these two were tested. The tokenization
+      post routes its CTA to [AI in Action](https://mikenguyen13.github.io/ai_in_action/) instead,
+      which returns 200 but currently renders only a preface, so it is a thin landing page for a
+      reader arriving from a post.
 
 - [ ] **Broken plot images. Re-audited 2026-08-26 against `public/` and against the live site,
       and the earlier entry undercounted.** `config.toml` sets `ignoreFiles = [... "_files$" ...]`,

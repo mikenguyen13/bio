@@ -1,0 +1,237 @@
+---
+title: "What Structured Output Costs You in Tokens: Your JSON Is 69% Key Names"
+author: Mike Nguyen
+date: '2026-08-28'
+slug: what-structured-output-costs-you-in-tokens
+categories:
+  - R
+  - AI
+tags:
+  - llm
+  - tokenization
+  - structured output
+  - json
+  - reticulate
+subtitle: 'Structured output is the default way to call a model now, and almost nobody has measured what the structure itself costs.'
+summary: 'Asking a model for JSON means paying for braces, quotes, indentation, and the same key names repeated once per record. Measured on a 50 record extraction, 55% of a pretty printed payload is not content, and the key names alone are 69% of a minified one. That share never amortizes.'
+authors: []
+lastmod: '2026-08-28T16:00:00-07:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE, warning = FALSE,
+                      fig.width = 7, fig.height = 4.2, dpi = 150,
+                      # NOT the default `*_files/figure-html/`. The ignoreFiles
+                      # setting in config.toml drops `_files$`, so images written
+                      # there never reach the published site.
+                      fig.path = "figs/")
+```
+
+Structured output is how most people call a model now. You define a schema, you get back JSON,
+your parser is happy, and nobody looks at the bill closely enough to notice that a large share of
+those output tokens are punctuation and repeated field names rather than answers.
+
+Here is a fifty row extraction, the kind of thing an LLM pipeline produces constantly, priced
+five ways.
+
+```{r setup-tok}
+library(reticulate)
+library(jsonlite)
+
+enc  <- import("tiktoken")$get_encoding("o200k_base")   # GPT-4o and later
+ntok <- function(s) length(enc$encode(s))
+
+set.seed(1)
+n <- 50
+recs <- data.frame(
+  product_name        = paste("Item", sprintf("%03d", 1:n)),
+  unit_price_usd      = round(runif(n, 5, 500), 2),
+  quantity_in_stock   = sample(0:400, n, TRUE),
+  product_category    = sample(c("kitchen", "outdoor", "apparel", "tools"), n, TRUE),
+  is_currently_active = sample(c(TRUE, FALSE), n, TRUE),
+  stringsAsFactors    = FALSE
+)
+```
+
+```{r formats}
+row_json <- function(d) apply(d, 1, function(r) toJSON(as.list(r), auto_unbox = TRUE))
+delim    <- function(d, sep) paste(c(paste(names(d), collapse = sep),
+                                     apply(d, 1, paste, collapse = sep)), collapse = "\n")
+
+fmts <- c(
+  pretty_json   = toJSON(recs, pretty = TRUE,  auto_unbox = TRUE),
+  minified_json = toJSON(recs, pretty = FALSE, auto_unbox = TRUE),
+  json_lines    = paste(row_json(recs), collapse = "\n"),
+  csv           = delim(recs, ","),
+  tsv           = delim(recs, "\t")
+)
+
+tk  <- sapply(fmts, ntok)
+res <- data.frame(format = names(tk), tokens = as.integer(tk),
+                  vs_tsv = round(tk / tk[["tsv"]], 2), row.names = NULL)
+res[order(-res$tokens), ]
+```
+
+Identical information. The same fifty products, the same five fields, the same values. Pretty
+printed JSON costs `r round(sapply(fmts, ntok)[["pretty_json"]] / sapply(fmts, ntok)[["tsv"]], 1)`
+times what tab separated text costs.
+
+## Where the tokens actually go
+
+Rather than guess, decode every token in the pretty printed payload and classify it.
+
+```{r accounting}
+ids     <- enc$encode(fmts[["pretty_json"]])
+pieces  <- vapply(ids, function(i) enc$decode(list(i)), character(1))
+trimmed <- trimws(pieces)
+
+kind <- ifelse(trimmed == "", "whitespace",
+        ifelse(grepl('^[][{}",:]+$', trimmed), "punctuation", "content"))
+
+round(100 * table(kind) / length(ids), 1)
+```
+
+Forty five percent of what you paid for is content. The rest is structure: braces, quotes,
+colons, commas, and the indentation that makes it readable to a human who is never going to read
+it.
+
+## The part that never amortizes
+
+Whitespace is easy to remove. The harder cost is that a JSON array repeats every key name once
+per record, and that share stays flat no matter how much data you ask for.
+
+```{r scaling}
+mk <- function(n) {
+  set.seed(1)
+  data.frame(product_name        = paste("Item", sprintf("%03d", 1:n)),
+             unit_price_usd      = round(runif(n, 5, 500), 2),
+             quantity_in_stock   = sample(0:400, n, TRUE),
+             product_category    = sample(c("kitchen","outdoor","apparel","tools"), n, TRUE),
+             is_currently_active = sample(c(TRUE, FALSE), n, TRUE),
+             stringsAsFactors    = FALSE)
+}
+key_tokens <- sum(sapply(names(recs), function(k) ntok(paste0('"', k, '"'))))
+
+scale_tbl <- do.call(rbind, lapply(c(1, 5, 20, 100, 500), function(n) {
+  total <- ntok(toJSON(mk(n), auto_unbox = TRUE))
+  data.frame(records = n, tokens = total,
+             key_tokens = key_tokens * n,
+             key_share = paste0(round(100 * key_tokens * n / total), "%"))
+}))
+scale_tbl
+```
+
+Sixty nine percent, and it settles there by about twenty records and never falls again. A schema
+is paid once and amortizes across a long response.
+Key names do not. You pay for `product_category` five hundred times in a five hundred row answer,
+and the fraction of your bill going to those five words is the same as it was at one row.
+
+Shortening them is the obvious lever, and it is worth exactly what you would expect.
+
+```{r short-keys}
+short <- mk(n)
+names(short) <- c("name", "price", "qty", "cat", "active")
+
+c(descriptive = ntok(toJSON(mk(n), auto_unbox = TRUE)),
+  short       = ntok(toJSON(short, auto_unbox = TRUE)),
+  saved_pct   = round(100 * (1 - ntok(toJSON(short, auto_unbox = TRUE)) /
+                                 ntok(toJSON(mk(n), auto_unbox = TRUE)))))
+```
+
+```{r plot, echo=FALSE, fig.cap="The same fifty records, five ways. The dark part of each bar is the values themselves, tokenized as bare rows. Everything to the right of it is what the format charges to carry them."}
+library(ggplot2)
+
+# Baseline: the values alone, with no header, no keys, no punctuation beyond the
+# separator. Everything above this line is what the format costs, and counting
+# repeated key names as overhead rather than as content is the whole point.
+baseline <- ntok(paste(apply(recs, 1, paste, collapse = "\t"), collapse = "\n"))
+
+pd <- data.frame(format = names(tk), total = as.integer(tk), content = baseline)
+pd$structure <- pd$total - pd$content
+pd <- pd[order(pd$total), ]
+pd$format <- factor(gsub("_", " ", pd$format), levels = gsub("_", " ", pd$format))
+
+long <- rbind(
+  data.frame(format = pd$format, part = "The values themselves", tokens = pd$content),
+  data.frame(format = pd$format, part = "Format overhead",       tokens = pd$structure)
+)
+long$part <- factor(long$part, levels = c("Format overhead", "The values themselves"))
+
+ggplot(long, aes(tokens, format, fill = part)) +
+  geom_col(width = 0.62) +
+  geom_text(data = pd, aes(x = total, y = format, label = total),
+            inherit.aes = FALSE, hjust = -0.25, size = 3.3, colour = "grey25") +
+  scale_x_continuous(expand = expansion(mult = c(0.01, 0.12))) +
+  scale_fill_manual(values = c("Format overhead" = "#c9ccd1",
+                               "The values themselves" = "#2f6f4f")) +
+  labs(x = "Tokens for the same fifty records", y = NULL, fill = NULL,
+       title = "What you pay for, by format") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top", panel.grid.major.y = element_blank(),
+        plot.title = element_text(size = 11.5))
+```
+
+## The schema is the cheap part
+
+The instinct is to blame the schema you send in the request. It is usually not the problem.
+
+```{r schema}
+keys   <- names(recs)
+schema <- toJSON(list(
+  type = "object",
+  properties = setNames(lapply(keys, function(k)
+    list(type = "string", description = paste("The", gsub("_", " ", k), "of the product"))), keys),
+  required = keys), auto_unbox = TRUE, pretty = TRUE)
+
+c(schema_tokens = ntok(schema),
+  equivalent_records_of_output = round(ntok(schema) / ntok(toJSON(mk(1), auto_unbox = TRUE)), 1))
+```
+
+A verbose schema with descriptions costs about five records worth of output, once. If you are
+extracting fifty rows, the schema is noise and the repeated keys are the signal.
+
+## What this post did not measure
+
+Cost is not the only axis, and this post only measured cost.
+
+Descriptive key names plausibly help the model produce correct values, and `qty` may well be
+filled in worse than `quantity_in_stock`. Constrained decoding modes buy you a guaranteed parse,
+which is worth real money in avoided retries. Asking for TSV means writing your own parser and
+handling the case where a value contains a tab.
+
+None of that was tested here. **Do not shorten your keys on the strength of a 29% token saving
+without checking whether accuracy moved.** The useful conclusion is not that JSON is bad. It is
+that the format is a priced decision that most teams have never actually priced.
+
+## What to do on Monday
+
+1. **Never ask a model for pretty printed JSON.** Indentation is
+   `r round(100 * (sapply(fmts, ntok)[["pretty_json"]] / sapply(fmts, ntok)[["minified_json"]] - 1))`%
+   on top of the same payload, and no human reads model output directly.
+2. **For tabular extraction, ask for TSV or CSV.** It is the same information at roughly a third
+   of the tokens, and a header row states the schema once instead of once per record.
+3. **Count your own payload before optimizing anything.** Three lines of `tiktoken` tells you
+   whether structure is 20% of your bill or 55%.
+4. **Treat key names as a budget line for long outputs.** Their share is constant, so they are
+   the one overhead that scales linearly with how much data you ask for.
+5. **Leave the schema alone.** It is paid once and it is doing useful work.
+6. **A/B the format against accuracy, not just cost.** A cheaper format that raises the retry
+   rate is more expensive.
+
+The same reasoning applies to the input side, where the text itself can cost far more than it
+should for reasons that have nothing to do with the format. That is
+[the Unicode normalization problem](/post/unicode-normalization-and-llm-token-costs/), and it is
+a bigger multiplier than anything here.
+
+---
+
+*Prompt construction, structured extraction, and the engineering decisions that quietly change
+what a model costs and returns are covered in
+[AI in Action](https://mikenguyen13.github.io/ai_in_action/).*

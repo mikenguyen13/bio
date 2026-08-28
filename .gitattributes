@@ -1,0 +1,5 @@
+# The UDHR corpus for the Unicode normalization post is measured byte for byte.
+# One of its entries is deliberately stored DECOMPOSED (NFD), and the post's whole
+# result depends on those bytes surviving a round trip. Pin the line endings so a
+# checkout on any platform reproduces the published token counts exactly.
+content/post/*/udhr_article1.tsv -text
