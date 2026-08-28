@@ -2,6 +2,8 @@
 
 ## Awaiting review: two AI posts, 2026-08-28
 
+Review page: <https://claude.ai/code/artifact/1a9a3847-d676-4485-bf04-e4e5a3f72082>
+
 Both are the AI lane, written after the interaction power draft was killed for topic mix. They are
 a deliberate pair, cross-linked, one on the input side and one on the output side of the same
 question: what are you actually paying for when you call a model.
