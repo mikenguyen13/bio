@@ -178,9 +178,19 @@ than a new post and improves an existing URL.
       so knitr's default `*_files/figure-html/` output never reaches `public/` while the HTML
       still links to it. Every reference below was confirmed 404 on the live site.
 
-      Real posts, three as originally listed:
-      `2021-08-16-create-your-own-hexagon-in-r` (absolute-URL ref, so a naive grep for relative
-      `src=` misses it), `2022-03-03-johnson-neyman-for-meta-analysis` (same), and `r-rmarkdown`.
+      Real posts, three as originally listed. **URLs corrected 2026-08-28** after re-verifying
+      against the live site: the entry previously gave the `content/` folder names, which are not
+      the published URLs and simply 404, so anyone checking this would conclude the bug was fixed.
+      The live URLs and the exact missing files are:
+
+      | Live URL | 404s on |
+      |---|---|
+      | `/post/create-your-own-hexagon-in-r/` | `index.en_files/figure-html/unnamed-chunk-1-1.png` |
+      | `/post/johnson-neyman-for-meta-analysis/` | `index.en_files/figure-html/unnamed-chunk-4-1.png` |
+      | `/post/r-rmarkdown/` | `index_files/figure-html/pie-1.png` |
+
+      Note the first two reference `index.en_files/`, not the `_files/` the entry implied, and the
+      third references `index_files/`. Both are caught by the `_files$` ignore rule.
 
       Fix is `fig.path = "figs/"` in the setup chunk (now standard in the template) plus a
       re-render. Still held back because re-rendering 2021 code under 2026 package versions may
