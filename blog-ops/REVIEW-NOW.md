@@ -10,6 +10,7 @@
 | Freshness | Not claimed. The SE-doubling result is textbook and the Type M framing traces to Gelman and Carlin, so this is filed evergreen rather than dressed as a trend. |
 | Status | **DRAFT** (`draft: true`). Rendered and rebuilt, so it is not on the live site until the flag flips. |
 | File | `content/post/2026-08-28-power-analysis-for-interaction-effects-in-r/index.en.Rmd` |
+| Review page | <https://claude.ai/code/artifact/97c6d492-922d-4715-8a07-f4568a5dd2b3> |
 
 Headline: size a study for 80% power on a treatment effect of 0.30 and you get 352 people. That
 same study has 15% power to detect whether the effect differs between two segments. The standard
