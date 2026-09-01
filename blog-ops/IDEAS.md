@@ -107,6 +107,11 @@ methods used.
       observations. Geo tests randomize markets, so the design effect multiplies the 4x variance
       penalty by another `1 + (m - 1) * ICC`. That compounding is why geo tests essentially never
       resolve a moderator, and it connects directly to the geo experiments item above.
+- [ ] **Does `bench::mark`'s minimum survive what its median does not?** The benchmarking post
+      shows block ordering biasing a median-based comparison and explicitly does not test whether
+      the minimum `bench::mark` also reports is robust to the same GC sawtooth. It should be, in
+      theory, and that is exactly the kind of theory worth checking. Short, self-contained, and it
+      closes the one loose end that post names.
 - [ ] Fixed effects vs. random effects, decided by what you're estimating not by a Hausman test
 - [ ] Clustered standard errors: which level, and what happens when you get it wrong
 - [ ] Multiple testing in marketing experiments without killing your power
@@ -147,6 +152,25 @@ Append the moment something costs you time. One line is enough.
       because the file was clean. Check with fixed strings instead, from an R script file rather
       than `Rscript -e`, which segfaults here. Working version at
       `blog-ops/stylecheck.R`.
+
+- [x] 2026-08-31: **`bench::mark` runs all iterations of one expression before the next, and has no
+      option to interleave.** Verified by instrumenting the expressions to log themselves:
+      `a b a a a a a a b b b b b b`. `microbenchmark` shuffles by default
+      (`control$order` defaults to `"random"`, with `"inorder"` and `"block"` also available).
+      For any close head-to-head, reach for `microbenchmark`. Use `bench::mark` for memory
+      accounting, which it does far better.
+- [x] 2026-08-31: **a benchmark run inside a knit session is much more biased than one in a fresh
+      session.** Same code, same machine, same hour: the knitting session measured a 12.7%
+      positional artifact between two identical functions, eight fresh `callr` sessions averaged
+      1.0%. Cause not isolated. Heap size is the obvious suspect and did **not** reproduce it when
+      tested with ballast, so something else is doing the work. Practical rule: benchmark from
+      `callr::r()`, not from the session you have had open all day.
+- [x] 2026-08-31: **prose that hardcodes a direction will eventually contradict its own output.**
+      The first draft of the benchmarking post said "the first slot is measured as X% faster" with
+      X computed inline and "faster" written by hand. The render came back with the first slot
+      *slower* and the sentence shipped backwards. Fix that now stands in that post: compute the
+      direction word too (`dirw()`), and write every comparative sentence so the data supplies both
+      the number and the word. Cheap insurance for any post whose numbers move between renders.
 
 ## SALVAGE (thin existing posts worth rebuilding)
 

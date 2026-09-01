@@ -1,0 +1,432 @@
+---
+title: "How to Benchmark R Code Correctly: I Raced a Function Against an Identical Copy of Itself"
+author: Mike Nguyen
+date: '2026-09-01'
+slug: how-to-benchmark-r-code-correctly
+categories:
+  - R
+  - Python
+tags:
+  - benchmarking
+  - performance
+  - experimental design
+  - microbenchmark
+  - reproducibility
+subtitle: 'One of them won, and which one depended only on the order I listed them in.'
+summary: 'A benchmark is an experiment, and most benchmarks are not randomized. Racing a function against a byte-identical copy of itself, the block ordering that bench::mark uses hands one slot an artifact worth more than most published speedups, and its size is set by the state of the R session rather than by the code, so you cannot subtract it off. Randomizing the execution order removes it in every session tested. Measured in R across fresh sessions and reproduced in Python.'
+authors: []
+lastmod: '2026-09-01T09:00:00-07:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE, warning = FALSE,
+                      fig.width = 7, fig.height = 4.0, dpi = 150,
+                      # NOT the default `*_files/figure-html/`. The ignoreFiles
+                      # setting in config.toml drops `_files$`, so images written
+                      # there never reach the published site.
+                      fig.path = "figs/")
+```
+
+```{r helpers, include=FALSE}
+# Every number in the prose below is an inline expression reading these, so the
+# text cannot drift away from what the code actually produced on this machine.
+pct  <- function(v) sprintf("%.1f%%", abs(v - 1) * 100)
+dirw <- function(v) if (v > 1) "slower" else "faster"
+```
+
+A benchmark is an experiment. It has treatments (the implementations you are comparing), units
+(the individual timed calls), and a response (elapsed time). Almost nobody treats it
+that way, and the cost is that a good share of the speed claims you read are measuring the order
+the code ran in rather than the code.
+
+Here is the cheapest demonstration. I raced a function against a byte-identical copy
+of itself, and swapped which copy got listed first. If a slot rather than a function is winning,
+the first slot wins either way.
+
+```{r null-race}
+library(microbenchmark)
+set.seed(2026)
+
+impl_a <- function(x) {
+  y <- x * 2
+  z <- cumsum(y)
+  z[length(z)]
+}
+impl_b <- function(x) {
+  y <- x * 2
+  z <- cumsum(y)
+  z[length(z)]
+}
+stopifnot(identical(body(impl_a), body(impl_b)))
+
+x <- runif(1e5)
+
+# Ratio of the median time of whichever function was LISTED FIRST to the second.
+# Anything other than 1 is an artifact, because the two functions are the same code.
+race <- function(order, first) {
+  mb <- if (first == "a") {
+    microbenchmark(a = impl_a(x), b = impl_b(x), times = 40,
+                   control = list(order = order))
+  } else {
+    microbenchmark(b = impl_b(x), a = impl_a(x), times = 40,
+                   control = list(order = order))
+  }
+  m <- tapply(mb$time, mb$expr, median)
+  as.numeric(m[[first]] / m[[setdiff(c("a", "b"), first)]])
+}
+
+reps <- 40
+race_grid <- expand.grid(rep = seq_len(reps), order = c("block", "random"),
+                         first = c("a", "b"), stringsAsFactors = FALSE)
+race_grid$ratio <- mapply(race, race_grid$order, race_grid$first)
+```
+
+```{r null-table, echo=FALSE}
+summarise_cell <- function(d, label) {
+  tt <- t.test(d$ratio, mu = 1)
+  data.frame(
+    Ordering = d$order[1],
+    `Listed first` = label,
+    `Mean ratio` = sprintf("%.4f", mean(d$ratio)),
+    `95% CI` = sprintf("[%.4f, %.4f]", tt$conf.int[1], tt$conf.int[2]),
+    `p vs 1` = format.pval(tt$p.value, digits = 2),
+    `First slot slower` = sprintf("%.0f%%", 100 * mean(d$ratio > 1)),
+    check.names = FALSE)
+}
+rows <- list()
+for (o in c("block", "random")) {
+  for (f in c("a", "b")) {
+    rows[[length(rows) + 1]] <- summarise_cell(
+      race_grid[race_grid$order == o & race_grid$first == f, ], f)
+  }
+  rows[[length(rows) + 1]] <- summarise_cell(race_grid[race_grid$order == o, ],
+                                             "either (pooled)")
+}
+knitr::kable(do.call(rbind, rows), row.names = FALSE)
+```
+
+```{r null-values, include=FALSE}
+pooled <- function(o) {
+  d <- race_grid$ratio[race_grid$order == o]
+  tt <- t.test(d, mu = 1)
+  list(mean = mean(d), lo = tt$conf.int[1], hi = tt$conf.int[2], p = tt$p.value,
+       worse = 100 * mean(d > 1))
+}
+blk <- pooled("block")
+rnd <- pooled("random")
+```
+
+Under block ordering the function listed first is measured as `r pct(blk$mean)`
+`r dirw(blk$mean)` than an identical copy of itself, and it comes out that way in
+`r sprintf("%.0f%%", max(blk$worse, 100 - blk$worse))` of the races. The gap survives the swap, so
+it belongs to the slot and not to the function. Under random ordering the same comparison returns
+a mean ratio of `r sprintf("%.4f", rnd$mean)`, interval
+`r sprintf("[%.4f, %.4f]", rnd$lo, rnd$hi)`, which is the null answer a benchmark of identical
+code is supposed to give.
+
+```{r null-plot, echo=FALSE, fig.cap="Two identical functions raced against each other under each ordering. Randomizing the execution order centres the distribution on zero. Block ordering moves it off."}
+library(ggplot2)
+ggplot(race_grid, aes(x = ratio, fill = order)) +
+  geom_density(alpha = 0.45, colour = NA) +
+  geom_vline(xintercept = 1, linewidth = 0.4) +
+  scale_x_continuous(labels = function(v) sprintf("%+.0f%%", (v - 1) * 100)) +
+  labs(x = "measured time penalty of the first-listed function against an identical copy",
+       y = "density", fill = "execution order") +
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "top")
+```
+
+## Which ordering is your package using
+
+The two benchmarking packages in common use disagree about this, and neither announces it. You can
+just look, by making the expressions log themselves.
+
+```{r order-log}
+run_log <- character()
+tag_a <- function() {
+  run_log <<- c(run_log, "a")
+  NULL
+}
+tag_b <- function() {
+  run_log <<- c(run_log, "b")
+  NULL
+}
+
+run_log <- character()
+invisible(bench::mark(a = tag_a(), b = tag_b(), iterations = 6, check = FALSE))
+order_bench <- paste(run_log, collapse = " ")
+
+run_log <- character()
+invisible(microbenchmark(a = tag_a(), b = tag_b(), times = 6))
+order_mb <- paste(run_log, collapse = " ")
+
+cat("bench::mark    :", order_bench, "\n")
+cat("microbenchmark :", order_mb, "\n")
+```
+
+`bench::mark` calls each expression once up front and then runs every iteration of the first
+before it touches the second. That is block ordering, and there is no argument to change it.
+`microbenchmark` shuffles, because its `control$order` defaults to `"random"`. That default is the whole
+difference between the two halves of the table above.
+
+## The size belongs to the session, not to the code
+
+A constant bias would be survivable, because you could measure it once and subtract it off. Here
+is the same race run in eight fresh R sessions, each one started clean.
+
+```{r sessions}
+library(callr)
+
+one_session <- function(seed) {
+  callr::r(function(seed) {
+    library(microbenchmark)
+    set.seed(seed)
+    impl_a <- function(x) {
+      y <- x * 2
+      z <- cumsum(y)
+      z[length(z)]
+    }
+    impl_b <- function(x) {
+      y <- x * 2
+      z <- cumsum(y)
+      z[length(z)]
+    }
+    x <- runif(1e5)
+    race <- function(order) {
+      mb <- microbenchmark(a = impl_a(x), b = impl_b(x), times = 40,
+                           control = list(order = order))
+      m <- tapply(mb$time, mb$expr, median)
+      as.numeric(m[["a"]] / m[["b"]])
+    }
+    # Interleaved, so both orderings meet the same session conditions.
+    out <- vapply(1:16, function(i) c(block = race("block"), random = race("random")),
+                  numeric(2))
+    rowMeans(out)
+  }, args = list(seed = seed))
+}
+
+sessions <- as.data.frame(t(vapply(1:8, one_session, numeric(2))))
+round(sessions, 4)
+```
+
+```{r session-values, include=FALSE}
+bs <- sessions$block
+rs <- sessions$random
+n_same <- sum(sign(bs - 1) == sign(blk$mean - 1))
+same_txt <- if (n_same == length(bs)) "all eight" else sprintf("%d of the eight", n_same)
+ratio_txt <- sprintf("%.0f", abs(blk$mean - 1) / max(abs(mean(bs) - 1), 1e-6))
+```
+
+Same code, same machine, same afternoon. The artifact appears in `r same_txt`, leaning the way this
+document did, at `r sprintf("%+.1f%%", (min(bs) - 1) * 100)` to
+`r sprintf("%+.1f%%", (max(bs) - 1) * 100)`.
+
+Now compare the session you are reading the output of. The table at the top of this page came out
+of the R session that knitted it, and it measured `r pct(blk$mean)` against the `r pct(mean(bs))`
+these clean sessions average, a factor of `r ratio_txt`. A long-lived session with a big heap is a
+much worse place to benchmark than a fresh one, and a knitted report or a day-old RStudio session
+is exactly that. The randomized column stays inside
+`r sprintf("%+.1f%%", (min(rs) - 1) * 100)` to `r sprintf("%+.1f%%", (max(rs) - 1) * 100)`
+throughout. It does not care.
+
+## What block ordering is aliasing
+
+The first expression is not special. Machine speed drifts over the life of a benchmark, and block
+ordering hands the first half of that drift to one expression and the second half to the other.
+Time one expression alone and the structure is already there.
+
+```{r drift}
+n <- 100
+reps_d <- 60
+prof <- matrix(NA_real_, reps_d, n)
+half <- numeric(reps_d)
+for (i in seq_len(reps_d)) {
+  tt <- as.numeric(microbenchmark(impl_a(x), times = n)$time)
+  prof[i, ] <- tt / median(tt)
+  half[i] <- median(tt[1:(n / 2)]) / median(tt[(n / 2 + 1):n])
+}
+t_half <- t.test(half, mu = 1)
+c(first_half_over_second = mean(half), ci_low = t_half$conf.int[1],
+  ci_high = t_half$conf.int[2])
+```
+
+```{r drift-values, include=FALSE}
+agree <- sign(mean(half) - 1) == sign(blk$mean - 1)
+agree_txt <- if (agree) {
+  "points the same way as the head to head race, as it should if the race reads position rather than code"
+} else {
+  "points against the head to head race here, so drift is one contributor rather than the whole story"
+}
+```
+
+One expression, one hundred consecutive calls, nothing to compare it against. The first fifty calls
+run `r pct(mean(half))` `r dirw(mean(half))` than the second fifty
+(p = `r format.pval(t_half$p.value, digits = 2)`). That `r agree_txt`.
+
+```{r drift-plot, echo=FALSE, fig.cap="Mean time by position within a run, normalised to the run median and averaged over 60 runs. The sawtooth is periodic garbage collection. Block ordering splits this sequence down the middle and charges each half to a different expression."}
+prof_df <- data.frame(position = seq_len(n), rel = colMeans(prof))
+ggplot(prof_df, aes(position, rel)) +
+  annotate("rect", xmin = 0.5, xmax = n / 2 + 0.5, ymin = -Inf, ymax = Inf,
+           alpha = 0.10, fill = "steelblue") +
+  annotate("text", x = n / 4, y = max(prof_df$rel), label = "charged to the first expression",
+           vjust = 1.2, size = 3.4, colour = "grey30") +
+  annotate("text", x = 3 * n / 4, y = max(prof_df$rel), label = "charged to the second",
+           vjust = 1.2, size = 3.4, colour = "grey30") +
+  geom_line(linewidth = 0.5, colour = "grey25") +
+  geom_hline(yintercept = 1, linetype = 2, linewidth = 0.4) +
+  labs(x = "call number within the run", y = "time relative to the run median") +
+  theme_minimal(base_size = 12)
+```
+
+The shape is the point. This is not a warm-up curve that discarding a few early iterations would
+fix. It is a sawtooth, because R collects garbage periodically and each collection lands on
+whichever call happens to be running. Where the teeth fall relative to the halfway point sets the
+size and sign of the bias, and both their height and spacing depend on the heap the session already
+carries. That is the most plausible reason the loaded and clean sessions disagree so much, though I
+did not isolate it.
+
+## Reading a real comparison
+
+Multiplication against addition is a comparison people actually run. The move that makes it
+readable is to drop a copy of one candidate into the same benchmark as a negative control.
+
+```{r real-pair}
+xx <- runif(1e6)
+reps_r <- 40
+r_mul <- r_null <- numeric(reps_r)
+for (i in seq_len(reps_r)) {
+  mb <- microbenchmark(add = xx + xx, mul = 2 * xx, add_copy = xx + xx, times = 40)
+  m <- tapply(mb$time, mb$expr, median)
+  r_mul[i]  <- m[["mul"]] / m[["add"]]
+  r_null[i] <- m[["add_copy"]] / m[["add"]]
+}
+rbind(`2 * x  vs  x + x` = c(mean = mean(r_mul), t.test(r_mul, mu = 1)$conf.int,
+                            worst_single_run = max(abs(r_mul - 1))),
+      `x + x  vs  x + x` = c(mean = mean(r_null), t.test(r_null, mu = 1)$conf.int,
+                            worst_single_run = max(abs(r_null - 1))))
+```
+
+```{r real-values, include=FALSE}
+tm <- t.test(r_mul, mu = 1)
+effect <- abs(mean(r_mul) - 1)
+noise  <- max(abs(r_null - 1))
+verdict <- if (noise > effect) {
+  "larger than the effect, so one run cannot resolve this comparison"
+} else {
+  "smaller than the effect, so one run can see this gap, but only because the gap is large"
+}
+```
+
+`2 * xx` really is faster than `xx + xx`, by `r pct(mean(r_mul))` on average, and across 40
+randomized races the interval `r sprintf("[%.3f, %.3f]", tm$conf.int[1], tm$conf.int[2])` clears 1
+comfortably. The control row is the useful part. Two identical expressions in the same benchmark
+were off by as much as `r sprintf("%.1f%%", noise * 100)` in a single run, which is
+`r verdict`. That is your resolution limit for this machine on this day, and it costs one line.
+
+## The same design flaw in Python
+
+This is not an R problem. It is a problem with running all of A and then all of B, which is what
+timing tools do by default in every language.
+
+```{r py-setup, include=FALSE}
+py_reps <- 60L
+```
+
+```{python py-null}
+import random
+import statistics
+import time
+import numpy as np
+
+rng = np.random.default_rng(0)
+xp = rng.random(100_000)
+
+def impl_a():
+    y = xp * 2.0
+    return np.cumsum(y)[-1]
+
+def impl_b():
+    y = xp * 2.0
+    return np.cumsum(y)[-1]
+
+def timed(f):
+    t0 = time.perf_counter_ns()
+    f()
+    return time.perf_counter_ns() - t0
+
+def race(order, n=40, seed=0):
+    plan = [("first", impl_a)] * n + [("second", impl_b)] * n
+    if order == "random":
+        random.Random(seed).shuffle(plan)
+    t = {"first": [], "second": []}
+    for label, f in plan:
+        t[label].append(timed(f))
+    return statistics.median(t["first"]) / statistics.median(t["second"])
+
+for _ in range(30):
+    _warm = impl_a()
+
+reps = int(r.py_reps)
+res = {o: [race(o, seed=i) for i in range(reps)] for o in ("block", "random")}
+
+for o in ("block", "random"):
+    v = res[o]
+    m = statistics.mean(v)
+    se = statistics.stdev(v) / len(v) ** 0.5
+    print(f"{o:7s} mean {m:.4f}  95% CI [{m - 1.96 * se:.4f}, {m + 1.96 * se:.4f}]"
+          f"  sd {statistics.stdev(v):.4f}")
+
+print(f"variance ratio, block over random = "
+      f"{statistics.variance(res['block']) / statistics.variance(res['random']):.2f}")
+```
+
+The symptom differs and the diagnosis does not. NumPy does not allocate through R's collector, so
+the centre of the Python distribution sits close to 1. What block ordering costs there is
+precision. Randomizing shrinks the variance by the factor printed above, because consecutive calls
+inside a block are correlated, and a block of 40 correlated calls is worth far fewer than 40
+independent ones.
+
+## The checklist
+
+1. **Randomize the execution order.** In R that means `microbenchmark` at its default, or
+   `control = list(order = "random")` if you have changed it. `bench::mark` cannot do it, so reach
+   for it because of its memory accounting rather than for close races.
+2. **Put a negative control in every benchmark.** A second copy of one candidate under a different
+   name. Whatever gap it reports against its own twin is your noise floor for that machine on that
+   day.
+3. **Repeat the whole benchmark, not just the iterations inside it.** Iterations within a run are
+   correlated. Runs are much closer to independent, and their spread is what belongs in your
+   interval.
+4. **Report an interval.** A ratio of two medians with nothing around it is not a result.
+5. **Benchmark from a fresh session.** The loaded session that knitted this page carried an
+   artifact `r ratio_txt` times larger than clean ones running the same code. `callr::r()` gives
+   you a clean session in one line.
+6. **Refuse to call anything under the noise floor a win.** Most published single-digit speedups
+   would not survive their own negative control.
+
+## What this post did not measure
+
+One machine, one operating system, one R build, one afternoon. The percentages are this machine
+talking rather than a constant of nature. What transfers is the structure: block ordering aliases
+within-run drift onto the comparison, randomizing removes the alias for free, and a negative
+control tells you what your setup can resolve.
+
+The gap between the loaded session and the clean ones is measured but not explained. Heap size is
+the obvious suspect, but adding ballast to a clean session did not reproduce it, so something else
+is doing the work.
+
+I also did not test whether the numbers `bench::mark` prints inherit this as badly. It uses a
+different timer and reports the minimum alongside the median, and a minimum is far more robust to a
+sawtooth. That deserves its own post.
+
+Randomization, blocking, negative controls, and enough replication to see the effect you care
+about are not benchmarking ideas. They are experimental design, and they are the subject of
+[Experimental Design](https://link.springer.com/book/9783032018380), volume 4 of A Guide on Data
+Analysis.
