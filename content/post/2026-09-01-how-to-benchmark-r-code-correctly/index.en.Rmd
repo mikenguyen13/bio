@@ -244,7 +244,7 @@ Time one expression alone and the structure is already there.
 
 ```{r drift}
 n <- 100
-reps_d <- 60
+reps_d <- 200
 prof <- matrix(NA_real_, reps_d, n)
 half <- numeric(reps_d)
 for (i in seq_len(reps_d)) {
@@ -259,6 +259,11 @@ c(first_half_over_second = mean(half), ci_low = t_half$conf.int[1],
 
 ```{r drift-values, include=FALSE}
 agree <- sign(mean(half) - 1) == sign(blk$mean - 1)
+sig_txt <- if (t_half$p.value < 0.05) {
+  "and the interval clears 1"
+} else {
+  "though at this sample size the interval still includes 1"
+}
 agree_txt <- if (agree) {
   "points the same way as the head to head race, as it should if the race reads position rather than code"
 } else {
@@ -268,9 +273,9 @@ agree_txt <- if (agree) {
 
 One expression, one hundred consecutive calls, nothing to compare it against. The first fifty calls
 run `r pct(mean(half))` `r dirw(mean(half))` than the second fifty
-(p = `r format.pval(t_half$p.value, digits = 2)`). That `r agree_txt`.
+`r sig_txt` (p = `r format.pval(t_half$p.value, digits = 2)`). That `r agree_txt`.
 
-```{r drift-plot, echo=FALSE, fig.cap="Mean time by position within a run, normalised to the run median and averaged over 60 runs. The sawtooth is periodic garbage collection. Block ordering splits this sequence down the middle and charges each half to a different expression."}
+```{r drift-plot, echo=FALSE, fig.cap=paste0("Mean time by position within a run, normalised to the run median and averaged over ", reps_d, " runs. The sawtooth is periodic garbage collection. Block ordering splits this sequence down the middle and charges each half to a different expression.")}
 prof_df <- data.frame(position = seq_len(n), rel = colMeans(prof))
 ggplot(prof_df, aes(position, rel)) +
   annotate("rect", xmin = 0.5, xmax = n / 2 + 0.5, ymin = -Inf, ymax = Inf,

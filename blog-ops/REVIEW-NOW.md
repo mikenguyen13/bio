@@ -2,6 +2,8 @@
 
 ## Awaiting review: benchmarking post, 2026-09-01 (Tuesday slot)
 
+Review page: <https://claude.ai/code/artifact/7633ad35-91bf-49d8-b854-6973479d43d5>
+
 | | |
 |---|---|
 | Title | How to Benchmark R Code Correctly: I Raced a Function Against an Identical Copy of Itself |
@@ -12,8 +14,8 @@
 
 Two byte-identical functions, raced against each other, with the listing order swapped as the
 control. Under the block ordering `bench::mark` uses (`a a a a b b b b`, verified by instrumenting
-the expressions to log themselves) the first-listed slot is measured as 12.7% off in the knit
-session and 100% of races land the same way. Under `microbenchmark`'s default random ordering the
+the expressions to log themselves) the first-listed slot is measured as 13.2% off in the knit
+session and 99% of races land the same way. Under `microbenchmark`'s default random ordering the
 same comparison returns a clean null, every time, in every session tested.
 
 The mechanism is measured rather than asserted: timing one expression alone with no competitor
@@ -41,15 +43,15 @@ is variance rather than bias.
 ### Known soft spots, in the order I would look at them
 
 - **The headline number changes on every render, by design, and it is large.** Successive renders
-  of the same file produced 13.5%, 13.8%, 25.3%, and 12.7% for the block artifact in the knitting
+  of the same file produced 13.5%, 13.8%, 25.3%, 12.7%, and 13.2% for the block artifact in the knitting
   session. That is not instability in the finding (the randomized null and the direction were
   stable throughout), it is the post's actual thesis: the size is a property of the session. Every
   number in the prose is an inline expression, so the text re-derives itself and cannot go stale,
   and the direction word is computed too. But it does mean **the figure a reader sees is whatever
   the last render produced**, and if you want a fixed headline number the post needs a cached
   result instead. Worth a decision.
-- **The knit session and fresh sessions disagree by roughly 12x and I could not explain why.** The
-  knitting session measured 12.7%, eight fresh `callr` sessions averaged 1.1%. Heap size is the
+- **The knit session and fresh sessions disagree by roughly 9x and I could not explain why.** The
+  knitting session measured 13.2%, eight fresh `callr` sessions averaged 1.5%. Heap size is the
   obvious suspect and it did **not** reproduce the gap when I added ballast to a clean session. The
   post says this outright in "What this post did not measure" rather than hiding it. Confirm you
   are comfortable publishing a measured effect with an unexplained magnitude. The direction and the
@@ -59,7 +61,7 @@ is variance rather than bias.
   it for exactly that and to prefer `microbenchmark` only for close races, and it explicitly does
   not test whether the *minimum* `bench::mark` reports inherits the problem the median does. That
   untested caveat is the fairness check worth your eyes.
-- **The fresh-session artifact is small.** 1.1% average, 6 of 8 in the same direction. On its own
+- **The fresh-session artifact is small.** 1.5% average, though all 8 of 8 leaned the same way. On its own
   that is a minor effect. The post is carried by the loaded-session number, which is the one a
   reader is most likely to be unable to reproduce.
 - One machine, one OS, one R build. Stated in the post.
