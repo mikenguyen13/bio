@@ -29,7 +29,7 @@ projects: []
 
 <p>A benchmark is an experiment. It has treatments (the implementations you are comparing), units
 (the individual timed calls), and a response (elapsed time). Almost nobody treats it
-that way, and the cost is that a good share of the speed claims you read are measuring the order
+that way, and the cost is that many speed claims you read are measuring the order
 the code ran in rather than the code.</p>
 <p>Here is the cheapest demonstration. I raced a function against a byte-identical copy
 of itself, and swapped which copy got listed first. If a slot rather than a function is winning,
@@ -92,59 +92,59 @@ race_grid$ratio &lt;- mapply(race, race_grid$order, race_grid$first)</code></pre
 <tr class="odd">
 <td align="left">block</td>
 <td align="left">a</td>
-<td align="left">1.1346</td>
-<td align="left">[1.1145, 1.1547]</td>
-<td align="left">2.5e-16</td>
-<td align="left">98%</td>
+<td align="left">1.1100</td>
+<td align="left">[1.0908, 1.1291]</td>
+<td align="left">3.2e-14</td>
+<td align="left">100%</td>
 </tr>
 <tr class="even">
 <td align="left">block</td>
 <td align="left">b</td>
-<td align="left">1.1291</td>
-<td align="left">[1.1135, 1.1447]</td>
-<td align="left">&lt;2e-16</td>
-<td align="left">100%</td>
+<td align="left">1.0955</td>
+<td align="left">[1.0767, 1.1144]</td>
+<td align="left">1.2e-12</td>
+<td align="left">95%</td>
 </tr>
 <tr class="odd">
 <td align="left">block</td>
 <td align="left">either (pooled)</td>
-<td align="left">1.1318</td>
-<td align="left">[1.1194, 1.1443]</td>
+<td align="left">1.1027</td>
+<td align="left">[1.0895, 1.1160]</td>
 <td align="left">&lt;2e-16</td>
-<td align="left">99%</td>
+<td align="left">98%</td>
 </tr>
 <tr class="even">
 <td align="left">random</td>
 <td align="left">a</td>
-<td align="left">1.0001</td>
-<td align="left">[0.9764, 1.0238]</td>
-<td align="left">1</td>
-<td align="left">52%</td>
+<td align="left">1.0026</td>
+<td align="left">[0.9885, 1.0167]</td>
+<td align="left">0.71</td>
+<td align="left">40%</td>
 </tr>
 <tr class="odd">
 <td align="left">random</td>
 <td align="left">b</td>
-<td align="left">0.9961</td>
-<td align="left">[0.9725, 1.0197]</td>
-<td align="left">0.74</td>
-<td align="left">48%</td>
+<td align="left">1.0002</td>
+<td align="left">[0.9864, 1.0140]</td>
+<td align="left">0.97</td>
+<td align="left">52%</td>
 </tr>
 <tr class="even">
 <td align="left">random</td>
 <td align="left">either (pooled)</td>
-<td align="left">0.9981</td>
-<td align="left">[0.9817, 1.0145]</td>
-<td align="left">0.82</td>
-<td align="left">50%</td>
+<td align="left">1.0014</td>
+<td align="left">[0.9918, 1.0110]</td>
+<td align="left">0.77</td>
+<td align="left">46%</td>
 </tr>
 </tbody>
 </table>
-<p>Under block ordering the function listed first is measured as 13.2%
+<p>Under block ordering the function listed first is measured as 10.3%
 slower than an identical copy of itself, and it comes out that way in
-99% of the races. The gap survives the swap, so
+98% of the races. The gap survives the swap, so
 it belongs to the slot and not to the function. Under random ordering the same comparison returns
-a mean ratio of 0.9981, interval
-[0.9817, 1.0145], which is the null answer a benchmark of identical
+a mean ratio of 1.0014, interval
+[0.9918, 1.0110], which is the null answer a benchmark of identical
 code is supposed to give.</p>
 <div class="figure"><span style="display:block;" id="fig:null-plot"></span>
 <img src="figs/null-plot-1.png" alt="Two identical functions raced against each other under each ordering. Randomizing the execution order centres the distribution on zero. Block ordering moves it off." width="1050" />
@@ -181,7 +181,7 @@ cat(&quot;microbenchmark :&quot;, order_mb, &quot;\n&quot;)
 <p><code>bench::mark</code> calls each expression once up front and then runs every iteration of the first
 before it touches the second. That is block ordering, and there is no argument to change it.
 <code>microbenchmark</code> shuffles, because its <code>control$order</code> defaults to <code>"random"</code>. That default is the whole
-difference between the two halves of the table above.</p>
+difference between the two halves of the table.</p>
 </div>
 <div id="the-size-belongs-to-the-session-not-to-the-code" class="section level2">
 <h2>The size belongs to the session, not to the code</h2>
@@ -220,23 +220,23 @@ one_session &lt;- function(seed) {
 sessions &lt;- as.data.frame(t(vapply(1:8, one_session, numeric(2))))
 round(sessions, 4)
 ##    block random
-## 1 1.0167 0.9986
-## 2 1.0107 1.0012
-## 3 1.0063 0.9918
-## 4 1.0186 1.0105
-## 5 1.0310 0.9947
-## 6 1.0111 0.9965
-## 7 1.0094 1.0055
-## 8 1.0159 1.0182</code></pre>
+## 1 1.0087 0.9877
+## 2 1.0087 1.0093
+## 3 1.0049 0.9989
+## 4 1.0178 0.9995
+## 5 1.0097 0.9895
+## 6 1.0173 0.9994
+## 7 1.0304 1.0000
+## 8 1.0074 1.0064</code></pre>
 <p>Same code, same machine, same afternoon. The artifact appears in all eight, leaning the way this
-document did, at +0.6% to
-+3.1%.</p>
+document did, at +0.5% to
++3.0%.</p>
 <p>Now compare the session you are reading the output of. The table at the top of this page came out
-of the R session that knitted it, and it measured 13.2% against the 1.5%
-these clean sessions average, a factor of 9. A long-lived session with a big heap is a
+of the R session that knitted it, and it measured 10.3% against the 1.3%
+these clean sessions average, a factor of 8. A long-lived session with a big heap is a
 much worse place to benchmark than a fresh one, and a knitted report or a day-old RStudio session
 is exactly that. The randomized column stays inside
--0.8% to +1.8%
+-1.2% to +0.9%
 throughout. It does not care.</p>
 </div>
 <div id="what-block-ordering-is-aliasing" class="section level2">
@@ -248,31 +248,36 @@ Time one expression alone and the structure is already there.</p>
 reps_d &lt;- 200
 prof &lt;- matrix(NA_real_, reps_d, n)
 half &lt;- numeric(reps_d)
+half_mean &lt;- numeric(reps_d)
+first &lt;- 1:(n / 2)
+second &lt;- (n / 2 + 1):n
 for (i in seq_len(reps_d)) {
   tt &lt;- as.numeric(microbenchmark(impl_a(x), times = n)$time)
   prof[i, ] &lt;- tt / median(tt)
-  half[i] &lt;- median(tt[1:(n / 2)]) / median(tt[(n / 2 + 1):n])
+  half[i]      &lt;- median(tt[first]) / median(tt[second])
+  half_mean[i] &lt;- mean(tt[first]) / mean(tt[second])
 }
 t_half &lt;- t.test(half, mu = 1)
-c(first_half_over_second = mean(half), ci_low = t_half$conf.int[1],
-  ci_high = t_half$conf.int[2])
-## first_half_over_second                 ci_low                ci_high 
-##               1.010587               1.006110               1.015063</code></pre>
-<p>One expression, one hundred consecutive calls, nothing to compare it against. The first fifty calls
-run 1.1% slower than the second fifty
-and the interval clears 1 (p = 5.7e-06). That points the same way as the head to head race, as it should if the race reads position rather than code.</p>
+c(median_based = mean(half), mean_based = mean(half_mean),
+  ci_low = t_half$conf.int[1], ci_high = t_half$conf.int[2])
+## median_based   mean_based       ci_low      ci_high 
+##     1.019666     1.016283     1.011671     1.027661</code></pre>
+<p>One expression, one hundred consecutive calls, no competitor. The first fifty calls
+run 2.0% slower than the second fifty
+and the interval clears 1 (p = 2.5e-06). That points the same way as the head to head race, as it should if the race reads position not code.</p>
 <div class="figure"><span style="display:block;" id="fig:drift-plot"></span>
-<img src="figs/drift-plot-1.png" alt="Mean time by position within a run, normalised to the run median and averaged over 200 runs. The sawtooth is periodic garbage collection. Block ordering splits this sequence down the middle and charges each half to a different expression." width="1050" />
+<img src="figs/drift-plot-1.png" alt="Mean time by position within a run, normalised to the run median and averaged over 200 runs. The regular spikes are garbage collection. Block ordering splits this sequence down the middle and charges each half to a different expression." width="1050" />
 <p class="caption">
-Figure 2: Mean time by position within a run, normalised to the run median and averaged over 200 runs. The sawtooth is periodic garbage collection. Block ordering splits this sequence down the middle and charges each half to a different expression.
+Figure 2: Mean time by position within a run, normalised to the run median and averaged over 200 runs. The regular spikes are garbage collection. Block ordering splits this sequence down the middle and charges each half to a different expression.
 </p>
 </div>
-<p>The shape is the point. This is not a warm-up curve that discarding a few early iterations would
-fix. It is a sawtooth, because R collects garbage periodically and each collection lands on
-whichever call happens to be running. Where the teeth fall relative to the halfway point sets the
-size and sign of the bias, and both their height and spacing depend on the heap the session already
-carries. That is the most plausible reason the loaded and clean sessions disagree so much, though I
-did not isolate it.</p>
+<p>There are two shapes here. A few calls cost up to 6.0 times the median,
+spaced about 29 calls apart, which is garbage collection on a cycle. Underneath them the
+baseline drifts on its own. Medians step over the spikes and means do not, so the two read
+different things, and here they agree: 1.0197 against
+1.0163. The effect survives either summary statistic. Neither shape
+is a property of the code, and block ordering hands the first half of both to whichever expression
+you listed first.</p>
 </div>
 <div id="reading-a-real-comparison" class="section level2">
 <h2>Reading a real comparison</h2>
@@ -292,12 +297,12 @@ rbind(`2 * x  vs  x + x` = c(mean = mean(r_mul), t.test(r_mul, mu = 1)$conf.int,
       `x + x  vs  x + x` = c(mean = mean(r_null), t.test(r_null, mu = 1)$conf.int,
                             worst_single_run = max(abs(r_null - 1))))
 ##                       mean                     worst_single_run
-## 2 * x  vs  x + x 0.8942773 0.8691379 0.9194166        0.2284714
-## x + x  vs  x + x 1.0024195 0.9735214 1.0313176        0.2246106</code></pre>
-<p><code>2 * xx</code> really is faster than <code>xx + xx</code>, by 10.6% on average, and across 40
-randomized races the interval [0.869, 0.919] clears 1
+## 2 * x  vs  x + x 0.9566814 0.9288028 0.9845601        0.2566742
+## x + x  vs  x + x 1.0128313 0.9816652 1.0439974        0.2382984</code></pre>
+<p><code>2 * xx</code> really is faster than <code>xx + xx</code>, by 4.3% on average, and across 40
+randomized races the interval [0.929, 0.985] clears 1
 comfortably. The control row is the useful part. Two identical expressions in the same benchmark
-were off by as much as 22.5% in a single run, which is
+were off by as much as 23.8% in a single run, which is
 larger than the effect, so one run cannot resolve this comparison. That is your resolution limit for this machine on this day, and it costs one line.</p>
 </div>
 <div id="the-same-design-flaw-in-python" class="section level2">
@@ -346,12 +351,12 @@ for o in (&quot;block&quot;, &quot;random&quot;):
     se = statistics.stdev(v) / len(v) ** 0.5
     print(f&quot;{o:7s} mean {m:.4f}  95% CI [{m - 1.96 * se:.4f}, {m + 1.96 * se:.4f}]&quot;
           f&quot;  sd {statistics.stdev(v):.4f}&quot;)
-## block   mean 0.9998  95% CI [0.9937, 1.0059]  sd 0.0241
-## random  mean 1.0006  95% CI [0.9962, 1.0050]  sd 0.0174
+## block   mean 0.9966  95% CI [0.9882, 1.0051]  sd 0.0335
+## random  mean 0.9994  95% CI [0.9951, 1.0037]  sd 0.0170
 
 print(f&quot;variance ratio, block over random = &quot;
       f&quot;{statistics.variance(res[&#39;block&#39;]) / statistics.variance(res[&#39;random&#39;]):.2f}&quot;)
-## variance ratio, block over random = 1.91</code></pre>
+## variance ratio, block over random = 3.89</code></pre>
 <p>The symptom differs and the diagnosis does not. NumPy does not allocate through R’s collector, so
 the centre of the Python distribution sits close to 1. What block ordering costs there is
 precision. Randomizing shrinks the variance by the factor printed above, because consecutive calls
@@ -372,7 +377,7 @@ correlated. Runs are much closer to independent, and their spread is what belong
 interval.</li>
 <li><strong>Report an interval.</strong> A ratio of two medians with nothing around it is not a result.</li>
 <li><strong>Benchmark from a fresh session.</strong> The loaded session that knitted this page carried an
-artifact 9 times larger than clean ones running the same code. <code>callr::r()</code> gives
+artifact 8 times larger than clean ones running the same code. <code>callr::r()</code> gives
 you a clean session in one line.</li>
 <li><strong>Refuse to call anything under the noise floor a win.</strong> Most published single-digit speedups
 would not survive their own negative control.</li>
@@ -389,7 +394,7 @@ the obvious suspect, but adding ballast to a clean session did not reproduce it,
 is doing the work.</p>
 <p>I also did not test whether the numbers <code>bench::mark</code> prints inherit this as badly. It uses a
 different timer and reports the minimum alongside the median, and a minimum is far more robust to a
-sawtooth. That deserves its own post.</p>
+spike than a median is. That deserves its own post.</p>
 <p>Randomization, blocking, negative controls, and enough replication to see the effect you care
 about are not benchmarking ideas. They are experimental design, and they are the subject of
 <a href="https://link.springer.com/book/9783032018380">Experimental Design</a>, volume 4 of A Guide on Data

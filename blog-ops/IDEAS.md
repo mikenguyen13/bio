@@ -109,7 +109,7 @@ methods used.
       resolve a moderator, and it connects directly to the geo experiments item above.
 - [ ] **Does `bench::mark`'s minimum survive what its median does not?** The benchmarking post
       shows block ordering biasing a median-based comparison and explicitly does not test whether
-      the minimum `bench::mark` also reports is robust to the same GC sawtooth. It should be, in
+      the minimum `bench::mark` also reports is robust to the same GC spikes. It should be, in
       theory, and that is exactly the kind of theory worth checking. Short, self-contained, and it
       closes the one loose end that post names.
 - [ ] Fixed effects vs. random effects, decided by what you're estimating not by a Hausman test

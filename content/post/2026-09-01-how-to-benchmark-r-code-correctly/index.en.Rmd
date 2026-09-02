@@ -43,7 +43,7 @@ dirw <- function(v) if (v > 1) "slower" else "faster"
 
 A benchmark is an experiment. It has treatments (the implementations you are comparing), units
 (the individual timed calls), and a response (elapsed time). Almost nobody treats it
-that way, and the cost is that a good share of the speed claims you read are measuring the order
+that way, and the cost is that many speed claims you read are measuring the order
 the code ran in rather than the code.
 
 Here is the cheapest demonstration. I raced a function against a byte-identical copy
@@ -174,7 +174,7 @@ cat("microbenchmark :", order_mb, "\n")
 `bench::mark` calls each expression once up front and then runs every iteration of the first
 before it touches the second. That is block ordering, and there is no argument to change it.
 `microbenchmark` shuffles, because its `control$order` defaults to `"random"`. That default is the whole
-difference between the two halves of the table above.
+difference between the two halves of the table.
 
 ## The size belongs to the session, not to the code
 
@@ -247,17 +247,25 @@ n <- 100
 reps_d <- 200
 prof <- matrix(NA_real_, reps_d, n)
 half <- numeric(reps_d)
+half_mean <- numeric(reps_d)
+first <- 1:(n / 2)
+second <- (n / 2 + 1):n
 for (i in seq_len(reps_d)) {
   tt <- as.numeric(microbenchmark(impl_a(x), times = n)$time)
   prof[i, ] <- tt / median(tt)
-  half[i] <- median(tt[1:(n / 2)]) / median(tt[(n / 2 + 1):n])
+  half[i]      <- median(tt[first]) / median(tt[second])
+  half_mean[i] <- mean(tt[first]) / mean(tt[second])
 }
 t_half <- t.test(half, mu = 1)
-c(first_half_over_second = mean(half), ci_low = t_half$conf.int[1],
-  ci_high = t_half$conf.int[2])
+c(median_based = mean(half), mean_based = mean(half_mean),
+  ci_low = t_half$conf.int[1], ci_high = t_half$conf.int[2])
 ```
 
 ```{r drift-values, include=FALSE}
+avg_prof <- colMeans(prof)
+spikes <- which(avg_prof > 1.5)
+spike_gap <- if (length(spikes) > 1) round(mean(diff(spikes))) else NA_integer_
+spike_peak <- max(avg_prof)
 agree <- sign(mean(half) - 1) == sign(blk$mean - 1)
 sig_txt <- if (t_half$p.value < 0.05) {
   "and the interval clears 1"
@@ -265,17 +273,17 @@ sig_txt <- if (t_half$p.value < 0.05) {
   "though at this sample size the interval still includes 1"
 }
 agree_txt <- if (agree) {
-  "points the same way as the head to head race, as it should if the race reads position rather than code"
+  "points the same way as the head to head race, as it should if the race reads position not code"
 } else {
-  "points against the head to head race here, so drift is one contributor rather than the whole story"
+  "points against the head to head race here, so drift is one contributor not the whole story"
 }
 ```
 
-One expression, one hundred consecutive calls, nothing to compare it against. The first fifty calls
+One expression, one hundred consecutive calls, no competitor. The first fifty calls
 run `r pct(mean(half))` `r dirw(mean(half))` than the second fifty
 `r sig_txt` (p = `r format.pval(t_half$p.value, digits = 2)`). That `r agree_txt`.
 
-```{r drift-plot, echo=FALSE, fig.cap=paste0("Mean time by position within a run, normalised to the run median and averaged over ", reps_d, " runs. The sawtooth is periodic garbage collection. Block ordering splits this sequence down the middle and charges each half to a different expression.")}
+```{r drift-plot, echo=FALSE, fig.cap=paste0("Mean time by position within a run, normalised to the run median and averaged over ", reps_d, " runs. The regular spikes are garbage collection. Block ordering splits this sequence down the middle and charges each half to a different expression.")}
 prof_df <- data.frame(position = seq_len(n), rel = colMeans(prof))
 ggplot(prof_df, aes(position, rel)) +
   annotate("rect", xmin = 0.5, xmax = n / 2 + 0.5, ymin = -Inf, ymax = Inf,
@@ -290,12 +298,13 @@ ggplot(prof_df, aes(position, rel)) +
   theme_minimal(base_size = 12)
 ```
 
-The shape is the point. This is not a warm-up curve that discarding a few early iterations would
-fix. It is a sawtooth, because R collects garbage periodically and each collection lands on
-whichever call happens to be running. Where the teeth fall relative to the halfway point sets the
-size and sign of the bias, and both their height and spacing depend on the heap the session already
-carries. That is the most plausible reason the loaded and clean sessions disagree so much, though I
-did not isolate it.
+There are two shapes here. A few calls cost up to `r sprintf("%.1f", spike_peak)` times the median,
+spaced about `r spike_gap` calls apart, which is garbage collection on a cycle. Underneath them the
+baseline drifts on its own. Medians step over the spikes and means do not, so the two read
+different things, and here they agree: `r sprintf("%.4f", mean(half))` against
+`r sprintf("%.4f", mean(half_mean))`. The effect survives either summary statistic. Neither shape
+is a property of the code, and block ordering hands the first half of both to whichever expression
+you listed first.
 
 ## Reading a real comparison
 
@@ -429,7 +438,7 @@ is doing the work.
 
 I also did not test whether the numbers `bench::mark` prints inherit this as badly. It uses a
 different timer and reports the minimum alongside the median, and a minimum is far more robust to a
-sawtooth. That deserves its own post.
+spike than a median is. That deserves its own post.
 
 Randomization, blocking, negative controls, and enough replication to see the effect you care
 about are not benchmarking ideas. They are experimental design, and they are the subject of
