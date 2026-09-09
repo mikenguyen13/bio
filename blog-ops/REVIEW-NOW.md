@@ -1,5 +1,93 @@
 # Review Queue
 
+> **Four drafts are now queued and nothing has gone live since 2026-08-28.** The buffer rule
+> wants two finished evergreens in reserve and instead there are four posts waiting on a
+> 15-minute review each. The system's own stated failure mode is silence, not backlog, so the
+> highest-value hour available is reviewing and shipping these rather than writing a fifth.
+> Suggested order: benchmarking (most self-contained), Unicode normalization (strongest of the
+> two AI posts), this one, then structured output.
+
+## Awaiting review: synthetic respondents post, 2026-09-08 (Tuesday slot)
+
+| | |
+|---|---|
+| Title | Synthetic Respondents in Conjoint Analysis: The Average Survives, the Price Does Not |
+| Target query | synthetic respondents conjoint analysis |
+| Lane | AI and LLM engineering, crossed with marketing research. Lanes 3 and 4 were the underweighted ones |
+| Freshness | Maier et al., arXiv 2510.08338, October 2025. 11 months old, clears the 24-month rule |
+| Status | **DRAFT** (`draft: true`), rendered, not live |
+| File | `content/post/2026-09-08-synthetic-respondents-conjoint-analysis/index.en.Rmd` |
+
+The literature says LLM respondent panels produce distributions that are too narrow. Nobody has
+written down what that costs. This post holds mean price sensitivity fixed at exactly 0.050
+across every panel while shrinking only the spread, runs both panels through the same mixed
+logit and the same market simulator, and prices the difference.
+
+The validation passes convincingly. Mean price sensitivity 0.0487 human against 0.0478
+synthetic, feature part-worth 1.375 against 1.368, and the synthetic model predicts the human
+holdout product share at 0.2472 against an actual 0.2478, which is *closer than the human
+panel's own model* at 0.2545. On that evidence the panel gets signed off.
+
+The decision then breaks. Optimal price 43.5 against a truth of 58.5, which is 26% low and 31%
+below what the human panel recommends. Premium segment 14.0% against 34.1%. Market share at a
+price of 125 is 28% of the truth, because high-price demand is made entirely of the
+price-insensitive tail that compression removes.
+
+Mechanism is shown rather than asserted: a sweep over the compression factor holds the mean
+coefficient flat at 0.050 to four decimals across the whole range while optimal price falls to
+71% of truth and the premium segment falls to essentially zero. That is the figure.
+
+Python cross-check by 24-node three-dimensional Gauss-Hermite quadrature reproduced the R Monte
+Carlo optimum at all five compression levels exactly, so the collapse is a property of the model
+and not of the random draws.
+
+### The three questions
+
+1. **Is the claim right?** The arithmetic is solid and independently verified two ways. The
+   judgment call is scope, see the first bullet below.
+2. **Is the hook right?** It opens on the validation report checking exactly the numbers that
+   survive the failure. That is the strongest sentence in the post.
+3. **Ship, fix, or kill?**
+
+### Known soft spots, in the order I would look at them
+
+- **No language model was queried.** This is the one that decides the post. It takes the
+  narrowness the literature documents, applies it as a compression factor, and prices the
+  consequence. It is not new evidence that synthetic panels are narrow. The post says this
+  outright in a section headed "What this post did not measure" rather than burying it, and it
+  names the method built to fix the problem (semantic similarity rating) so the criticism is not
+  a straw man. Confirm you are comfortable publishing a consequence study rather than a
+  measurement study. Running real LLM respondents is possible but cannot be reproducible at
+  render time, which is why it was not done.
+- **The compression factor of 0.4 is my choice, and the headline 26% is one point on a curve.**
+  The sweep is in the post precisely so the reader sees the whole range rather than a staged
+  number, and the direction is monotone throughout. But the abstract quotes the single number.
+  Decide whether the summary should quote a range instead.
+- **Two premium-segment numbers appear and they differ.** The fitted table says 14.0% and the
+  sweep at the same compression factor says 6.1%. Both are correct: the first uses parameters
+  estimated from the synthetic panel, the second uses the true compressed parameters. Estimation
+  noise inflated the fitted feature spread. A careful reader could read this as a contradiction,
+  so it may be worth one clarifying sentence.
+- **The money number is the weakest number in the post.** Contribution at the synthetic price is
+  94.8% of the best available, so only about 5% of profit is lost. The post confronts this
+  directly and argues the flatness of profit curves near their peak is exactly why a 26% price
+  error survives undetected, and that segment sizing is the decision that really breaks. Check
+  you find that argument convincing, because a skeptic will quote the 94.8%.
+- **The human panel is also wrong**, at 63.5 against a truth of 58.5, purely from sampling noise
+  at n = 300. It is visible in the table and the post does not hide it, but it is not discussed.
+  The synthetic error is three times larger and systematic rather than noisy.
+- **The estimator is given the correct functional form.** Truth is a mixed logit and the model
+  fitted is the same mixed logit, so the post loses the price under the most favourable
+  specification available. That is stated, and it strengthens rather than weakens the result.
+- The variance-ratio diagnostic is honest about being weak. Ratios came back 0.34, 0.56, and
+  0.01 against a true 0.40. The post now says explicitly it is a screen and not a rescaling
+  factor, after an earlier draft called two of three "reasonable" when one was 40% off.
+
+Nothing in this post is unverified. Every R block executed, plus one executed `{python}` chunk.
+Renders in about 80 seconds.
+
+---
+
 ## Awaiting review: benchmarking post, 2026-09-01 (Tuesday slot)
 
 Review page: <https://claude.ai/code/artifact/7633ad35-91bf-49d8-b854-6973479d43d5>

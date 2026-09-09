@@ -75,10 +75,21 @@ methods used.
       would answer the one question the calibration post has to leave open: how much of the
       77% overstatement survives a hierarchical geo-level model. Nobody has written Meridian
       from R at all, so the search window is wide open.
-- [ ] **LLMs as synthetic survey respondents, and where they break.**
-      Very hot in academic marketing. Run a small conjoint, compare LLM respondents against
-      a human benchmark, report where WTP estimates diverge. High attention, high citation
-      potential, directly feeds Marketing Research book.
+- [~] **LLMs as synthetic survey respondents, and where they break.** DRAFTED 2026-09-08 as
+      `synthetic-respondents-conjoint-analysis`. The angle narrowed on contact with the
+      literature: rather than running LLM respondents (which cannot be done reproducibly at
+      render time), the post takes the documented variance compression as given and prices its
+      consequence through a mixed logit and a market simulator. Two follow-ups fell out of it,
+      listed below.
+- [ ] **Does hierarchical Bayes shrinkage compound the synthetic-panel collapse?** The conjoint
+      post estimates with `logitr` maximum simulated likelihood and notes in one sentence that
+      HB adds its own shrinkage on top, so a real workflow is probably worse than the post
+      shows. `bayesm` is installed. Fitting the same two panels with `rhierMnlRwMixture` and
+      comparing the individual-level posterior spread against the truth would settle it.
+- [ ] **How small can the human pilot be and still catch the collapse?** The conjoint post
+      recommends keeping humans in the study and shows the variance-ratio screen is noisy at
+      n = 300. The useful version is a power curve: pilot size against probability of detecting
+      a given compression factor. That turns the post's closing advice into a number.
 - [ ] **Geo experiments when you can't randomize individuals.** Signal loss has erased a large
       share of trackable conversions. Geo tests survive it. Design + power analysis + code.
       Pairs naturally with the Experimental Design volume.
@@ -165,6 +176,18 @@ Append the moment something costs you time. One line is enough.
       1.0%. Cause not isolated. Heap size is the obvious suspect and did **not** reproduce it when
       tested with ballast, so something else is doing the work. Practical rule: benchmark from
       `callr::r()`, not from the session you have had open all day.
+- [x] 2026-09-08: **`logitr` silently returns a garbage fit if you give a lognormal random
+      parameter the wrong sign.** `randPars = c(price = "ln")` on a raw price column converged
+      without complaint and reported a log-mean of -16, meaning a price coefficient of about
+      1e-7. The lognormal is constrained positive, so the variable has to enter negated. Build a
+      `negPrice = -price` column and use `randPars = c(negPrice = "ln")`. No warning is issued,
+      and the model still prints "Done!", so this fails quietly.
+- [x] 2026-09-08: **a naive Monte Carlo market simulator over a price grid is quadratic and will
+      blow a render budget.** 4e5 draws over 300 grid points timed out past 120s. Two fixes,
+      both needed: draw the population once outside the grid loop rather than per price, and use
+      common random numbers (one `set.seed` before the draw, reused across the whole grid) so the
+      profit curve is smooth and its argmax is well determined at far fewer draws. 8e4 draws with
+      common random numbers located the same optimum as 24-node Gauss-Hermite quadrature.
 - [x] 2026-08-31: **prose that hardcodes a direction will eventually contradict its own output.**
       The first draft of the benchmarking post said "the first slot is measured as X% faster" with
       X computed inline and "faster" written by hand. The render came back with the first slot
