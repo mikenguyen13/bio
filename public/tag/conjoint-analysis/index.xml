@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>conjoint analysis | Mike Nguyen</title>
+    <link>https://mikenguyen.netlify.app/tag/conjoint-analysis/</link>
+      <atom:link href="https://mikenguyen.netlify.app/tag/conjoint-analysis/index.xml" rel="self" type="application/rss+xml" />
+    <description>conjoint analysis</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Tue, 08 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
+      <title>conjoint analysis</title>
+      <link>https://mikenguyen.netlify.app/tag/conjoint-analysis/</link>
+    </image>
+    
+    <item>
+      <title>Synthetic Respondents in Conjoint Analysis: The Average Survives, the Price Does Not</title>
+      <link>https://mikenguyen.netlify.app/post/synthetic-respondents-conjoint-analysis/</link>
+      <pubDate>Tue, 08 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/synthetic-respondents-conjoint-analysis/</guid>
+      <description>
+
+
+&lt;p&gt;If you buy a panel of LLM synthetic respondents for a conjoint analysis, the validation
+report you get back will compare average part-worths and predicted choice shares. Those are
+exactly the numbers that survive the failure mode the method actually has, and the price you
+set afterwards is not.&lt;/p&gt;
+&lt;p&gt;The known problem is that LLM respondents produce response distributions that are too narrow.
+Maier et al. built their semantic similarity rating method around it, because asking a model
+directly for a numeric rating “produces unrealistic response distributions” (&lt;a href=&#34;https://arxiv.org/abs/2510.08338&#34;&gt;arXiv
+2510.08338&lt;/a&gt;, October 2025). What nobody writes down is what
+a narrow distribution costs you once the study reaches a pricing decision. So I simulated a
+conjoint where I picked the true answer myself, compressed the heterogeneity the way the
+literature says these panels do, and ran both panels through the same workflow.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# One population, two panels. Identical MEAN price sensitivity by construction,
+# and heterogeneity shrunk by a factor lambda in the synthetic one.
+k_mean &amp;lt;- 0.05   # E|price coefficient|, held fixed across every panel below
+s_full &amp;lt;- 0.90   # true dispersion in log price sensitivity
+mu_f   &amp;lt;- 1.20   # mean part-worth for the premium feature
+sg_f   &amp;lt;- 0.90
+mu_b   &amp;lt;- 0.50   # mean brand part-worth
+sg_b   &amp;lt;- 0.60
+asc_none &amp;lt;- -1.5 # utility of not buying
+mc     &amp;lt;- 12     # marginal cost, so there is a real price to optimise
+LAM    &amp;lt;- 0.40   # the synthetic panel keeps 40% of the true spread
+
+# Price sensitivity is lognormal, which is standard because it keeps the sign
+# right. Holding E|b_price| fixed while shrinking the spread requires moving the
+# log-mean, so m is a function of s rather than a constant.
+log_m &amp;lt;- function(s) log(k_mean) - s^2 / 2&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The premium feature is worth $24 to the average buyer. Prices
+tested in the survey run from $25 to $85, three products plus a no-buy option, 300
+respondents, 12 tasks each.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n_resp &amp;lt;- 300
+n_task &amp;lt;- 12
+n_prod &amp;lt;- 3
+prices &amp;lt;- c(25, 45, 65, 85)
+
+draw_pop &amp;lt;- function(n, lambda, seed) {
+  set.seed(seed)
+  s &amp;lt;- s_full * lambda
+  data.frame(id = seq_len(n),
+             bp = -exp(log_m(s) + s * rnorm(n)),
+             bf = mu_f + sg_f * lambda * rnorm(n),
+             bb = mu_b + sg_b * lambda * rnorm(n))
+}
+
+make_design &amp;lt;- function(seed) {
+  set.seed(seed)
+  n &amp;lt;- n_resp * n_task * n_prod
+  d &amp;lt;- data.frame(
+    id     = rep(seq_len(n_resp), each = n_task * n_prod),
+    task   = rep(rep(seq_len(n_task), each = n_prod), n_resp),
+    price  = sample(prices, n, TRUE),
+    feat   = rbinom(n, 1, 0.5),
+    brandB = rbinom(n, 1, 0.5))
+  d$obs &amp;lt;- (d$id - 1) * n_task + d$task
+  d
+}
+
+sim_choice &amp;lt;- function(design, pop, seed) {
+  set.seed(seed)
+  b &amp;lt;- pop[match(design$id, pop$id), ]
+  d &amp;lt;- design
+  d$V &amp;lt;- b$bp * d$price + b$bf * d$feat + b$bb * d$brandB
+  none &amp;lt;- unique(d[, c(&amp;quot;id&amp;quot;, &amp;quot;task&amp;quot;, &amp;quot;obs&amp;quot;)])
+  none$price  &amp;lt;- 0
+  none$feat   &amp;lt;- 0
+  none$brandB &amp;lt;- 0
+  none$V      &amp;lt;- asc_none
+  d &amp;lt;- rbind(d[, names(none)], none)
+  d &amp;lt;- d[order(d$obs), ]
+  d$none     &amp;lt;- as.integer(d$price == 0 &amp;amp; d$feat == 0 &amp;amp; d$brandB == 0)
+  d$negPrice &amp;lt;- -d$price
+  d$choice   &amp;lt;- 0L
+  for (k in split(seq_len(nrow(d)), d$obs)) {
+    p &amp;lt;- exp(d$V[k])
+    d$choice[k[sample.int(length(k), 1, prob = p / sum(p))]] &amp;lt;- 1L
+  }
+  d
+}
+
+design &amp;lt;- make_design(11)
+human  &amp;lt;- sim_choice(design, draw_pop(n_resp, 1.0, 21), 31)
+synth  &amp;lt;- sim_choice(design, draw_pop(n_resp, LAM, 21), 31)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;the-validation-that-passes&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The validation that passes&lt;/h2&gt;
+&lt;p&gt;Fit the same mixed logit to each panel, holding out the last two tasks. This is the model a
+conjoint study actually reports.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(logitr)
+
+fit_panel &amp;lt;- function(d) {
+  logitr(data = d[d$task &amp;lt;= 10, ], outcome = &amp;quot;choice&amp;quot;, obsID = &amp;quot;obs&amp;quot;, panelID = &amp;quot;id&amp;quot;,
+         pars     = c(&amp;quot;negPrice&amp;quot;, &amp;quot;feat&amp;quot;, &amp;quot;brandB&amp;quot;, &amp;quot;none&amp;quot;),
+         randPars = c(negPrice = &amp;quot;ln&amp;quot;, feat = &amp;quot;n&amp;quot;, brandB = &amp;quot;n&amp;quot;),
+         numDraws = 200)
+}
+f_human &amp;lt;- fit_panel(human)
+f_synth &amp;lt;- fit_panel(synth)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ch &amp;lt;- coef(f_human)
+cs &amp;lt;- coef(f_synth)
+
+# E|b_price| = exp(m + s^2/2) is the interpretable quantity, not the log-mean.
+mean_bp &amp;lt;- function(cf) exp(cf[&amp;quot;negPrice&amp;quot;] + abs(cf[&amp;quot;sd_negPrice&amp;quot;])^2 / 2)
+
+# The check a validation report runs: predict the HUMAN holdout choice shares
+# from each fitted model and compare against what the humans actually did.
+hold &amp;lt;- human[human$task &amp;gt; 10, ]
+pred_share &amp;lt;- function(fit) {
+  p &amp;lt;- predict(fit, newdata = hold, obsID = &amp;quot;obs&amp;quot;, returnData = FALSE)
+  mean(p$predicted_prob[hold$none == 0])
+}
+
+data.frame(
+  quantity = c(&amp;quot;mean price sensitivity&amp;quot;, &amp;quot;feature part-worth&amp;quot;, &amp;quot;brand part-worth&amp;quot;,
+               &amp;quot;predicted product share, human holdout&amp;quot;),
+  human = round(c(mean_bp(ch), ch[&amp;quot;feat&amp;quot;], ch[&amp;quot;brandB&amp;quot;], pred_share(f_human)), 4),
+  synthetic = round(c(mean_bp(cs), cs[&amp;quot;feat&amp;quot;], cs[&amp;quot;brandB&amp;quot;], pred_share(f_synth)), 4),
+  row.names = NULL)
+##                                 quantity  human synthetic
+## 1                 mean price sensitivity 0.0487    0.0478
+## 2                     feature part-worth 1.3749    1.3683
+## 3                       brand part-worth 0.5107    0.5342
+## 4 predicted product share, human holdout 0.2545    0.2472&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;c(actual_human_holdout_share = round(mean(hold$choice[hold$none == 0]), 4))
+## actual_human_holdout_share 
+##                     0.2478&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Every central quantity agrees. The synthetic panel predicts the human holdout share to within
+a fraction of a point, and on that particular number it lands closer to the truth than the
+human panel’s own model does. On this evidence you would sign off on the panel.&lt;/p&gt;
+&lt;p&gt;Now look at what the same two fits say about spread.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data.frame(
+  parameter = c(&amp;quot;log price sensitivity&amp;quot;, &amp;quot;feature part-worth&amp;quot;, &amp;quot;brand part-worth&amp;quot;),
+  human_sd    = round(abs(ch[c(&amp;quot;sd_negPrice&amp;quot;, &amp;quot;sd_feat&amp;quot;, &amp;quot;sd_brandB&amp;quot;)]), 3),
+  synth_sd    = round(abs(cs[c(&amp;quot;sd_negPrice&amp;quot;, &amp;quot;sd_feat&amp;quot;, &amp;quot;sd_brandB&amp;quot;)]), 3),
+  row.names = NULL)
+##               parameter human_sd synth_sd
+## 1 log price sensitivity    0.946    0.324
+## 2    feature part-worth    1.062    0.597
+## 3      brand part-worth    0.648    0.009&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Price and feature spread are roughly a third of the truth, and brand spread is gone entirely.
+On brand the panel is one customer, repeated 300 times.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-decision-that-breaks&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The decision that breaks&lt;/h2&gt;
+&lt;p&gt;Conjoint output is not the deliverable. The market simulator is. Take each fitted model,
+put the premium product up against two fixed competitors, and find the price that maximises
+contribution.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;comp &amp;lt;- data.frame(price = c(35, 55), feat = c(0, 1), brandB = c(1, 1))
+grid &amp;lt;- seq(15, 200, by = 0.5)
+
+simulate_market &amp;lt;- function(cf, ndraw = 8e4, seed = 7) {
+  set.seed(seed)
+  z  &amp;lt;- matrix(rnorm(3 * ndraw), ncol = 3)
+  bp &amp;lt;- -exp(cf[&amp;quot;negPrice&amp;quot;] + abs(cf[&amp;quot;sd_negPrice&amp;quot;]) * z[, 1])
+  bf &amp;lt;- cf[&amp;quot;feat&amp;quot;]   + abs(cf[&amp;quot;sd_feat&amp;quot;])   * z[, 2]
+  bb &amp;lt;- cf[&amp;quot;brandB&amp;quot;] + abs(cf[&amp;quot;sd_brandB&amp;quot;]) * z[, 3]
+  e1 &amp;lt;- exp(bp * comp$price[1] + bf * comp$feat[1] + bb * comp$brandB[1])
+  e2 &amp;lt;- exp(bp * comp$price[2] + bf * comp$feat[2] + bb * comp$brandB[2])
+  d0 &amp;lt;- e1 + e2 + exp(cf[&amp;quot;none&amp;quot;])
+  share &amp;lt;- vapply(grid, function(p) {
+    ef &amp;lt;- exp(bp * p + bf)
+    mean(ef / (ef + d0))
+  }, 0)
+  list(share = share,
+       opt   = grid[which.max(share * (grid - mc))],
+       seg   = 100 * mean((bf / -bp) &amp;gt; 50))
+}
+
+truth_cf &amp;lt;- c(negPrice = log_m(s_full), feat = mu_f, brandB = mu_b, none = asc_none,
+              sd_negPrice = s_full, sd_feat = sg_f, sd_brandB = sg_b)
+
+m_truth &amp;lt;- simulate_market(truth_cf)
+m_human &amp;lt;- simulate_market(ch)
+m_synth &amp;lt;- simulate_market(cs)
+
+data.frame(
+  source              = c(&amp;quot;truth&amp;quot;, &amp;quot;human panel&amp;quot;, &amp;quot;synthetic panel&amp;quot;),
+  optimal_price       = c(m_truth$opt, m_human$opt, m_synth$opt),
+  premium_segment_pct = round(c(m_truth$seg, m_human$seg, m_synth$seg), 1),
+  row.names = NULL)
+##            source optimal_price premium_segment_pct
+## 1           truth          58.5                34.1
+## 2     human panel          63.5                40.6
+## 3 synthetic panel          43.5                14.0&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The synthetic panel sets the price 26% below the truth and
+31% below what the human panel recommends, and it sizes the
+premium segment at 41% of its true value. Contribution at the
+synthetic price is 94.8% of the best available, so the money lost is
+real but modest. That flatness is the trap. Profit curves are flat near their peak, which is
+precisely why a price recommendation can be a quarter too low without anything downstream
+looking obviously broken.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;why-the-average-survives&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Why the average survives&lt;/h2&gt;
+&lt;p&gt;Compressing heterogeneity leaves the mean where it was and removes the tails. Demand at a
+high price is made entirely of the price-insensitive tail, so it is the first thing to go.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;k &amp;lt;- match(c(45, 65, 85, 125), grid)
+data.frame(price = grid[k],
+           truth_share = round(m_truth$share[k], 4),
+           synth_share = round(m_synth$share[k], 4),
+           ratio       = round(m_synth$share[k] / m_truth$share[k], 2))
+##   price truth_share synth_share ratio
+## 1    45      0.2633      0.2873  1.09
+## 2    65      0.1701      0.1442  0.85
+## 3    85      0.1159      0.0699  0.60
+## 4   125      0.0618      0.0171  0.28&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;At the prices the survey tested the two panels agree. Past them they diverge, and a pricing
+study is an extrapolation past the tested range by construction. Sweeping the compression
+factor shows how cleanly the quantities separate.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;sweep_lambda &amp;lt;- function(lambda, ndraw = 8e4, seed = 7) {
+  set.seed(seed)
+  z  &amp;lt;- matrix(rnorm(3 * ndraw), ncol = 3)
+  s  &amp;lt;- s_full * lambda
+  bp &amp;lt;- -exp(log_m(s) + s * z[, 1])
+  bf &amp;lt;- mu_f + sg_f * lambda * z[, 2]
+  bb &amp;lt;- mu_b + sg_b * lambda * z[, 3]
+  e1 &amp;lt;- exp(bp * comp$price[1] + bf * comp$feat[1] + bb * comp$brandB[1])
+  e2 &amp;lt;- exp(bp * comp$price[2] + bf * comp$feat[2] + bb * comp$brandB[2])
+  d0 &amp;lt;- e1 + e2 + exp(asc_none)
+  share &amp;lt;- vapply(grid, function(p) {
+    ef &amp;lt;- exp(bp * p + bf)
+    mean(ef / (ef + d0))
+  }, 0)
+  data.frame(lambda = lambda,
+             mean_price_coef = mean(-bp),
+             opt_price = grid[which.max(share * (grid - mc))],
+             premium_seg = 100 * mean((bf / -bp) &amp;gt; 50))
+}
+
+lams &amp;lt;- seq(1, 0.2, by = -0.1)
+sw   &amp;lt;- do.call(rbind, lapply(lams, sweep_lambda))
+base &amp;lt;- sw[sw$lambda == 1, ]
+round(sw, 4)
+##   lambda mean_price_coef opt_price premium_seg
+## 1    1.0          0.0499      58.5     34.1338
+## 2    0.9          0.0499      53.5     30.7975
+## 3    0.8          0.0500      49.5     26.8500
+## 4    0.7          0.0500      47.0     22.3413
+## 5    0.6          0.0500      45.0     17.1600
+## 6    0.5          0.0500      43.5     11.6337
+## 7    0.4          0.0500      42.5      6.0925
+## 8    0.3          0.0500      42.0      1.6938
+## 9    0.2          0.0500      41.5      0.0675&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span style=&#34;display:block;&#34; id=&#34;fig:sweepplot&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;figs/sweepplot-1.png&#34; alt=&#34;Only the validated quantity is stable. Optimal price and segment size fall away as the panel loses spread.&#34; width=&#34;1050&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: Only the validated quantity is stable. Optimal price and segment size fall away as the panel loses spread.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;The blue line is what a validation report checks. The other two are what the study is for.&lt;/p&gt;
+&lt;p&gt;An independent check, because a Monte Carlo integral deserves one. The same optimum computed
+in Python by three-dimensional Gauss-Hermite quadrature, a deterministic method with no
+sampling in it at all.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+
+k_mean, s_full = r.k_mean, r.s_full
+mu_f, sg_f, mu_b, sg_b = r.mu_f, r.sg_f, r.mu_b, r.sg_b
+asc_none, mc = r.asc_none, r.mc
+cp, cf_, cb = np.array([35., 55.]), np.array([0., 1.]), np.array([1., 1.])
+
+def opt_price(lam, n=24):
+    x, w = np.polynomial.hermite_e.hermegauss(n)
+    w = w / w.sum()
+    s = s_full * lam
+    bp = -np.exp(np.log(k_mean) - s**2 / 2 + s * x)
+    bf = mu_f + sg_f * lam * x
+    bb = mu_b + sg_b * lam * x
+    BP, BF, BB = bp[:, None, None], bf[None, :, None], bb[None, None, :]
+    W = w[:, None, None] * w[None, :, None] * w[None, None, :]
+    d0 = (np.exp(BP * cp[0] + BF * cf_[0] + BB * cb[0])
+          + np.exp(BP * cp[1] + BF * cf_[1] + BB * cb[1]) + np.exp(asc_none))
+    grid = np.arange(15, 200.5, 0.5)
+    share = np.array([(W * (np.exp(BP * p + BF) / (np.exp(BP * p + BF) + d0))).sum()
+                      for p in grid])
+    return grid[(share * (grid - mc)).argmax()], (w * (-bp)).sum()
+
+for lam in [1.0, 0.8, 0.6, 0.4, 0.2]:
+    p, mb = opt_price(lam)
+    print(f&amp;quot;lambda {lam:.1f}  optimal price {p:6.1f}   E|b_price| {mb:.5f}&amp;quot;)
+## lambda 1.0  optimal price   58.5   E|b_price| 0.05000
+## lambda 0.8  optimal price   49.5   E|b_price| 0.05000
+## lambda 0.6  optimal price   45.0   E|b_price| 0.05000
+## lambda 0.4  optimal price   42.5   E|b_price| 0.05000
+## lambda 0.2  optimal price   41.5   E|b_price| 0.05000&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Quadrature returns the same optimal price as the R simulation at every compression level, and
+the mean price coefficient sits on 0.050 throughout. The collapse is a
+property of the model, not of the random draws.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-diagnostic&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The diagnostic&lt;/h2&gt;
+&lt;p&gt;The compression is recoverable from choice data, which means you can test for it. Fit the
+mixed logit to your synthetic panel and to a small human pilot, then divide the estimated
+standard deviations.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lambda_hat &amp;lt;- abs(cs[c(&amp;quot;sd_negPrice&amp;quot;, &amp;quot;sd_feat&amp;quot;, &amp;quot;sd_brandB&amp;quot;)]) /
+              abs(ch[c(&amp;quot;sd_negPrice&amp;quot;, &amp;quot;sd_feat&amp;quot;, &amp;quot;sd_brandB&amp;quot;)])
+round(c(lambda_hat, &amp;quot;true lambda&amp;quot; = LAM), 3)
+## sd_negPrice     sd_feat   sd_brandB true lambda 
+##       0.343       0.563       0.013       0.400&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Read this as a screen and not as a correction factor. All three ratios land well below 1, so
+the screen fires, which is the job. As point estimates they are poor: only the price ratio is
+close to the true 0.4 (0.34), the feature ratio overshoots
+at 0.56, and the brand ratio is
+0.01 because a standard deviation near zero is barely
+identified. The parameter that collapses hardest is the one whose collapse is hardest to
+measure, so this tells you to keep humans in the study rather than telling you how much to
+rescale by.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-this-post-did-not-measure&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What this post did not measure&lt;/h2&gt;
+&lt;p&gt;I did not query a language model. This post takes the narrowness that the literature
+documents, applies it as a known compression factor, and prices the consequence. It is a
+statement about what a documented failure mode costs, not new evidence that the failure mode
+exists. If your panel reproduces human spread, none of this applies to it, and methods
+designed to fix exactly this (semantic similarity rating is the current one) exist for that
+reason.&lt;/p&gt;
+&lt;p&gt;Three more limits worth naming. The compression here is uniform across attributes, and a real
+panel will lose more spread on some than others. Hierarchical Bayes estimation adds its own
+shrinkage on top, so a real workflow is likely to be worse than this rather than better. And
+the truth here is a mixed logit, so I have given the model the correct functional form and
+still lost the price.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-to-do-on-monday&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What to do on Monday&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Do not validate a synthetic panel on means, rankings, or holdout hit rates alone. Those
+are the statistics that survive the failure.&lt;/li&gt;
+&lt;li&gt;Compare the estimated standard deviations against a human pilot, not just the estimated
+means. The ratio is noisy, so use it as a flag rather than as a rescaling factor.&lt;/li&gt;
+&lt;li&gt;Check where your decision sits relative to the tested attribute range. Interpolation is
+fine. Pricing is extrapolation.&lt;/li&gt;
+&lt;li&gt;If the deliverable is a segment size or a price, keep humans in the study. A small pilot
+is enough to catch the collapse, and it is much cheaper than the price you would have set.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The mixed logit machinery behind all of this, and how to run a conjoint properly, is in
+&lt;a href=&#34;https://bookdown.org/mike/marketing_research/&#34;&gt;Marketing Research&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

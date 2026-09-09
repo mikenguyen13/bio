@@ -1,13 +1,13 @@
 # Review Queue
 
-> **Four drafts are now queued and nothing has gone live since 2026-08-28.** The buffer rule
-> wants two finished evergreens in reserve and instead there are four posts waiting on a
-> 15-minute review each. The system's own stated failure mode is silence, not backlog, so the
-> highest-value hour available is reviewing and shipping these rather than writing a fifth.
-> Suggested order: benchmarking (most self-contained), Unicode normalization (strongest of the
-> two AI posts), this one, then structured output.
+> **Three drafts are still queued.** The synthetic respondents post shipped 2026-09-08 and
+> broke an 11-day silence, but benchmarking, Unicode normalization, and structured output are
+> all still sitting at `draft: true`. The buffer rule wants two finished evergreens in reserve
+> and these are not it, because a draft awaiting review is not a buffer. Suggested order:
+> benchmarking (most self-contained), Unicode normalization (strongest of the two token cost
+> posts), then structured output.
 
-## Awaiting review: synthetic respondents post, 2026-09-08 (Tuesday slot)
+## Shipped 2026-09-08: synthetic respondents post (Tuesday slot)
 
 Review page: <https://claude.ai/code/artifact/8acea528-6016-41f5-9145-321e7c2656c8>
 
@@ -17,7 +17,7 @@ Review page: <https://claude.ai/code/artifact/8acea528-6016-41f5-9145-321e7c2656
 | Target query | synthetic respondents conjoint analysis |
 | Lane | AI and LLM engineering, crossed with marketing research. Lanes 3 and 4 were the underweighted ones |
 | Freshness | Maier et al., arXiv 2510.08338, October 2025. 11 months old, clears the 24-month rule |
-| Status | **DRAFT** (`draft: true`), rendered, not live |
+| Status | **LIVE** at </post/synthetic-respondents-conjoint-analysis/> (`draft: false`, published 2026-09-08 on Mike's approval) |
 | File | `content/post/2026-09-08-synthetic-respondents-conjoint-analysis/index.en.Rmd` |
 
 The literature says LLM respondent panels produce distributions that are too narrow. Nobody has

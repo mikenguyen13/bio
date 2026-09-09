@@ -20,13 +20,49 @@
     <loc>https://mikenguyen.netlify.app/courses/01-mizzou-mar4050-f21/</loc>
     <lastmod>2021-12-09T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/conjoint-analysis/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/llm/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/marketing-research/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/mixed-logit/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/pricing/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/python/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/synthetic-respondents/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/synthetic-respondents-conjoint-analysis/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/bayesian/</loc>
     <lastmod>2026-08-26T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/calibrate-mmm-with-incrementality-test/</loc>
-    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/categories/</loc>
     <lastmod>2026-08-26T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/category/causal-inference/</loc>
@@ -47,19 +83,7 @@
     <loc>https://mikenguyen.netlify.app/tag/measurement/</loc>
     <lastmod>2026-08-26T09:00:00-07:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/</loc>
-    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/rstanarm/</loc>
-    <lastmod>2026-08-26T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2026-08-26T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/causal-inference/</loc>
@@ -81,9 +105,6 @@
     <lastmod>2026-08-19T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/staggered-rollouts-break-twfe/</loc>
-    <lastmod>2026-08-19T09:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/python/</loc>
     <lastmod>2026-08-19T09:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/post/resolving-the-expl3-sty-and-format-file-mismatch-error-in-latex-tex-live-tinytex/</loc>
