@@ -9,6 +9,8 @@
 
 ## Awaiting review: synthetic respondents post, 2026-09-08 (Tuesday slot)
 
+Review page: <https://claude.ai/code/artifact/8acea528-6016-41f5-9145-321e7c2656c8>
+
 | | |
 |---|---|
 | Title | Synthetic Respondents in Conjoint Analysis: The Average Survives, the Price Does Not |
