@@ -176,6 +176,16 @@ Append the moment something costs you time. One line is enough.
       1.0%. Cause not isolated. Heap size is the obvious suspect and did **not** reproduce it when
       tested with ballast, so something else is doing the work. Practical rule: benchmark from
       `callr::r()`, not from the session you have had open all day.
+- [x] 2026-09-08: **a dollar sign in prose is eaten by MathJax and can swallow a whole
+      sentence.** The Wowchemy theme loads MathJax 3 with default TeX delimiters, so any PAIR of
+      `$` in rendered prose becomes inline math. The conjoint post shipped live with "worth $24
+      to the average buyer. Prices tested in the survey run from $25" rendered as one italic
+      equation reading `24totheaveragebuyer.Pricestestedinthesurveyrunfrom`, with an orphaned
+      "$85" left after it. Escaping as `\$` in the Rmd does NOT help, because pandoc turns it
+      back into a literal `$` in the HTML and MathJax sees it in the DOM. `$` inside chunks and
+      inline backticks is safe, because MathJax skips `pre` and `code`, which is why `d$price`
+      never broke. Fix is to write the word dollars. `blog-ops/stylecheck.R` now fails on a bare
+      `$` in prose, and the other six 2026 posts were checked clean.
 - [x] 2026-09-08: **`logitr` silently returns a garbage fit if you give a lognormal random
       parameter the wrong sign.** `randPars = c(price = "ln")` on a raw price column converged
       without complaint and reported a log-mean of -16, meaning a price coefficient of about

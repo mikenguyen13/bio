@@ -44,7 +44,12 @@ names rather than reaching for an en dash, so "Callaway-Sant'Anna" and never
 "Callaway–Sant'Anna". Semicolons inside code are syntax rather than style, but split the
 statement across two lines anyway so none appears on the page.
 
-Check for all three characters before handing over any draft.
+**Never write a bare dollar sign in prose.** The theme loads MathJax, which pairs any two `$`
+in rendered text and turns everything between them into an equation. Write "24 dollars" rather
+than "$24". Escaping it as `\$` does not work, because pandoc emits a literal `$` anyway.
+Dollar signs inside code chunks and inline backticks are safe, so `d$price` needs no change.
+
+Check for all four with `blog-ops/stylecheck.R` before handing over any draft.
 
 ## Where things live
 

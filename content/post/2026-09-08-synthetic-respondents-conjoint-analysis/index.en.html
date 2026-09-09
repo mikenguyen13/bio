@@ -55,9 +55,9 @@ LAM    &lt;- 0.40   # the synthetic panel keeps 40% of the true spread
 # right. Holding E|b_price| fixed while shrinking the spread requires moving the
 # log-mean, so m is a function of s rather than a constant.
 log_m &lt;- function(s) log(k_mean) - s^2 / 2</code></pre>
-<p>The premium feature is worth $24 to the average buyer. Prices
-tested in the survey run from $25 to $85, three products plus a no-buy option, 300
-respondents, 12 tasks each.</p>
+<p>The premium feature is worth 24 dollars to the average buyer.
+Prices tested in the survey run from 25 to 85 dollars, three products plus a no-buy option,
+300 respondents, 12 tasks each.</p>
 <pre class="r"><code>n_resp &lt;- 300
 n_task &lt;- 12
 n_prod &lt;- 3

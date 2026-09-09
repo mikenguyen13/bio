@@ -67,9 +67,9 @@ LAM    <- 0.40   # the synthetic panel keeps 40% of the true spread
 log_m <- function(s) log(k_mean) - s^2 / 2
 ```
 
-The premium feature is worth `r sprintf("$%.0f", mu_f / k_mean)` to the average buyer. Prices
-tested in the survey run from \$25 to \$85, three products plus a no-buy option, 300
-respondents, 12 tasks each.
+The premium feature is worth `r sprintf("%.0f", mu_f / k_mean)` dollars to the average buyer.
+Prices tested in the survey run from 25 to 85 dollars, three products plus a no-buy option,
+300 respondents, 12 tasks each.
 
 ```{r simulate}
 n_resp <- 300
