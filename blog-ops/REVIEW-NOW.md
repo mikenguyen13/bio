@@ -7,6 +7,8 @@
 
 ## Awaiting review: customer lifetime value post, 2026-09-12 (Friday slot, a day late)
 
+Review page: <https://claude.ai/code/artifact/e674582b-f7b1-426c-ab86-df796895ed97>
+
 | | |
 |---|---|
 | Title | Customer Lifetime Value in R: A Third of Your Best Customers Have Already Left |
