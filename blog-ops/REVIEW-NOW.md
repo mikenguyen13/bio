@@ -1,11 +1,11 @@
 # Review Queue
 
-> **Four drafts are queued again.** Benchmarking, Unicode normalization, structured output,
-> and now this one are all sitting at `draft: true`. One post has gone live in the last two
-> weeks. Suggested order: benchmarking (most self-contained), Unicode normalization (strongest
-> of the two token cost posts), this one, then structured output.
+> **Three drafts are still queued.** Benchmarking, Unicode normalization, and structured output
+> are all sitting at `draft: true`. Two posts went live in September. Suggested order:
+> benchmarking (most self-contained), Unicode normalization (strongest of the two token cost
+> posts), then structured output.
 
-## Awaiting review: customer lifetime value post, 2026-09-12 (Friday slot, a day late)
+## Shipped 2026-09-12: customer lifetime value post (Friday slot, a day late)
 
 Review page: <https://claude.ai/code/artifact/e674582b-f7b1-426c-ab86-df796895ed97>
 
@@ -14,7 +14,7 @@ Review page: <https://claude.ai/code/artifact/e674582b-f7b1-426c-ab86-df796895ed
 | Title | Customer Lifetime Value in R: A Third of Your Best Customers Have Already Left |
 | Target query | customer lifetime value in r |
 | Lane | Marketing and measurement, which was down to one post against three for AI |
-| Status | **DRAFT** (`draft: true`), rendered, not live |
+| Status | **LIVE** at </post/customer-lifetime-value-in-r/> (`draft: false`, published 2026-09-12 on Mike's approval) |
 | File | `content/post/2026-09-12-customer-lifetime-value-in-r/index.en.Rmd` |
 
 **This is the first post on the site built on real third-party data rather than a simulation.**
