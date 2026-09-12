@@ -1,0 +1,224 @@
+---
+title: "Customer Lifetime Value in R: A Third of Your Best Customers Have Already Left"
+author: Mike Nguyen
+date: '2026-09-12'
+slug: customer-lifetime-value-in-r
+categories:
+  - R
+  - Python
+tags:
+  - customer lifetime value
+  - CLV
+  - Pareto/NBD
+  - CLVTools
+  - marketing analytics
+  - retention
+subtitle: 'Rank your customers by what they have spent, and the median customer in the top decile who the model calls inactive goes on to spend nothing.'
+summary: 'On the CDNOW panel, with a real 39 week holdout as ground truth, a Pareto/NBD model flags 32 percent of the top decile by historical spend as probably inactive. The median flagged customer then buys nothing at all, against a median of 130 for the rest of the decile. Extrapolating repeat spending overstates the holdout by 35 percent and the model undershoots it by 16, so the level is not where the argument is strongest. Fitted in R with CLVTools, with a bootstrap confidence interval computed in Python.'
+authors: []
+lastmod: '2026-09-12T11:00:00-07:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+<p>Sort your customers by what they have spent and take the top decile. That list is the one
+retention budgets get spent against. On real transaction data with a real holdout period, a
+third of that list had almost certainly stopped buying before the list was drawn, and the
+median customer in that third went on to spend nothing at all.</p>
+<p>The problem is that in a non-contractual business nobody cancels. There is no churn event to
+observe, so a customer who has quietly left looks exactly like a customer who is between
+purchases. Historical spend cannot tell them apart, because it throws away the one thing that
+distinguishes them, which is when the spending happened.</p>
+<pre class="r"><code>library(CLVTools)
+data(&quot;cdnow&quot;)
+
+SPLIT &lt;- as.Date(&quot;1997-10-01&quot;)   # 39 weeks of history, 39 weeks of holdout
+d &lt;- as.data.frame(cdnow)
+d$Date &lt;- as.Date(d$Date)
+cal &lt;- subset(d, Date &lt;= SPLIT)
+
+c(customers = length(unique(d$Id)),
+  transactions = nrow(d),
+  weeks = round(as.numeric(max(d$Date) - min(d$Date)) / 7))
+##    customers transactions        weeks 
+##         2357         6696           78</code></pre>
+<p>The CDNOW panel is the standard public test bed for this: every customer made a first
+purchase in the opening quarter of 1997, and the panel runs to mid 1998. Splitting it in half
+gives 39 weeks to learn from and 39 weeks of real behaviour to be judged against. Nothing
+below is simulated.</p>
+<div id="what-extrapolation-does" class="section level2">
+<h2>What extrapolation does</h2>
+<p>The naive forecast writes itself when the two windows are the same length. Whatever a
+customer spent in the last 39 weeks, assume they spend again in the next 39.</p>
+<pre class="r"><code>clv &lt;- clvdata(cdnow, date.format = &quot;ymd&quot;, time.unit = &quot;week&quot;, estimation.split = 39,
+               name.id = &quot;Id&quot;, name.date = &quot;Date&quot;, name.price = &quot;Price&quot;)
+fit &lt;- pnbd(clv)
+p   &lt;- as.data.frame(predict(fit, verbose = FALSE))
+p$hist_spend &lt;- as.numeric(tapply(cal$Price, cal$Id, sum)[as.character(p$Id)])
+
+data.frame(
+  method = c(&quot;actual holdout&quot;, &quot;extrapolate last period&quot;, &quot;Pareto/NBD&quot;),
+  total  = round(c(sum(p$actual.period.spending), sum(p$hist_spend),
+                   sum(p$predicted.period.spending))),
+  error  = c(&quot;&quot;, sprintf(&quot;%+.0f%%&quot;, 100 * (sum(p$hist_spend) /
+                                           sum(p$actual.period.spending) - 1)),
+             sprintf(&quot;%+.0f%%&quot;, 100 * (sum(p$predicted.period.spending) /
+                                       sum(p$actual.period.spending) - 1))))
+##                    method  total error
+## 1          actual holdout  70792      
+## 2 extrapolate last period 173300 +145%
+## 3              Pareto/NBD  59640  -16%</code></pre>
+<p>Extrapolation overshoots by 145%. The model undershoots by
+16%, so it is closer but it is not free of error either, and
+that is worth saying out loud before the part where it wins.</p>
+<p>That 145% also flatters the argument, so here is the correction
+against my own headline. Every CDNOW customer makes a first purchase in the opening quarter,
+which means the calibration window contains an acquisition purchase that the holdout window
+structurally cannot. Strip each customer’s first transaction and extrapolate only repeat
+spending, and the comparison becomes fair.</p>
+<pre class="r"><code>first_amt &lt;- sapply(split(cal, cal$Id), function(z) z$Price[which.min(z$Date)])
+p$repeat_spend &lt;- p$hist_spend - as.numeric(first_amt[as.character(p$Id)])
+fair_err &lt;- 100 * (sum(p$repeat_spend) / sum(p$actual.period.spending) - 1)
+
+c(repeat_only_forecast = round(sum(p$repeat_spend)),
+  actual = round(sum(p$actual.period.spending)),
+  overshoot_pct = round(fair_err))
+## repeat_only_forecast               actual        overshoot_pct 
+##                95540                70792                   35</code></pre>
+<p>Still an overshoot, still in the same direction, but 35% rather
+than 145%. Use that number as the honest one. The level is not
+where this argument is strongest anyway.</p>
+</div>
+<div id="the-list-that-matters" class="section level2">
+<h2>The list that matters</h2>
+<p>The level is the less interesting failure. The ranking is where money actually gets
+allocated. <code>pnbd</code> returns <code>PAlive</code>, the probability a customer is still active given how much
+and how recently they bought.</p>
+<pre class="r"><code>top  &lt;- p[order(p$hist_spend, decreasing = TRUE)[1:round(0.10 * nrow(p))], ]
+dead &lt;- top$PAlive &lt; 0.5
+
+data.frame(
+  group = c(&quot;flagged inactive&quot;, &quot;still active&quot;),
+  customers = c(sum(dead), sum(!dead)),
+  mean_holdout   = round(c(mean(top$actual.period.spending[dead]),
+                           mean(top$actual.period.spending[!dead])), 2),
+  median_holdout = round(c(median(top$actual.period.spending[dead]),
+                           median(top$actual.period.spending[!dead])), 2),
+  pct_buying_nothing = round(100 * c(mean(top$actual.period.spending[dead] == 0),
+                                     mean(top$actual.period.spending[!dead] == 0))))
+##              group customers mean_holdout median_holdout pct_buying_nothing
+## 1 flagged inactive        76        59.73           0.00                 61
+## 2     still active       160       184.24         130.45                 21</code></pre>
+<p>32% of the top decile is flagged. Those customers go on to earn
+13% of the decile’s holdout revenue, they spend
+3.1 times less on average, and the median one spends
+0 dollars against 130 for the rest. The
+median is the number to look at, because the mean is held up by a handful of flagged customers
+who did come back. Most of them simply do not.</p>
+<div class="figure"><span style="display:block;" id="fig:figure"></span>
+<img src="figs/figure-1.png" alt="Within the top decile by historical spend, what customers actually went on to spend, binned by the model's probability that they were still active. The mean is noisy in the small low-probability bins because a few flagged customers did come back. The median does not move." width="1050" />
+<p class="caption">
+Figure 1: Within the top decile by historical spend, what customers actually went on to spend, binned by the model’s probability that they were still active. The mean is noisy in the small low-probability bins because a few flagged customers did come back. The median does not move.
+</p>
+</div>
+</div>
+<div id="why-recency-carries-the-signal" class="section level2">
+<h2>Why recency carries the signal</h2>
+<p>This is not the model asserting something. Hold purchase count fixed and let only recency
+vary, and the difference is already in the raw data.</p>
+<pre class="r"><code>p$cal_n &lt;- as.numeric(tapply(cal$Price, cal$Id, length)[as.character(p$Id)])
+lastbuy &lt;- tapply(cal$Date, cal$Id, max)
+p$recency_wk &lt;- as.numeric(SPLIT - as.Date(lastbuy[as.character(p$Id)],
+                                           origin = &quot;1970-01-01&quot;)) / 7
+
+do.call(rbind, lapply(2:4, function(k) {
+  s &lt;- subset(p, cal_n == k)
+  recent &lt;- s$recency_wk &lt;= median(s$recency_wk)
+  data.frame(purchases = k, customers = nrow(s),
+             recent_half = round(mean(s$actual.period.spending[recent]), 2),
+             stale_half  = round(mean(s$actual.period.spending[!recent]), 2),
+             ratio = round(mean(s$actual.period.spending[recent]) /
+                           mean(s$actual.period.spending[!recent]), 2))
+}))
+##   purchases customers recent_half stale_half ratio
+## 1         2       438       34.80      20.03  1.74
+## 2         3       214       60.89      41.08  1.48
+## 3         4       101       90.62      34.46  2.63</code></pre>
+<p>Two customers, both with four purchases on the books, and the one who bought more recently is
+worth multiples of the one who did not. Historical spend scores them identically. That is the
+whole gap, and it is why the fix is a model that uses recency rather than a better
+spreadsheet.</p>
+<p>A bootstrap on the headline gap, computed in Python so the resampling is independent of the R
+code above. Customers are resampled, model predictions are held fixed, so this is uncertainty
+in the population difference and not in the fitted parameters.</p>
+<pre class="python"><code>import numpy as np
+
+spend = np.array(r.top_spend, dtype=float)
+flag  = np.array(r.top_flag, dtype=bool)
+rng   = np.random.default_rng(20260912)
+
+obs = spend[~flag].mean() / spend[flag].mean()
+idx = rng.integers(0, len(spend), size=(4000, len(spend)))
+reps = []
+for row in idx:
+    s, f = spend[row], flag[row]
+    if f.sum() &gt; 0 and (~f).sum() &gt; 0:
+        reps.append(s[~f].mean() / s[f].mean())
+lo, hi = np.percentile(reps, [2.5, 97.5])
+print(f&quot;active / inactive mean spend ratio: {obs:.2f}&quot;)
+## active / inactive mean spend ratio: 3.08
+print(f&quot;95% bootstrap interval: {lo:.2f} to {hi:.2f}  ({len(reps)} resamples)&quot;)
+## 95% bootstrap interval: 1.92 to 5.77  (4000 resamples)</code></pre>
+</div>
+<div id="what-this-does-not-fix" class="section level2">
+<h2>What this does not fix</h2>
+<p>The model is not a forecast of the total, and the table above says so: it came in
+16% under the real holdout figure. Pareto/NBD is built to rank
+customers and to estimate who is still there, and that is what it is good at.</p>
+<p>The ranking gain is also narrower than the headline suggests. Targeting the top decile by
+model prediction rather than by historical spend captures only a couple of extra points of
+holdout revenue, because the two lists overlap heavily. The value is not a different list, it
+is knowing which names on the same list to stop spending on.</p>
+<pre class="r"><code>capture &lt;- function(score, frac) {
+  sel &lt;- order(score, decreasing = TRUE)[1:ceiling(frac * nrow(p))]
+  100 * sum(p$actual.period.spending[sel]) / sum(p$actual.period.spending)
+}
+data.frame(targeted = c(&quot;top 5%&quot;, &quot;top 10%&quot;, &quot;top 20%&quot;),
+           by_historical_spend = round(sapply(c(.05, .10, .20),
+                                              function(f) capture(p$hist_spend, f)), 1),
+           by_model = round(sapply(c(.05, .10, .20),
+                                   function(f) capture(p$predicted.period.spending, f)), 1))
+##   targeted by_historical_spend by_model
+## 1   top 5%                32.0     37.0
+## 2  top 10%                48.1     50.2
+## 3  top 20%                66.2     67.1</code></pre>
+<p>And none of this applies to a contractual business. If customers sign up and cancel, you
+observe churn directly, a survival model is the right tool, and the whole latent-attrition
+apparatus is unnecessary. This is a fix for retail, ecommerce, and anywhere else that people
+leave without telling you.</p>
+<p>One dataset, one product category, one period. CDNOW is the standard benchmark precisely
+because it is public and well studied, not because 1997 compact disc buyers resemble your
+customers.</p>
+</div>
+<div id="what-to-do-on-monday" class="section level2">
+<h2>What to do on Monday</h2>
+<ol style="list-style-type: decimal">
+<li>Stop ranking customers on historical spend alone. It scores a departed customer and a loyal
+one identically, and the departed one is cheaper to identify than to win back.</li>
+<li>Split your history and score yourself against a real holdout before trusting any lifetime
+value number. The calculation above took one split and one model fit.</li>
+<li>Report the probability a customer is still active next to their value, not instead of it.
+The decision is different for a high-value customer at 0.2 than at 0.9.</li>
+<li>Check whether your business is contractual first. If you can see cancellations, none of
+this is your problem.</li>
+</ol>
+<p>The latent attrition models behind this, and where they break, are covered in
+<a href="https://bookdown.org/mike/marketing_research/">Marketing Research</a>.</p>
+</div>

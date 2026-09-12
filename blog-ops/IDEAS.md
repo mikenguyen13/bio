@@ -176,6 +176,16 @@ Append the moment something costs you time. One line is enough.
       1.0%. Cause not isolated. Heap size is the obvious suspect and did **not** reproduce it when
       tested with ballast, so something else is doing the work. Practical rule: benchmark from
       `callr::r()`, not from the session you have had open all day.
+- [x] 2026-09-12: **a probability that comes back as 1 + 3.6e-15 silently NAs an entire
+      figure.** `CLVTools::pnbd` returned `PAlive` of 1.00000000000000355 for one CDNOW
+      customer. `cut(x, breaks = seq(0, 1, by = 0.2))` sends anything above the top break to NA,
+      so that one customer got an NA bin. The real damage came from the next step: selecting
+      with `x[bin == b]` uses a LOGICAL index, and a single NA in the index injects an NA
+      element into EVERY group, so all ten group statistics returned NA and the plot rendered
+      completely empty with no error. Two fixes, both worth keeping: clamp with `pmin(x, 1)`
+      before `cut`, and aggregate with `split()` rather than logical indexing, because `split`
+      drops NA levels instead of broadcasting them. Tell-tale symptom is group counts summing
+      to more than `nrow()`.
 - [x] 2026-09-08: **a dollar sign in prose is eaten by MathJax and can swallow a whole
       sentence.** The Wowchemy theme loads MathJax 3 with default TeX delimiters, so any PAIR of
       `$` in rendered prose becomes inline math. The conjoint post shipped live with "worth $24
@@ -300,8 +310,12 @@ Commercial intent, low competition, and Mike has the tooling:
 - [ ] **Uplift modeling and who to actually target.** `grf` plus `policytree`. Industry calls
       it uplift, academics call it CATE and policy learning. Very high commercial intent,
       almost no rigorous R content. Probably the single best SEO opportunity on this list.
-- [ ] **Customer lifetime value the right way.** `CLVTools` and `BTYD`. High and steady
-      search volume, and most existing content is a naive average-revenue formula.
+- [~] **Customer lifetime value the right way.** DRAFTED 2026-09-12 as
+      `customer-lifetime-value-in-r`. Angle landed on the ranking rather than the level: on
+      CDNOW with a real 39 week holdout, Pareto/NBD flags 32% of the top decile by historical
+      spend as probably inactive and the median flagged customer then buys nothing. The level
+      comparison is in the post too but it is the weaker half, because the model undershoots
+      the holdout total by 16%.
 - [ ] **Multi-touch attribution and why it disagrees with your incrementality test.**
       `ChannelAttribution`. Huge industry search, and the honest answer is genuinely useful.
 - [ ] **Synthetic control for a market launch.** `synthdid` and `gsynth`. Industry framing is

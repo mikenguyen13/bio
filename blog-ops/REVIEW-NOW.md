@@ -1,11 +1,73 @@
 # Review Queue
 
-> **Three drafts are still queued.** The synthetic respondents post shipped 2026-09-08 and
-> broke an 11-day silence, but benchmarking, Unicode normalization, and structured output are
-> all still sitting at `draft: true`. The buffer rule wants two finished evergreens in reserve
-> and these are not it, because a draft awaiting review is not a buffer. Suggested order:
-> benchmarking (most self-contained), Unicode normalization (strongest of the two token cost
-> posts), then structured output.
+> **Four drafts are queued again.** Benchmarking, Unicode normalization, structured output,
+> and now this one are all sitting at `draft: true`. One post has gone live in the last two
+> weeks. Suggested order: benchmarking (most self-contained), Unicode normalization (strongest
+> of the two token cost posts), this one, then structured output.
+
+## Awaiting review: customer lifetime value post, 2026-09-12 (Friday slot, a day late)
+
+| | |
+|---|---|
+| Title | Customer Lifetime Value in R: A Third of Your Best Customers Have Already Left |
+| Target query | customer lifetime value in r |
+| Lane | Marketing and measurement, which was down to one post against three for AI |
+| Status | **DRAFT** (`draft: true`), rendered, not live |
+| File | `content/post/2026-09-12-customer-lifetime-value-in-r/index.en.Rmd` |
+
+**This is the first post on the site built on real third-party data rather than a simulation.**
+CDNOW, 2,357 customers, 6,696 transactions, split into 39 weeks of history and 39 weeks of
+holdout. Every comparison is against what customers actually did, not against a generated truth.
+
+Rank customers by historical spend and take the top decile. Pareto/NBD flags 76 of those 236 as
+probably inactive. Their median holdout spend is 0.00 against 130.45 for the rest of the same
+decile, and 61% of them buy nothing at all against 21%. The mean gap is 3.08x, with a Python
+bootstrap interval of 1.92 to 5.77 across 4,000 resamples.
+
+The mechanism is shown in raw data before the model is invoked. Hold calibration purchase count
+fixed and split on recency alone, and the recent half outspends the stale half by 1.48x to 2.63x.
+No model is doing any work in that table.
+
+### The three questions
+
+1. **Is the claim right?** The ground truth is real customer behaviour, so the central claim is
+   about as solid as this site gets. The judgment calls are scope, see below.
+2. **Is the hook right?** It opens on the retention list itself being a third dead. That is the
+   most concrete thing in the post.
+3. **Ship, fix, or kill?**
+
+### Known soft spots, in the order I would look at them
+
+- **The post corrects its own headline mid-article, and you should decide whether that is
+  strength or weakness.** The naive extrapolation overstates the holdout by 145%, but CDNOW is a
+  cohort where every customer's acquisition purchase falls inside the calibration window and
+  cannot fall inside the holdout. Stripping first purchases drops the overshoot to 35%. The post
+  now runs that correction in its own section and tells the reader to use 35% as the honest
+  number. I added this because 145% was the strongest fair attack available on the post, but it
+  does mean the abstract and the body quote different figures by design.
+- **The model undershoots the total by 16%.** The post says so in the same table that indicts the
+  naive method, and again in "What this does not fix". A skeptic gets to say the fix is also
+  wrong. The defence is that Pareto/NBD is a ranking and attrition tool rather than a forecast,
+  which the post states, but confirm you are happy leading with a method that misses the level.
+- **The ranking gain is genuinely small.** Targeting by model rather than by historical spend
+  moves captured holdout revenue by about 5 points at the top 5% and under 1 point at the top
+  20%. The post confronts this and reframes the value as knowing which names on the same list to
+  stop spending on. That reframing is the main interpretive move in the post and is worth your
+  eyes.
+- **CDNOW is 1997 compact disc buyers.** One dataset, one category, one era. Stated plainly at the
+  end. It is the standard public benchmark, which is the defence, but it is not your customers.
+- **The 0.5 threshold on PAlive is a convention, not a result.** Nothing in the data picks it. The
+  figure bins the full probability range precisely so the reader is not stuck with the cut point,
+  and the effect is monotone in the median across bins.
+- The figure plots mean and median together on purpose. The mean is not monotone across bins,
+  because a few flagged customers did come back and the low-probability bins are small. The
+  caption says this rather than quietly showing only the median.
+
+Nothing in this post is unverified. Every R block executed, plus one executed `{python}` chunk.
+Renders in about 10 seconds, the fastest post on the site, because Pareto/NBD fits in under a
+second.
+
+---
 
 ## Shipped 2026-09-08: synthetic respondents post (Tuesday slot)
 
