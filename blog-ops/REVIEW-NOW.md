@@ -1,9 +1,78 @@
 # Review Queue
 
-> **Three drafts are still queued.** Benchmarking, Unicode normalization, and structured output
-> are all sitting at `draft: true`. Two posts went live in September. Suggested order:
-> benchmarking (most self-contained), Unicode normalization (strongest of the two token cost
-> posts), then structured output.
+> **Four drafts are queued.** Parquet vs CSV (new, written for the Friday 2 October slot),
+> benchmarking, Unicode normalization, and structured output are all sitting at `draft: true`.
+> Nothing has gone live since 2026-09-12. Suggested order: Parquet vs CSV for Friday, then
+> benchmarking (it pairs well, same lane, and cites the same randomized timing discipline),
+> Unicode normalization, then structured output.
+
+## Awaiting review: Parquet vs CSV post, written 2026-09-30 for Friday 2026-10-02
+
+Review page: <https://claude.ai/artifact/UoED3guHEe4HPV15JA85AU>
+
+| | |
+|---|---|
+| Title | Parquet vs CSV in R: Every CSV Round Trip I Tested Lost Data |
+| Target query | parquet vs csv in r |
+| Lane | Coding and tooling. The last two live posts were marketing, and this lane holds only the unpublished benchmarking draft |
+| Salvages | The 2020 `arrow` stub (113 words). New URL, old one untouched, see the soft spots |
+| Status | **DRAFT** (`draft: true`), rendered, not live |
+| Date | Front matter says 2026-10-02. **If it ships before Friday, move the date to the ship day**, or Hugo treats it as future content and hides it |
+| File | `content/post/2026-10-02-parquet-vs-csv-in-r/index.en.Rmd` |
+
+An eleven column customer table, 200,000 rows, written to CSV with base R, readr, and
+data.table and read back by the package that wrote it. Graded against the most generous reader
+possible, one that already knows every original type, factor level, and time zone. Every CSV
+path still destroyed values in at least four columns (base 5, readr 5, data.table 4). arrow's
+Parquet came back `identical()` in all eleven. nanoparquet came back identical in nine, with
+dates stored as integers and timestamps in UTC in the other two.
+
+What broke, and where it broke:
+
+- **Reader guessing.** ZIP codes lose leading zeros in `read.csv` and `fread` (9.5% of rows).
+  readr keeps them because it guesses character when it sees a leading zero. 18 digit IDs lose
+  digits as doubles in `read.csv` and readr (98%). All three turn Namibia's `NA` into missing.
+- **Writer losses.** `write.csv` and `fwrite` write 15 significant digits, so 92% of doubles
+  change, by at most 5.1e-15, and `all.equal()` passes it. `write_csv` drops milliseconds.
+  `fwrite` writes NA as blank and `fread` reads blank as `""`. `write.csv` writes local time
+  with no offset, and 24 of the 50 timestamps in the repeated 1 am hour on 2024-11-03 came back
+  an hour off. Nothing outside that hour was touched.
+- **Reader misparsing correct text.** readr's writer is exact but its parser is off in the last
+  bit for 6.47% of values. `fread` returns RFC 4180 doubled quotes without unescaping them.
+
+Speed cuts the other way and the post says so: data.table wrote in 0.05s and read in 0.06s,
+against 0.44s and 0.09s for arrow. Parquet is 9.2 MB against 20.5 to 22.9 MB.
+
+Python chunk reads the R-written files with pandas. `read_parquet` gets every value, the New York
+time zone, and R's factor level order back. `read_csv` on the readr file loses the leading zeros,
+Namibia, and missing versus blank, and its default float parser is off in the last bit for 27%
+of values until `float_precision="round_trip"`.
+
+### The three questions
+
+1. **Is the claim right?** Every number is an inline expression over a fixed seed. The package
+   findings have short repros on the page. The judgment calls are framing.
+2. **Is the hook right?** It opens on whether the data comes back at all, and answers it before
+   the figure.
+3. **Ship, fix, or kill?**
+
+### Known soft spots, in the order I would look at them
+
+- **The post names specific defects in three widely used packages** (fread quotes, readr's
+  parser, `write_csv` milliseconds), with versions. I did not search their issue trackers, so I
+  do not know whether any are known or fixed upstream. A maintainer could reply publicly.
+- **"Values destroyed" covers a lost ZIP code and a 5e-15 rounding error alike.** The prose
+  says the double damage will not move a coefficient, but the figure paints both red.
+- **The headline count depends on the columns chosen.** Each is realistic, but the table was
+  built to include the cases that break readers. Three control columns survive every path.
+- **Default arguments only.** Every failure has a fix argument, which the post lists.
+- **Speed concedes to data.table.** Column subset reads, where Parquet should win, were not
+  tested.
+- **The old `arrow` post is left in place.** Pointing it at the new one (a Hugo `aliases` entry,
+  or deleting the stub) changes a live URL, so it is your call.
+
+Nothing in this post is unverified. Every R block executed, plus one executed `{python}` chunk.
+Renders in about 145 seconds, most of it `write.csv`.
 
 ## Shipped 2026-09-12: customer lifetime value post (Friday slot, a day late)
 

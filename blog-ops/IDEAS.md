@@ -214,6 +214,19 @@ Append the moment something costs you time. One line is enough.
       *slower* and the sentence shipped backwards. Fix that now stands in that post: compute the
       direction word too (`dirw()`), and write every comparative sentence so the data supplies both
       the number and the word. Cheap insurance for any post whose numbers move between renders.
+- [x] 2026-09-30: **R's `arrow` and Python's `pyarrow` cannot share a knit session in the obvious
+      order.** Both ship a library named `arrow.dll`. Attach R's arrow first and a later
+      `import pyarrow` (or `pd.read_parquet`, which imports it) fails with "DLL load failed while
+      importing lib: The specified procedure could not be found", which pandas then reports
+      misleadingly as "Missing optional dependency 'pyarrow'". Import pyarrow first, in a hidden
+      `{python}` chunk before any `library(arrow)`, and both work. Recorded in README.md.
+- [x] 2026-09-30: **knitr formats a small inline number as math.** `r signif(x, 2)` for
+      5.1e-15 rendered as `5.1^{-15}` in the HTML. Format it yourself with
+      `sprintf("%.1e", x)` for any inline value that could come out in scientific notation.
+- [x] 2026-09-30: **`as.POSIXct()` does not guess the same way twice on an ambiguous local
+      time.** Parsing the repeated 1 am hour on a DST fall-back night, R put 22 second-pass
+      times on the first pass and 2 first-pass times on the second. Never write prose saying
+      which pass the reader picks. Count the wrong ones instead.
 
 ## SALVAGE (thin existing posts worth rebuilding)
 
@@ -226,7 +239,18 @@ than a new post and improves an existing URL.
 - [ ] `scaling-shiny` (80 w) / `caching-for-faster-shiny-app` (61 w): merge into one real guide
 - [ ] `use-dplyr-in-python-siuba-library` (77 w): refresh, siuba has moved on
 - [ ] `new-pipe-in-r` (111 w): now settled, so rewrite as native pipe vs. magrittr in 2026
-- [ ] `arrow` (113 w): Arrow is far more relevant now than in 2021, and worth a real benchmark
+- [~] `arrow` (113 w): DRAFTED 2026-09-30 as a new post, `parquet-vs-csv-in-r`, rather than a
+      rewrite in place, so the old URL still serves the 2020 stub. The angle moved from speed to
+      correctness once the numbers came in, because data.table's CSV beat arrow's Parquet on
+      speed. Redirecting or deleting the stub is a live URL change and is Mike's call.
+- [ ] **Reading a subset of columns: where Parquet actually wins on speed.** The Parquet post
+      concedes full-read speed to `fread` and explicitly does not test column pruning or
+      predicate pushdown. `arrow::open_dataset()` plus `select()` against `fread(select =)` on
+      a wide file is the fair rematch, and it is a natural follow-up link from that post.
+- [ ] **Is `fread` keeping doubled quotes known upstream?** Measured in data.table 1.17.8 with a
+      one-line repro in the Parquet post. Search the data.table issue tracker before the post
+      ships, and link the issue if one exists. Same check for readr's last-bit parse error and
+      `write_csv` dropping milliseconds.
 
 ## SITE BUGS (found 2026-08-19)
 

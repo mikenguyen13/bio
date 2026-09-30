@@ -92,7 +92,13 @@ Rendering needs this machine. The cloud routine cannot do it.
 - The blog's Python lives in a venv **outside the repo** at `C:\Users\miken\.venvs\bio-blog`,
   built with `uv venv --python 3.12 C:/Users/miken/.venvs/bio-blog`. Install into it with
   `uv pip install --python C:/Users/miken/.venvs/bio-blog/Scripts/python.exe <pkg>`.
-  Currently holds numpy, pandas, scipy, and `google-meridian` 1.8.0 with TensorFlow 2.21.
+  Currently holds numpy, pandas, scipy, pyarrow 25.0.1, and `google-meridian` 1.8.0 with
+  TensorFlow 2.21.
+- **Import pyarrow before attaching R's arrow in any post that uses both.** On Windows each
+  ships a library called `arrow.dll`, and whichever loads second is handed the first one's copy.
+  R first makes `import pyarrow` fail with "DLL load failed ... The specified procedure could not
+  be found", and pandas reports that as a missing pyarrow. Python first works for both. The
+  Parquet post does it in a hidden `{python}` chunk right after setup.
 - `.Rprofile` sets `RETICULATE_PYTHON` to that venv, so **`{python}` chunks execute at render
   time** like any R chunk. Keep the path in `.Rprofile` rather than in a post, so no published
   `.Rmd` carries a machine-specific path. Verify with `reticulate::py_config()`.
