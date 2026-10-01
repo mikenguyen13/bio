@@ -41,9 +41,11 @@ What broke, and where it broke:
   bit for 6.47% of values. `fread` returns RFC 4180 doubled quotes without unescaping them.
 
 Speed cuts the other way and the post says so: data.table wrote in 0.05s and read in 0.06s,
-against 0.44s and 0.09s for arrow. Parquet is 9.2 MB against 20.5 to 22.9 MB.
+against 0.51s and 0.09s for arrow. Parquet is 9.1 MB against 20.5 to 22.9 MB.
 
-Python chunk reads the R-written files with pandas. `read_parquet` gets every value, the New York
+Python chunk reads the R-written files with pandas 2.3.3 (the shared venv stays below 3 because
+Meridian requires it). The same audit under pandas 3.0.6, run separately on the same files, gave
+identical counts. `read_parquet` gets every value, the New York
 time zone, and R's factor level order back. `read_csv` on the readr file loses the leading zeros,
 Namibia, and missing versus blank, and its default float parser is off in the last bit for 27%
 of values until `float_precision="round_trip"`.
@@ -58,9 +60,16 @@ of values until `float_precision="round_trip"`.
 
 ### Known soft spots, in the order I would look at them
 
-- **The post names specific defects in three widely used packages** (fread quotes, readr's
-  parser, `write_csv` milliseconds), with versions. I did not search their issue trackers, so I
-  do not know whether any are known or fixed upstream. A maintainer could reply publicly.
+- **The post names specific defects in three widely used packages.** Checked online and against
+  the current CRAN releases on 2026-09-30, after the first draft had tested stale versions
+  (data.table 1.17.8, readr 2.1.5, arrow 22). All five R packages were upgraded and every claim
+  re-ran on data.table 1.18.6.1, readr 2.2.0 with vroom 1.7.1, and nanoparquet 0.5.2.
+  `fread` keeping doubled quotes is a known limitation, data.table issue #1109, open since
+  April 2015, and the post now links it. `write_csv` dropping milliseconds follows
+  `options(digits.secs)`, which is unset by default (readr issue #1053, closed 2020 with the
+  default unchanged), and the post now says so. readr's last-bit parse error turned up no
+  matching issue in readr or vroom, so as far as I can tell it is unreported. Filing it would
+  be an outward-facing step, so it is your call.
 - **"Values destroyed" covers a lost ZIP code and a 5e-15 rounding error alike.** The prose
   says the double damage will not move a coefficient, but the figure paints both red.
 - **The headline count depends on the columns chosen.** Each is realistic, but the table was

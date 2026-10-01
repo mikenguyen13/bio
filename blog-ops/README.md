@@ -32,6 +32,9 @@ Nothing goes live until you flip that flag.
 3. A number or a plot in the first screen. Show the result before explaining it.
 4. Ends with one link to the relevant book. One, not five.
 5. No claim in a post that wasn't executed or cited.
+6. Before a post names how a package behaves, check that the installed version is the current
+   CRAN or PyPI release, and search the package's issue tracker. Link the issue if one exists.
+   Added 2026-09-30 after the Parquet draft first tested releases one to three versions old.
 
 ## Style rules
 
@@ -82,6 +85,12 @@ Rendering needs this machine. The cloud routine cannot do it.
   `blogdown::build_site(build_rmd = "content/post/<dir>/index.en.Rmd", run_hugo = FALSE)`
   then `blogdown::hugo_build()` to refresh `public/`.
 - Hugo is pinned to 0.113.0 in `.Rprofile`.
+- **CRAN binaries for R 4.4 lag the current releases**, because 4.4 is no longer the current R.
+  On 2026-09-30 they offered data.table 1.18.2.1, arrow 23.0.1.2, and nanoparquet 0.5.1 against
+  1.18.6.1, 25.0.1, and 0.5.2 on CRAN. Rtools44 is installed at `C:\rtools44` and works, so
+  `install.packages(..., type = "source")` gets the current release. arrow from source needs
+  `Sys.setenv(NOT_CRAN = "true", LIBARROW_BINARY = "true")` so it downloads a prebuilt libarrow,
+  and it takes a while to compile.
 - `install.packages` segfaults when run through the Git Bash shell on this machine. Run it
   through PowerShell, or from a script file, instead of an inline `-e` expression.
 - **Python works. It did not used to, and the old note here was wrong.** The `python.exe` on the

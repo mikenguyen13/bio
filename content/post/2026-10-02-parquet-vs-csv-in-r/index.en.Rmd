@@ -210,9 +210,10 @@ data.frame(all.equal = isTRUE(all.equal(d$p_churn, x)),
 
 `all.equal()` tolerates differences up to about 1.5e-8, so it passes. A hash, a join on a
 computed key, or a check that your pipeline reproduced last week's output will not. Two more
-writer losses: `write_csv` drops the milliseconds from every timestamp, and `fwrite` writes a
-missing string as an empty field, which `fread` then reads as `""`, so the difference between
-unknown and blank is gone.
+writer losses: `write_csv` writes only as many decimal places of seconds as
+`options(digits.secs)` asks for, and that option is unset by default, so the milliseconds go.
+And `fwrite` writes a missing string as an empty field, which `fread` then reads as `""`, so
+the difference between unknown and blank is gone.
 
 `write.csv` writes timestamps as local clock time with no offset. That is lossless on every
 day but one.
@@ -251,7 +252,8 @@ data.frame(base_parse_exact = identical(as.numeric(txt), d$p_churn),
 ```
 
 And `fread` does not undo the doubled quotes that CSV uses to escape a quote inside a field,
-so a note reading `said "thanks"` comes back with four quote marks.
+so a note reading `said "thanks"` comes back with four quote marks. This is a known
+limitation, with an [issue open since 2015](https://github.com/Rdatatable/data.table/issues/1109).
 
 ```{r freadquote}
 cat(fread(text = 'id,note\n1,"said ""thanks"""')$note)
@@ -317,6 +319,7 @@ r_counts <- list(zip_leading_zero = sum(startsWith(d$zip, "0")),
                  note_missing     = sum(is.na(d$note)),
                  note_empty       = sum(d$note == "", na.rm = TRUE),
                  p_churn_bits_off = 0L)
+pd_ver <- reticulate::import("pandas")$`__version__`
 ```
 
 ```{python pandas}
@@ -361,8 +364,12 @@ The damage to doubles is a relative error of at most `r sprintf("%.1e", max_rel)
 a regression coefficient. It matters for reproducibility, not for inference.
 
 I did not test compression codecs, reading a subset of columns (where Parquet should pull
-further ahead), partitioned datasets, or files larger than memory. One machine, R 4.4.3,
-data.table 1.17.8, readr 2.1.5, arrow 22.0.0, nanoparquet 0.4.2, pandas 2.3.3.
+further ahead), partitioned datasets, or files larger than memory. One machine,
+R `r getRversion()`, data.table `r packageVersion("data.table")`, readr
+`r packageVersion("readr")` on vroom `r packageVersion("vroom")`, arrow
+`r packageVersion("arrow")`, nanoparquet `r packageVersion("nanoparquet")`, and pandas
+`r pd_ver` for the chunk above. The pandas counts came out the same when I reran them
+separately under pandas 3.0.6.
 
 ## What to do on Monday
 

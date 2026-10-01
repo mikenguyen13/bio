@@ -143,9 +143,10 @@ data.frame(all.equal = isTRUE(all.equal(d$p_churn, x)),
 ## 1      TRUE     FALSE            5.1e-15</code></pre>
 <p><code>all.equal()</code> tolerates differences up to about 1.5e-8, so it passes. A hash, a join on a
 computed key, or a check that your pipeline reproduced last week’s output will not. Two more
-writer losses: <code>write_csv</code> drops the milliseconds from every timestamp, and <code>fwrite</code> writes a
-missing string as an empty field, which <code>fread</code> then reads as <code>""</code>, so the difference between
-unknown and blank is gone.</p>
+writer losses: <code>write_csv</code> writes only as many decimal places of seconds as
+<code>options(digits.secs)</code> asks for, and that option is unset by default, so the milliseconds go.
+And <code>fwrite</code> writes a missing string as an empty field, which <code>fread</code> then reads as <code>""</code>, so
+the difference between unknown and blank is gone.</p>
 <p><code>write.csv</code> writes timestamps as local clock time with no offset. That is lossless on every
 day but one.</p>
 <pre class="r"><code>b    &lt;- repair(d$event_time, back[[&quot;base R CSV&quot;]]$event_time)
@@ -173,7 +174,8 @@ data.frame(base_parse_exact = identical(as.numeric(txt), d$p_churn),
 ##   base_parse_exact readr_share_wrong
 ## 1             TRUE            0.0647</code></pre>
 <p>And <code>fread</code> does not undo the doubled quotes that CSV uses to escape a quote inside a field,
-so a note reading <code>said "thanks"</code> comes back with four quote marks.</p>
+so a note reading <code>said "thanks"</code> comes back with four quote marks. This is a known
+limitation, with an <a href="https://github.com/Rdatatable/data.table/issues/1109">issue open since 2015</a>.</p>
 <pre class="r"><code>cat(fread(text = &#39;id,note\n1,&quot;said &quot;&quot;thanks&quot;&quot;&quot;&#39;)$note)
 ## said &quot;&quot;thanks&quot;&quot;</code></pre>
 </div>
@@ -208,16 +210,16 @@ data.frame(file_mb = round(file.size(files) / 1e6, 1),
            read_sec = round(med(rd), 2),
            row.names = names(files))
 ##                file_mb write_sec read_sec
-## base R CSV        22.9      7.73     1.68
-## readr CSV         20.5      3.55     0.62
+## base R CSV        22.9      9.00     1.79
+## readr CSV         20.5      3.45     0.62
 ## data.table CSV    21.2      0.05     0.06
-## arrow Parquet      9.2      0.44     0.09
-## nanoparquet        9.2      0.19     0.15</code></pre>
-<p>The Parquet files are 9.2 MB against
+## arrow Parquet      9.1      0.51     0.09
+## nanoparquet        9.2      0.20     0.18</code></pre>
+<p>The Parquet files are 9.1 MB against
 20.5 to 22.9 MB for the CSVs. On
 speed the story is less convenient. data.table wrote its CSV in
 0.05 seconds and read it back in 0.06,
-against 0.44 and 0.09 for arrow. Timings are
+against 0.51 and 0.09 for arrow. Timings are
 medians of five runs in randomized order, reading from a warm file cache. If speed were the
 whole case for Parquet, <code>fread</code> would make a decent rebuttal. It cannot rebut the figure.</p>
 </div>
@@ -269,8 +271,12 @@ with the data.</p>
 <p>The damage to doubles is a relative error of at most 5.1e-15. It will not move
 a regression coefficient. It matters for reproducibility, not for inference.</p>
 <p>I did not test compression codecs, reading a subset of columns (where Parquet should pull
-further ahead), partitioned datasets, or files larger than memory. One machine, R 4.4.3,
-data.table 1.17.8, readr 2.1.5, arrow 22.0.0, nanoparquet 0.4.2, pandas 2.3.3.</p>
+further ahead), partitioned datasets, or files larger than memory. One machine,
+R 4.4.3, data.table 1.18.6.1, readr
+2.2.0 on vroom 1.7.1, arrow
+25.0.1, nanoparquet 0.5.2, and pandas
+2.3.3 for the chunk above. The pandas counts came out the same when I reran them
+separately under pandas 3.0.6.</p>
 </div>
 <div id="what-to-do-on-monday" class="section level2">
 <h2>What to do on Monday</h2>

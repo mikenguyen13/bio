@@ -247,10 +247,14 @@ than a new post and improves an existing URL.
       concedes full-read speed to `fread` and explicitly does not test column pruning or
       predicate pushdown. `arrow::open_dataset()` plus `select()` against `fread(select =)` on
       a wide file is the fair rematch, and it is a natural follow-up link from that post.
-- [ ] **Is `fread` keeping doubled quotes known upstream?** Measured in data.table 1.17.8 with a
-      one-line repro in the Parquet post. Search the data.table issue tracker before the post
-      ships, and link the issue if one exists. Same check for readr's last-bit parse error and
-      `write_csv` dropping milliseconds.
+- [x] **Is `fread` keeping doubled quotes known upstream?** Checked 2026-09-30. Yes, data.table
+      issue #1109, open since April 2015, still reproduces in 1.18.6.1. Linked from the post.
+      `write_csv` milliseconds follow `options(digits.secs)` (readr #1053). readr's last-bit
+      parse error has no matching issue in readr or vroom that I could find.
+- [ ] **File the readr/vroom double parsing issue?** `parse_double()` and `read_csv()` get the
+      last bit wrong for about 6.4% of shortest round-trip decimals that base R parses exactly,
+      reproduced on readr 2.2.0 with vroom 1.7.1. Outward-facing, so Mike decides. If filed,
+      link it from the Parquet post.
 
 ## SITE BUGS (found 2026-08-19)
 
