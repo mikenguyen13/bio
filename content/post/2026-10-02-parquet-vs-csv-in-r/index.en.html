@@ -1,7 +1,7 @@
 ---
 title: "Parquet vs CSV in R: Every CSV Round Trip I Tested Lost Data"
 author: Mike Nguyen
-date: '2026-10-02'
+date: '2026-09-30'
 slug: parquet-vs-csv-in-r
 categories:
   - R
@@ -17,9 +17,9 @@ tags:
 subtitle: 'Write a data frame out with base R, readr, or data.table, read it back with the same package, and some of what comes back cannot be repaired. Parquet returned every column identical.'
 summary: 'Write a data frame to CSV with base R, readr, or data.table, read it back with the same package, and each one destroys values in at least four of eleven columns, even when the reader is allowed to know the original schema. Leading zeros, the last digits of 18 digit IDs, the Namibian country code, the final bits of most doubles, milliseconds, and an hour on the night the clocks go back all go missing somewhere. Parquet written with arrow came back identical in every column, and pandas read the same file exactly. data.table was still the fastest, so the case for Parquet is correctness rather than speed.'
 authors: []
-lastmod: '2026-09-30T12:00:00-07:00'
+lastmod: '2026-09-30T18:30:00-07:00'
 featured: no
-draft: true
+draft: false
 image:
   caption: ''
   focal_point: ''
@@ -210,16 +210,16 @@ data.frame(file_mb = round(file.size(files) / 1e6, 1),
            read_sec = round(med(rd), 2),
            row.names = names(files))
 ##                file_mb write_sec read_sec
-## base R CSV        22.9      9.00     1.79
-## readr CSV         20.5      3.45     0.62
-## data.table CSV    21.2      0.05     0.06
-## arrow Parquet      9.1      0.51     0.09
-## nanoparquet        9.2      0.20     0.18</code></pre>
+## base R CSV        22.9      6.42     1.47
+## readr CSV         20.5      2.87     0.55
+## data.table CSV    21.2      0.05     0.05
+## arrow Parquet      9.1      0.37     0.08
+## nanoparquet        9.2      0.17     0.12</code></pre>
 <p>The Parquet files are 9.1 MB against
 20.5 to 22.9 MB for the CSVs. On
 speed the story is less convenient. data.table wrote its CSV in
-0.05 seconds and read it back in 0.06,
-against 0.51 and 0.09 for arrow. Timings are
+0.05 seconds and read it back in 0.05,
+against 0.37 and 0.08 for arrow. Timings are
 medians of five runs in randomized order, reading from a warm file cache. If speed were the
 whole case for Parquet, <code>fread</code> would make a decent rebuttal. It cannot rebut the figure.</p>
 </div>

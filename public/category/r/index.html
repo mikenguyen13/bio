@@ -325,7 +325,7 @@
   <meta property="og:description" content="This site is Mike Nguyen&#39;s personal website. He is a marketing researcher with interests in branding and social media."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
   <meta property="twitter:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2026-09-12T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2026-09-30T00:00:00&#43;00:00">
   
 
   
@@ -760,6 +760,18 @@
     
     
     <div>
+      <h2><a href="/post/parquet-vs-csv-in-r/" >Parquet vs CSV in R: Every CSV Round Trip I Tested Lost Data</a></h2>
+      <div class="article-style">
+        
+          Write a data frame to CSV with base R, readr, or data.table, read it back with the same package, and each one destroys values in at least four of eleven columns, even when the reader is allowed to know the original schema. Leading zeros, the last digits of 18 digit IDs, the Namibian country code, the final bits of most doubles, milliseconds, and an hour on the night the clocks go back all go missing somewhere. Parquet written with arrow came back identical in every column, and pandas read the same file exactly. data.table was still the fastest, so the case for Parquet is correctness rather than speed.
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
       <h2><a href="/post/customer-lifetime-value-in-r/" >Customer Lifetime Value in R: A Third of Your Best Customers Have Already Left</a></h2>
       <div class="article-style">
         
@@ -869,18 +881,6 @@ I realize I did not have my webpage repo public.
       <div class="article-style">
         
           If you work with multiple work stations (multiple computers/laptops) sharing the same cloud folder. You might encounter this problem. Your Rstudio in different computers will have different default paths to install and load packages.
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/post/correct-bibtex-format/" >Correct Bibtex format</a></h2>
-      <div class="article-style">
-        
-          If you work with bookdown, Latex, Python, or anything that uses BibTex as the underlying citation document, you will understand the struggle that sometimes your document cannot be rendered correctly because you might miss a comma, year, or author.
         
       </div>
     </div>

@@ -1,12 +1,11 @@
 # Review Queue
 
-> **Four drafts are queued.** Parquet vs CSV (new, written for the Friday 2 October slot),
-> benchmarking, Unicode normalization, and structured output are all sitting at `draft: true`.
-> Nothing has gone live since 2026-09-12. Suggested order: Parquet vs CSV for Friday, then
-> benchmarking (it pairs well, same lane, and cites the same randomized timing discipline),
-> Unicode normalization, then structured output.
+> **Three drafts are queued.** Benchmarking, Unicode normalization, and structured output are
+> sitting at `draft: true`. The Parquet vs CSV post went live 2026-09-30. Suggested order:
+> benchmarking next (same lane as the Parquet post, and it cites the same randomized timing
+> discipline), then Unicode normalization, then structured output.
 
-## Awaiting review: Parquet vs CSV post, written 2026-09-30 for Friday 2026-10-02
+## Shipped 2026-09-30: Parquet vs CSV post (written for Friday 2026-10-02, shipped early)
 
 Review page: <https://claude.ai/artifact/UoED3guHEe4HPV15JA85AU>
 
@@ -16,8 +15,8 @@ Review page: <https://claude.ai/artifact/UoED3guHEe4HPV15JA85AU>
 | Target query | parquet vs csv in r |
 | Lane | Coding and tooling. The last two live posts were marketing, and this lane holds only the unpublished benchmarking draft |
 | Salvages | The 2020 `arrow` stub (113 words). New URL, old one untouched, see the soft spots |
-| Status | **DRAFT** (`draft: true`), rendered, not live |
-| Date | Front matter says 2026-10-02. **If it ships before Friday, move the date to the ship day**, or Hugo treats it as future content and hides it |
+| Status | **LIVE** at </post/parquet-vs-csv-in-r/> (`draft: false`, published 2026-09-30 on Mike's approval) |
+| Date | Front matter moved from 2026-10-02 to 2026-09-30 at publish. The folder keeps its `2026-10-02-` prefix. Do not forward-date it, or Hugo hides it as future content |
 | File | `content/post/2026-10-02-parquet-vs-csv-in-r/index.en.Rmd` |
 
 An eleven column customer table, 200,000 rows, written to CSV with base R, readr, and

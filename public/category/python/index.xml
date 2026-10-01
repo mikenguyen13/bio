@@ -5,12 +5,287 @@
     <link>https://mikenguyen.netlify.app/category/python/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/python/index.xml" rel="self" type="application/rss+xml" />
     <description>Python</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Sat, 12 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Wed, 30 Sep 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Python</title>
       <link>https://mikenguyen.netlify.app/category/python/</link>
     </image>
+    
+    <item>
+      <title>Parquet vs CSV in R: Every CSV Round Trip I Tested Lost Data</title>
+      <link>https://mikenguyen.netlify.app/post/parquet-vs-csv-in-r/</link>
+      <pubDate>Wed, 30 Sep 2026 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/parquet-vs-csv-in-r/</guid>
+      <description>
+
+
+&lt;p&gt;Parquet vs CSV in R is usually argued on file size and speed. I wanted to know something
+more basic: does the data come back? I wrote an eleven column data frame to CSV three ways,
+with base R, readr, and data.table, and read each file back with the package that wrote it.
+Every one of them destroyed values in at least four of the eleven
+columns, in ways that no cleanup afterwards can reverse. The same data frame written to
+Parquet with arrow came back &lt;code&gt;identical()&lt;/code&gt; in every column.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span style=&#34;display:block;&#34; id=&#34;fig:figure&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;figs/figure-1.png&#34; alt=&#34;What came back from each round trip, column by column. Fixable means the values survived but the type did not, so a reader who already knew the original schema could convert them back. Lost means some values were gone even after that conversion, with the share of rows affected.&#34; width=&#34;1050&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: What came back from each round trip, column by column. Fixable means the values survived but the type did not, so a reader who already knew the original schema could convert them back. Lost means some values were gone even after that conversion, with the share of rows affected.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-test&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The test&lt;/h2&gt;
+&lt;p&gt;The frame holds the columns a customer table actually has. ZIP codes, 18 digit order IDs of
+the kind 64 bit database keys produce, a model score, a price, ISO country codes (the one for
+Namibia is &lt;code&gt;NA&lt;/code&gt;), a free text note, a signup date, an event timestamp in New York time with
+milliseconds, a segment factor, a count, and a flag.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(data.table)
+library(readr)
+library(arrow)
+
+set.seed(20261002)
+n  &amp;lt;- 2e5
+tz &amp;lt;- &amp;quot;America/New_York&amp;quot;
+d &amp;lt;- data.frame(
+  zip        = sprintf(&amp;quot;%05d&amp;quot;, sample(501:99950, n, replace = TRUE)),
+  order_id   = paste0(sample(1:9, n, TRUE),
+                      sprintf(&amp;quot;%08d&amp;quot;, sample.int(99999999, n, TRUE)),
+                      sprintf(&amp;quot;%09d&amp;quot;, sample.int(999999999, n, TRUE))),
+  p_churn    = plogis(rnorm(n)),
+  amount     = round(rlnorm(n, 3, 1), 2),
+  country    = sample(c(&amp;quot;US&amp;quot;, &amp;quot;GB&amp;quot;, &amp;quot;DE&amp;quot;, &amp;quot;FR&amp;quot;, &amp;quot;NA&amp;quot;, &amp;quot;ZA&amp;quot;, &amp;quot;BR&amp;quot;, &amp;quot;IN&amp;quot;), n, TRUE,
+                      prob = c(40, 10, 10, 10, 2, 8, 10, 10)),
+  note       = sample(c(NA, &amp;quot;&amp;quot;, &amp;quot;ok&amp;quot;, &amp;quot;gift, wrapped&amp;quot;, &amp;#39;said &amp;quot;thanks&amp;quot;&amp;#39;,
+                        &amp;quot;line one\nline two&amp;quot;), n, TRUE, prob = c(20, 20, 40, 10, 5, 5)),
+  signup     = as.Date(&amp;quot;2019-01-01&amp;quot;) + sample(0:2000, n, TRUE),
+  event_time = as.POSIXct(&amp;quot;2024-01-01&amp;quot;, tz = tz) + round(runif(n, 0, 366 * 86400), 3),
+  segment    = factor(sample(c(&amp;quot;low&amp;quot;, &amp;quot;mid&amp;quot;, &amp;quot;high&amp;quot;), n, TRUE),
+                      levels = c(&amp;quot;low&amp;quot;, &amp;quot;mid&amp;quot;, &amp;quot;high&amp;quot;)),
+  n_orders   = rpois(n, 3),
+  churned    = runif(n) &amp;lt; 0.3
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The grading is deliberately generous to CSV. For every column, &lt;code&gt;repair()&lt;/code&gt; converts whatever
+came back into the original type, using the original factor levels and time zone, which is
+information the CSV file does not contain. Anything still wrong after that was destroyed, not
+just mislabelled.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dir &amp;lt;- tempfile()
+dir.create(dir)
+files &amp;lt;- file.path(dir, c(&amp;quot;base.csv&amp;quot;, &amp;quot;readr.csv&amp;quot;, &amp;quot;dt.csv&amp;quot;, &amp;quot;arrow.parquet&amp;quot;,
+                          &amp;quot;nano.parquet&amp;quot;))
+names(files) &amp;lt;- c(&amp;quot;base R CSV&amp;quot;, &amp;quot;readr CSV&amp;quot;, &amp;quot;data.table CSV&amp;quot;, &amp;quot;arrow Parquet&amp;quot;,
+                  &amp;quot;nanoparquet&amp;quot;)
+
+write.csv(d, files[[1]], row.names = FALSE)
+write_csv(d, files[[2]])
+fwrite(d, files[[3]])
+write_parquet(d, files[[4]])
+nanoparquet::write_parquet(d, files[[5]])
+
+back &amp;lt;- list(read.csv(files[[1]]),
+             read_csv(files[[2]], show_col_types = FALSE),
+             fread(files[[3]]),
+             read_parquet(files[[4]]),
+             nanoparquet::read_parquet(files[[5]]))
+names(back) &amp;lt;- names(files)
+# The most generous reader possible. It knows each column&amp;#39;s original type, its
+# factor levels, and its time zone, and converts whatever came back into that.
+repair &amp;lt;- function(o, b) {
+  if (is.factor(o)) return(factor(as.character(b), levels = levels(o)))
+  if (inherits(o, &amp;quot;POSIXct&amp;quot;)) return(as.POSIXct(b, tz = attr(o, &amp;quot;tzone&amp;quot;)))
+  if (inherits(o, &amp;quot;Date&amp;quot;)) return(as.Date(as.character(b)))
+  if (is.character(o)) {
+    if (inherits(b, &amp;quot;integer64&amp;quot;) || !is.numeric(b)) return(as.character(b))
+    return(formatC(as.numeric(b), format = &amp;quot;f&amp;quot;, digits = 0))
+  }
+  switch(typeof(o), integer = as.integer(b), double = as.double(b),
+         logical = as.logical(b))
+}
+same &amp;lt;- function(o, r) (is.na(o) &amp;amp; is.na(r)) | (!is.na(o) &amp;amp; !is.na(r) &amp;amp; o == r)
+
+grade &amp;lt;- function(o, b) {
+  if (identical(o, b)) return(data.frame(status = &amp;quot;identical&amp;quot;, lost = 0))
+  lost &amp;lt;- mean(!same(o, repair(o, b)))
+  data.frame(status = if (lost == 0) &amp;quot;fixable&amp;quot; else &amp;quot;lost&amp;quot;, lost = lost)
+}
+
+res &amp;lt;- do.call(rbind, lapply(names(back), function(f) do.call(rbind, lapply(
+  names(d), function(col) cbind(format = f, column = col,
+                                grade(d[[col]], back[[f]][[col]]))))))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;three-ways-a-csv-loses-data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Three ways a CSV loses data&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;The reader guesses.&lt;/strong&gt; CSV stores text, so every reader has to guess each column’s type, and
+the guesses are plausible for the characters and wrong for the meaning. &lt;code&gt;read.csv&lt;/code&gt; and
+&lt;code&gt;fread&lt;/code&gt; turn ZIP codes into integers, so 9.5% of
+them lose a leading zero. &lt;code&gt;readr&lt;/code&gt; keeps them only because a value with a leading zero turned
+up among the rows it samples before guessing. All three readers turn Namibia into a missing value.
+&lt;code&gt;read.csv&lt;/code&gt; and &lt;code&gt;readr&lt;/code&gt; read the order IDs as doubles, which cannot hold 18 digits, so
+98% of them change. &lt;code&gt;fread&lt;/code&gt; reads them as 64
+bit integers, which is why that cell is fixable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The writer throws information away.&lt;/strong&gt; &lt;code&gt;write.csv&lt;/code&gt; and &lt;code&gt;fwrite&lt;/code&gt; both write doubles to 15
+significant digits. A double needs 17 to round trip, so
+92% of the model scores come back slightly
+different. The error is tiny, and that is exactly why nobody notices.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;x &amp;lt;- back[[&amp;quot;data.table CSV&amp;quot;]]$p_churn
+max_rel &amp;lt;- max(abs(x / d$p_churn - 1))
+data.frame(all.equal = isTRUE(all.equal(d$p_churn, x)),
+           identical = identical(d$p_churn, x),
+           max_relative_error = signif(max_rel, 2))
+##   all.equal identical max_relative_error
+## 1      TRUE     FALSE            5.1e-15&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;all.equal()&lt;/code&gt; tolerates differences up to about 1.5e-8, so it passes. A hash, a join on a
+computed key, or a check that your pipeline reproduced last week’s output will not. Two more
+writer losses: &lt;code&gt;write_csv&lt;/code&gt; writes only as many decimal places of seconds as
+&lt;code&gt;options(digits.secs)&lt;/code&gt; asks for, and that option is unset by default, so the milliseconds go.
+And &lt;code&gt;fwrite&lt;/code&gt; writes a missing string as an empty field, which &lt;code&gt;fread&lt;/code&gt; then reads as &lt;code&gt;&#34;&#34;&lt;/code&gt;, so
+the difference between unknown and blank is gone.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;write.csv&lt;/code&gt; writes timestamps as local clock time with no offset. That is lossless on every
+day but one.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;b    &amp;lt;- repair(d$event_time, back[[&amp;quot;base R CSV&amp;quot;]]$event_time)
+gone &amp;lt;- !same(d$event_time, b)
+hour &amp;lt;- format(d$event_time, &amp;quot;%Y-%m-%d %H&amp;quot;) == &amp;quot;2024-11-03 01&amp;quot;
+dst  &amp;lt;- data.frame(
+  in_repeated_hour = sum(hour),
+  came_back_wrong  = sum(gone),
+  wrong_outside_it = sum(gone &amp;amp; !hour),
+  hours_off = paste(unique(abs(as.numeric(b[gone] - d$event_time[gone],
+                                          units = &amp;quot;hours&amp;quot;))), collapse = &amp;quot;, &amp;quot;))
+dst
+##   in_repeated_hour came_back_wrong wrong_outside_it hours_off
+## 1               50              24                0         1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;On 3 November 2024 the clocks in New York went back, so 1:00 to 2:00 am happened twice. The
+file writes both passes through that hour the same way, so the reader has to guess which one
+each row belongs to. Of the 50 timestamps in that hour, R put
+24 on the wrong pass, each exactly an hour off. Every other timestamp in the
+year came back intact.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The reader misparses correct text.&lt;/strong&gt; &lt;code&gt;write_csv&lt;/code&gt; does write doubles exactly. Parsed with
+base R, its text reproduces every value. Parsed with &lt;code&gt;readr&lt;/code&gt;, it does not.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;txt &amp;lt;- read_csv(files[[&amp;quot;readr CSV&amp;quot;]], col_types = cols(.default = col_character()))$p_churn
+data.frame(base_parse_exact = identical(as.numeric(txt), d$p_churn),
+           readr_share_wrong = round(mean(parse_double(txt) != d$p_churn), 4))
+##   base_parse_exact readr_share_wrong
+## 1             TRUE            0.0647&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;And &lt;code&gt;fread&lt;/code&gt; does not undo the doubled quotes that CSV uses to escape a quote inside a field,
+so a note reading &lt;code&gt;said &#34;thanks&#34;&lt;/code&gt; comes back with four quote marks. This is a known
+limitation, with an &lt;a href=&#34;https://github.com/Rdatatable/data.table/issues/1109&#34;&gt;issue open since 2015&lt;/a&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cat(fread(text = &amp;#39;id,note\n1,&amp;quot;said &amp;quot;&amp;quot;thanks&amp;quot;&amp;quot;&amp;quot;&amp;#39;)$note)
+## said &amp;quot;&amp;quot;thanks&amp;quot;&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;parquet-is-not-automatic-either&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Parquet is not automatic either&lt;/h2&gt;
+&lt;p&gt;The nanoparquet column in the figure is worth a second look. Its values are all correct, but
+dates come back stored as integers and timestamps come back in UTC, so the two columns fail
+&lt;code&gt;identical()&lt;/code&gt;. Parquet stores the values themselves exactly. The R details (the time zone
+name, the storage type, the factor level order) come back only when the writer records them
+in the file’s metadata, which arrow does. The format is not the guarantee. The writer is.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;speed-is-not-the-argument&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Speed is not the argument&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(microbenchmark)
+wr &amp;lt;- microbenchmark(
+  &amp;quot;base R CSV&amp;quot;     = write.csv(d, files[[1]], row.names = FALSE),
+  &amp;quot;readr CSV&amp;quot;      = write_csv(d, files[[2]]),
+  &amp;quot;data.table CSV&amp;quot; = fwrite(d, files[[3]]),
+  &amp;quot;arrow Parquet&amp;quot;  = write_parquet(d, files[[4]]),
+  &amp;quot;nanoparquet&amp;quot;    = nanoparquet::write_parquet(d, files[[5]]),
+  times = 5)
+rd &amp;lt;- microbenchmark(
+  &amp;quot;base R CSV&amp;quot;     = read.csv(files[[1]]),
+  &amp;quot;readr CSV&amp;quot;      = read_csv(files[[2]], show_col_types = FALSE),
+  &amp;quot;data.table CSV&amp;quot; = fread(files[[3]]),
+  &amp;quot;arrow Parquet&amp;quot;  = read_parquet(files[[4]]),
+  &amp;quot;nanoparquet&amp;quot;    = nanoparquet::read_parquet(files[[5]]),
+  times = 5)
+med &amp;lt;- function(m) tapply(m$time, m$expr, median)[names(files)] / 1e9
+data.frame(file_mb = round(file.size(files) / 1e6, 1),
+           write_sec = round(med(wr), 2),
+           read_sec = round(med(rd), 2),
+           row.names = names(files))
+##                file_mb write_sec read_sec
+## base R CSV        22.9      6.42     1.47
+## readr CSV         20.5      2.87     0.55
+## data.table CSV    21.2      0.05     0.05
+## arrow Parquet      9.1      0.37     0.08
+## nanoparquet        9.2      0.17     0.12&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The Parquet files are 9.1 MB against
+20.5 to 22.9 MB for the CSVs. On
+speed the story is less convenient. data.table wrote its CSV in
+0.05 seconds and read it back in 0.05,
+against 0.37 and 0.08 for arrow. Timings are
+medians of five runs in randomized order, reading from a warm file cache. If speed were the
+whole case for Parquet, &lt;code&gt;fread&lt;/code&gt; would make a decent rebuttal. It cannot rebut the figure.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-same-file-from-python&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The same file from Python&lt;/h2&gt;
+&lt;p&gt;A file that only R can read back correctly would not help a mixed team. Here is pandas reading
+the arrow Parquet file, against pandas reading the readr CSV.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+import pandas as pd
+
+truth = np.asarray(r.p_truth)
+
+def audit(df):
+    return {&amp;quot;zip_leading_zero&amp;quot;: int(df[&amp;quot;zip&amp;quot;].astype(str).str.startswith(&amp;quot;0&amp;quot;).sum()),
+            &amp;quot;country_NA_kept&amp;quot;:  int((df[&amp;quot;country&amp;quot;] == &amp;quot;NA&amp;quot;).sum()),
+            &amp;quot;note_missing&amp;quot;:     int(df[&amp;quot;note&amp;quot;].isna().sum()),
+            &amp;quot;note_empty&amp;quot;:       int((df[&amp;quot;note&amp;quot;] == &amp;quot;&amp;quot;).sum()),
+            &amp;quot;p_churn_bits_off&amp;quot;: int((df[&amp;quot;p_churn&amp;quot;].to_numpy() != truth).sum())}
+
+pq = pd.read_parquet(r.pq_path)
+csv_default = audit(pd.read_csv(r.csv_path))
+print(pd.DataFrame({
+    &amp;quot;R original&amp;quot;:     r.r_counts,
+    &amp;quot;read_parquet&amp;quot;:   audit(pq),
+    &amp;quot;read_csv&amp;quot;:       csv_default,
+    &amp;quot;read_csv exact&amp;quot;: audit(pd.read_csv(r.csv_path, float_precision=&amp;quot;round_trip&amp;quot;)),
+}))
+##                   R original  read_parquet  read_csv  read_csv exact
+## zip_leading_zero       19056         19056         0               0
+## country_NA_kept         4090          4090         0               0
+## note_missing           39912         39912     79861           79861
+## note_empty             39949         39949         0               0
+## p_churn_bits_off           0             0     53984               0
+print(pq[&amp;quot;event_time&amp;quot;].dtype, list(pq[&amp;quot;segment&amp;quot;].cat.categories))
+## datetime64[us, America/New_York] [&amp;#39;low&amp;#39;, &amp;#39;mid&amp;#39;, &amp;#39;high&amp;#39;]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;pandas gets back every ZIP code, every Namibian row, the difference between missing and blank,
+every bit of every double, the New York time zone, and R’s factor level order. Its CSV reader,
+handed the readr file, drops every leading zero, every Namibian row, and the difference
+between missing and blank. Its default float parser also gets
+27% of the doubles wrong in the
+last bit, the same failure as readr’s, which &lt;code&gt;float_precision=&#34;round_trip&#34;&lt;/code&gt; fixes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-this-post-did-not-test&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What this post did not test&lt;/h2&gt;
+&lt;p&gt;Every CSV failure above has an argument that prevents it: &lt;code&gt;colClasses&lt;/code&gt;, &lt;code&gt;col_types&lt;/code&gt;,
+&lt;code&gt;keepLeadingZeros&lt;/code&gt;, &lt;code&gt;na&lt;/code&gt;, &lt;code&gt;float_precision&lt;/code&gt;. The catch is that each one has to be known in
+advance, column by column, and nothing in the file tells you which. Parquet carries the schema
+with the data.&lt;/p&gt;
+&lt;p&gt;The damage to doubles is a relative error of at most 5.1e-15. It will not move
+a regression coefficient. It matters for reproducibility, not for inference.&lt;/p&gt;
+&lt;p&gt;I did not test compression codecs, reading a subset of columns (where Parquet should pull
+further ahead), partitioned datasets, or files larger than memory. One machine,
+R 4.4.3, data.table 1.18.6.1, readr
+2.2.0 on vroom 1.7.1, arrow
+25.0.1, nanoparquet 0.5.2, and pandas
+2.3.3 for the chunk above. The pandas counts came out the same when I reran them
+separately under pandas 3.0.6.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-to-do-on-monday&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What to do on Monday&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Save anything code will read again as Parquet, with &lt;code&gt;arrow::write_parquet()&lt;/code&gt;. Keep CSV for
+people and for tools that read nothing else.&lt;/li&gt;
+&lt;li&gt;When you must read a CSV, declare the column types and the missing value strings. Read IDs
+and codes as character.&lt;/li&gt;
+&lt;li&gt;Test a round trip with &lt;code&gt;identical()&lt;/code&gt;, not &lt;code&gt;all.equal()&lt;/code&gt;. The tolerance that makes
+&lt;code&gt;all.equal()&lt;/code&gt; useful for models is what lets a lossy file pass.&lt;/li&gt;
+&lt;li&gt;In pandas, use &lt;code&gt;read_parquet()&lt;/code&gt;. For CSV, pass &lt;code&gt;dtype&lt;/code&gt; and &lt;code&gt;float_precision=&#34;round_trip&#34;&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Whether someone else can get your exact numbers back from your files is the replication
+standard, and it is covered in
+&lt;a href=&#34;https://bookdown.org/mike/data_analysis/replication-and-synthetic-data.html&#34;&gt;A Guide on Data Analysis&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Customer Lifetime Value in R: A Third of Your Best Customers Have Already Left</title>
