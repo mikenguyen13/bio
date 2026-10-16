@@ -282,7 +282,7 @@ and codes as character.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Whether someone else can get your exact numbers back from your files is the replication
 standard, and it is covered in
-&lt;a href=&#34;https://bookdown.org/mike/data_analysis/replication-and-synthetic-data.html&#34;&gt;A Guide on Data Analysis&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&#34;https://mike-data-analysis.share.connect.posit.cloud/replication-and-synthetic-data.html&#34;&gt;A Guide on Data Analysis&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -487,7 +487,7 @@ The decision is different for a high-value customer at 0.2 than at 0.9.&lt;/li&g
 this is your problem.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;The latent attrition models behind this, and where they break, are covered in
-&lt;a href=&#34;https://bookdown.org/mike/marketing_research/&#34;&gt;Marketing Research&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&#34;https://mike-marketing-research.share.connect.posit.cloud/&#34;&gt;Marketing Research&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -832,7 +832,7 @@ fine. Pricing is extrapolation.&lt;/li&gt;
 is enough to catch the collapse, and it is much cheaper than the price you would have set.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;The mixed logit machinery behind all of this, and how to run a conjoint properly, is in
-&lt;a href=&#34;https://bookdown.org/mike/marketing_research/&#34;&gt;Marketing Research&lt;/a&gt;.&lt;/p&gt;
+&lt;a href=&#34;https://mike-marketing-research.share.connect.posit.cloud/&#34;&gt;Marketing Research&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -1176,7 +1176,7 @@ a prior.&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;em&gt;Omitted variable bias, why it survives a model that fits well, and what an experiment can and
 cannot repair are covered in the
-&lt;a href=&#34;https://bookdown.org/mike/data_analysis/sec-endogeneity.html&#34;&gt;endogeneity chapter&lt;/a&gt;
+&lt;a href=&#34;https://mike-data-analysis.share.connect.posit.cloud/sec-endogeneity.html&#34;&gt;endogeneity chapter&lt;/a&gt;
 of A Guide on Data Analysis.&lt;/em&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
@@ -1371,7 +1371,7 @@ rather than whether to spend, the curve is the deliverable.&lt;/p&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;em&gt;Identification under continuous and multi-valued treatments, and the parallel trends
 assumptions each design needs, are covered in the
-&lt;a href=&#34;https://bookdown.org/mike/data_analysis/sec-difference-in-differences.html&#34;&gt;difference-in-differences chapter&lt;/a&gt;
+&lt;a href=&#34;https://mike-data-analysis.share.connect.posit.cloud/sec-difference-in-differences.html&#34;&gt;difference-in-differences chapter&lt;/a&gt;
 of A Guide on Data Analysis.&lt;/em&gt;&lt;/p&gt;
 &lt;/div&gt;
 </description>
@@ -2390,7 +2390,7 @@ git push origin -f&lt;/code&gt;&lt;/pre&gt;
 
 
 &lt;p&gt;In applied research, we typically look at moderation effect of a moderator on the relationship between a predictor and an outcome variable. However, looking at the interaction term alone is very misleading. Hence, researcher typically employ the Johnson-Neyman technique in probing the moderation effect. This technique helps find the region where the predictor effect is significant.&lt;/p&gt;
-&lt;p&gt;Even though &lt;code&gt;interactions&lt;/code&gt; package in R is very versatile that it can work with pretty much every model for probing the interaction effect, it couldn’t play well with &lt;code&gt;metafor&lt;/code&gt; package (&lt;a href=&#34;https://bookdown.org/mike/data_analysis/moderation.html&#34;&gt;for more details on moderation&lt;/a&gt;). Hence, we have to write a custom function for this purpose.&lt;/p&gt;
+&lt;p&gt;Even though &lt;code&gt;interactions&lt;/code&gt; package in R is very versatile that it can work with pretty much every model for probing the interaction effect, it couldn’t play well with &lt;code&gt;metafor&lt;/code&gt; package (&lt;a href=&#34;https://mike-data-analysis.share.connect.posit.cloud/sec-moderation.html&#34;&gt;for more details on moderation&lt;/a&gt;). Hence, we have to write a custom function for this purpose.&lt;/p&gt;
 &lt;p&gt;A little reminder of the moderation effect&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 Y = b_1 X+ b_2 W + b_3 XW

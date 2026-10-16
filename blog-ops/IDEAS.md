@@ -139,9 +139,11 @@ Append the moment something costs you time. One line is enough.
 - [x] 2026-08-26: `geom_segment()` with numeric `y`/`yend` against a discrete y axis throws
       "Example values: search, social, and video" from `scale_y_continuous`. Dodge by hand onto
       a continuous axis with `scale_y_continuous(breaks =, labels =)` instead.
-- [ ] 2026-08-26: `bookdown.org/mike/*` now 301 redirects to
+- [x] 2026-08-26: `bookdown.org/mike/*` now 301 redirects to
       `mike-data-analysis.share.connect.posit.cloud`. Links still resolve, so no action is
       forced, but every book CTA on the site is one hop from broken if that redirect lapses.
+      Fixed 2026-10-16: every data_analysis and marketing_research link in `content/` and
+      `public/` now points at its Posit Connect Cloud host directly.
 - [x] 2026-08-28: **Unicode text is silently recomposed by ordinary tooling, and it corrupted a
       post's central finding twice before it was caught.** Decomposed (NFD) text pasted through an
       editor, a clipboard, or a tool result comes back composed (NFC). The Unicode post measures
@@ -258,7 +260,7 @@ than a new post and improves an existing URL.
 
 ## SITE BUGS (found 2026-08-19)
 
-- [ ] **The Text Analysis book returns 403 and is linked from the books page.** Found 2026-08-28
+- [x] **The Text Analysis book returns 403 and is linked from the books page.** Found 2026-08-28
       while looking for a CTA for the tokenization post.
       `https://bookdown.org/mike/text_analysis/` returns HTTP 403, while
       `https://bookdown.org/mike/data_analysis/` returns 200 from the same client, so this is not
@@ -267,6 +269,9 @@ than a new post and improves an existing URL.
       post routes its CTA to [AI in Action](https://mikenguyen13.github.io/ai_in_action/) instead,
       which returns 200 but currently renders only a preface, so it is a thin landing page for a
       reader arriving from a post.
+      Fixed 2026-10-16: Meta Analysis, Text Analysis, Network Analysis, Survival Analysis,
+      Agent-Based Modeling, and Finance all return 403, so the books page now lists them under
+      Private Access as plain titles with no link.
 
 - [ ] **Broken plot images. Re-audited 2026-08-26 against `public/` and against the live site,
       and the earlier entry undercounted.** `config.toml` sets `ignoreFiles = [... "_files$" ...]`,
