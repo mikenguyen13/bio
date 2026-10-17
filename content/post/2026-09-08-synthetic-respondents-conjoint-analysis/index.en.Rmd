@@ -405,4 +405,4 @@ still lost the price.
    is enough to catch the collapse, and it is much cheaper than the price you would have set.
 
 The mixed logit machinery behind all of this, and how to run a conjoint properly, is in
-[Marketing Research](https://bookdown.org/mike/marketing_research/).
+[Marketing Research](https://mike-marketing-research.share.connect.posit.cloud/).

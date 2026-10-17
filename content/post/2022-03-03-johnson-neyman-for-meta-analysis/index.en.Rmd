@@ -28,7 +28,7 @@ knitr::opts_chunk$set(message = F, warning = F)
 
 In applied research, we typically look at moderation effect of a moderator on the relationship between a predictor and an outcome variable. However, looking at the interaction term alone is very misleading. Hence, researcher typically employ the Johnson-Neyman technique in probing the moderation effect. This technique helps find the region where the predictor effect is significant. 
 
-Even though `interactions` package in R is very versatile that it can work with pretty much every model for probing the interaction effect, it couldn't play well with `metafor` package ([for more details on moderation](https://bookdown.org/mike/data_analysis/moderation.html)). Hence, we have to write a custom function for this purpose.
+Even though `interactions` package in R is very versatile that it can work with pretty much every model for probing the interaction effect, it couldn't play well with `metafor` package ([for more details on moderation](https://mike-data-analysis.share.connect.posit.cloud/sec-moderation.html)). Hence, we have to write a custom function for this purpose.
 
 A little reminder of the moderation effect
 

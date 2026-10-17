@@ -280,4 +280,4 @@ customers.
    this is your problem.
 
 The latent attrition models behind this, and where they break, are covered in
-[Marketing Research](https://bookdown.org/mike/marketing_research/).
+[Marketing Research](https://mike-marketing-research.share.connect.posit.cloud/).

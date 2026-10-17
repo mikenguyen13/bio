@@ -383,4 +383,4 @@ separately under pandas 3.0.6.
 
 Whether someone else can get your exact numbers back from your files is the replication
 standard, and it is covered in
-[A Guide on Data Analysis](https://bookdown.org/mike/data_analysis/replication-and-synthetic-data.html).
+[A Guide on Data Analysis](https://mike-data-analysis.share.connect.posit.cloud/replication-and-synthetic-data.html).

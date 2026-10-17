@@ -10,8 +10,8 @@ headless: false
 
 | Type | Public Access | Private Access |
 |------------------------|------------------------|------------------------|
-| Analysis | [Data Analysis](https://bookdown.org/mike/data_analysis/)<br>(8K users / month,<br>Regularly Top [Bookdown](https://bookdown.org/) List)<br>[Advanced Data Analysis](https://advanced-data-analysis.netlify.app/)<br>[AI in action](https://mikenguyen13.github.io/ai_in_action/) | [Meta Analysis](https://bookdown.org/mike/meta_analysis/)<br> [Text Analysis](https://bookdown.org/mike/text_analysis/)<br>[Network Analysis](https://bookdown.org/mike/network_analysis/)<br>[Survival Analysis](https://bookdown.org/mike/survival_analysis/)<br>[Agent-Based Modeling](https://bookdown.org/mike/abm/) |
-| Domain | [Communication Theory](https://bookdown.org/mike/comm_theory/)<br>[Marketing Research](https://bookdown.org/mike/marketing_research/) | [Social Science Theory](https://bookdown.org/mike/social-theory/)<br>[Finance](https://bookdown.org/mike/finance/) |
+| Analysis | [Data Analysis](https://mike-data-analysis.share.connect.posit.cloud/)<br>(8K users / month,<br>Regularly Top [Bookdown](https://bookdown.org/) List)<br>[Advanced Data Analysis](https://advanced-data-analysis.netlify.app/)<br>[AI in action](https://mikenguyen13.github.io/ai_in_action/) | Meta Analysis<br> Text Analysis<br>Network Analysis<br>Survival Analysis<br>Agent-Based Modeling |
+| Domain | [Communication Theory](https://bookdown.org/mike/comm_theory/)<br>[Marketing Research](https://mike-marketing-research.share.connect.posit.cloud/) | [Social Science Theory](https://bookdown.org/mike/social-theory/)<br>Finance |
 
 <!-- 
 Want to support my books?
