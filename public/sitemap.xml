@@ -20,19 +20,67 @@
     <loc>https://mikenguyen.netlify.app/courses/01-mizzou-mar4050-f21/</loc>
     <lastmod>2021-12-09T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://mikenguyen.netlify.app/post/are-llm-benchmark-differences-statistically-significant/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/benchmarks/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/bootstrap/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/categories/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/clustered-inference/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/data-engineering/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/data.table/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/duckdb/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/evaluation/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/hypothesis-testing/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/llm/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/polars/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/polars-2-0-row-order/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/post/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/python/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/category/r/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tag/reproducibility/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://mikenguyen.netlify.app/tags/</loc>
+    <lastmod>2026-10-25T12:00:00-07:00</lastmod>
+  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/arrow/</loc>
     <lastmod>2026-09-30T18:30:00-07:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/categories/</loc>
-    <lastmod>2026-09-30T18:30:00-07:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/csv/</loc>
-    <lastmod>2026-09-30T18:30:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/data.table/</loc>
-    <lastmod>2026-09-30T18:30:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/</loc>
     <lastmod>2026-09-30T18:30:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/pandas/</loc>
@@ -44,22 +92,7 @@
     <loc>https://mikenguyen.netlify.app/post/parquet-vs-csv-in-r/</loc>
     <lastmod>2026-09-30T18:30:00-07:00</lastmod>
   </url><url>
-    <loc>https://mikenguyen.netlify.app/post/</loc>
-    <lastmod>2026-09-30T18:30:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/python/</loc>
-    <lastmod>2026-09-30T18:30:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/category/r/</loc>
-    <lastmod>2026-09-30T18:30:00-07:00</lastmod>
-  </url><url>
     <loc>https://mikenguyen.netlify.app/tag/readr/</loc>
-    <lastmod>2026-09-30T18:30:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/reproducibility/</loc>
-    <lastmod>2026-09-30T18:30:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tags/</loc>
     <lastmod>2026-09-30T18:30:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/clv/</loc>
@@ -81,9 +114,6 @@
     <lastmod>2026-09-12T11:00:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/conjoint-analysis/</loc>
-    <lastmod>2026-09-08T19:30:00-07:00</lastmod>
-  </url><url>
-    <loc>https://mikenguyen.netlify.app/tag/llm/</loc>
     <lastmod>2026-09-08T19:30:00-07:00</lastmod>
   </url><url>
     <loc>https://mikenguyen.netlify.app/tag/marketing-research/</loc>

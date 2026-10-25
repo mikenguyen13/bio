@@ -325,7 +325,7 @@
   <meta property="og:description" content="This site is Mike Nguyen&#39;s personal website. He is a marketing researcher with interests in branding and social media."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
   <meta property="twitter:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2026-09-30T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2026-10-25T00:00:00&#43;00:00">
   
 
   
@@ -755,6 +755,18 @@
   
 
   
+  
+    
+    
+    
+    <div>
+      <h2><a href="/post/polars-2-0-row-order/" >Polars 2.0 Row Order: The Same Query Returned a Different Answer on Every Run</a></h2>
+      <div class="article-style">
+        
+          Polars 2.0 runs lazy queries on the streaming engine by default, and the streaming engine does not guarantee row order. Running five order-dependent queries 20 times each on the same file, Polars 1.44.2 matched the explicit-order answer every time, while Polars 2.0.0 and 2.1.0 got four of the five wrong on every run, with a different answer each time and only a handful of customers affected. Keeping order in the join, or sorting inside the expression, fixed every run. Switching back to the in-memory engine did not fully restore the old answers, and DuckDB in R behaves the same way without an ORDER BY.
+        
+      </div>
+    </div>
   
     
     

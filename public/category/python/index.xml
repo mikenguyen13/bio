@@ -5,12 +5,560 @@
     <link>https://mikenguyen.netlify.app/category/python/</link>
       <atom:link href="https://mikenguyen.netlify.app/category/python/index.xml" rel="self" type="application/rss+xml" />
     <description>Python</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Wed, 30 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Sun, 25 Oct 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Python</title>
       <link>https://mikenguyen.netlify.app/category/python/</link>
     </image>
+    
+    <item>
+      <title>Are LLM Benchmark Differences Statistically Significant? 25 of 31 Models Could Be First on AIME 2026</title>
+      <link>https://mikenguyen.netlify.app/post/are-llm-benchmark-differences-statistically-significant/</link>
+      <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/are-llm-benchmark-differences-statistically-significant/</guid>
+      <description>
+
+
+&lt;p&gt;On 16 October MathArena added Gemini 4 Argon to its September ArXivMath leaderboard, where it
+sits at 87.74%, behind GPT-6.1 Sol at
+91.51%, a gap of about two problems out of 53. The same day
+&lt;a href=&#34;https://quantamagazine.org/he-wants-ai-benchmarking-to-be-a-science-not-a-dark-art-20261016&#34;&gt;Quanta profiled Moritz Hardt&lt;/a&gt;,
+who argues that benchmark scores mislead in absolute terms while rankings between models still
+carry real information. So how much information does a ranking carry when the gap is a few
+problems?&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://matharena.ai/&#34;&gt;MathArena&lt;/a&gt; makes that answerable, because it publishes every graded
+attempt, which few leaderboards do. For AIME 2026 that is 32 models on 30 problems, two or four
+attempts each. The code below downloads them from Hugging Face at the exact revision used here.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;rev &amp;lt;- &amp;quot;f916cfc3eebc6ffbbf57d70918e79804d740806f&amp;quot;
+url &amp;lt;- paste0(&amp;quot;https://huggingface.co/datasets/MathArena/aime_2026_outputs/resolve/&amp;quot;,
+              rev, &amp;quot;/data/train-00000-of-00001.parquet&amp;quot;)
+f &amp;lt;- file.path(tools::R_user_dir(&amp;quot;matharena&amp;quot;, &amp;quot;cache&amp;quot;), &amp;quot;aime_2026_outputs.parquet&amp;quot;)
+if (!file.exists(f)) {
+  dir.create(dirname(f), recursive = TRUE, showWarnings = FALSE)
+  download.file(url, f, mode = &amp;quot;wb&amp;quot;)
+}
+raw &amp;lt;- nanoparquet::read_parquet(f, col_select = c(&amp;quot;model_name&amp;quot;, &amp;quot;problem_idx&amp;quot;,
+                                                   &amp;quot;idx_answer&amp;quot;, &amp;quot;correct&amp;quot;))
+d &amp;lt;- data.frame(model = raw$model_name, problem = as.integer(raw$problem_idx),
+                attempt = raw$idx_answer, correct = as.integer(raw$correct))
+
+# One row per model, one column per problem: the share of attempts correct
+A &amp;lt;- tapply(d$correct, list(d$model, d$problem), mean)
+B &amp;lt;- A[rowSums(is.na(A)) == 0, ]           # models with attempts on all 30
+score &amp;lt;- rowMeans(B)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(20261020)
+ranks &amp;lt;- replicate(4000, {
+  s &amp;lt;- rowMeans(B[, sample.int(ncol(B), replace = TRUE)])
+  rank(-s, ties.method = &amp;quot;min&amp;quot;)
+})
+lo &amp;lt;- apply(ranks, 1, quantile, 0.025, type = 1)
+hi &amp;lt;- apply(ranks, 1, quantile, 0.975, type = 1)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;the-result&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The result&lt;/h2&gt;
+&lt;p&gt;Resample the 30 problems with replacement 4,000 times, rescore every model each time, and record
+where it lands. 25 of the 31 models with attempts on every problem have a 95%
+rank interval that reaches first place.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span style=&#34;display:block;&#34; id=&#34;fig:rankplot&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;figs/rankplot-1.png&#34; alt=&#34;Each bar is a model&#39;s 95% bootstrap rank interval from resampling the 30 AIME 2026 problems. The dot is its rank on the actual 30, with ties sharing the best rank. Blue bars reach first place. The two perfect scores rank first in every resample, so their bars shrink to the dot. Equal scores can get different bars. Every blue model slipped on at most 3 distinct problems and every gray one on at least 4.&#34; width=&#34;1050&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: Each bar is a model’s 95% bootstrap rank interval from resampling the 30 AIME 2026 problems. The dot is its rank on the actual 30, with ties sharing the best rank. Blue bars reach first place. The two perfect scores rank first in every resample, so their bars shrink to the dot. Equal scores can get different bars. Every blue model slipped on at most 3 distinct problems and every gray one on at least 4.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;By this measure only 6 models can be ruled out of first.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;half-the-test-is-blank&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Half the test is blank&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;solved_by_all &amp;lt;- colSums(B &amp;lt; 1) == 0
+# Share of the variance in model scores that each problem contributes
+share &amp;lt;- apply(B, 2, cov, y = score) / (ncol(B) * var(score))
+top5 &amp;lt;- sort(share, decreasing = TRUE)[1:5]
+data.frame(problem = names(top5), attempts_correct = pct(colMeans(B)[names(top5)]),
+           share_of_spread = pct(top5))
+##   problem attempts_correct share_of_spread
+## 1      30              61%             26%
+## 2      29              85%             18%
+## 3      15              20%             14%
+## 4      14              93%             11%
+## 5      10              86%             10%&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;16 of the 30 problems were solved by all 31 models on every attempt.
+They add the same amount to every score, so they cannot move a ranking. Five problems carry
+80% of the spread between models. MathArena now lists AIME 2026 among its
+deprecated competitions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;two-kinds-of-error-bar&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Two kinds of error bar&lt;/h2&gt;
+&lt;p&gt;MathArena prints a 95% interval next to every AIME 2026 score, which most leaderboards do not.
+All 31 of the 31 intervals match &lt;code&gt;1.96 * sqrt(p * (1 - p) / attempts)&lt;/code&gt; to the
+second decimal. That interval answers one question well: how much would the score move if the
+model reran these same 30 problems?&lt;/p&gt;
+&lt;p&gt;A launch announcement usually means a broader question: how would the model do on other problems
+of this kind? For that one the problem is the unit that was sampled, and a model that misses a
+problem tends to miss it on every attempt. Computed over problems, the intervals run a median
+1.7 times wider. For DeepSeek-v3.2 (Think), the printed plus or minus
+4.19 points becomes plus or minus 7.31.&lt;/p&gt;
+&lt;p&gt;The choice changes the verdict. Here is every model below a perfect score compared with
+GPT-5.5 (xhigh), first over attempts with Fisher’s exact test, then problem by problem with an
+exact sign-flip test on the paired differences.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ref   &amp;lt;- &amp;quot;GPT-5.5 (xhigh)&amp;quot;                    # 120 of 120 correct
+below &amp;lt;- names(score)[score &amp;lt; 1]
+fisher_p &amp;lt;- sapply(below, function(m) {
+  x &amp;lt;- d$correct[d$model == m]
+  fisher.test(matrix(c(120, 0, sum(x), sum(1 - x)), 2))$p.value
+})
+signflip &amp;lt;- function(x) {
+  x &amp;lt;- x[x != 0]
+  if (length(x) == 0) return(1)
+  s &amp;lt;- as.matrix(expand.grid(rep(list(c(-1, 1)), length(x))))
+  mean(abs(s %*% x) &amp;gt;= abs(sum(x)) - 1e-12)
+}
+pair_p &amp;lt;- sapply(below, function(m) signflip(B[ref, ] - B[m, ]))
+rbind(attempts = c(raw = sum(fisher_p &amp;lt; 0.05), holm = sum(p.adjust(fisher_p, &amp;quot;holm&amp;quot;) &amp;lt; 0.05)),
+      problems = c(raw = sum(pair_p &amp;lt; 0.05), holm = sum(p.adjust(pair_p, &amp;quot;holm&amp;quot;) &amp;lt; 0.05)))
+##          raw holm
+## attempts  14    7
+## problems   2    1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Over attempts, 14 of the 29 models below a perfect score are
+significantly behind. Over problems, 2 are, and
+1 after a Holm correction for 29
+comparisons. The bootstrap rules out 6 and the exact test at most
+2, because percentile intervals from 30 resampled problems run narrow. I
+would trust the exact test, which makes the field more tied, not less.&lt;/p&gt;
+&lt;p&gt;The test also gives a rule you can do in your head. Against a perfect score every paired
+difference is positive, so the p-value is &lt;code&gt;2 * 0.5^k&lt;/code&gt;, where &lt;code&gt;k&lt;/code&gt; is the number of distinct
+problems a model slipped on. Significance needs &lt;code&gt;k&lt;/code&gt; of at least 6. The median model below
+perfect slipped on 2.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;check-coverage-before-averaging&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Check coverage before averaging&lt;/h2&gt;
+&lt;p&gt;One model is missing from the figure. The file has no attempts from Qwen3.5-4B on
+6 problems (10, 15, 17, 28, 29, 30), including
+4 of the 5 hardest. A plain average of the file ranks it
+4th of 32, behind only Claude-Opus-4.8 (max), GPT-5.5 (xhigh), and GPT-5.4 (xhigh). MathArena’s own table
+handles this correctly. It estimates the missing problems with an item response model, and on
+17 October it ranked the model 29th at 89.66%.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-big-a-gap-can-a-benchmark-see&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;How big a gap can a benchmark see&lt;/h2&gt;
+&lt;p&gt;The same arithmetic gives a minimum detectable difference for any benchmark. When two models
+answer each item once, the paired difference on an item is 1, 0, or minus 1, and its variance is
+close to the discordance rate, the share of items where exactly one model is right. At 5%
+significance and 80% power the smallest reliable gap is about &lt;code&gt;2.8 * sqrt(discordance / n)&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;n &amp;lt;- c(&amp;quot;AIME&amp;quot; = 30, &amp;quot;ArXivMath September&amp;quot; = 53, &amp;quot;GPQA Diamond&amp;quot; = 198,
+       &amp;quot;SWE-bench Verified&amp;quot; = 500, &amp;quot;Humanity&amp;#39;s Last Exam&amp;quot; = 2500)
+data.frame(items = n, disagree_10pct = round(100 * mdd(n, 0.10), 1),
+           disagree_20pct = round(100 * mdd(n, 0.20), 1))
+##                      items disagree_10pct disagree_20pct
+## AIME                    30           16.2           22.9
+## ArXivMath September     53           12.2           17.2
+## GPQA Diamond           198            6.3            8.9
+## SWE-bench Verified     500            4.0            5.6
+## Humanity&amp;#39;s Last Exam  2500            1.8            2.5&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The two right columns are gaps in percentage points. Item counts come from the
+&lt;a href=&#34;https://arxiv.org/abs/2311.12022&#34;&gt;GPQA paper&lt;/a&gt;, the
+&lt;a href=&#34;https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified&#34;&gt;SWE-bench Verified release&lt;/a&gt;,
+and the &lt;a href=&#34;https://arxiv.org/abs/2501.14249&#34;&gt;Humanity’s Last Exam paper&lt;/a&gt;. This is a normal
+approximation for one attempt per item, so read it as an order of magnitude. Even if Argon and
+GPT-6.1 Sol disagreed on only one problem in ten, a gap would need about
+12 points to show up reliably. The current gap
+is 3.77 points. That is a
+statement about 53 problems, not about either model.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-same-result-in-python&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The same result in Python&lt;/h2&gt;
+&lt;p&gt;Here is the same resampling in numpy, reading the same file with three independent seeds.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+import pandas as pd
+
+d = pd.read_parquet(r.f, columns=[&amp;quot;model_name&amp;quot;, &amp;quot;problem_idx&amp;quot;, &amp;quot;correct&amp;quot;])
+d[&amp;quot;problem&amp;quot;] = d[&amp;quot;problem_idx&amp;quot;].astype(int)
+A = d.pivot_table(index=&amp;quot;model_name&amp;quot;, columns=&amp;quot;problem&amp;quot;, values=&amp;quot;correct&amp;quot;, aggfunc=&amp;quot;mean&amp;quot;)
+B = A.dropna().to_numpy()
+
+def reach_first(seed, reps=4000):
+    rng = np.random.default_rng(seed)
+    idx = rng.integers(0, B.shape[1], size=(reps, B.shape[1]))
+    s = B[:, idx].mean(axis=2)                        # models x reps
+    rank = 1 + (s[None, :, :] &amp;gt; s[:, None, :]).sum(axis=1)
+    lo = np.quantile(rank, 0.025, axis=1, method=&amp;quot;inverted_cdf&amp;quot;)
+    return int((lo == 1).sum())
+
+counts = {seed: reach_first(seed) for seed in (1, 2, 3)}
+print(counts, &amp;quot;of&amp;quot;, B.shape[0])
+## {1: 25, 2: 25, 3: 25} of 31&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Every seed lands on 25.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-this-does-not-show&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What this does not show&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;AIME 2026 is saturated. A harder benchmark separates models better. The method transfers, the
+tie count does not.&lt;/li&gt;
+&lt;li&gt;If these 30 problems are all you care about, only attempt noise is left, and the printed
+intervals are the right ones.&lt;/li&gt;
+&lt;li&gt;A bootstrap over 30 problems, only 14 of which carry any information,
+is coarse. The sign-flip test is exact.&lt;/li&gt;
+&lt;li&gt;MathArena marks 22 of the 32 models as released after the
+competition was published. This post does not try to account for that.&lt;/li&gt;
+&lt;li&gt;One benchmark, one subject. A paper at this year’s ICML workshop on hypothesis testing,
+&lt;a href=&#34;https://openreview.net/forum?id=ZhVvlyFZP9&#34;&gt;The Leaderboard Lottery&lt;/a&gt;, reports that on data
+calibrated to the Open LLM Leaderboard, the reported winner was the true best only 0 to 58
+percent of the time when prompts were resampled.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-to-do-on-monday&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What to do on Monday&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Before reading a gap, ask how many items the benchmark has, and compute
+&lt;code&gt;2.8 * sqrt(discordance / n)&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Compare models paired on the same items. Two overlapping confidence intervals answer a
+different question.&lt;/li&gt;
+&lt;li&gt;When the claim is about a kind of task, compute error bars over items, not attempts.&lt;/li&gt;
+&lt;li&gt;Check coverage before averaging. A model missing the hard items looks better.&lt;/li&gt;
+&lt;li&gt;Report the set of models that could plausibly be first, not a single winner.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Computing uncertainty over problems rather than attempts is the same move as clustering standard
+errors by the unit that was actually sampled, which is covered in
+&lt;a href=&#34;https://mike-data-analysis.share.connect.posit.cloud/sec-clustered-inference.html&#34;&gt;A Guide on Data Analysis&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Data: “Model Outputs AIME 2026” by &lt;a href=&#34;https://matharena.ai/&#34;&gt;MathArena&lt;/a&gt; (Dekoninck et al. 2026,
+&lt;a href=&#34;https://arxiv.org/abs/2605.00674&#34;&gt;arXiv 2605.00674&lt;/a&gt;), from
+&lt;a href=&#34;https://huggingface.co/datasets/MathArena/aime_2026_outputs&#34;&gt;Hugging Face&lt;/a&gt; at revision
+&lt;code&gt;f916cfc&lt;/code&gt;, licensed &lt;a href=&#34;https://creativecommons.org/licenses/by-nc-sa/4.0/&#34;&gt;CC BY-NC-SA 4.0&lt;/a&gt;. This
+post does not redistribute the dataset. The code downloads it from the source and keeps four
+columns, and the page shows only statistics computed from them. Leaderboard values quoted from
+matharena.ai were read on 17 October 2026, and the Argon and GPT-6.1 Sol scores were unchanged
+on 25 October. Thanks to the MathArena
+team for publishing raw attempts, which is what makes a check like this possible.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Polars 2.0 Row Order: The Same Query Returned a Different Answer on Every Run</title>
+      <link>https://mikenguyen.netlify.app/post/polars-2-0-row-order/</link>
+      <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/polars-2-0-row-order/</guid>
+      <description>
+
+
+&lt;p&gt;Polars 2.0 shipped on 6 October, and its headline change is that &lt;code&gt;collect()&lt;/code&gt; on a lazy query now
+runs on the streaming engine. The &lt;a href=&#34;https://pola.rs/posts/announcing-polars-2/&#34;&gt;announcement&lt;/a&gt; gives
+row order as one reason that needed a major version, and the
+&lt;a href=&#34;https://docs.pola.rs/releases/upgrade/2/&#34;&gt;upgrade guide&lt;/a&gt; is clear that the streaming engine does
+not guarantee row order for joins, group-bys, and similar operations. What it cannot tell you is
+what that does to code written when order happened to hold. So I ran the same queries, with
+default settings, under Polars 1.44.2 (the last 1.x release) and 2.1.0 (the current release, out
+on 25 October). 2.0.0 gave the same results in every run I made before 2.1.0 shipped.&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;27%&#34; /&gt;
+&lt;col width=&#34;24%&#34; /&gt;
+&lt;col width=&#34;23%&#34; /&gt;
+&lt;col width=&#34;23%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;Query&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;1.44.2: runs wrong of 20&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;2.1.0: runs wrong of 20&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;2.1.0: distinct answers&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;first purchase per customer&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;running total per customer&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;dedupe, keep first&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;row index, first 1,000&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;head(20)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Under 1.44.2 every query matched its explicit-order version on every run. Under 2.1.0,
+4 of the 5 were wrong on every one of the 20 runs,
+and for those 4 no two runs agreed with each other. The code did not change. Only the
+version did.&lt;/p&gt;
+&lt;p&gt;The data are two tables written to Parquet from R: 2,000,000 purchases in time order and
+100,000 customers.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(arrow)
+set.seed(20261030)
+n_cust &amp;lt;- 100000L
+n_ev &amp;lt;- 2000000L
+customers &amp;lt;- data.frame(customer_id = 0:(n_cust - 1L),
+                        segment = sample(c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;, &amp;quot;d&amp;quot;), n_cust, TRUE))
+# An event log in time order, so event_id is also the order of purchases
+events &amp;lt;- data.frame(event_id = 0:(n_ev - 1L),
+                     customer_id = sort(sample.int(n_cust, n_ev, TRUE) - 1L),
+                     amount = round(rgamma(n_ev, shape = 2, scale = 20), 2))
+events_path &amp;lt;- file.path(tempdir(), &amp;quot;events.parquet&amp;quot;)
+customers_path &amp;lt;- file.path(tempdir(), &amp;quot;customers.parquet&amp;quot;)
+write_parquet(events, events_path)
+write_parquet(customers, customers_path)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The audit joins them, runs five queries whose answer depends on row order, and compares each
+run with the same query written so the order is explicit. The same file runs under both
+versions.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;# Run order-dependent Polars queries with default settings and compare each
+# result with the same query written so the order is explicit.
+import hashlib
+
+import polars as pl
+
+
+def queries(events, customers, explicit):
+    if explicit:
+        j = events.join(customers, on=&amp;quot;customer_id&amp;quot;, how=&amp;quot;left&amp;quot;, maintain_order=&amp;quot;left&amp;quot;)
+    else:
+        j = events.join(customers, on=&amp;quot;customer_id&amp;quot;, how=&amp;quot;left&amp;quot;)   # the default
+    return {
+        &amp;quot;first purchase per customer&amp;quot;:
+            j.group_by(&amp;quot;customer_id&amp;quot;).agg(pl.col(&amp;quot;amount&amp;quot;).first()).sort(&amp;quot;customer_id&amp;quot;),
+        &amp;quot;running total per customer&amp;quot;:
+            j.with_columns(running=pl.col(&amp;quot;amount&amp;quot;).cum_sum().over(&amp;quot;customer_id&amp;quot;))
+             .sort(&amp;quot;event_id&amp;quot;).select(&amp;quot;event_id&amp;quot;, &amp;quot;running&amp;quot;),
+        &amp;quot;dedupe, keep first&amp;quot;:
+            j.unique(subset=&amp;quot;customer_id&amp;quot;, keep=&amp;quot;first&amp;quot;).sort(&amp;quot;customer_id&amp;quot;)
+             .select(&amp;quot;customer_id&amp;quot;, &amp;quot;event_id&amp;quot;),
+        &amp;quot;row index, first 1,000&amp;quot;:
+            j.with_row_index(&amp;quot;i&amp;quot;).filter(pl.col(&amp;quot;i&amp;quot;) &amp;lt; 1000)
+             .select(&amp;quot;event_id&amp;quot;).sort(&amp;quot;event_id&amp;quot;),
+        &amp;quot;head(20)&amp;quot;:
+            j.head(20).select(&amp;quot;event_id&amp;quot;).sort(&amp;quot;event_id&amp;quot;),
+    }
+
+
+def audit(events_path, customers_path, runs):
+    ev, cu = pl.scan_parquet(events_path), pl.scan_parquet(customers_path)
+    truth = {k: q.collect(engine=&amp;quot;in-memory&amp;quot;)
+             for k, q in queries(ev, cu, explicit=True).items()}
+    result = {&amp;quot;polars&amp;quot;: pl.__version__, &amp;quot;runs&amp;quot;: runs, &amp;quot;queries&amp;quot;: {}}
+    for name, ref in truth.items():
+        wrong, outputs = [], set()
+        for _ in range(runs):
+            out = queries(ev, cu, explicit=False)[name].collect()     # default engine
+            outputs.add(hashlib.sha256(out.write_csv().encode()).hexdigest())
+            wrong.append(0 if out.equals(ref) else 1)
+        result[&amp;quot;queries&amp;quot;][name] = {&amp;quot;runs_wrong&amp;quot;: sum(wrong), &amp;quot;distinct&amp;quot;: len(outputs)}
+    return result&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;res2 = audit(r.events_path, r.customers_path, runs=20)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;how-much-is-wrong&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;How much is wrong&lt;/h2&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;ev, cu = pl.scan_parquet(r.events_path), pl.scan_parquet(r.customers_path)
+truth = {k: q.collect(engine=&amp;quot;in-memory&amp;quot;)
+         for k, q in queries(ev, cu, explicit=True).items()}
+first_wrong, total_rows, total_err, index_wrong = [], [], [], []
+for _ in range(10):
+    got = {k: q.collect() for k, q in queries(ev, cu, explicit=False).items()}
+    a = got[&amp;quot;first purchase per customer&amp;quot;][&amp;quot;amount&amp;quot;]
+    first_wrong.append(int((a != truth[&amp;quot;first purchase per customer&amp;quot;][&amp;quot;amount&amp;quot;]).sum()))
+    d = (got[&amp;quot;running total per customer&amp;quot;][&amp;quot;running&amp;quot;]
+         - truth[&amp;quot;running total per customer&amp;quot;][&amp;quot;running&amp;quot;]).abs()
+    total_rows.append(int((d &amp;gt; 1e-6).sum()))
+    total_err.append(float(d.max()))
+    picked = set(got[&amp;quot;row index, first 1,000&amp;quot;][&amp;quot;event_id&amp;quot;].to_list())
+    index_wrong.append(1000 - len(picked &amp;amp; set(truth[&amp;quot;row index, first 1,000&amp;quot;][&amp;quot;event_id&amp;quot;].to_list())))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Not much, which is the problem. Across 10 runs, the first purchase came back wrong for
+between 7 and 12 of the 100,000 customers. A share that small passes
+every eyeball check. The running totals were wrong on between 153 and
+282 of the 2,000,000 rows, but a wrong one was off by as much as
+1,212, in a column where the median purchase is 34. The row index was the loud failure: of the first 1,000 rows,
+between 961 and 1,000 were different rows from the ones 1.44.2 picked.&lt;/p&gt;
+&lt;p&gt;A small test fixture does not hide it. The same first-purchase query on synthetic logs of
+different sizes, 10 runs each:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+
+def first_purchase_errors(n_events, runs=10, seed=1):
+    rng = np.random.default_rng(seed)
+    n_c = max(n_events // 20, 10)
+    c = pl.LazyFrame({&amp;quot;customer_id&amp;quot;: np.arange(n_c)})
+    e = pl.LazyFrame({&amp;quot;event_id&amp;quot;: np.arange(n_events),
+                      &amp;quot;customer_id&amp;quot;: np.sort(rng.integers(0, n_c, n_events)),
+                      &amp;quot;amount&amp;quot;: rng.gamma(2.0, 20.0, n_events).round(2)})
+    q = queries(e, c, explicit=False)[&amp;quot;first purchase per customer&amp;quot;]
+    ref = queries(e, c, explicit=True)[&amp;quot;first purchase per customer&amp;quot;].collect(engine=&amp;quot;in-memory&amp;quot;)
+    return n_c, [int((q.collect()[&amp;quot;amount&amp;quot;] != ref[&amp;quot;amount&amp;quot;]).sum()) for _ in range(runs)]
+
+scale = {}
+for n in [1_000, 10_000, 100_000, 1_000_000, 10_000_000]:
+    n_c, bad = first_purchase_errors(n)
+    scale[n] = [n_c, min(bad), max(bad), sum(b &amp;gt; 0 for b in bad)]
+    print(f&amp;quot;{n:&amp;gt;10,} events  {n_c:&amp;gt;7,} customers  wrong in {scale[n][3]:&amp;gt;2}/10 runs, &amp;quot;
+          f&amp;quot;{min(bad)} to {max(bad)} customers&amp;quot;)
+##      1,000 events       50 customers  wrong in 10/10 runs, 3 to 6 customers
+##     10,000 events      500 customers  wrong in 10/10 runs, 2 to 7 customers
+##    100,000 events    5,000 customers  wrong in 10/10 runs, 3 to 8 customers
+##  1,000,000 events   50,000 customers  wrong in 10/10 runs, 5 to 8 customers
+## 10,000,000 events  500,000 customers  wrong in 10/10 runs, 28 to 44 customers&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;On a thousand rows the error reaches up to 12% of the customers, so a test that
+compares output with a stored answer fails on every run.
+On ten million rows it is 28 to 44 customers out of 500,000.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;why-it-happens&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Why it happens&lt;/h2&gt;
+&lt;p&gt;The streaming engine splits the data into chunks and works on them in parallel. Operations that
+do not need order, such as a join, may hand chunks on in whatever order they finish. &lt;code&gt;first()&lt;/code&gt;,
+&lt;code&gt;cum_sum()&lt;/code&gt;, &lt;code&gt;unique(keep=&#34;first&#34;)&lt;/code&gt;, and &lt;code&gt;with_row_index()&lt;/code&gt; all read the order they are given, so
+they inherit the shuffle. &lt;code&gt;head(20)&lt;/code&gt; came through intact here, but nothing promises that it will.&lt;/p&gt;
+&lt;p&gt;None of this is a bug. A Polars issue opened in November 2024 set out that
+&lt;a href=&#34;https://github.com/pola-rs/polars/issues/19576&#34;&gt;left-join order should not be guaranteed&lt;/a&gt;, since
+it had only ever been an implementation detail, and the upgrade guide says the same thing about
+the new default. Code written against 1.x could rely on an order Polars never promised, and 2.0
+is the first release whose default engine stops providing it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-fix-is-one-argument&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The fix is one argument&lt;/h2&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import time
+
+def first_q(join_order=None, expr=pl.col(&amp;quot;amount&amp;quot;).first()):
+    if join_order:
+        j = ev.join(cu, on=&amp;quot;customer_id&amp;quot;, how=&amp;quot;left&amp;quot;, maintain_order=join_order)
+    else:
+        j = ev.join(cu, on=&amp;quot;customer_id&amp;quot;, how=&amp;quot;left&amp;quot;)
+    return j.group_by(&amp;quot;customer_id&amp;quot;).agg(expr).sort(&amp;quot;customer_id&amp;quot;)
+
+ref = truth[&amp;quot;first purchase per customer&amp;quot;]
+variants = {
+    &amp;quot;default&amp;quot;: lambda: first_q().collect(),
+    &amp;quot;join(maintain_order=&amp;#39;left&amp;#39;)&amp;quot;: lambda: first_q(&amp;quot;left&amp;quot;).collect(),
+    &amp;quot;sort_by inside the expression&amp;quot;:
+        lambda: first_q(expr=pl.col(&amp;quot;amount&amp;quot;).sort_by(&amp;quot;event_id&amp;quot;).first()).collect(),
+    &amp;quot;collect(engine=&amp;#39;in-memory&amp;#39;)&amp;quot;: lambda: first_q().collect(engine=&amp;quot;in-memory&amp;quot;),
+}
+plan = [k for k in variants for _ in range(20)]
+np.random.default_rng(7).shuffle(plan)           # interleave, so timing is fair
+secs = {k: [] for k in variants}
+wrong = {k: 0 for k in variants}
+most = {k: 0 for k in variants}
+for k in plan:
+    t0 = time.perf_counter()
+    out = variants[k]()
+    secs[k].append(time.perf_counter() - t0)
+    wrong[k] += int(not out.equals(ref))
+    most[k] = max(most[k], int((out[&amp;quot;amount&amp;quot;] != ref[&amp;quot;amount&amp;quot;]).sum()))
+for k in variants:
+    print(f&amp;quot;{k:31s} wrong {wrong[k]:&amp;gt;2}/20   worst run {most[k]:&amp;gt;2} customers   &amp;quot;
+          f&amp;quot;median {np.median(secs[k]):.3f} s&amp;quot;)
+## default                         wrong 20/20   worst run 14 customers   median 0.028 s
+## join(maintain_order=&amp;#39;left&amp;#39;)     wrong  0/20   worst run  0 customers   median 0.028 s
+## sort_by inside the expression   wrong  0/20   worst run  0 customers   median 0.035 s
+## collect(engine=&amp;#39;in-memory&amp;#39;)     wrong 17/20   worst run  1 customers   median 0.044 s&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Asking for order worked. Keeping the left table’s order in the join and putting &lt;code&gt;sort_by()&lt;/code&gt; inside
+the expression both returned the right answer on all 20 runs. The join fix ran about as fast as
+the default here (median 0.028 against
+0.028 seconds), so on this data it costs nothing.
+&lt;code&gt;sort_by()&lt;/code&gt; is the more robust of the two, because the answer no longer depends on any upstream
+step keeping order.&lt;/p&gt;
+&lt;p&gt;Going back to the old engine was not enough.
+The upgrade guide offers &lt;code&gt;collect(engine=&#34;in-memory&#34;)&lt;/code&gt; to restore the previous default, and it
+does restore the engine. It did not restore the order: on a Parquet source, 17 of the 20 runs still came back wrong, by at most 1 customer. Neither engine promises order, so the fixes that hold are the ones that ask for it.
+One more caution from the tracker: an optimizer bug that dropped &lt;code&gt;maintain_order=True&lt;/code&gt; when a
+&lt;code&gt;head()&lt;/code&gt; sat between a group-by and a sort
+(&lt;a href=&#34;https://github.com/pola-rs/polars/issues/30079&#34;&gt;issue 30079&lt;/a&gt;) is fixed in 2.1.0, so upgrade
+before relying on &lt;code&gt;maintain_order=True&lt;/code&gt; in that pattern.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;will-your-tests-catch-it&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Will your tests catch it?&lt;/h2&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from polars.testing import assert_frame_equal
+
+bad = first_q().collect()
+print(&amp;quot;same shape:&amp;quot;, bad.shape == ref.shape, &amp;quot;  same schema:&amp;quot;, bad.schema == ref.schema)
+## same shape: True   same schema: True
+try:
+    assert_frame_equal(bad, ref, check_row_order=False)
+except AssertionError as err:
+    print(str(err).splitlines()[0])
+## DataFrames are different (value mismatch for column &amp;quot;amount&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A test that compares output with a stored answer will catch it, even one that ignores row
+order, because the values themselves differ. A test that checks shape, schema, or column names
+will pass.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;r-users-are-in-the-same-position&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;R users are in the same position&lt;/h2&gt;
+&lt;p&gt;data.table works through rows in the order it holds them, so &lt;code&gt;amount[1L]&lt;/code&gt; by customer is the
+first purchase. DuckDB, which runs in parallel like the streaming engine,
+&lt;a href=&#34;https://duckdb.org/docs/2.0/sql/functions/aggregates.html&#34;&gt;documents&lt;/a&gt; that &lt;code&gt;first()&lt;/code&gt; can be
+non-deterministic without an &lt;code&gt;ORDER BY&lt;/code&gt;. Same file, same question:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(data.table)
+library(DBI)
+ev &amp;lt;- as.data.table(events)
+truth_r &amp;lt;- ev[order(event_id), .(amount = amount[1L]), by = customer_id][order(customer_id)]
+
+con &amp;lt;- dbConnect(duckdb::duckdb())
+duck &amp;lt;- function(agg) dbGetQuery(con, sprintf(
+  &amp;quot;SELECT customer_id, %s AS amount
+   FROM read_parquet(&amp;#39;%s&amp;#39;) e LEFT JOIN read_parquet(&amp;#39;%s&amp;#39;) c USING (customer_id)
+   GROUP BY customer_id ORDER BY customer_id&amp;quot;,
+  agg, normalizePath(events_path, &amp;quot;/&amp;quot;), normalizePath(customers_path, &amp;quot;/&amp;quot;)))$amount
+
+engines &amp;lt;- list(
+  &amp;quot;data.table, amount[1L]&amp;quot; = function()
+    as.data.table(customers)[ev, on = &amp;quot;customer_id&amp;quot;][
+      , .(amount = amount[1L]), by = customer_id][order(customer_id)]$amount,
+  &amp;quot;DuckDB, first(amount)&amp;quot; = function() duck(&amp;quot;first(amount)&amp;quot;),
+  &amp;quot;DuckDB, first(amount ORDER BY event_id)&amp;quot; = function() duck(&amp;quot;first(amount ORDER BY event_id)&amp;quot;))
+r_res &amp;lt;- t(sapply(engines, function(f) {
+  bad &amp;lt;- replicate(20, sum(f() != truth_r$amount))
+  c(runs_wrong = sum(bad &amp;gt; 0), most_customers_wrong = max(bad))
+}))
+dbDisconnect(con, shutdown = TRUE)
+r_res
+##                                         runs_wrong most_customers_wrong
+## data.table, amount[1L]                           0                    0
+## DuckDB, first(amount)                           17                    1
+## DuckDB, first(amount ORDER BY event_id)          0                    0&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;DuckDB without an &lt;code&gt;ORDER BY&lt;/code&gt; was wrong on 17 of 20 runs, and with one it was right on
+all of them. The rule is the same in every parallel engine: if the answer depends on order, say
+so in the query.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-this-does-not-show&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What this does not show&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The data are a synthetic event log on one machine with 16 threads. How many rows go wrong
+depends on the thread count and on how the engine splits the work.&lt;/li&gt;
+&lt;li&gt;Polars 1.44.2 being right on every run shows what it did, not what it promised.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;head(20)&lt;/code&gt; was right here. Nothing guarantees that either.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-to-do-on-monday&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What to do on Monday&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Search lazy pipelines for &lt;code&gt;first()&lt;/code&gt;, &lt;code&gt;last()&lt;/code&gt;, &lt;code&gt;cum_sum()&lt;/code&gt;, &lt;code&gt;unique(keep=...)&lt;/code&gt;,
+&lt;code&gt;with_row_index()&lt;/code&gt;, and &lt;code&gt;head()&lt;/code&gt; downstream of a join or a group-by.&lt;/li&gt;
+&lt;li&gt;Add &lt;code&gt;maintain_order=&#34;left&#34;&lt;/code&gt; to the join that feeds them, or put &lt;code&gt;sort_by()&lt;/code&gt; inside the
+expression.&lt;/li&gt;
+&lt;li&gt;Do not count on &lt;code&gt;engine=&#34;in-memory&#34;&lt;/code&gt; to bring the old order back.&lt;/li&gt;
+&lt;li&gt;Keep one test that compares output with a stored answer. &lt;code&gt;check_row_order=False&lt;/code&gt; is fine.&lt;/li&gt;
+&lt;li&gt;In SQL, write &lt;code&gt;first(x ORDER BY t)&lt;/code&gt; or &lt;code&gt;arg_min(x, t)&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Whether someone else can rerun your pipeline and get your numbers is the replication standard,
+covered in
+&lt;a href=&#34;https://mike-data-analysis.share.connect.posit.cloud/replication-and-synthetic-data.html&#34;&gt;A Guide on Data Analysis&lt;/a&gt;.
+The two scripts used here, &lt;a href=&#34;audit.py&#34;&gt;audit.py&lt;/a&gt; and &lt;a href=&#34;run_audit.py&#34;&gt;run_audit.py&lt;/a&gt;, sit next to
+this post.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Parquet vs CSV in R: Every CSV Round Trip I Tested Lost Data</title>

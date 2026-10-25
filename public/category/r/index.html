@@ -325,7 +325,7 @@
   <meta property="og:description" content="This site is Mike Nguyen&#39;s personal website. He is a marketing researcher with interests in branding and social media."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
   <meta property="twitter:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2026-09-30T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2026-10-25T00:00:00&#43;00:00">
   
 
   
@@ -760,6 +760,30 @@
     
     
     <div>
+      <h2><a href="/post/are-llm-benchmark-differences-statistically-significant/" >Are LLM Benchmark Differences Statistically Significant? 25 of 31 Models Could Be First on AIME 2026</a></h2>
+      <div class="article-style">
+        
+          MathArena publishes every graded attempt, so its AIME 2026 leaderboard can be tested directly. Resampling the 30 problems, 25 of the 31 models with full coverage have a 95 percent rank interval that includes first place, and an exact paired test separates only one of the 29 imperfect models from a perfect score. Sixteen problems were solved by every model on every attempt, and five carry 80 percent of the spread. Intervals computed over problems rather than attempts run a median 1.7 times wider, because they answer a broader question.
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
+      <h2><a href="/post/polars-2-0-row-order/" >Polars 2.0 Row Order: The Same Query Returned a Different Answer on Every Run</a></h2>
+      <div class="article-style">
+        
+          Polars 2.0 runs lazy queries on the streaming engine by default, and the streaming engine does not guarantee row order. Running five order-dependent queries 20 times each on the same file, Polars 1.44.2 matched the explicit-order answer every time, while Polars 2.0.0 and 2.1.0 got four of the five wrong on every run, with a different answer each time and only a handful of customers affected. Keeping order in the join, or sorting inside the expression, fixed every run. Switching back to the in-memory engine did not fully restore the old answers, and DuckDB in R behaves the same way without an ORDER BY.
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div>
       <h2><a href="/post/parquet-vs-csv-in-r/" >Parquet vs CSV in R: Every CSV Round Trip I Tested Lost Data</a></h2>
       <div class="article-style">
         
@@ -849,38 +873,6 @@
       <div class="article-style">
         
           From .R Files to R Packages: A Game Changer for Empirical ResearchersHello, fellow data enthusiasts! Today, we’re going to embark on a journey that will take us from a scattered mess of .
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/post/adding-utteranc-es-to-blogdown-academic-hugo-theme/" >Adding utteranc.es to blogdown academic hugo theme</a></h2>
-      <div class="article-style">
-        
-          After several hours struggling with multiple recommendations by
-David Fong
-Salmon
-Jesus Velez
-pugillum
-robb
-Michele Scipioni
-I still cannot see my comment section using https://utteranc.es/
-I realize I did not have my webpage repo public.
-        
-      </div>
-    </div>
-  
-    
-    
-    
-    <div>
-      <h2><a href="/post/handle-duplicate-packages-in-different-paths/" >Handle duplicate packages in different paths</a></h2>
-      <div class="article-style">
-        
-          If you work with multiple work stations (multiple computers/laptops) sharing the same cloud folder. You might encounter this problem. Your Rstudio in different computers will have different default paths to install and load packages.
         
       </div>
     </div>

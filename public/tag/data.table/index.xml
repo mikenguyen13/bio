@@ -5,12 +5,340 @@
     <link>https://mikenguyen.netlify.app/tag/data.table/</link>
       <atom:link href="https://mikenguyen.netlify.app/tag/data.table/index.xml" rel="self" type="application/rss+xml" />
     <description>data.table</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Wed, 30 Sep 2026 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Sun, 25 Oct 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>data.table</title>
       <link>https://mikenguyen.netlify.app/tag/data.table/</link>
     </image>
+    
+    <item>
+      <title>Polars 2.0 Row Order: The Same Query Returned a Different Answer on Every Run</title>
+      <link>https://mikenguyen.netlify.app/post/polars-2-0-row-order/</link>
+      <pubDate>Sun, 25 Oct 2026 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/polars-2-0-row-order/</guid>
+      <description>
+
+
+&lt;p&gt;Polars 2.0 shipped on 6 October, and its headline change is that &lt;code&gt;collect()&lt;/code&gt; on a lazy query now
+runs on the streaming engine. The &lt;a href=&#34;https://pola.rs/posts/announcing-polars-2/&#34;&gt;announcement&lt;/a&gt; gives
+row order as one reason that needed a major version, and the
+&lt;a href=&#34;https://docs.pola.rs/releases/upgrade/2/&#34;&gt;upgrade guide&lt;/a&gt; is clear that the streaming engine does
+not guarantee row order for joins, group-bys, and similar operations. What it cannot tell you is
+what that does to code written when order happened to hold. So I ran the same queries, with
+default settings, under Polars 1.44.2 (the last 1.x release) and 2.1.0 (the current release, out
+on 25 October). 2.0.0 gave the same results in every run I made before 2.1.0 shipped.&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;27%&#34; /&gt;
+&lt;col width=&#34;24%&#34; /&gt;
+&lt;col width=&#34;23%&#34; /&gt;
+&lt;col width=&#34;23%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;Query&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;1.44.2: runs wrong of 20&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;2.1.0: runs wrong of 20&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;2.1.0: distinct answers&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;first purchase per customer&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;running total per customer&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;dedupe, keep first&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;row index, first 1,000&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;head(20)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Under 1.44.2 every query matched its explicit-order version on every run. Under 2.1.0,
+4 of the 5 were wrong on every one of the 20 runs,
+and for those 4 no two runs agreed with each other. The code did not change. Only the
+version did.&lt;/p&gt;
+&lt;p&gt;The data are two tables written to Parquet from R: 2,000,000 purchases in time order and
+100,000 customers.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(arrow)
+set.seed(20261030)
+n_cust &amp;lt;- 100000L
+n_ev &amp;lt;- 2000000L
+customers &amp;lt;- data.frame(customer_id = 0:(n_cust - 1L),
+                        segment = sample(c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;c&amp;quot;, &amp;quot;d&amp;quot;), n_cust, TRUE))
+# An event log in time order, so event_id is also the order of purchases
+events &amp;lt;- data.frame(event_id = 0:(n_ev - 1L),
+                     customer_id = sort(sample.int(n_cust, n_ev, TRUE) - 1L),
+                     amount = round(rgamma(n_ev, shape = 2, scale = 20), 2))
+events_path &amp;lt;- file.path(tempdir(), &amp;quot;events.parquet&amp;quot;)
+customers_path &amp;lt;- file.path(tempdir(), &amp;quot;customers.parquet&amp;quot;)
+write_parquet(events, events_path)
+write_parquet(customers, customers_path)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The audit joins them, runs five queries whose answer depends on row order, and compares each
+run with the same query written so the order is explicit. The same file runs under both
+versions.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;# Run order-dependent Polars queries with default settings and compare each
+# result with the same query written so the order is explicit.
+import hashlib
+
+import polars as pl
+
+
+def queries(events, customers, explicit):
+    if explicit:
+        j = events.join(customers, on=&amp;quot;customer_id&amp;quot;, how=&amp;quot;left&amp;quot;, maintain_order=&amp;quot;left&amp;quot;)
+    else:
+        j = events.join(customers, on=&amp;quot;customer_id&amp;quot;, how=&amp;quot;left&amp;quot;)   # the default
+    return {
+        &amp;quot;first purchase per customer&amp;quot;:
+            j.group_by(&amp;quot;customer_id&amp;quot;).agg(pl.col(&amp;quot;amount&amp;quot;).first()).sort(&amp;quot;customer_id&amp;quot;),
+        &amp;quot;running total per customer&amp;quot;:
+            j.with_columns(running=pl.col(&amp;quot;amount&amp;quot;).cum_sum().over(&amp;quot;customer_id&amp;quot;))
+             .sort(&amp;quot;event_id&amp;quot;).select(&amp;quot;event_id&amp;quot;, &amp;quot;running&amp;quot;),
+        &amp;quot;dedupe, keep first&amp;quot;:
+            j.unique(subset=&amp;quot;customer_id&amp;quot;, keep=&amp;quot;first&amp;quot;).sort(&amp;quot;customer_id&amp;quot;)
+             .select(&amp;quot;customer_id&amp;quot;, &amp;quot;event_id&amp;quot;),
+        &amp;quot;row index, first 1,000&amp;quot;:
+            j.with_row_index(&amp;quot;i&amp;quot;).filter(pl.col(&amp;quot;i&amp;quot;) &amp;lt; 1000)
+             .select(&amp;quot;event_id&amp;quot;).sort(&amp;quot;event_id&amp;quot;),
+        &amp;quot;head(20)&amp;quot;:
+            j.head(20).select(&amp;quot;event_id&amp;quot;).sort(&amp;quot;event_id&amp;quot;),
+    }
+
+
+def audit(events_path, customers_path, runs):
+    ev, cu = pl.scan_parquet(events_path), pl.scan_parquet(customers_path)
+    truth = {k: q.collect(engine=&amp;quot;in-memory&amp;quot;)
+             for k, q in queries(ev, cu, explicit=True).items()}
+    result = {&amp;quot;polars&amp;quot;: pl.__version__, &amp;quot;runs&amp;quot;: runs, &amp;quot;queries&amp;quot;: {}}
+    for name, ref in truth.items():
+        wrong, outputs = [], set()
+        for _ in range(runs):
+            out = queries(ev, cu, explicit=False)[name].collect()     # default engine
+            outputs.add(hashlib.sha256(out.write_csv().encode()).hexdigest())
+            wrong.append(0 if out.equals(ref) else 1)
+        result[&amp;quot;queries&amp;quot;][name] = {&amp;quot;runs_wrong&amp;quot;: sum(wrong), &amp;quot;distinct&amp;quot;: len(outputs)}
+    return result&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;res2 = audit(r.events_path, r.customers_path, runs=20)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;how-much-is-wrong&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;How much is wrong&lt;/h2&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;ev, cu = pl.scan_parquet(r.events_path), pl.scan_parquet(r.customers_path)
+truth = {k: q.collect(engine=&amp;quot;in-memory&amp;quot;)
+         for k, q in queries(ev, cu, explicit=True).items()}
+first_wrong, total_rows, total_err, index_wrong = [], [], [], []
+for _ in range(10):
+    got = {k: q.collect() for k, q in queries(ev, cu, explicit=False).items()}
+    a = got[&amp;quot;first purchase per customer&amp;quot;][&amp;quot;amount&amp;quot;]
+    first_wrong.append(int((a != truth[&amp;quot;first purchase per customer&amp;quot;][&amp;quot;amount&amp;quot;]).sum()))
+    d = (got[&amp;quot;running total per customer&amp;quot;][&amp;quot;running&amp;quot;]
+         - truth[&amp;quot;running total per customer&amp;quot;][&amp;quot;running&amp;quot;]).abs()
+    total_rows.append(int((d &amp;gt; 1e-6).sum()))
+    total_err.append(float(d.max()))
+    picked = set(got[&amp;quot;row index, first 1,000&amp;quot;][&amp;quot;event_id&amp;quot;].to_list())
+    index_wrong.append(1000 - len(picked &amp;amp; set(truth[&amp;quot;row index, first 1,000&amp;quot;][&amp;quot;event_id&amp;quot;].to_list())))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Not much, which is the problem. Across 10 runs, the first purchase came back wrong for
+between 7 and 12 of the 100,000 customers. A share that small passes
+every eyeball check. The running totals were wrong on between 153 and
+282 of the 2,000,000 rows, but a wrong one was off by as much as
+1,212, in a column where the median purchase is 34. The row index was the loud failure: of the first 1,000 rows,
+between 961 and 1,000 were different rows from the ones 1.44.2 picked.&lt;/p&gt;
+&lt;p&gt;A small test fixture does not hide it. The same first-purchase query on synthetic logs of
+different sizes, 10 runs each:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import numpy as np
+
+def first_purchase_errors(n_events, runs=10, seed=1):
+    rng = np.random.default_rng(seed)
+    n_c = max(n_events // 20, 10)
+    c = pl.LazyFrame({&amp;quot;customer_id&amp;quot;: np.arange(n_c)})
+    e = pl.LazyFrame({&amp;quot;event_id&amp;quot;: np.arange(n_events),
+                      &amp;quot;customer_id&amp;quot;: np.sort(rng.integers(0, n_c, n_events)),
+                      &amp;quot;amount&amp;quot;: rng.gamma(2.0, 20.0, n_events).round(2)})
+    q = queries(e, c, explicit=False)[&amp;quot;first purchase per customer&amp;quot;]
+    ref = queries(e, c, explicit=True)[&amp;quot;first purchase per customer&amp;quot;].collect(engine=&amp;quot;in-memory&amp;quot;)
+    return n_c, [int((q.collect()[&amp;quot;amount&amp;quot;] != ref[&amp;quot;amount&amp;quot;]).sum()) for _ in range(runs)]
+
+scale = {}
+for n in [1_000, 10_000, 100_000, 1_000_000, 10_000_000]:
+    n_c, bad = first_purchase_errors(n)
+    scale[n] = [n_c, min(bad), max(bad), sum(b &amp;gt; 0 for b in bad)]
+    print(f&amp;quot;{n:&amp;gt;10,} events  {n_c:&amp;gt;7,} customers  wrong in {scale[n][3]:&amp;gt;2}/10 runs, &amp;quot;
+          f&amp;quot;{min(bad)} to {max(bad)} customers&amp;quot;)
+##      1,000 events       50 customers  wrong in 10/10 runs, 3 to 6 customers
+##     10,000 events      500 customers  wrong in 10/10 runs, 2 to 7 customers
+##    100,000 events    5,000 customers  wrong in 10/10 runs, 3 to 8 customers
+##  1,000,000 events   50,000 customers  wrong in 10/10 runs, 5 to 8 customers
+## 10,000,000 events  500,000 customers  wrong in 10/10 runs, 28 to 44 customers&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;On a thousand rows the error reaches up to 12% of the customers, so a test that
+compares output with a stored answer fails on every run.
+On ten million rows it is 28 to 44 customers out of 500,000.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;why-it-happens&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Why it happens&lt;/h2&gt;
+&lt;p&gt;The streaming engine splits the data into chunks and works on them in parallel. Operations that
+do not need order, such as a join, may hand chunks on in whatever order they finish. &lt;code&gt;first()&lt;/code&gt;,
+&lt;code&gt;cum_sum()&lt;/code&gt;, &lt;code&gt;unique(keep=&#34;first&#34;)&lt;/code&gt;, and &lt;code&gt;with_row_index()&lt;/code&gt; all read the order they are given, so
+they inherit the shuffle. &lt;code&gt;head(20)&lt;/code&gt; came through intact here, but nothing promises that it will.&lt;/p&gt;
+&lt;p&gt;None of this is a bug. A Polars issue opened in November 2024 set out that
+&lt;a href=&#34;https://github.com/pola-rs/polars/issues/19576&#34;&gt;left-join order should not be guaranteed&lt;/a&gt;, since
+it had only ever been an implementation detail, and the upgrade guide says the same thing about
+the new default. Code written against 1.x could rely on an order Polars never promised, and 2.0
+is the first release whose default engine stops providing it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-fix-is-one-argument&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The fix is one argument&lt;/h2&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import time
+
+def first_q(join_order=None, expr=pl.col(&amp;quot;amount&amp;quot;).first()):
+    if join_order:
+        j = ev.join(cu, on=&amp;quot;customer_id&amp;quot;, how=&amp;quot;left&amp;quot;, maintain_order=join_order)
+    else:
+        j = ev.join(cu, on=&amp;quot;customer_id&amp;quot;, how=&amp;quot;left&amp;quot;)
+    return j.group_by(&amp;quot;customer_id&amp;quot;).agg(expr).sort(&amp;quot;customer_id&amp;quot;)
+
+ref = truth[&amp;quot;first purchase per customer&amp;quot;]
+variants = {
+    &amp;quot;default&amp;quot;: lambda: first_q().collect(),
+    &amp;quot;join(maintain_order=&amp;#39;left&amp;#39;)&amp;quot;: lambda: first_q(&amp;quot;left&amp;quot;).collect(),
+    &amp;quot;sort_by inside the expression&amp;quot;:
+        lambda: first_q(expr=pl.col(&amp;quot;amount&amp;quot;).sort_by(&amp;quot;event_id&amp;quot;).first()).collect(),
+    &amp;quot;collect(engine=&amp;#39;in-memory&amp;#39;)&amp;quot;: lambda: first_q().collect(engine=&amp;quot;in-memory&amp;quot;),
+}
+plan = [k for k in variants for _ in range(20)]
+np.random.default_rng(7).shuffle(plan)           # interleave, so timing is fair
+secs = {k: [] for k in variants}
+wrong = {k: 0 for k in variants}
+most = {k: 0 for k in variants}
+for k in plan:
+    t0 = time.perf_counter()
+    out = variants[k]()
+    secs[k].append(time.perf_counter() - t0)
+    wrong[k] += int(not out.equals(ref))
+    most[k] = max(most[k], int((out[&amp;quot;amount&amp;quot;] != ref[&amp;quot;amount&amp;quot;]).sum()))
+for k in variants:
+    print(f&amp;quot;{k:31s} wrong {wrong[k]:&amp;gt;2}/20   worst run {most[k]:&amp;gt;2} customers   &amp;quot;
+          f&amp;quot;median {np.median(secs[k]):.3f} s&amp;quot;)
+## default                         wrong 20/20   worst run 14 customers   median 0.028 s
+## join(maintain_order=&amp;#39;left&amp;#39;)     wrong  0/20   worst run  0 customers   median 0.028 s
+## sort_by inside the expression   wrong  0/20   worst run  0 customers   median 0.035 s
+## collect(engine=&amp;#39;in-memory&amp;#39;)     wrong 17/20   worst run  1 customers   median 0.044 s&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Asking for order worked. Keeping the left table’s order in the join and putting &lt;code&gt;sort_by()&lt;/code&gt; inside
+the expression both returned the right answer on all 20 runs. The join fix ran about as fast as
+the default here (median 0.028 against
+0.028 seconds), so on this data it costs nothing.
+&lt;code&gt;sort_by()&lt;/code&gt; is the more robust of the two, because the answer no longer depends on any upstream
+step keeping order.&lt;/p&gt;
+&lt;p&gt;Going back to the old engine was not enough.
+The upgrade guide offers &lt;code&gt;collect(engine=&#34;in-memory&#34;)&lt;/code&gt; to restore the previous default, and it
+does restore the engine. It did not restore the order: on a Parquet source, 17 of the 20 runs still came back wrong, by at most 1 customer. Neither engine promises order, so the fixes that hold are the ones that ask for it.
+One more caution from the tracker: an optimizer bug that dropped &lt;code&gt;maintain_order=True&lt;/code&gt; when a
+&lt;code&gt;head()&lt;/code&gt; sat between a group-by and a sort
+(&lt;a href=&#34;https://github.com/pola-rs/polars/issues/30079&#34;&gt;issue 30079&lt;/a&gt;) is fixed in 2.1.0, so upgrade
+before relying on &lt;code&gt;maintain_order=True&lt;/code&gt; in that pattern.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;will-your-tests-catch-it&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Will your tests catch it?&lt;/h2&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;from polars.testing import assert_frame_equal
+
+bad = first_q().collect()
+print(&amp;quot;same shape:&amp;quot;, bad.shape == ref.shape, &amp;quot;  same schema:&amp;quot;, bad.schema == ref.schema)
+## same shape: True   same schema: True
+try:
+    assert_frame_equal(bad, ref, check_row_order=False)
+except AssertionError as err:
+    print(str(err).splitlines()[0])
+## DataFrames are different (value mismatch for column &amp;quot;amount&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;A test that compares output with a stored answer will catch it, even one that ignores row
+order, because the values themselves differ. A test that checks shape, schema, or column names
+will pass.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;r-users-are-in-the-same-position&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;R users are in the same position&lt;/h2&gt;
+&lt;p&gt;data.table works through rows in the order it holds them, so &lt;code&gt;amount[1L]&lt;/code&gt; by customer is the
+first purchase. DuckDB, which runs in parallel like the streaming engine,
+&lt;a href=&#34;https://duckdb.org/docs/2.0/sql/functions/aggregates.html&#34;&gt;documents&lt;/a&gt; that &lt;code&gt;first()&lt;/code&gt; can be
+non-deterministic without an &lt;code&gt;ORDER BY&lt;/code&gt;. Same file, same question:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(data.table)
+library(DBI)
+ev &amp;lt;- as.data.table(events)
+truth_r &amp;lt;- ev[order(event_id), .(amount = amount[1L]), by = customer_id][order(customer_id)]
+
+con &amp;lt;- dbConnect(duckdb::duckdb())
+duck &amp;lt;- function(agg) dbGetQuery(con, sprintf(
+  &amp;quot;SELECT customer_id, %s AS amount
+   FROM read_parquet(&amp;#39;%s&amp;#39;) e LEFT JOIN read_parquet(&amp;#39;%s&amp;#39;) c USING (customer_id)
+   GROUP BY customer_id ORDER BY customer_id&amp;quot;,
+  agg, normalizePath(events_path, &amp;quot;/&amp;quot;), normalizePath(customers_path, &amp;quot;/&amp;quot;)))$amount
+
+engines &amp;lt;- list(
+  &amp;quot;data.table, amount[1L]&amp;quot; = function()
+    as.data.table(customers)[ev, on = &amp;quot;customer_id&amp;quot;][
+      , .(amount = amount[1L]), by = customer_id][order(customer_id)]$amount,
+  &amp;quot;DuckDB, first(amount)&amp;quot; = function() duck(&amp;quot;first(amount)&amp;quot;),
+  &amp;quot;DuckDB, first(amount ORDER BY event_id)&amp;quot; = function() duck(&amp;quot;first(amount ORDER BY event_id)&amp;quot;))
+r_res &amp;lt;- t(sapply(engines, function(f) {
+  bad &amp;lt;- replicate(20, sum(f() != truth_r$amount))
+  c(runs_wrong = sum(bad &amp;gt; 0), most_customers_wrong = max(bad))
+}))
+dbDisconnect(con, shutdown = TRUE)
+r_res
+##                                         runs_wrong most_customers_wrong
+## data.table, amount[1L]                           0                    0
+## DuckDB, first(amount)                           17                    1
+## DuckDB, first(amount ORDER BY event_id)          0                    0&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;DuckDB without an &lt;code&gt;ORDER BY&lt;/code&gt; was wrong on 17 of 20 runs, and with one it was right on
+all of them. The rule is the same in every parallel engine: if the answer depends on order, say
+so in the query.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-this-does-not-show&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What this does not show&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The data are a synthetic event log on one machine with 16 threads. How many rows go wrong
+depends on the thread count and on how the engine splits the work.&lt;/li&gt;
+&lt;li&gt;Polars 1.44.2 being right on every run shows what it did, not what it promised.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;head(20)&lt;/code&gt; was right here. Nothing guarantees that either.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-to-do-on-monday&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What to do on Monday&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Search lazy pipelines for &lt;code&gt;first()&lt;/code&gt;, &lt;code&gt;last()&lt;/code&gt;, &lt;code&gt;cum_sum()&lt;/code&gt;, &lt;code&gt;unique(keep=...)&lt;/code&gt;,
+&lt;code&gt;with_row_index()&lt;/code&gt;, and &lt;code&gt;head()&lt;/code&gt; downstream of a join or a group-by.&lt;/li&gt;
+&lt;li&gt;Add &lt;code&gt;maintain_order=&#34;left&#34;&lt;/code&gt; to the join that feeds them, or put &lt;code&gt;sort_by()&lt;/code&gt; inside the
+expression.&lt;/li&gt;
+&lt;li&gt;Do not count on &lt;code&gt;engine=&#34;in-memory&#34;&lt;/code&gt; to bring the old order back.&lt;/li&gt;
+&lt;li&gt;Keep one test that compares output with a stored answer. &lt;code&gt;check_row_order=False&lt;/code&gt; is fine.&lt;/li&gt;
+&lt;li&gt;In SQL, write &lt;code&gt;first(x ORDER BY t)&lt;/code&gt; or &lt;code&gt;arg_min(x, t)&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Whether someone else can rerun your pipeline and get your numbers is the replication standard,
+covered in
+&lt;a href=&#34;https://mike-data-analysis.share.connect.posit.cloud/replication-and-synthetic-data.html&#34;&gt;A Guide on Data Analysis&lt;/a&gt;.
+The two scripts used here, &lt;a href=&#34;audit.py&#34;&gt;audit.py&lt;/a&gt; and &lt;a href=&#34;run_audit.py&#34;&gt;run_audit.py&lt;/a&gt;, sit next to
+this post.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Parquet vs CSV in R: Every CSV Round Trip I Tested Lost Data</title>

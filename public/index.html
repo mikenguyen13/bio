@@ -327,7 +327,7 @@
   <meta property="og:description" content="This site is Mike Nguyen&#39;s personal website. He is a marketing researcher with interests in branding and social media."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
   <meta property="twitter:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2026-09-30T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2026-10-25T00:00:00&#43;00:00">
   
 
   
@@ -1282,7 +1282,7 @@ Want to support my blogs?
           Last updated on
       
     
-    Sep 30, 2026
+    Oct 25, 2026
   </span>
   
 
@@ -1291,7 +1291,7 @@ Want to support my blogs?
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    9 min read
+    8 min read
   </span>
   
 
@@ -1317,13 +1317,13 @@ Want to support my blogs?
   
 
   <h3 class="article-title mb-1 mt-3">
-    <a href="/post/parquet-vs-csv-in-r/">Parquet vs CSV in R: Every CSV Round Trip I Tested Lost Data</a>
+    <a href="/post/are-llm-benchmark-differences-statistically-significant/">Are LLM Benchmark Differences Statistically Significant? 25 of 31 Models Could Be First on AIME 2026</a>
   </h3>
 
   
-  <a href="/post/parquet-vs-csv-in-r/" class="summary-link">
+  <a href="/post/are-llm-benchmark-differences-statistically-significant/" class="summary-link">
     <div class="article-style">
-      <p>Write a data frame to CSV with base R, readr, or data.table, read it back with the same package, and each one destroys values in at least four of eleven columns, even when the reader is allowed to know the original schema. Leading zeros, the last digits of 18 digit IDs, the Namibian country code, the final bits of most doubles, milliseconds, and an hour on the night the clocks go back all go missing somewhere. Parquet written with arrow came back identical in every column, and pandas read the same file exactly. data.table was still the fastest, so the case for Parquet is correctness rather than speed.</p>
+      <p>MathArena publishes every graded attempt, so its AIME 2026 leaderboard can be tested directly. Resampling the 30 problems, 25 of the 31 models with full coverage have a 95 percent rank interval that includes first place, and an exact paired test separates only one of the 29 imperfect models from a perfect score. Sixteen problems were solved by every model on every attempt, and five carry 80 percent of the spread. Intervals computed over problems rather than attempts run a median 1.7 times wider, because they answer a broader question.</p>
     </div>
   </a>
   
@@ -1367,7 +1367,7 @@ Want to support my blogs?
           Last updated on
       
     
-    Sep 12, 2026
+    Oct 25, 2026
   </span>
   
 
@@ -1376,7 +1376,7 @@ Want to support my blogs?
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    7 min read
+    9 min read
   </span>
   
 
@@ -1390,7 +1390,7 @@ Want to support my blogs?
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/r/">R</a>, <a href="/category/python/">Python</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/python/">Python</a>, <a href="/category/r/">R</a></span>
   
 
 </div>
@@ -1402,13 +1402,13 @@ Want to support my blogs?
   
 
   <h3 class="article-title mb-1 mt-3">
-    <a href="/post/customer-lifetime-value-in-r/">Customer Lifetime Value in R: A Third of Your Best Customers Have Already Left</a>
+    <a href="/post/polars-2-0-row-order/">Polars 2.0 Row Order: The Same Query Returned a Different Answer on Every Run</a>
   </h3>
 
   
-  <a href="/post/customer-lifetime-value-in-r/" class="summary-link">
+  <a href="/post/polars-2-0-row-order/" class="summary-link">
     <div class="article-style">
-      <p>On the CDNOW panel, with a real 39 week holdout as ground truth, a Pareto/NBD model flags 32 percent of the top decile by historical spend as probably inactive. The median flagged customer then buys nothing at all, against a median of 130 for the rest of the decile. Extrapolating repeat spending overstates the holdout by 35 percent and the model undershoots it by 16, so the level is not where the argument is strongest. Fitted in R with CLVTools, with a bootstrap confidence interval computed in Python.</p>
+      <p>Polars 2.0 runs lazy queries on the streaming engine by default, and the streaming engine does not guarantee row order. Running five order-dependent queries 20 times each on the same file, Polars 1.44.2 matched the explicit-order answer every time, while Polars 2.0.0 and 2.1.0 got four of the five wrong on every run, with a different answer each time and only a handful of customers affected. Keeping order in the join, or sorting inside the expression, fixed every run. Switching back to the in-memory engine did not fully restore the old answers, and DuckDB in R behaves the same way without an ORDER BY.</p>
     </div>
   </a>
   
@@ -1733,102 +1733,102 @@ Website/Vignette
         
         
         
-        <a href="/tag/academic/" style="font-size:1.7936940264158905rem">Academic</a>
+        <a href="/tag/academic/" style="font-size:1.7370765413013465rem">Academic</a>
       
         
         
         
-        <a href="/tag/arrow/" style="font-size:1.1436940264158904rem">arrow</a>
+        <a href="/tag/arrow/" style="font-size:0.9086940898138234rem">arrow</a>
       
         
         
         
-        <a href="/tag/bayesian/" style="font-size:0.7rem">Bayesian</a>
+        <a href="/tag/blogdown/" style="font-size:0.7rem">blogdown</a>
       
         
         
         
-        <a href="/tag/blogdown/" style="font-size:0.9799397627477054rem">blogdown</a>
+        <a href="/tag/bookdown/" style="font-size:0.7rem">bookdown</a>
       
         
         
         
-        <a href="/tag/bookdown/" style="font-size:0.9799397627477054rem">bookdown</a>
+        <a href="/tag/causal-inference/" style="font-size:0.7rem">causal inference</a>
       
         
         
         
-        <a href="/tag/brand-equity/" style="font-size:0.7rem">Brand Equity</a>
+        <a href="/tag/data/" style="font-size:1.0567649029750459rem">data</a>
       
         
         
         
-        <a href="/tag/causal-inference/" style="font-size:0.9799397627477054rem">causal inference</a>
+        <a href="/tag/data-manipulation/" style="font-size:1.0567649029750459rem">data manipulation</a>
       
         
         
         
-        <a href="/tag/data/" style="font-size:1.259879525495411rem">data</a>
+        <a href="/tag/data.table/" style="font-size:0.7rem">data.table</a>
       
         
         
         
-        <a href="/tag/data-manipulation/" style="font-size:1.259879525495411rem">data manipulation</a>
+        <a href="/tag/difference-in-differences/" style="font-size:0.7rem">difference-in-differences</a>
       
         
         
         
-        <a href="/tag/difference-in-differences/" style="font-size:0.9799397627477054rem">difference-in-differences</a>
+        <a href="/tag/doctoral-student/" style="font-size:0.7rem">doctoral student</a>
       
         
         
         
-        <a href="/tag/doctoral-student/" style="font-size:0.9799397627477054rem">doctoral student</a>
+        <a href="/tag/finance/" style="font-size:0.7rem">finance</a>
       
         
         
         
-        <a href="/tag/finance/" style="font-size:0.9799397627477054rem">finance</a>
+        <a href="/tag/github/" style="font-size:1.1716175485124771rem">GitHub</a>
       
         
         
         
-        <a href="/tag/github/" style="font-size:1.35rem">GitHub</a>
+        <a href="/tag/llm/" style="font-size:0.7rem">LLM</a>
       
         
         
         
-        <a href="/tag/marketing-analytics/" style="font-size:1.1436940264158904rem">marketing analytics</a>
+        <a href="/tag/marketing-analytics/" style="font-size:0.9086940898138234rem">marketing analytics</a>
       
         
         
         
-        <a href="/tag/measurement/" style="font-size:0.9799397627477054rem">measurement</a>
+        <a href="/tag/measurement/" style="font-size:0.7rem">measurement</a>
       
         
         
         
-        <a href="/tag/python/" style="font-size:1.1436940264158904rem">Python</a>
+        <a href="/tag/python/" style="font-size:0.9086940898138234rem">Python</a>
       
         
         
         
-        <a href="/tag/r/" style="font-size:1.9835133146590072rem">R</a>
+        <a href="/tag/r/" style="font-size:1.9789887987389614rem">R</a>
       
         
         
         
-        <a href="/tag/r-markdown/" style="font-size:1.423633789163596rem">R Markdown</a>
+        <a href="/tag/r-markdown/" style="font-size:1.2654589927888693rem">R Markdown</a>
       
         
         
         
-        <a href="/tag/reproducible/" style="font-size:1.259879525495411rem">reproducible</a>
+        <a href="/tag/reproducibility/" style="font-size:0.7rem">reproducibility</a>
       
         
         
         
-        <a href="/tag/rstudio/" style="font-size:0.9799397627477054rem">Rstudio</a>
+        <a href="/tag/reproducible/" style="font-size:1.0567649029750459rem">reproducible</a>
       
     </div>
   
