@@ -1,0 +1,344 @@
+---
+title: "Polars 2.0 Row Order: The Same Query Returned a Different Answer on Every Run"
+author: Mike Nguyen
+date: '2026-10-25'
+slug: polars-2-0-row-order
+categories:
+  - Python
+  - R
+tags:
+  - polars
+  - duckdb
+  - data.table
+  - reproducibility
+  - data engineering
+subtitle: 'Polars 2.0 made the streaming engine the default. Order-dependent queries that were stable in 1.x now change from run to run, and one argument fixes them.'
+summary: 'Polars 2.0 runs lazy queries on the streaming engine by default, and the streaming engine does not guarantee row order. Running five order-dependent queries 20 times each on the same file, Polars 1.44.2 matched the explicit-order answer every time, while Polars 2.0.0 and 2.1.0 got four of the five wrong on every run, with a different answer each time and only a handful of customers affected. Keeping order in the join, or sorting inside the expression, fixed every run. Switching back to the in-memory engine did not fully restore the old answers, and DuckDB in R behaves the same way without an ORDER BY.'
+authors: []
+lastmod: '2026-10-25T12:00:00-07:00'
+featured: no
+draft: false
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE, warning = FALSE,
+                      # NOT the default `*_files/figure-html/`. The ignoreFiles
+                      # setting in config.toml drops `_files$`, so images written
+                      # there never reach the published site.
+                      fig.path = "figs/")
+pct <- function(x, d = 0) paste0(formatC(100 * x, format = "f", digits = d), "%")
+fmt <- function(x) format(x, big.mark = ",", scientific = FALSE)
+```
+
+Polars 2.0 shipped on 6 October, and its headline change is that `collect()` on a lazy query now
+runs on the streaming engine. The [announcement](https://pola.rs/posts/announcing-polars-2/) gives
+row order as one reason that needed a major version, and the
+[upgrade guide](https://docs.pola.rs/releases/upgrade/2/) is clear that the streaming engine does
+not guarantee row order for joins, group-bys, and similar operations. What it cannot tell you is
+what that does to code written when order happened to hold. So I ran the same queries, with
+default settings, under Polars 1.44.2 (the last 1.x release) and 2.1.0 (the current release, out
+on 25 October). 2.0.0 gave the same results in every run I made before 2.1.0 shipped.
+
+```{r data, include=FALSE}
+library(arrow)
+set.seed(20261030)
+n_cust <- 100000L
+n_ev <- 2000000L
+customers <- data.frame(customer_id = 0:(n_cust - 1L),
+                        segment = sample(c("a", "b", "c", "d"), n_cust, TRUE))
+# An event log in time order, so event_id is also the order of purchases
+events <- data.frame(event_id = 0:(n_ev - 1L),
+                     customer_id = sort(sample.int(n_cust, n_ev, TRUE) - 1L),
+                     amount = round(rgamma(n_ev, shape = 2, scale = 20), 2))
+events_path <- file.path(tempdir(), "events.parquet")
+customers_path <- file.path(tempdir(), "customers.parquet")
+write_parquet(events, events_path)
+write_parquet(customers, customers_path)
+```
+
+```{python audit, file="audit.py", include=FALSE}
+```
+
+```{python run2, include=FALSE}
+res2 = audit(r.events_path, r.customers_path, runs=20)
+```
+
+```{r run1, include=FALSE}
+# The same script under the last 1.x release, in its own interpreter
+py1 <- Sys.getenv("POLARS1_PYTHON")
+stopifnot(nzchar(py1), file.exists(py1))
+# -B: write no __pycache__ into the post folder, which Hugo would publish
+res1 <- jsonlite::fromJSON(system2(py1, c("-B", "run_audit.py", shQuote(events_path),
+                                          shQuote(customers_path), "20"), stdout = TRUE))
+res2 <- reticulate::py$res2
+stopifnot(res1$polars == "1.44.2", res2$polars == "2.1.0")
+q <- names(res2$queries)
+tab <- data.frame(
+  query = q,
+  v1 = vapply(q, function(k) res1$queries[[k]]$runs_wrong, 1L),
+  v2 = vapply(q, function(k) res2$queries[[k]]$runs_wrong, 1L),
+  distinct2 = vapply(q, function(k) res2$queries[[k]]$distinct, 1L),
+  row.names = NULL)
+n_broken <- sum(tab$v2 > 0)
+# The front matter quotes these, so a change in the results must stop the render
+stopifnot(all(tab$v1 == 0), n_broken == 4, all(tab$v2[tab$v2 > 0] == 20))
+```
+
+```{r table, echo=FALSE}
+knitr::kable(tab, col.names = c("Query", "1.44.2: runs wrong of 20",
+                                "2.1.0: runs wrong of 20", "2.1.0: distinct answers"),
+             align = "lrrr")
+```
+
+Under 1.44.2 every query matched its explicit-order version on every run. Under 2.1.0,
+`r n_broken` of the 5 were wrong on `r if (all(tab$v2[tab$v2 > 0] == 20)) "every one of the 20 runs" else "some runs"`,
+and for those `r n_broken` no two runs agreed with each other. The code did not change. Only the
+version did.
+
+The data are two tables written to Parquet from R: `r fmt(n_ev)` purchases in time order and
+`r fmt(n_cust)` customers.
+
+```{r data-show, ref.label="data", eval=FALSE}
+```
+
+The audit joins them, runs five queries whose answer depends on row order, and compares each
+run with the same query written so the order is explicit. The same file runs under both
+versions.
+
+```{python audit-show, file="audit.py", eval=FALSE}
+```
+
+```{python run2-show, ref.label="run2", eval=FALSE}
+```
+
+## How much is wrong
+
+```{python size}
+ev, cu = pl.scan_parquet(r.events_path), pl.scan_parquet(r.customers_path)
+truth = {k: q.collect(engine="in-memory")
+         for k, q in queries(ev, cu, explicit=True).items()}
+first_wrong, total_rows, total_err, index_wrong = [], [], [], []
+for _ in range(10):
+    got = {k: q.collect() for k, q in queries(ev, cu, explicit=False).items()}
+    a = got["first purchase per customer"]["amount"]
+    first_wrong.append(int((a != truth["first purchase per customer"]["amount"]).sum()))
+    d = (got["running total per customer"]["running"]
+         - truth["running total per customer"]["running"]).abs()
+    total_rows.append(int((d > 1e-6).sum()))
+    total_err.append(float(d.max()))
+    picked = set(got["row index, first 1,000"]["event_id"].to_list())
+    index_wrong.append(1000 - len(picked & set(truth["row index, first 1,000"]["event_id"].to_list())))
+```
+
+```{r size-r, include=FALSE}
+fw <- unlist(reticulate::py$first_wrong)
+tr <- unlist(reticulate::py$total_rows)
+te <- unlist(reticulate::py$total_err)
+iw <- unlist(reticulate::py$index_wrong)
+```
+
+Not much, which is the problem. Across 10 runs, the first purchase came back wrong for
+between `r min(fw)` and `r max(fw)` of the `r fmt(n_cust)` customers. A share that small passes
+every eyeball check. The running totals were wrong on between `r fmt(min(tr))` and
+`r fmt(max(tr))` of the `r fmt(n_ev)` rows, but a wrong one was off by as much as
+`r fmt(round(max(te)))`, in a column where the median purchase is `r round(median(events$amount))`. The row index was the loud failure: of the first 1,000 rows,
+between `r fmt(min(iw))` and `r fmt(max(iw))` were different rows from the ones 1.44.2 picked.
+
+A small test fixture does not hide it. The same first-purchase query on synthetic logs of
+different sizes, 10 runs each:
+
+```{python scale}
+import numpy as np
+
+def first_purchase_errors(n_events, runs=10, seed=1):
+    rng = np.random.default_rng(seed)
+    n_c = max(n_events // 20, 10)
+    c = pl.LazyFrame({"customer_id": np.arange(n_c)})
+    e = pl.LazyFrame({"event_id": np.arange(n_events),
+                      "customer_id": np.sort(rng.integers(0, n_c, n_events)),
+                      "amount": rng.gamma(2.0, 20.0, n_events).round(2)})
+    q = queries(e, c, explicit=False)["first purchase per customer"]
+    ref = queries(e, c, explicit=True)["first purchase per customer"].collect(engine="in-memory")
+    return n_c, [int((q.collect()["amount"] != ref["amount"]).sum()) for _ in range(runs)]
+
+scale = {}
+for n in [1_000, 10_000, 100_000, 1_000_000, 10_000_000]:
+    n_c, bad = first_purchase_errors(n)
+    scale[n] = [n_c, min(bad), max(bad), sum(b > 0 for b in bad)]
+    print(f"{n:>10,} events  {n_c:>7,} customers  wrong in {scale[n][3]:>2}/10 runs, "
+          f"{min(bad)} to {max(bad)} customers")
+```
+
+```{r scale-r, include=FALSE}
+sc <- lapply(reticulate::py$scale, unlist)
+s1 <- sc[["1000"]]
+s10 <- sc[["10000000"]]
+```
+
+On a thousand rows the error reaches up to `r pct(s1[3] / s1[1])` of the customers, so a test that
+compares output with a stored answer `r if (s1[4] == 10) "fails on every run" else paste("fails on", s1[4], "of 10 runs")`.
+On ten million rows it is `r s10[2]` to `r s10[3]` customers out of `r fmt(s10[1])`.
+
+## Why it happens
+
+The streaming engine splits the data into chunks and works on them in parallel. Operations that
+do not need order, such as a join, may hand chunks on in whatever order they finish. `first()`,
+`cum_sum()`, `unique(keep="first")`, and `with_row_index()` all read the order they are given, so
+they inherit the shuffle. `head(20)` came through intact here, but nothing promises that it will.
+
+None of this is a bug. A Polars issue opened in November 2024 set out that
+[left-join order should not be guaranteed](https://github.com/pola-rs/polars/issues/19576), since
+it had only ever been an implementation detail, and the upgrade guide says the same thing about
+the new default. Code written against 1.x could rely on an order Polars never promised, and 2.0
+is the first release whose default engine stops providing it.
+
+## The fix is one argument
+
+```{python fix}
+import time
+
+def first_q(join_order=None, expr=pl.col("amount").first()):
+    if join_order:
+        j = ev.join(cu, on="customer_id", how="left", maintain_order=join_order)
+    else:
+        j = ev.join(cu, on="customer_id", how="left")
+    return j.group_by("customer_id").agg(expr).sort("customer_id")
+
+ref = truth["first purchase per customer"]
+variants = {
+    "default": lambda: first_q().collect(),
+    "join(maintain_order='left')": lambda: first_q("left").collect(),
+    "sort_by inside the expression":
+        lambda: first_q(expr=pl.col("amount").sort_by("event_id").first()).collect(),
+    "collect(engine='in-memory')": lambda: first_q().collect(engine="in-memory"),
+}
+plan = [k for k in variants for _ in range(20)]
+np.random.default_rng(7).shuffle(plan)           # interleave, so timing is fair
+secs = {k: [] for k in variants}
+wrong = {k: 0 for k in variants}
+most = {k: 0 for k in variants}
+for k in plan:
+    t0 = time.perf_counter()
+    out = variants[k]()
+    secs[k].append(time.perf_counter() - t0)
+    wrong[k] += int(not out.equals(ref))
+    most[k] = max(most[k], int((out["amount"] != ref["amount"]).sum()))
+for k in variants:
+    print(f"{k:31s} wrong {wrong[k]:>2}/20   worst run {most[k]:>2} customers   "
+          f"median {np.median(secs[k]):.3f} s")
+```
+
+```{r fix-r, include=FALSE}
+fx_wrong <- unlist(reticulate::py$wrong)
+fx_most <- unlist(reticulate::py$most)
+fx_secs <- vapply(reticulate::py$secs, function(s) median(unlist(s)), 1)
+mo <- "join(maintain_order='left')"
+sb <- "sort_by inside the expression"
+im <- "collect(engine='in-memory')"
+speed_ratio <- fx_secs[[mo]] / fx_secs[["default"]]
+speed_phrase <- if (speed_ratio < 0.9) "ran faster than" else if (speed_ratio > 1.1) "ran slower than" else "ran about as fast as"
+stopifnot(fx_wrong[[mo]] == 0, fx_wrong[[sb]] == 0, fx_wrong[[im]] > 0)   # summary relies on these
+```
+
+Asking for order worked. Keeping the left table's order in the join and putting `sort_by()` inside
+the expression both returned the right answer on all 20 runs. The join fix `r speed_phrase`
+the default here (median `r sprintf("%.3f", fx_secs[[mo]])` against
+`r sprintf("%.3f", fx_secs[["default"]])` seconds)`r if (speed_ratio <= 1.1) ", so on this data it costs nothing" else ""`.
+`sort_by()` is the more robust of the two, because the answer no longer depends on any upstream
+step keeping order.
+
+Going back to the old engine `r if (fx_wrong[[im]] == 0) "also worked" else "was not enough"`.
+The upgrade guide offers `collect(engine="in-memory")` to restore the previous default, and it
+does restore the engine. `r if (fx_wrong[[im]] > 0) paste0("It did not restore the order: on a Parquet source, ", fx_wrong[[im]], " of the 20 runs still came back wrong, by at most ", fx_most[[im]], if (fx_most[[im]] == 1) " customer" else " customers", ". Neither engine promises order, so the fixes that hold are the ones that ask for it.") else ""`
+One more caution from the tracker: an optimizer bug that dropped `maintain_order=True` when a
+`head()` sat between a group-by and a sort
+([issue 30079](https://github.com/pola-rs/polars/issues/30079)) is fixed in 2.1.0, so upgrade
+before relying on `maintain_order=True` in that pattern.
+
+## Will your tests catch it?
+
+```{python tests}
+from polars.testing import assert_frame_equal
+
+bad = first_q().collect()
+print("same shape:", bad.shape == ref.shape, "  same schema:", bad.schema == ref.schema)
+try:
+    assert_frame_equal(bad, ref, check_row_order=False)
+except AssertionError as err:
+    print(str(err).splitlines()[0])
+```
+
+A test that compares output with a stored answer will catch it, even one that ignores row
+order, because the values themselves differ. A test that checks shape, schema, or column names
+will pass.
+
+## R users are in the same position
+
+data.table works through rows in the order it holds them, so `amount[1L]` by customer is the
+first purchase. DuckDB, which runs in parallel like the streaming engine,
+[documents](https://duckdb.org/docs/2.0/sql/functions/aggregates.html) that `first()` can be
+non-deterministic without an `ORDER BY`. Same file, same question:
+
+```{r r-engines}
+library(data.table)
+library(DBI)
+ev <- as.data.table(events)
+truth_r <- ev[order(event_id), .(amount = amount[1L]), by = customer_id][order(customer_id)]
+
+con <- dbConnect(duckdb::duckdb())
+duck <- function(agg) dbGetQuery(con, sprintf(
+  "SELECT customer_id, %s AS amount
+   FROM read_parquet('%s') e LEFT JOIN read_parquet('%s') c USING (customer_id)
+   GROUP BY customer_id ORDER BY customer_id",
+  agg, normalizePath(events_path, "/"), normalizePath(customers_path, "/")))$amount
+
+engines <- list(
+  "data.table, amount[1L]" = function()
+    as.data.table(customers)[ev, on = "customer_id"][
+      , .(amount = amount[1L]), by = customer_id][order(customer_id)]$amount,
+  "DuckDB, first(amount)" = function() duck("first(amount)"),
+  "DuckDB, first(amount ORDER BY event_id)" = function() duck("first(amount ORDER BY event_id)"))
+r_res <- t(sapply(engines, function(f) {
+  bad <- replicate(20, sum(f() != truth_r$amount))
+  c(runs_wrong = sum(bad > 0), most_customers_wrong = max(bad))
+}))
+dbDisconnect(con, shutdown = TRUE)
+r_res
+```
+
+```{r r-engines-check, include=FALSE}
+stopifnot(r_res[1, "runs_wrong"] == 0, r_res[3, "runs_wrong"] == 0, r_res[2, "runs_wrong"] > 0)
+duck_bad <- r_res[2, "runs_wrong"]
+```
+
+DuckDB without an `ORDER BY` was wrong on `r duck_bad` of 20 runs, and with one it was right on
+all of them. The rule is the same in every parallel engine: if the answer depends on order, say
+so in the query.
+
+## What this does not show
+
+- The data are a synthetic event log on one machine with 16 threads. How many rows go wrong
+  depends on the thread count and on how the engine splits the work.
+- Polars 1.44.2 being right on every run shows what it did, not what it promised.
+- `head(20)` was right here. Nothing guarantees that either.
+
+## What to do on Monday
+
+1. Search lazy pipelines for `first()`, `last()`, `cum_sum()`, `unique(keep=...)`,
+   `with_row_index()`, and `head()` downstream of a join or a group-by.
+2. Add `maintain_order="left"` to the join that feeds them, or put `sort_by()` inside the
+   expression.
+3. Do not count on `engine="in-memory"` to bring the old order back.
+4. Keep one test that compares output with a stored answer. `check_row_order=False` is fine.
+5. In SQL, write `first(x ORDER BY t)` or `arg_min(x, t)`.
+
+Whether someone else can rerun your pipeline and get your numbers is the replication standard,
+covered in
+[A Guide on Data Analysis](https://mike-data-analysis.share.connect.posit.cloud/replication-and-synthetic-data.html).
+The two scripts used here, [audit.py](audit.py) and [run_audit.py](run_audit.py), sit next to
+this post.

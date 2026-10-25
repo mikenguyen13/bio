@@ -1,9 +1,104 @@
 # Review Queue
 
-> **Three drafts are queued.** Benchmarking, Unicode normalization, and structured output are
-> sitting at `draft: true`. The Parquet vs CSV post went live 2026-09-30. Suggested order:
-> benchmarking next (same lane as the Parquet post, and it cites the same randomized timing
-> discipline), then Unicode normalization, then structured output.
+> **Three drafts are queued.** The benchmark ties and Polars row-order posts went live together
+> on 2026-10-25, ending a 25-day silence. Benchmarking, Unicode normalization, and structured
+> output are still at `draft: true`. Next up: benchmarking, which is in the same lane as the
+> Polars post and cites the same timing discipline, so hold it a week for the diversify rule.
+
+## Shipped 2026-10-25: Polars 2.0 row-order post (written for Friday 2026-10-30, shipped early)
+
+Review page: <https://claude.ai/artifact/9sqz4fhT6yBoLRmbBCiM8x>
+
+| | |
+|---|---|
+| Title | Polars 2.0 Row Order: The Same Query Returned a Different Answer on Every Run |
+| Target query | polars 2.0 row order |
+| Lane | Coding and tooling, with an R section. The benchmark ties draft ahead of it is AI, so the diversify rule holds whichever ships first |
+| Freshness | Polars 2.0.0 released 2026-10-06, 18 days before drafting. 2.1.0 released 2026-10-25, the publish day, and re-tested before shipping |
+| Status | **LIVE** at </post/polars-2-0-row-order/> (`draft: false`, published 2026-10-25 on Mike's approval). Front matter date moved from 2026-10-30 to 2026-10-25. The post now runs 1.44.2 against 2.1.0, which gave the same results as 2.0.0 |
+| File | `content/post/2026-10-30-polars-2-0-row-order/index.en.Rmd`, with `audit.py` and `run_audit.py` |
+| Evidence | `blog-ops/evidence/2026-10-30-polars-row-order/PROVENANCE.md` |
+
+The same five order-dependent queries, default settings, run 20 times under Polars 1.44.2 and
+2.0.0 inside the render. 1.44.2 matched the explicit-order answer on every run. 2.0.0 got four of
+five wrong on every run, with a different answer each time, but only for a handful of customers
+(6 to 13 of 100,000 on the last render). `head(20)` survived. Even a 1,000 row table was wrong
+on every run. `join(maintain_order="left")` and `sort_by()` inside the expression fixed every
+run, and the join fix ran about as fast as the default. The upgrade guide's
+`collect(engine="in-memory")` brought the old engine back but not the old order on a Parquet
+source (wrong on most runs, by one customer). DuckDB in R does the same without an `ORDER BY`.
+
+### Known soft spots
+
+- **The numbers change on every render, by design.** Prose is inline, and the front-matter
+  claims are guarded by `stopifnot`, so the text cannot contradict the output. The exact counts
+  you read will differ from the ones a reader sees after a re-render.
+- **The in-memory finding is the sharpest claim** and goes slightly beyond the upgrade guide.
+  The guide offers that switch to restore the previous default engine and never says it
+  guarantees order, so the post is careful to say it restores the engine, not the order. Worth
+  your eyes for tone.
+- **The topic is already crowded** with "fix your pipelines" posts from the past two weeks. The
+  defense is that none of them measured anything, and this one runs both versions on the page.
+- **One machine, 16 threads, synthetic data.** Stated in the post.
+- **Python leads, R follows.** House rule 2 says R first. Here the subject is a Python library,
+  so the R section is the comparison rather than the main event.
+
+## Shipped 2026-10-25: benchmark ties post (written for Tuesday 2026-10-20)
+
+Review page: <https://claude.ai/artifact/QY2pQRgR6FuekoDKPqRWpG>
+
+| | |
+|---|---|
+| Title | Are LLM Benchmark Differences Statistically Significant? 25 of 31 Models Could Be First on AIME 2026 |
+| Target query | are llm benchmark differences statistically significant |
+| Lane | AI and LLM engineering, with stats rigor. The AI lane had one live post |
+| Freshness | MathArena data Feb to Sep 2026, MathArena paper May 2026, Leaderboard Lottery (ICML 2026 workshop) July 2026. Hook is Gemini 4 Argon added to MathArena on 2026-10-16 |
+| Status | **LIVE** at </post/are-llm-benchmark-differences-statistically-significant/> (`draft: false`, published 2026-10-25 on Mike's approval). Front matter date moved from 2026-10-20 to 2026-10-25, the hook now says "On 16 October" instead of "Last Friday", and the Qwen3.5-4B quote is dated 17 October inline |
+| File | `content/post/2026-10-20-are-llm-benchmark-differences-statistically-significant/index.en.Rmd` |
+| Evidence | `blog-ops/evidence/2026-10-20-benchmark-ties/` (`PROVENANCE.md` maps all 19 factual claims to sources) |
+
+MathArena published all 3,516 graded attempts from 32 models on AIME 2026. Resampling the 30
+problems, 25 of the 31 full-coverage models have a 95% rank interval that reaches first place. An
+exact paired sign-flip test over problems separates 2 of the 29 imperfect models from a perfect
+score, and 1 after Holm. Testing over attempts instead separates 14 (7 after Holm). 16 of 30
+problems were solved by every model on every attempt, and five carry 80% of the spread.
+
+Verified against the source: MathArena's printed intervals equal
+`1.96 * sqrt(p * (1 - p) / attempts)` for all 31 models. Over problems they run a median 1.7x
+wider. A plain mean of the file ranks Qwen3.5-4B 4th because it has no attempts on 4 of the 5
+hardest problems, while MathArena's own table fills the gaps with IRT and lists it 29th at 89.66%.
+
+### Revised 2026-10-17 on Mike's request to be soft, low risk, and fully documented
+
+- **Softer on MathArena.** Their interval is now described as answering a narrower question
+  (rerunning these 30 problems) rather than as wrong. The post credits them for publishing raw
+  attempts and intervals, calls their missing-data handling correct, and thanks the team.
+  Motive is never attributed: it says AIME 2026 is on their deprecated list, not why.
+- **No data redistributed.** The two vendored CSVs were deleted before any commit. The post now
+  downloads the pinned file from Hugging Face, checks its sha256, and stops on a mismatch. The
+  data note carries title, creator, source, license link, and what was kept.
+- **Paraphrases tightened** to match the Quanta article and the ICML abstract. No direct quotes.
+- **Softer on models.** "Skipped the hard items" became "missing", since the gap is in the file.
+  The Argon paragraph ends by saying the gap is about 53 problems, not about either model.
+- **Every outbound link** returned 200 on 2026-10-17.
+
+### Still your call
+
+- **NonCommercial.** Much less exposed now that nothing is redistributed, but whether a blog that
+  links to the books counts as NonCommercial is a judgment for you, or a lawyer.
+- **A courtesy note to MathArena** before Tuesday. Optional.
+- ~~Wayback Machine snapshots~~ **Done 2026-10-17** on your go-ahead. The two leaderboard data
+  files are archived and byte-identical to the live site. The page snapshots replay an older July
+  data file for now. Details in the evidence folder's `PROVENANCE.md`.
+- **The title quotes the bootstrap**, the less conservative method (rules out 6, the exact test
+  at most 2). The post explains this. A title built on "only 1 of 29" would rest on the stronger
+  number.
+
+Also still true: AIME 2026 is saturated (conceded in the post), the detectable-gap table assumes a
+discordance rate, and contamination is named but not handled.
+
+Nothing in this post is unverified. Every R block executed, plus one executed `{python}` chunk.
+First render downloads 73 MB and takes about 40 seconds, later renders about 12.
 
 ## Shipped 2026-09-30: Parquet vs CSV post (written for Friday 2026-10-02, shipped early)
 

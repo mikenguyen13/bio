@@ -1,0 +1,353 @@
+---
+title: "Are LLM Benchmark Differences Statistically Significant? 25 of 31 Models Could Be First on AIME 2026"
+author: Mike Nguyen
+date: '2026-10-25'
+slug: are-llm-benchmark-differences-statistically-significant
+categories:
+  - R
+  - Python
+tags:
+  - llm
+  - benchmarks
+  - evaluation
+  - bootstrap
+  - hypothesis testing
+  - clustered inference
+subtitle: 'MathArena publishes every graded attempt on AIME 2026. Resample the problems and most of the leaderboard can finish first.'
+summary: 'MathArena publishes every graded attempt, so its AIME 2026 leaderboard can be tested directly. Resampling the 30 problems, 25 of the 31 models with full coverage have a 95 percent rank interval that includes first place, and an exact paired test separates only one of the 29 imperfect models from a perfect score. Sixteen problems were solved by every model on every attempt, and five carry 80 percent of the spread. Intervals computed over problems rather than attempts run a median 1.7 times wider, because they answer a broader question.'
+authors: []
+lastmod: '2026-10-25T12:00:00-07:00'
+featured: no
+draft: false
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE, warning = FALSE,
+                      fig.width = 7, fig.height = 7.6, dpi = 150,
+                      # NOT the default `*_files/figure-html/`. The ignoreFiles
+                      # setting in config.toml drops `_files$`, so images written
+                      # there never reach the published site.
+                      fig.path = "figs/")
+options(timeout = 600)   # the source file is about 77 MB
+pct <- function(x, d = 0) paste0(formatC(100 * x, format = "f", digits = d), "%")
+ord <- function(n) paste0(n, c("th", "st", "nd", "rd", rep("th", 6))[n %% 10 + 1])
+and_list <- function(x) paste0(paste(head(x, -1), collapse = ", "), ", and ", tail(x, 1))
+mdd <- function(n, disc) (qnorm(0.975) + qnorm(0.80)) * sqrt(disc / n)
+```
+
+```{r site, include=FALSE}
+# Values read from matharena.ai on 2026-10-17, quoted rather than computed.
+# A dated snapshot of each one is kept in blog-ops/evidence/2026-10-20-benchmark-ties/.
+# AIME 2026 table, detailed view: the printed 95% margin for each model.
+site_pm <- c("GPT-5.5 (xhigh)" = 0, "Claude-Opus-4.8 (max)" = 0, "GPT-5.4 (xhigh)" = 1.63,
+  "GPT-5.2 (high)" = 2.29, "Gemini 3.1 Pro Preview" = 2.29, "Step 3.5 Flash" = 3.21,
+  "Gemini 3 Flash" = 3.21, "GLM 5" = 3.21, "DeepSeek-v4-Pro (Max)" = 3.21,
+  "Gemini 3.6 Flash" = 4.54, "Kimi K3 (Think)" = 4.54, "Claude-Opus-4.6 (High)" = 3.21,
+  "DeepSeek-v4-Flash (Max)" = 3.58, "Kimi K2.5 (Think)" = 3.58, "GLM 5.1" = 3.58,
+  "Kimi K2.6 (Think)" = 3.58, "Claude-Opus-4.7 (xhigh)" = 3.58, "Step 3.7 Flash" = 3.90,
+  "Gemini 3.5 Flash" = 5.51, "Grok 4.1 Fast (Reasoning)" = 4.19,
+  "DeepSeek-v3.2 (Think)" = 4.19, "Qwen3.5-397b-a17b" = 4.19, "Qwen3.5-35B-A3B" = 4.46,
+  "Qwen3.5-9B" = 4.71, "NVIDIA-Nemotron-3-Super" = 4.95, "Qwen3.5-27B" = 4.95,
+  "Gemini 3 Pro (preview)" = 4.95, "GLM 5.2" = 7.59, "Qwen3-30B-A3B-2507-Think" = 5.74,
+  "QED-Nano" = 6.80, "Qwen3-4B-2507-Think" = 6.80)
+site_released_after <- 22                    # models flagged "released after competition"
+site_qwen4b <- c(rank = 29, pct = 89.66)     # shown with an item response estimate
+# September 2026 ArXivMath table, 53 problems
+site_arxiv <- c(gpt61sol = 91.51, argon = 87.74, problems = 53)
+```
+
+On 16 October MathArena added Gemini 4 Argon to its September ArXivMath leaderboard, where it
+sits at `r site_arxiv[["argon"]]`%, behind GPT-6.1 Sol at
+`r site_arxiv[["gpt61sol"]]`%, a gap of about two problems out of 53. The same day
+[Quanta profiled Moritz Hardt](https://quantamagazine.org/he-wants-ai-benchmarking-to-be-a-science-not-a-dark-art-20261016),
+who argues that benchmark scores mislead in absolute terms while rankings between models still
+carry real information. So how much information does a ranking carry when the gap is a few
+problems?
+
+[MathArena](https://matharena.ai/) makes that answerable, because it publishes every graded
+attempt, which few leaderboards do. For AIME 2026 that is 32 models on 30 problems, two or four
+attempts each. The code below downloads them from Hugging Face at the exact revision used here.
+
+```{r data}
+rev <- "f916cfc3eebc6ffbbf57d70918e79804d740806f"
+url <- paste0("https://huggingface.co/datasets/MathArena/aime_2026_outputs/resolve/",
+              rev, "/data/train-00000-of-00001.parquet")
+f <- file.path(tools::R_user_dir("matharena", "cache"), "aime_2026_outputs.parquet")
+if (!file.exists(f)) {
+  dir.create(dirname(f), recursive = TRUE, showWarnings = FALSE)
+  download.file(url, f, mode = "wb")
+}
+raw <- nanoparquet::read_parquet(f, col_select = c("model_name", "problem_idx",
+                                                   "idx_answer", "correct"))
+d <- data.frame(model = raw$model_name, problem = as.integer(raw$problem_idx),
+                attempt = raw$idx_answer, correct = as.integer(raw$correct))
+
+# One row per model, one column per problem: the share of attempts correct
+A <- tapply(d$correct, list(d$model, d$problem), mean)
+B <- A[rowSums(is.na(A)) == 0, ]           # models with attempts on all 30
+score <- rowMeans(B)
+```
+
+```{r verify, include=FALSE}
+# Stop if the downloaded file is not byte-identical to the one this post analysed
+stopifnot(as.character(openssl::sha256(file(f))) ==
+            "22e1aaed0a83b3bb55bbed099838a2595efc8132f0fa67199e010bdf91e9d1c6")
+```
+
+```{r boot}
+set.seed(20261020)
+ranks <- replicate(4000, {
+  s <- rowMeans(B[, sample.int(ncol(B), replace = TRUE)])
+  rank(-s, ties.method = "min")
+})
+lo <- apply(ranks, 1, quantile, 0.025, type = 1)
+hi <- apply(ranks, 1, quantile, 0.975, type = 1)
+```
+
+```{r numbers, include=FALSE}
+n_all   <- length(unique(d$model))
+n_full  <- nrow(B)
+n_first <- sum(lo == 1)
+obs_rank <- rank(-score, ties.method = "min")
+slips <- rowSums(B < 1)
+cap_rule <- if (max(slips[lo == 1]) < min(slips[lo > 1])) {
+  sprintf(" Equal scores can get different bars. Every blue model slipped on at most %d distinct problems and every gray one on at least %d.",
+          max(slips[lo == 1]), min(slips[lo > 1]))
+} else ""
+
+# The front matter quotes these, so a change in the data must stop the render
+stopifnot(n_all == 32, n_full == 31, n_first == 25, nrow(d) == 3516)
+```
+
+## The result
+
+Resample the 30 problems with replacement 4,000 times, rescore every model each time, and record
+where it lands. `r n_first` of the `r n_full` models with attempts on every problem have a 95%
+rank interval that reaches first place.
+
+```{r rankplot, echo=FALSE, fig.cap=paste0("Each bar is a model's 95% bootstrap rank interval from resampling the 30 AIME 2026 problems. The dot is its rank on the actual 30, with ties sharing the best rank. Blue bars reach first place. The two perfect scores rank first in every resample, so their bars shrink to the dot.", cap_rule)}
+library(ggplot2)
+pf <- data.frame(model = names(score), score = score, rank = obs_rank, lo = lo, hi = hi)
+pf <- pf[order(-pf$score, pf$model), ]
+pf$label <- sprintf("%s  %.1f%%", pf$model, 100 * pf$score)
+pf$label <- factor(pf$label, levels = rev(pf$label))
+pf$group <- ifelse(pf$lo == 1, "Interval reaches first place",
+                   "Interval excludes first place")
+ggplot(pf, aes(y = label, colour = group)) +
+  geom_segment(aes(x = lo, xend = hi, yend = label), linewidth = 2.2, lineend = "round") +
+  geom_point(aes(x = rank), size = 2.6, colour = "#0b0b0b") +
+  scale_colour_manual(values = c("Interval reaches first place" = "#2a78d6",
+                                 "Interval excludes first place" = "#b4b2ab"),
+                      breaks = c("Interval reaches first place",
+                                 "Interval excludes first place"), name = NULL) +
+  scale_x_continuous(breaks = c(1, 5, 10, 15, 20, 25, 31), limits = c(1, 31),
+                     expand = expansion(add = 0.6)) +
+  labs(x = "Rank (1 is first)", y = NULL) +
+  theme_minimal(base_size = 11) +
+  theme(legend.position = "top", legend.justification = "left",
+        panel.grid.major.y = element_blank(), panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_line(colour = "#e6e5e0"),
+        axis.text = element_text(colour = "#52514e"),
+        axis.title = element_text(colour = "#52514e"),
+        plot.background = element_rect(fill = "#fcfcfb", colour = NA))
+```
+
+By this measure only `r n_full - n_first` models can be ruled out of first.
+
+## Half the test is blank
+
+```{r problems}
+solved_by_all <- colSums(B < 1) == 0
+# Share of the variance in model scores that each problem contributes
+share <- apply(B, 2, cov, y = score) / (ncol(B) * var(score))
+top5 <- sort(share, decreasing = TRUE)[1:5]
+data.frame(problem = names(top5), attempts_correct = pct(colMeans(B)[names(top5)]),
+           share_of_spread = pct(top5))
+```
+
+`r sum(solved_by_all)` of the 30 problems were solved by all `r n_full` models on every attempt.
+They add the same amount to every score, so they cannot move a ranking. Five problems carry
+`r pct(sum(top5))` of the spread between models. MathArena now lists AIME 2026 among its
+deprecated competitions.
+
+## Two kinds of error bar
+
+```{r margins, include=FALSE}
+pm  <- site_pm[names(score)]
+p_m <- tapply(d$correct, d$model, mean)[names(score)]
+k_m <- tapply(d$correct, d$model, length)[names(score)]
+attempt_pm <- 100 * 1.96 * sqrt(p_m * (1 - p_m) / k_m)
+problem_pm <- 100 * 1.96 * apply(B, 1, sd) / sqrt(ncol(B))
+n_match <- sum(abs(attempt_pm - pm) < 0.006)
+imperfect <- pm > 0
+ratio <- problem_pm[imperfect] / attempt_pm[imperfect]
+ex <- names(ratio)[which.min(abs(ratio - median(ratio)))]
+```
+
+MathArena prints a 95% interval next to every AIME 2026 score, which most leaderboards do not.
+All `r n_match` of the `r length(pm)` intervals match `1.96 * sqrt(p * (1 - p) / attempts)` to the
+second decimal. That interval answers one question well: how much would the score move if the
+model reran these same 30 problems?
+
+A launch announcement usually means a broader question: how would the model do on other problems
+of this kind? For that one the problem is the unit that was sampled, and a model that misses a
+problem tends to miss it on every attempt. Computed over problems, the intervals run a median
+`r sprintf("%.1f", median(ratio))` times wider. For `r ex`, the printed plus or minus
+`r sprintf("%.2f", pm[[ex]])` points becomes plus or minus `r sprintf("%.2f", problem_pm[[ex]])`.
+
+The choice changes the verdict. Here is every model below a perfect score compared with
+GPT-5.5 (xhigh), first over attempts with Fisher's exact test, then problem by problem with an
+exact sign-flip test on the paired differences.
+
+```{r paired}
+ref   <- "GPT-5.5 (xhigh)"                    # 120 of 120 correct
+below <- names(score)[score < 1]
+fisher_p <- sapply(below, function(m) {
+  x <- d$correct[d$model == m]
+  fisher.test(matrix(c(120, 0, sum(x), sum(1 - x)), 2))$p.value
+})
+signflip <- function(x) {
+  x <- x[x != 0]
+  if (length(x) == 0) return(1)
+  s <- as.matrix(expand.grid(rep(list(c(-1, 1)), length(x))))
+  mean(abs(s %*% x) >= abs(sum(x)) - 1e-12)
+}
+pair_p <- sapply(below, function(m) signflip(B[ref, ] - B[m, ]))
+rbind(attempts = c(raw = sum(fisher_p < 0.05), holm = sum(p.adjust(fisher_p, "holm") < 0.05)),
+      problems = c(raw = sum(pair_p < 0.05), holm = sum(p.adjust(pair_p, "holm") < 0.05)))
+```
+
+```{r rule, include=FALSE}
+stopifnot(sum(d$model == ref & d$correct == 1) == 120, score[ref] == 1)
+misses <- rowSums(B[below, ] < 1)
+k_min <- which(2 * 0.5^(1:30) < 0.05)[1]
+```
+
+Over attempts, `r sum(fisher_p < 0.05)` of the `r length(below)` models below a perfect score are
+significantly behind. Over problems, `r sum(pair_p < 0.05)` are, and
+`r sum(p.adjust(pair_p, "holm") < 0.05)` after a Holm correction for `r length(below)`
+comparisons. The bootstrap rules out `r n_full - n_first` and the exact test at most
+`r sum(pair_p < 0.05)`, because percentile intervals from 30 resampled problems run narrow. I
+would trust the exact test, which makes the field more tied, not less.
+
+The test also gives a rule you can do in your head. Against a perfect score every paired
+difference is positive, so the p-value is `2 * 0.5^k`, where `k` is the number of distinct
+problems a model slipped on. Significance needs `k` of at least `r k_min`. The median model below
+perfect slipped on `r median(misses)`.
+
+## Check coverage before averaging
+
+```{r coverage, include=FALSE}
+naive <- tapply(d$correct, d$model, mean)
+naive_rank <- rank(-naive, ties.method = "min")
+inc <- names(which(rowSums(is.na(A)) > 0))
+missing <- as.integer(colnames(A)[is.na(A[inc, ])])
+hardest5 <- as.integer(names(sort(colMeans(B)))[1:5])
+higher <- names(sort(naive[naive > naive[inc]], decreasing = TRUE))
+```
+
+One model is missing from the figure. The file has no attempts from `r inc` on
+`r length(missing)` problems (`r paste(sort(missing), collapse = ", ")`), including
+`r sum(missing %in% hardest5)` of the 5 hardest. A plain average of the file ranks it
+`r ord(naive_rank[inc])` of `r n_all`, behind only `r and_list(higher)`. MathArena's own table
+handles this correctly. It estimates the missing problems with an item response model, and on
+17 October it ranked the model `r ord(site_qwen4b[["rank"]])` at `r site_qwen4b[["pct"]]`%.
+
+## How big a gap can a benchmark see
+
+The same arithmetic gives a minimum detectable difference for any benchmark. When two models
+answer each item once, the paired difference on an item is 1, 0, or minus 1, and its variance is
+close to the discordance rate, the share of items where exactly one model is right. At 5%
+significance and 80% power the smallest reliable gap is about `2.8 * sqrt(discordance / n)`.
+
+```{r mdd}
+n <- c("AIME" = 30, "ArXivMath September" = 53, "GPQA Diamond" = 198,
+       "SWE-bench Verified" = 500, "Humanity's Last Exam" = 2500)
+data.frame(items = n, disagree_10pct = round(100 * mdd(n, 0.10), 1),
+           disagree_20pct = round(100 * mdd(n, 0.20), 1))
+```
+
+The two right columns are gaps in percentage points. Item counts come from the
+[GPQA paper](https://arxiv.org/abs/2311.12022), the
+[SWE-bench Verified release](https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified),
+and the [Humanity's Last Exam paper](https://arxiv.org/abs/2501.14249). This is a normal
+approximation for one attempt per item, so read it as an order of magnitude. Even if Argon and
+GPT-6.1 Sol disagreed on only one problem in ten, a gap would need about
+`r round(100 * mdd(site_arxiv[["problems"]], 0.10))` points to show up reliably. The current gap
+is `r sprintf("%.2f", site_arxiv[["gpt61sol"]] - site_arxiv[["argon"]])` points. That is a
+statement about 53 problems, not about either model.
+
+## The same result in Python
+
+Here is the same resampling in numpy, reading the same file with three independent seeds.
+
+```{python pycheck}
+import numpy as np
+import pandas as pd
+
+d = pd.read_parquet(r.f, columns=["model_name", "problem_idx", "correct"])
+d["problem"] = d["problem_idx"].astype(int)
+A = d.pivot_table(index="model_name", columns="problem", values="correct", aggfunc="mean")
+B = A.dropna().to_numpy()
+
+def reach_first(seed, reps=4000):
+    rng = np.random.default_rng(seed)
+    idx = rng.integers(0, B.shape[1], size=(reps, B.shape[1]))
+    s = B[:, idx].mean(axis=2)                        # models x reps
+    rank = 1 + (s[None, :, :] > s[:, None, :]).sum(axis=1)
+    lo = np.quantile(rank, 0.025, axis=1, method="inverted_cdf")
+    return int((lo == 1).sum())
+
+counts = {seed: reach_first(seed) for seed in (1, 2, 3)}
+print(counts, "of", B.shape[0])
+```
+
+```{r pyagree, include=FALSE}
+py_counts <- unlist(reticulate::py$counts)
+```
+
+`r if (all(py_counts == n_first)) paste0("Every seed lands on ", n_first, ".") else paste0("The seeds land on ", paste(py_counts, collapse = ", "), ", against ", n_first, " in R.")`
+
+## What this does not show
+
+- AIME 2026 is saturated. A harder benchmark separates models better. The method transfers, the
+  tie count does not.
+- If these 30 problems are all you care about, only attempt noise is left, and the printed
+  intervals are the right ones.
+- A bootstrap over 30 problems, only `r 30 - sum(solved_by_all)` of which carry any information,
+  is coarse. The sign-flip test is exact.
+- MathArena marks `r site_released_after` of the `r n_all` models as released after the
+  competition was published. This post does not try to account for that.
+- One benchmark, one subject. A paper at this year's ICML workshop on hypothesis testing,
+  [The Leaderboard Lottery](https://openreview.net/forum?id=ZhVvlyFZP9), reports that on data
+  calibrated to the Open LLM Leaderboard, the reported winner was the true best only 0 to 58
+  percent of the time when prompts were resampled.
+
+## What to do on Monday
+
+1. Before reading a gap, ask how many items the benchmark has, and compute
+   `2.8 * sqrt(discordance / n)`.
+2. Compare models paired on the same items. Two overlapping confidence intervals answer a
+   different question.
+3. When the claim is about a kind of task, compute error bars over items, not attempts.
+4. Check coverage before averaging. A model missing the hard items looks better.
+5. Report the set of models that could plausibly be first, not a single winner.
+
+Computing uncertainty over problems rather than attempts is the same move as clustering standard
+errors by the unit that was actually sampled, which is covered in
+[A Guide on Data Analysis](https://mike-data-analysis.share.connect.posit.cloud/sec-clustered-inference.html).
+
+*Data: "Model Outputs AIME 2026" by [MathArena](https://matharena.ai/) (Dekoninck et al. 2026,
+[arXiv 2605.00674](https://arxiv.org/abs/2605.00674)), from
+[Hugging Face](https://huggingface.co/datasets/MathArena/aime_2026_outputs) at revision
+`f916cfc`, licensed [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). This
+post does not redistribute the dataset. The code downloads it from the source and keeps four
+columns, and the page shows only statistics computed from them. Leaderboard values quoted from
+matharena.ai were read on 17 October 2026, and the Argon and GPT-6.1 Sol scores were unchanged
+on 25 October. Thanks to the MathArena
+team for publishing raw attempts, which is what makes a check like this possible.*

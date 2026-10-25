@@ -1,0 +1,60 @@
+{
+  "source": "https://matharena.ai/",
+  "retrieved": "2026-10-17 Pacific (first read about 18:50, re-read 22:49, identical values). UTC of re-read: 2026-10-18T05:49Z",
+  "method": "Read from the rendered page DOM in a browser, then cross-checked against screenshots kept in local/ (not committed).",
+  "aime_2026": {
+    "url": "https://matharena.ai/?comp=aime--aime_2026&view=detailed",
+    "column_header": "Accuracy (± 95% CI)",
+    "flag_title": "Model was released after competition release.",
+    "irt_tooltip": "Includes estimated scores for questions we did not run. These estimates use item response theory to infer likely correctness from the model's observed results and question difficulty.",
+    "rows": [
+      {"rank": 1,  "model": "GPT-5.5 (xhigh)",           "provider": "OpenAI",      "accuracy_pct": 100.00, "plus_minus_pct": 0.00, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 1,  "model": "Claude-Opus-4.8 (max)",     "provider": "Anthropic",   "accuracy_pct": 100.00, "plus_minus_pct": 0.00, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 3,  "model": "GPT-5.4 (xhigh)",           "provider": "OpenAI",      "accuracy_pct": 99.17,  "plus_minus_pct": 1.63, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 4,  "model": "GPT-5.2 (high)",            "provider": "OpenAI",      "accuracy_pct": 98.33,  "plus_minus_pct": 2.29, "released_after_flag": false, "irt_estimated": false},
+      {"rank": 4,  "model": "Gemini 3.1 Pro Preview",    "provider": "Google",      "accuracy_pct": 98.33,  "plus_minus_pct": 2.29, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 6,  "model": "Step 3.5 Flash",            "provider": "StepFun",     "accuracy_pct": 96.67,  "plus_minus_pct": 3.21, "released_after_flag": false, "irt_estimated": false},
+      {"rank": 6,  "model": "Gemini 3 Flash",            "provider": "Google",      "accuracy_pct": 96.67,  "plus_minus_pct": 3.21, "released_after_flag": false, "irt_estimated": false},
+      {"rank": 6,  "model": "GLM 5",                     "provider": "Z.ai",        "accuracy_pct": 96.67,  "plus_minus_pct": 3.21, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 6,  "model": "DeepSeek-v4-Pro (Max)",     "provider": "DeepSeek",    "accuracy_pct": 96.67,  "plus_minus_pct": 3.21, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 6,  "model": "Gemini 3.6 Flash",          "provider": "Google",      "accuracy_pct": 96.67,  "plus_minus_pct": 4.54, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 6,  "model": "Kimi K3 (Think)",           "provider": "Moonshot AI", "accuracy_pct": 96.67,  "plus_minus_pct": 4.54, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 6,  "model": "Claude-Opus-4.6 (High)",    "provider": "Anthropic",   "accuracy_pct": 96.67,  "plus_minus_pct": 3.21, "released_after_flag": false, "irt_estimated": false},
+      {"rank": 13, "model": "DeepSeek-v4-Flash (Max)",   "provider": "DeepSeek",    "accuracy_pct": 95.83,  "plus_minus_pct": 3.58, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 13, "model": "Kimi K2.5 (Think)",         "provider": "Moonshot AI", "accuracy_pct": 95.83,  "plus_minus_pct": 3.58, "released_after_flag": false, "irt_estimated": false},
+      {"rank": 13, "model": "GLM 5.1",                   "provider": "Z.ai",        "accuracy_pct": 95.83,  "plus_minus_pct": 3.58, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 13, "model": "Kimi K2.6 (Think)",         "provider": "Moonshot AI", "accuracy_pct": 95.83,  "plus_minus_pct": 3.58, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 13, "model": "Claude-Opus-4.7 (xhigh)",   "provider": "Anthropic",   "accuracy_pct": 95.83,  "plus_minus_pct": 3.58, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 18, "model": "Step 3.7 Flash",            "provider": "StepFun",     "accuracy_pct": 95.00,  "plus_minus_pct": 3.90, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 18, "model": "Gemini 3.5 Flash",          "provider": "Google",      "accuracy_pct": 95.00,  "plus_minus_pct": 5.51, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 20, "model": "Grok 4.1 Fast (Reasoning)", "provider": "xAI",         "accuracy_pct": 94.17,  "plus_minus_pct": 4.19, "released_after_flag": false, "irt_estimated": false},
+      {"rank": 20, "model": "DeepSeek-v3.2 (Think)",     "provider": "DeepSeek",    "accuracy_pct": 94.17,  "plus_minus_pct": 4.19, "released_after_flag": false, "irt_estimated": false},
+      {"rank": 20, "model": "Qwen3.5-397b-a17b",         "provider": "Qwen",        "accuracy_pct": 94.17,  "plus_minus_pct": 4.19, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 23, "model": "Qwen3.5-35B-A3B",           "provider": "Qwen",        "accuracy_pct": 93.33,  "plus_minus_pct": 4.46, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 24, "model": "Qwen3.5-9B",                "provider": "Qwen",        "accuracy_pct": 92.50,  "plus_minus_pct": 4.71, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 25, "model": "NVIDIA-Nemotron-3-Super",   "provider": "NVIDIA",      "accuracy_pct": 91.67,  "plus_minus_pct": 4.95, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 25, "model": "Qwen3.5-27B",               "provider": "Qwen",        "accuracy_pct": 91.67,  "plus_minus_pct": 4.95, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 25, "model": "Gemini 3 Pro (preview)",    "provider": "Google",      "accuracy_pct": 91.67,  "plus_minus_pct": 4.95, "released_after_flag": false, "irt_estimated": false},
+      {"rank": 28, "model": "GLM 5.2",                   "provider": "Z.ai",        "accuracy_pct": 90.00,  "plus_minus_pct": 7.59, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 29, "model": "Qwen3.5-4B",                "provider": "Qwen",        "accuracy_pct": 89.66,  "plus_minus_pct": null, "released_after_flag": true,  "irt_estimated": true},
+      {"rank": 30, "model": "Qwen3-30B-A3B-2507-Think",  "provider": "Qwen",        "accuracy_pct": 88.33,  "plus_minus_pct": 5.74, "released_after_flag": false, "irt_estimated": false},
+      {"rank": 31, "model": "QED-Nano",                  "provider": "LM-Provers",  "accuracy_pct": 82.50,  "plus_minus_pct": 6.80, "released_after_flag": true,  "irt_estimated": false},
+      {"rank": 31, "model": "Qwen3-4B-2507-Think",       "provider": "Qwen",        "accuracy_pct": 82.50,  "plus_minus_pct": 6.80, "released_after_flag": false, "irt_estimated": false}
+    ]
+  },
+  "arxivmath_2026_09": {
+    "url": "https://matharena.ai/ (default view, ArXivMath tab, 09/2026 active)",
+    "problems": 53,
+    "site_news": "New (October 16): The September editions of ArXivMath, BrokenArXiv, and ArXivLean are live, with 53 problems each. We also added Gemini 4 Argon results on ArXivMath and BrokenArXiv.",
+    "rows": [
+      {"model": "GPT-6.1 Sol (max)",          "accuracy_pct": 91.51},
+      {"model": "Gemini 4 Argon",             "accuracy_pct": 87.74},
+      {"model": "Claude-Opus-5.5 (high)",     "accuracy_pct": 82.08},
+      {"model": "Gemini 3.8 Flash",           "accuracy_pct": 50.00},
+      {"model": "Qwen3.8-2.4T-A95B",          "accuracy_pct": 45.28},
+      {"model": "Grok 4.7 (xhigh)",           "accuracy_pct": 45.28},
+      {"model": "DeepSeek-V4.1-Flash (Max)",  "accuracy_pct": 40.57},
+      {"model": "Muse Spark Open",            "accuracy_pct": 32.08}
+    ]
+  }
+}

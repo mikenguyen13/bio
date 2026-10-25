@@ -6,3 +6,6 @@
 .httr-oauth
 .DS_Store
 .positai
+
+# Local-only evidence (screenshots of third-party sites). Not for a public repo.
+blog-ops/evidence/*/local/

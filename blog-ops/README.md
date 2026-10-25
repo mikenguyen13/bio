@@ -35,6 +35,13 @@ Nothing goes live until you flip that flag.
 6. Before a post names how a package behaves, check that the installed version is the current
    CRAN or PyPI release, and search the package's issue tracker. Link the issue if one exists.
    Added 2026-09-30 after the Parquet draft first tested releases one to three versions old.
+7. Third-party data is never copied into the repo or onto the site, because the repo is public.
+   The post downloads it at render time from a pinned revision into `tools::R_user_dir()`, checks
+   its sha256, and publishes only statistics computed from it, with attribution and a license
+   link. Values quoted from a live website go into the post as cited constants with a retrieval
+   date, and into `blog-ops/evidence/<slug>/` as data, with a `PROVENANCE.md` that maps every
+   claim to its source. Screenshots of other sites go in that folder's `local/`, which is
+   gitignored. Added 2026-10-17 for the benchmark post, whose data is CC BY-NC-SA 4.0.
 
 ## Style rules
 
@@ -101,8 +108,15 @@ Rendering needs this machine. The cloud routine cannot do it.
 - The blog's Python lives in a venv **outside the repo** at `C:\Users\miken\.venvs\bio-blog`,
   built with `uv venv --python 3.12 C:/Users/miken/.venvs/bio-blog`. Install into it with
   `uv pip install --python C:/Users/miken/.venvs/bio-blog/Scripts/python.exe <pkg>`.
-  Currently holds numpy, pandas, scipy, pyarrow 25.0.1, and `google-meridian` 1.8.0 with
-  TensorFlow 2.21.
+  Currently holds numpy, pandas, scipy, pyarrow 25.0.1, `google-meridian` 1.8.0 with
+  TensorFlow 2.21, and polars 2.1.0 (2.0.0 added 2026-10-24, upgraded 2026-10-25).
+- **A second venv pins Polars 1.44.2**, the last 1.x release, at `C:\Users\miken\.venvs\polars1`.
+  `.Rprofile` exposes it as `POLARS1_PYTHON` so the Polars row-order post can run one script under
+  both versions at render time with `system2()`. Pass `-B` when running a script that sits in a
+  post folder, or Python writes a `__pycache__` folder there and Hugo publishes it.
+- **DuckDB for R is built from source.** On 2026-10-24 the Windows binary for R 4.4 was 1.5.2
+  against 2.0.0 on CRAN. `install.packages("duckdb", type = "source")` with Rtools44 and
+  `MAKEFLAGS=-j16` built 2.0.0, run through PowerShell as with any install here.
 - **Import pyarrow before attaching R's arrow in any post that uses both.** On Windows each
   ships a library called `arrow.dll`, and whichever loads second is handed the first one's copy.
   R first makes `import pyarrow` fail with "DLL load failed ... The specified procedure could not

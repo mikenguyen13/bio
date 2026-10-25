@@ -46,6 +46,49 @@ The lanes, so "same family" is unambiguous:
 
 Lanes 3 and 4 are badly underweighted. Prefer them until the log balances.
 
+## TREND SCAN 2026-10-17 (for the week of 2026-10-20)
+
+Ranked for reach. Last three live posts are AI plus marketing, marketing, coding, so no lane is
+blocked by the diversify rule. Lane 3 has one live post, so it is the most underweighted.
+
+- [x] **1. Launch-day benchmark tables are mostly ties.** SHIPPED 2026-10-25, see POSTS-LOG.md. Lane 3 with lane 1 rigor. Hooks all
+      under a week old: Gemini 4 Argon launched 2026-10-13 claiming the lead on 13 of 19 rows of
+      its own table (secondary sources, primary not checked), DeepSeek V4.1-Flash posted
+      2026-10-17, Claude Haiku 5.5 the same week, and Quanta profiled Moritz Hardt on the
+      "benchmarking crisis" on 2026-10-16. Freshness anchor: "The Leaderboard Lottery" (Jain,
+      ICML 2026 Hypothesis Testing Workshop) finds the reported winner is truly best only 0 to
+      58% of the time and 95% winner sets hold 8 to 35 models. Real per-item data exists:
+      `MathArena/aime_2026_outputs` on Hugging Face (per-attempt `correct` flag, CC BY-NC-SA).
+      Post: minimum detectable gap per benchmark size (AIME 30 items, GPQA Diamond 198, SWE-bench
+      Verified 500), paired versus unpaired, and how many of 19 rows one model leads by chance
+      alone. Target query: are llm benchmark differences statistically significant.
+      **[~] DRAFTED 2026-10-17** as `are-llm-benchmark-differences-statistically-significant`.
+      The 13 of 19 Argon claim was never verified and is not in the post. The hook uses
+      MathArena's own Argon number instead (87.74% against 91.51% on 53 ArXivMath problems,
+      read off matharena.ai). The angle sharpened on contact with the data: MathArena's printed
+      margins turned out to be attempt-level binomial intervals, 31 of 31 exactly.
+- [ ] **Follow-up: problem-level error bars for the live ArXivMath table.** The benchmark post
+      uses the September ArXivMath Argon gap only as a hook, with an assumed discordance rate.
+      If MathArena publishes per-attempt outputs for that set, the same paired test on the real
+      items would answer whether Argon and GPT-6.1 Sol are separable at all.
+- [x] **2. Polars 2.0 made streaming the default and dropped the row order guarantee.** SHIPPED 2026-10-25, see POSTS-LOG.md. Lane 4.
+      Released 2026-10-06. `maintain_order=True` restores the old behavior. A correctness audit
+      in the style of the Parquet post: which pipelines silently change output, plus a randomized
+      timing check that cites the benchmarking draft. Target query: polars 2.0 row order.
+      **[~] DRAFTED 2026-10-24** as `polars-2-0-row-order`, for Friday 2026-10-30. Two claims in
+      this entry turned out loose: the fix is `maintain_order="left"` on the join (or `sort_by()`
+      inside the expression), and switching back to the in-memory engine did not fully restore
+      the old answers on a Parquet source.
+- [ ] **Follow-up: does `engine="in-memory"` order depend on the source?** The Polars post found
+      the in-memory fallback exact on an in-memory `DataFrame` but wrong by one customer on most
+      runs from a Parquet scan. Which part of the scan does that, and does `parallel="none"` on
+      `scan_parquet` remove it? Small, self-contained, and the natural reply to the first
+      comment asking why.
+- [ ] **3. Python 3.15 defaults to UTF-8 on Windows (PEP 686).** Lane 4. Released 2026-10-09
+      after a third release candidate. Every script that relied on cp1252 now reads differently,
+      and the friction log already has a cp1252 entry. Natural link to the Unicode draft. Smaller
+      audience, longer search tail.
+
 ## TREND-JACK (hot right now, Aug 2026, recheck monthly)
 
 Re-audited against the freshness rule on 2026-08-20. Ages shown.

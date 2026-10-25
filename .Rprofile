@@ -29,6 +29,16 @@ local({
   if (file.exists(py)) Sys.setenv(RETICULATE_PYTHON = py)
 })
 
+# A second interpreter pinned to the last Polars 1.x release (1.44.2), so the
+# Polars 2.0 row-order post can run the same script under both versions at render
+# time. Created with
+#   uv venv --python 3.12 C:/Users/miken/.venvs/polars1
+#   uv pip install --python C:/Users/miken/.venvs/polars1/Scripts/python.exe polars==1.44.2 numpy
+local({
+  py <- "C:/Users/miken/.venvs/polars1/Scripts/python.exe"
+  if (file.exists(py)) Sys.setenv(POLARS1_PYTHON = py)
+})
+
 # Now set options to customize the behavior of blogdown for this project. Below
 # are a few sample options; for more options, see
 # https://bookdown.org/yihui/blogdown/global-options.html
