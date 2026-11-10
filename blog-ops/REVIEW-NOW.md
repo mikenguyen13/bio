@@ -1,9 +1,66 @@
 # Review Queue
 
-> **Three drafts are queued.** The benchmark ties and Polars row-order posts went live together
-> on 2026-10-25, ending a 25-day silence. Benchmarking, Unicode normalization, and structured
-> output are still at `draft: true`. Next up: benchmarking, which is in the same lane as the
-> Polars post and cites the same timing discipline, so hold it a week for the diversify rule.
+> **Four drafts are queued.** New on 2026-11-09: the Python 3.15 UTF-8 post, written for
+> Tuesday 2026-11-10. Still at `draft: true` from before: benchmarking, Unicode normalization,
+> and structured output. Nothing has gone live since 2026-10-25. If the UTF-8 post ships Tuesday,
+> Unicode normalization is the natural Friday pairing (lane 3, and the UTF-8 post leads into it).
+> Benchmarking is lane 4 like the UTF-8 post, so it waits another week.
+
+## Awaiting review: Python 3.15 UTF-8 post, 2026-11-09 (Tuesday 2026-11-10 slot)
+
+Review page: <https://claude.ai/artifact/JXMWwsWTBBjnUFQzhErCpV>
+
+| | |
+|---|---|
+| Title | Python 3.15 Made UTF-8 the Default on Windows, and 82% of Characters Come Back Wrong in 3.14 With No Error |
+| Target query | python 3.15 utf-8 windows |
+| Lane | Coding and tooling, with an R angle. Last three live posts are lanes 4, 3, 4, so the diversify rule holds |
+| Freshness | Python 3.15.0 released 2026-10-09, one month before drafting. 3.15.2 and 3.14.10, both released 2026-10-25, are the versions run |
+| Status | Draft, rendered, `draft: true`. Not committed, not pushed |
+| File | `content/post/2026-11-10-python-3-15-utf-8-windows/index.en.Rmd`, with `encoding_audit.py` |
+| Evidence | `blog-ops/evidence/2026-11-10-python-utf8/PROVENANCE.md` |
+
+Six names written from R on Windows 11, one per CSV, read back with Python's `csv` module and no
+encoding argument. Python 3.14.10 returned three silently wrong (Nguyễn becomes Nguyá»…n) and
+raised on three, Python 3.15.2 got all six. The raises are luck: cp1252 leaves five byte values
+undefined, and a name raises only if its UTF-8 bytes hit one. Across all 159,706 assigned
+non-ASCII characters in Unicode 17.0, written by 3.15 and read by 3.14, none came back right,
+82% came back wrong without an error, and 18% raised. In the other direction 3.14 can write only
+123 of them, and 3.15 raises on all 123. An eleven-row handoff table shows 3.15 fixing every R
+and Python handoff, pandas unchanged under both, and a BOM still a `KeyError` under both. Under
+3.14, `subprocess.run(text=True)` capturing Rscript returned `stdout = None` without raising,
+because the decode failed in a background thread.
+
+### The three questions
+
+1. **Is the claim right?** Every number is computed, deterministic, and guarded. The calls are
+   soft spots 1 and 2 below.
+2. **Is the hook right?** It shows the six names under each version in the first screen.
+3. **Ship, fix, or kill?** The front matter date is 2026-11-10, so shipping that day or later
+   needs no date change.
+
+### Known soft spots, in the order I would look at them
+
+- **The hook says Nguyễn is your surname.** "the most common Vietnamese surname and mine" is an
+  inference from your name. Confirm, or cut "and mine".
+- **82% is per character, not per file.** A file raises if any one character raises. The post
+  says so, but the title could read as 82% of files. Safer alternative title: "Python 3.15 and
+  UTF-8 on Windows: Old Files Fail Loudly, New Files Fail Quietly".
+- **Second lane 4 post in a row** after Polars, with benchmark ties between them. Allowed, but
+  it pushes the benchmarking draft back.
+- **Crowded topic.** Real Python, pydevtools, DevClass and others covered the change in
+  October. None measured both versions or covered R.
+- **R is 4.4.3**, not the current 4.6.2. The tested behavior dates from 4.2.0.
+- **One code page.** Only cp1252. The cp1252 and BOM files were written as bytes rather than
+  saved from Excel or Notepad. Both stated in the post.
+- **The subprocess finding** is described with a link to the source line, not called a bug. No
+  matching CPython issue found. Filing one is outward facing, so it is your call (in IDEAS.md).
+
+### Environment changes made for this post
+
+uv upgraded from 0.9.14 to 0.13.7. CPython 3.14.10 and 3.15.2 installed through uv, with venvs at
+`C:\Users\miken\.venvs\py314` and `py315`. `.Rprofile` gained `PY314_PYTHON` and
+`PY315_PYTHON`. Recorded in README.md.
 
 ## Shipped 2026-10-25: Polars 2.0 row-order post (written for Friday 2026-10-30, shipped early)
 

@@ -110,6 +110,16 @@ Rendering needs this machine. The cloud routine cannot do it.
   `uv pip install --python C:/Users/miken/.venvs/bio-blog/Scripts/python.exe <pkg>`.
   Currently holds numpy, pandas, scipy, pyarrow 25.0.1, `google-meridian` 1.8.0 with
   TensorFlow 2.21, and polars 2.1.0 (2.0.0 added 2026-10-24, upgraded 2026-10-25).
+- **Two more venvs hold whole Python versions** for the Python 3.15 UTF-8 post:
+  `C:\Users\miken\.venvs\py314` (CPython 3.14.10) and `C:\Users\miken\.venvs\py315` (3.15.2),
+  each with pandas. `.Rprofile` exposes them as `PY314_PYTHON` and `PY315_PYTHON`. That post
+  runs Python chunks through a custom knitr engine rather than reticulate, so each chunk runs
+  under the version it names.
+- **uv was upgraded to 0.13.7 on 2026-11-09.** 0.9.14 did not know any Python 3.15 release
+  past alpha 2. `uv self update` fails from Git Bash with "failed to execute installer ...
+  program not found" and works from PowerShell.
+- **`.Rprofile` runs before `stats` is attached**, so it cannot call `setNames()` or anything
+  else outside base. That broke a render once on 2026-11-09.
 - **A second venv pins Polars 1.44.2**, the last 1.x release, at `C:\Users\miken\.venvs\polars1`.
   `.Rprofile` exposes it as `POLARS1_PYTHON` so the Polars row-order post can run one script under
   both versions at render time with `system2()`. Pass `-B` when running a script that sits in a

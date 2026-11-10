@@ -39,6 +39,23 @@ local({
   if (file.exists(py)) Sys.setenv(POLARS1_PYTHON = py)
 })
 
+# Two interpreters for the Python 3.15 UTF-8 post, which runs the same reads and
+# writes under the current 3.14 and 3.15 releases at render time. Created with
+#   uv python install 3.14.10 3.15.2
+#   uv venv --python 3.14.10 C:/Users/miken/.venvs/py314
+#   uv venv --python 3.15.2 C:/Users/miken/.venvs/py315
+#   uv pip install --python C:/Users/miken/.venvs/py314/Scripts/python.exe pandas
+#   uv pip install --python C:/Users/miken/.venvs/py315/Scripts/python.exe pandas
+local({
+  for (v in c("314", "315")) {
+    py <- sprintf("C:/Users/miken/.venvs/py%s/Scripts/python.exe", v)
+    # Base only: .Rprofile runs before the stats package is attached
+    val <- list(py)
+    names(val) <- paste0("PY", v, "_PYTHON")
+    if (file.exists(py)) do.call(Sys.setenv, val)
+  }
+})
+
 # Now set options to customize the behavior of blogdown for this project. Below
 # are a few sample options; for more options, see
 # https://bookdown.org/yihui/blogdown/global-options.html

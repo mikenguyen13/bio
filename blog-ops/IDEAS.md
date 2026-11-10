@@ -46,6 +46,30 @@ The lanes, so "same family" is unambiguous:
 
 Lanes 3 and 4 are badly underweighted. Prefer them until the log balances.
 
+## TREND SCAN 2026-11-09 (for the week of 2026-11-09)
+
+Last three live posts: Parquet (lane 4), benchmark ties (lane 3), Polars (lane 4), so no lane is
+blocked. Searched Python and R release news, LLM evaluation papers, and marketing measurement
+news. Nothing fresh in measurement since the Winterberry unified measurement survey on
+2026-09-30. Python 3.16.0a2 is due 2026-11-10, R 4.6.2 reportedly came out 2026-10-29, neither
+worth a post.
+
+- [~] **Python 3.15 made UTF-8 the default on Windows.** DRAFTED 2026-11-09 for Tuesday
+      2026-11-10. Freshness: 3.15.0 released 2026-10-09, one month old. The angle sharpened on
+      contact with the data: the change is asymmetric. Everything 3.15 writes comes back wrong in
+      3.14 (82% of 159,706 characters silently, the rest raise), while everything 3.14 can write
+      raises in 3.15. Python 3.15 also fixes every R to Python handoff tested, because R moved to
+      UTF-8 in 4.2.0. Target query: python 3.15 utf-8 windows.
+- [ ] **Follow-up: the same audit under cp932 and cp936.** The post tests only a cp1252 machine.
+      Japanese and Chinese Windows fail differently, because double-byte code pages consume a
+      UTF-8 continuation byte as half of a character. Needs a second Windows locale or a VM.
+- [ ] **Follow-up: file the `subprocess` reader-thread issue?** On Windows, a decode failure in
+      `subprocess.run(text=True)` is printed by a background thread and `run()` returns
+      `stdout = None` without raising, even with `check=True`. Same code path in 3.15.2. No
+      matching CPython issue found on 2026-11-09. Outward-facing, so Mike decides.
+- [ ] **Pairing: ship the Unicode normalization draft the same week.** It is lane 3, already
+      rendered, and the UTF-8 post is a natural link into it.
+
 ## TREND SCAN 2026-10-17 (for the week of 2026-10-20)
 
 Ranked for reach. Last three live posts are AI plus marketing, marketing, coding, so no lane is
@@ -84,7 +108,8 @@ blocked by the diversify rule. Lane 3 has one live post, so it is the most under
       runs from a Parquet scan. Which part of the scan does that, and does `parallel="none"` on
       `scan_parquet` remove it? Small, self-contained, and the natural reply to the first
       comment asking why.
-- [ ] **3. Python 3.15 defaults to UTF-8 on Windows (PEP 686).** Lane 4. Released 2026-10-09
+- [~] **3. Python 3.15 defaults to UTF-8 on Windows (PEP 686).** DRAFTED 2026-11-09 as
+      `python-3-15-utf-8-windows`, see the 2026-11-09 scan above. Lane 4. Released 2026-10-09
       after a third release candidate. Every script that relied on cp1252 now reads differently,
       and the friction log already has a cp1252 entry. Natural link to the Unicode draft. Smaller
       audience, longer search tail.

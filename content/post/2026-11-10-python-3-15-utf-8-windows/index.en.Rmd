@@ -1,0 +1,393 @@
+---
+title: "Python 3.15 Made UTF-8 the Default on Windows, and 82% of Characters Come Back Wrong in 3.14 With No Error"
+author: Mike Nguyen
+date: '2026-11-10'
+slug: python-3-15-utf-8-windows
+categories:
+  - Python
+  - R
+tags:
+  - python
+  - unicode
+  - encoding
+  - windows
+  - reproducibility
+  - data engineering
+subtitle: 'Python 3.15 reads and writes UTF-8 on Windows unless told otherwise. Old files now fail loudly in new Python, and new files fail quietly in old Python.'
+summary: 'Python 3.15 changed what open() does on Windows when no encoding is named, from the cp1252 code page to UTF-8. Running both versions on Windows 11, none of the 159,706 assigned non-ASCII Unicode characters written by Python 3.15 came back right when Python 3.14 read it. 82% came back wrong without any error, and the rest raised. In the other direction Python 3.15 raised on every character Python 3.14 could write. R moved to UTF-8 on Windows in 2022, so every R to Python handoff tested that broke under 3.14 works under 3.15, and pandas never changed at all.'
+authors: []
+lastmod: '2026-11-09T18:00:00-08:00'
+featured: no
+draft: true
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, message = FALSE, warning = FALSE,
+                      # NOT the default `*_files/figure-html/`. The ignoreFiles
+                      # setting in config.toml drops `_files$`, so images written
+                      # there never reach the published site.
+                      fig.path = "figs/")
+pct <- function(x, d = 0) paste0(formatC(100 * x, format = "f", digits = d), "%")
+fmt <- function(x) format(x, big.mark = ",", scientific = FALSE)
+
+# Interpreter paths live in .Rprofile so no machine path appears in this file
+py <- c(v314 = Sys.getenv("PY314_PYTHON"), v315 = Sys.getenv("PY315_PYTHON"))
+stopifnot(all(nzchar(py)), all(file.exists(py)))
+# The handoff tests below measure stdout encoding, so nothing may override it
+stopifnot(Sys.getenv("PYTHONIOENCODING") == "", Sys.getenv("PYTHONUTF8") == "")
+
+# The audit script next to this post. It answers in ASCII-only JSON, so the
+# channel back to R cannot be damaged by the encoding under test.
+audit_py <- normalizePath("encoding_audit.py")
+audit <- function(which, ...) {
+  out <- system2(py[[which]], c("-B", shQuote(audit_py), ...),
+                 stdout = TRUE, stderr = FALSE)
+  jsonlite::fromJSON(paste(out, collapse = ""), simplifyVector = FALSE)
+}
+
+# Every later chunk, R or Python, runs in a scratch folder outside the post, so
+# the files it writes never reach the published site.
+work <- file.path(tempdir(), "utf8-post")
+dir.create(work, showWarnings = FALSE)
+knitr::opts_knit$set(root.dir = work)
+
+# A chunk engine that runs a Python chunk under a chosen interpreter.
+# PYTHONIOENCODING is set for these display chunks only, so the page shows
+# exactly what Python holds in memory. It changes stdout and nothing else:
+# open() and subprocess still use the interpreter's own default.
+py_engine <- function(which) function(options) {
+  owd <- setwd(work)
+  on.exit(setwd(owd))
+  on.exit(Sys.unsetenv("PYTHONIOENCODING"), add = TRUE)
+  f <- paste0(options$label, ".py")
+  writeLines(enc2utf8(options$code), f, useBytes = TRUE)
+  Sys.setenv(PYTHONIOENCODING = "utf-8")
+  out <- suppressWarnings(system2(py[[which]], c(options$py_args, "-B", f),
+                                  stdout = TRUE, stderr = TRUE))
+  # Warnings print the script's full path. Keep the scratch folder off the page.
+  out <- gsub(paste0(normalizePath(work), "\\"), "", out, fixed = TRUE)
+  options$engine <- "python"
+  knitr::engine_output(options, options$code, out)
+}
+knitr::knit_engines$set(py314 = py_engine("v314"), py315 = py_engine("v315"))
+info <- lapply(c(v314 = "v314", v315 = "v315"), audit, "info")
+stopifnot(info$v314$python == "3.14.10", info$v315$python == "3.15.2",
+          info$v314$open_default == "cp1252", info$v315$open_default == "utf-8")
+```
+
+Python 3.15 came out on 9 October, and on Windows it changes what `open()` does when you do not
+name an encoding. Python 3.14 and earlier use the ANSI code page, which is cp1252 on a US or
+Western European machine. Python 3.15 uses UTF-8 on every platform
+([PEP 686](https://peps.python.org/pep-0686/)). R made the same move in R 4.2.0, in April 2022
+([Kalibera](https://blog.r-project.org/2022/11/07/issues-while-switching-r-to-utf-8-and-ucrt-on-windows/)).
+So I wrote six names from R on Windows 11, one per CSV file, and read them back with Python's
+`csv` module and no encoding argument, under `r info$v314$python` and `r info$v315$python`, the
+current release of each.
+
+```{r people}
+people <- c("Nguyễn Thị Minh Khai", "Zoë O’Brien", "Łukasz Wójcik",
+            "Müller", "東京", "José Álvarez")
+for (i in seq_along(people)) {
+  write.csv(data.frame(id = i, name = people[i]), sprintf("person_%d.csv", i),
+            row.names = FALSE)
+}
+```
+
+```{r guard-nfc, include=FALSE}
+# Composed (NFC) text is what most systems store. Fail if an editor changed that.
+stopifnot(identical(people, stringi::stri_trans_nfc(people)))
+```
+
+Under Python 3.14:
+
+```{py314 read314}
+import csv
+
+for i in range(1, 7):
+    try:
+        with open(f"person_{i}.csv", newline="") as f:  # no encoding argument
+            print([row["name"] for row in csv.DictReader(f)][0])
+    except UnicodeDecodeError as e:
+        print("UnicodeDecodeError on byte", hex(e.object[e.start]))
+```
+
+The same code under Python 3.15:
+
+```{py315 read315, ref.label="read314", echo=FALSE}
+```
+
+```{r count-names, include=FALSE}
+per <- vapply(seq_along(people), function(i) {
+  r <- audit("v314", "read", shQuote(file.path(work, sprintf("person_%d.csv", i))))$csv
+  if (!r$ok) "error" else if (r$value[[1]] == people[i]) "right" else "silent"
+}, "")
+per15 <- vapply(seq_along(people), function(i) {
+  r <- audit("v315", "read", shQuote(file.path(work, sprintf("person_%d.csv", i))))$csv
+  r$ok && r$value[[1]] == people[i]
+}, TRUE)
+stopifnot(sum(per == "silent") == 3, sum(per == "error") == 3, all(per15))
+```
+
+Python 3.14 returned `r sum(per == "silent")` names wrong and raised on the other
+`r sum(per == "error")`. Nguyễn, the most common Vietnamese surname and mine, came back as
+Nguyá»…n. Python 3.15 read all `r sum(per15)` correctly.
+
+## The error was luck
+
+The three names that raised have one thing in common. Their UTF-8 bytes include one of the five
+byte values that cp1252 leaves undefined. Every other byte maps to some character, so cp1252
+reads almost anything without complaint.
+
+```{py315 mechanism}
+undefined = []
+for b in range(256):
+    try:
+        bytes([b]).decode("cp1252")
+    except UnicodeDecodeError:
+        undefined.append(hex(b))
+print(undefined)
+
+for ch in ["Á", "á", "”", "’"]:
+    b = ch.encode("utf-8")
+    try:
+        shown = b.decode("cp1252")
+    except UnicodeDecodeError:
+        shown = "raises"
+    print(ch, b.hex(" "), "->", shown)
+```
+
+Capital Á ends in 0x81 and raises. Lowercase á becomes Ã¡ and does not. The closing curly quote
+ends in 0x9D and raises, while the apostrophe becomes â€™. So whether Python 3.14 warns you
+depends on which letters happen to be in the file.
+
+```{r exhaustive, include=FALSE}
+# Every assigned non-ASCII code point, written through Python 3.15's default
+# encoding and read back through Python 3.14's, then the other way round.
+u <- audit("v315", "universe")
+cps <- unlist(u$cps)
+cps_f <- file.path(work, "cps.json")
+jsonlite::write_json(cps, cps_f)
+step <- function(which, mode, input) {
+  i <- file.path(work, "in.json")
+  o <- file.path(work, "out.json")
+  if (!is.null(input)) jsonlite::write_json(as.list(input), i, auto_unbox = TRUE, na = "null")
+  system2(py[[which]], c("-B", shQuote(audit_py), mode,
+                         shQuote(if (is.null(input)) cps_f else i), shQuote(o)))
+  jsonlite::fromJSON(o, simplifyVector = FALSE)
+}
+as_hex <- function(x) vapply(x, function(h) if (is.null(h)) NA_character_ else h, "")
+classify <- function(res, cps) vapply(seq_along(res), function(k) {
+  x <- res[[k]]
+  if (identical(x, "error")) "error"
+  else if (length(x) == 1 && x[[1]] == cps[k]) "right" else "silent"
+}, "")
+hex15 <- as_hex(step("v315", "encode", NULL))
+hex14 <- as_hex(step("v314", "encode", NULL))
+stopifnot(!anyNA(hex15))
+fwd <- classify(step("v314", "decode", hex15), cps)
+can14 <- which(!is.na(hex14))
+back <- classify(step("v315", "decode", hex14[can14]), cps[can14])
+
+n_all <- length(cps)
+silent_share <- mean(fwd == "silent")
+stopifnot(n_all == 159706, sum(fwd == "right") == 0, round(100 * silent_share) == 82,
+          length(can14) == 123, all(back == "error"))
+
+blocks <- data.frame(
+  Characters = c("Latin-1 Supplement (é, ü, ñ)", "Latin Extended-A (Ł, ő, š)",
+                 "Vietnamese (Latin Extended Additional)", "Greek", "Cyrillic", "Arabic",
+                 "General Punctuation (curly quotes, dashes)", "CJK Unified Ideographs",
+                 "Hangul Syllables", "Emoji (U+1F300 to U+1FAFF)"),
+  lo = c(0x80, 0x100, 0x1E00, 0x370, 0x400, 0x600, 0x2000, 0x4E00, 0xAC00, 0x1F300),
+  hi = c(0xFF, 0x17F, 0x1EFF, 0x3FF, 0x4FF, 0x6FF, 0x206F, 0x9FFF, 0xD7AF, 0x1FAFF))
+k_in <- lapply(seq_len(nrow(blocks)), function(i) cps >= blocks$lo[i] & cps <= blocks$hi[i])
+blocks$Count <- fmt(vapply(k_in, sum, 0))
+blocks$`Wrong, no error` <- vapply(k_in, function(k) pct(mean(fwd[k] == "silent")), "")
+blocks$Raises <- vapply(k_in, function(k) pct(mean(fwd[k] == "error")), "")
+```
+
+To see how often the error comes, I sent every assigned non-ASCII character in Unicode
+`r u$unicode`, all `r fmt(n_all)` of them, through Python 3.15's default writer and Python
+3.14's default reader. Not one came back right. `r pct(silent_share)` came back wrong without an
+error, and the other `r pct(mean(fwd == "error"))` raised.
+
+```{r blocks-table, echo=FALSE}
+knitr::kable(blocks[, c("Characters", "Count", "Wrong, no error", "Raises")],
+             align = c("l", "r", "r", "r"))
+```
+
+The other direction is the mirror image. Python 3.14 can write only `r length(can14)` of those
+characters, the non-ASCII part of cp1252, and raises `UnicodeEncodeError` on the rest. Python
+3.15 raised `UnicodeDecodeError` on all `r length(can14)` of the ones it could write. A cp1252 byte
+next to plain ASCII is never valid UTF-8, so the only escape is two or more non-ASCII characters in a
+row that happen to spell a UTF-8 sequence, such as Ã followed by ©, which reads as é.
+
+Old files fail loudly in new Python. New files fail quietly in old Python.
+
+## Where R and Python meet
+
+```{r handoffs, include=FALSE}
+western <- c("Zoë O’Brien", "Müller", "José García")
+csv_r <- function(x, f) {
+  write.csv(data.frame(id = seq_along(x), name = x), f, row.names = FALSE)
+  f
+}
+f_six <- csv_r(people, file.path(work, "six.csv"))
+f_west <- csv_r(western, file.path(work, "west.csv"))
+lines_six <- file.path(work, "six.txt")
+lines_west <- file.path(work, "west.txt")
+writeLines(people, lines_six)
+writeLines(western, lines_west)
+
+# Bytes the way an ANSI tool saves them, and the way a UTF-8 tool adds a BOM.
+# The name column comes first so the BOM lands on the header the code asks for.
+body <- paste0("name,id\r\n", paste0(western, ",", seq_along(western), "\r\n", collapse = ""))
+f_ansi <- file.path(work, "ansi.csv")
+f_bom <- file.path(work, "bom.csv")
+writeBin(iconv(body, "UTF-8", "CP1252", toRaw = TRUE)[[1]], f_ansi)
+writeBin(c(as.raw(c(0xEF, 0xBB, 0xBF)), charToRaw(enc2utf8(body))), f_bom)
+
+verdict <- function(r, want) {
+  if (!isTRUE(r$ok)) return(r$error)
+  if (identical(unlist(r$value), want)) "right" else "wrong, no error"
+}
+py_reads <- function(f, want, how = "csv")
+  vapply(c("v314", "v315"), function(v) verdict(audit(v, "read", shQuote(f))[[how]], want), "")
+
+# Python 3.15 writes, then each version reads
+f_315 <- file.path(work, "written_by_315.csv")
+stopifnot(audit("v315", "write", shQuote(f_315), shQuote(lines_west))$ok)
+
+# Python writes, R reads
+r_reads <- function(lines, want) vapply(c("v314", "v315"), function(v) {
+  f <- file.path(work, paste0("py_", v, "_", basename(lines), ".csv"))
+  w <- audit(v, "write", shQuote(f), shQuote(lines))
+  d <- read.csv(f)
+  if (!w$ok) return(sprintf("%s, file holds %d of %d rows", w$error, nrow(d), length(want)))
+  if (identical(d$name, want)) "right" else "wrong, no error"
+}, "")
+
+# Python prints, R captures
+r_captures <- vapply(c("v314", "v315"), function(v) {
+  out <- suppressWarnings(system2(py[[v]], c("-B", shQuote(audit_py),
+                                            "print", shQuote(lines_six)),
+                                  stdout = TRUE, stderr = TRUE))
+  if (!is.null(attr(out, "status"))) return(sub(":.*", "", tail(out, 1)))
+  if (identical(out, people)) "right" else "wrong, no error"
+}, "")
+
+# R prints, Python captures with subprocess.run(text=True)
+rs <- file.path(work, "print_names.R")
+writeLines(sprintf('writeLines(readLines("%s", encoding = "UTF-8"))',
+                   normalizePath(lines_six, "/")), rs)
+rscript <- normalizePath(file.path(R.home("bin"), "Rscript.exe"))
+py_captures <- vapply(c("v314", "v315"), function(v)
+  verdict(audit(v, "rscript", shQuote(rscript), shQuote(rs)), people), "")
+
+hand <- rbind(
+  c("R `write.csv()` to Python `csv` module", "all six", py_reads(f_six, people)),
+  c("R `write.csv()` to Python `csv` module", "three cp1252 can hold", py_reads(f_west, western)),
+  c("Python 3.15 `csv.writer` to Python `csv` module", "three cp1252 can hold", py_reads(f_315, western)),
+  c("R `write.csv()` to `pandas.read_csv()`", "all six", py_reads(f_six, people, "pandas")),
+  c("Python `csv.writer` to R `read.csv()`", "all six", r_reads(lines_six, people)),
+  c("Python `csv.writer` to R `read.csv()`", "three cp1252 can hold", r_reads(lines_west, western)),
+  c("Python `print()` to R `system2()`", "all six", r_captures),
+  c("R `writeLines()` to Python `subprocess.run(text=True)`", "all six", py_captures),
+  c("cp1252 file to Python `csv` module", "three cp1252 can hold", py_reads(f_ansi, western)),
+  c("cp1252 file to `pandas.read_csv()`", "three cp1252 can hold", py_reads(f_ansi, western, "pandas")),
+  c("UTF-8 file with a BOM to `csv.DictReader`", "three cp1252 can hold", py_reads(f_bom, western)))
+colnames(hand) <- c("Path", "Names", paste("Python", info$v314$python), paste("Python", info$v315$python))
+hand <- as.data.frame(hand)
+
+# The prose below describes these exact outcomes. Stop the render if any moves.
+stopifnot(
+  hand[[3]] == c("UnicodeDecodeError", "wrong, no error", "wrong, no error", "right",
+                 "UnicodeEncodeError, file holds 0 of 6 rows", "wrong, no error",
+                 "UnicodeEncodeError", "stdout is None", "right", "UnicodeDecodeError", "KeyError"),
+  hand[[4]] == c(rep("right", 8), "UnicodeDecodeError", "UnicodeDecodeError", "KeyError"))
+# The closing advice: R reads a file from Python 3.14 correctly once told its encoding
+stopifnot(identical(read.csv(file.path(work, "py_v314_west.txt.csv"),
+                             fileEncoding = "cp1252")$name, western))
+```
+
+R has written UTF-8 on Windows since 4.2.0, so most of what 3.15 changes is Python catching up
+with R. I ran the common handoffs both ways, with the same names, under both versions.
+
+```{r handoffs-table, echo=FALSE}
+knitr::kable(hand, align = c("l", "l", "l", "l"))
+```
+
+Python 3.15 fixed every handoff with R. Three rows are worth a second look.
+
+**pandas did not change.** `read_csv()` has always assumed UTF-8, whatever the locale, so it
+read R's file correctly under both versions and has been raising on cp1252 files for years.
+
+**The subprocess failure hides.** On Windows, `subprocess.run()` decodes the child's output in a
+background thread. When the decode fails, that thread prints a traceback, `run()` returns
+normally, and `stdout` is `None`
+([line 1682 of `subprocess.py` in 3.14.10](https://github.com/python/cpython/blob/v3.14.10/Lib/subprocess.py#L1682)).
+`check=True` does not catch it, because R exited cleanly. The same line is still in 3.15.2,
+which works here only because its decode succeeds.
+
+**3.15 does not fix the BOM.** Files saved with the "UTF-8 with BOM" option start with three
+marker bytes. Plain UTF-8 keeps them as an invisible character on the first column name, so
+`row["name"]` raises `KeyError` under both versions. Naming the encoding fixes this row and the
+cp1252 one:
+
+```{py315 fixes}
+for path, enc in [("bom.csv", "utf-8"), ("bom.csv", "utf-8-sig"), ("ansi.csv", "cp1252")]:
+    with open(path, newline="", encoding=enc) as f:
+        header, first = f.readline(), f.readline()
+    print(f"{path:9} {enc:10}", repr(header.split(",")[0]), first.split(",")[0])
+```
+
+## What to change
+
+Name the encoding everywhere. `open(path, encoding="utf-8")` and
+`subprocess.run(..., encoding="utf-8")` behave the same on every version and every machine.
+Python 3.10 and later can flag each call that leaves it out, as the call runs:
+
+```{py314 warn, py_args="-X warn_default_encoding"}
+with open("person_1.csv") as f:
+    f.read()
+with open("person_1.csv", encoding="utf-8") as f:
+    f.read()
+```
+
+Only the first `open()` is flagged. If you share files with someone still on 3.14, the switch
+that gives 3.14 the new behavior has existed since 3.7. `PYTHONUTF8=1` in the environment, or
+`-X utf8` on the command line:
+
+```{py314 utf8mode, ref.label="read314", py_args="-X utf8", echo=FALSE}
+```
+
+That is Python 3.14 reading the same six files with `-X utf8`.
+
+## What this does not show
+
+- One Windows 11 machine with cp1252 as its ANSI code page. Machines set to Japanese, Chinese,
+  or other code pages fail in different ways, and I did not test them.
+- I wrote the cp1252 and BOM files as bytes rather than saving them from Excel or Notepad.
+- The large table counts single characters. A file raises if any one character raises, so long
+  Chinese or Korean text raises more often than its row suggests, and a short Western name list
+  raises less.
+
+## What to do on Monday
+
+1. Search for `open(` without `encoding=`, or run your tests once with
+   `-X warn_default_encoding`.
+2. Pass `encoding="utf-8"` to `open()`, `Path.read_text()`, and `subprocess.run()`.
+3. Read files that may start with a BOM with `encoding="utf-8-sig"`.
+4. Read old ANSI exports with `encoding="cp1252"`, on purpose.
+5. Until everyone is on 3.15, set `PYTHONUTF8=1` on the machines that are not.
+
+R code on Windows needs no change for 3.15, because R got here first. Files from colleagues still
+on 3.14 are the exception: read those with `read.csv(fileEncoding = "cp1252")`. How CSV, Parquet, and
+other formats carry text and types between tools is covered in the
+[data formats chapter of Advanced Data Analysis](https://advanced-data-analysis.netlify.app/102-data-formats.html).
+The audit script, [encoding_audit.py](encoding_audit.py), sits next to this post.
