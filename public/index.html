@@ -327,7 +327,7 @@
   <meta property="og:description" content="This site is Mike Nguyen&#39;s personal website. He is a marketing researcher with interests in branding and social media."><meta property="og:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png">
   <meta property="twitter:image" content="https://mikenguyen.netlify.app/media/social_sharing_image.png"><meta property="og:locale" content="en-us">
   
-    <meta property="og:updated_time" content="2026-10-25T00:00:00&#43;00:00">
+    <meta property="og:updated_time" content="2026-11-10T00:00:00&#43;00:00">
   
 
   
@@ -1282,7 +1282,7 @@ Want to support my blogs?
           Last updated on
       
     
-    Oct 25, 2026
+    Nov 10, 2026
   </span>
   
 
@@ -1291,7 +1291,7 @@ Want to support my blogs?
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    8 min read
+    7 min read
   </span>
   
 
@@ -1305,7 +1305,7 @@ Want to support my blogs?
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/r/">R</a>, <a href="/category/python/">Python</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/python/">Python</a>, <a href="/category/r/">R</a></span>
   
 
 </div>
@@ -1317,13 +1317,13 @@ Want to support my blogs?
   
 
   <h3 class="article-title mb-1 mt-3">
-    <a href="/post/are-llm-benchmark-differences-statistically-significant/">Are LLM Benchmark Differences Statistically Significant? 25 of 31 Models Could Be First on AIME 2026</a>
+    <a href="/post/python-3-15-utf-8-windows/">Python 3.15 Made UTF-8 the Default on Windows, and 82% of Characters Come Back Wrong in 3.14 With No Error</a>
   </h3>
 
   
-  <a href="/post/are-llm-benchmark-differences-statistically-significant/" class="summary-link">
+  <a href="/post/python-3-15-utf-8-windows/" class="summary-link">
     <div class="article-style">
-      <p>MathArena publishes every graded attempt, so its AIME 2026 leaderboard can be tested directly. Resampling the 30 problems, 25 of the 31 models with full coverage have a 95 percent rank interval that includes first place, and an exact paired test separates only one of the 29 imperfect models from a perfect score. Sixteen problems were solved by every model on every attempt, and five carry 80 percent of the spread. Intervals computed over problems rather than attempts run a median 1.7 times wider, because they answer a broader question.</p>
+      <p>Python 3.15 changed what open() does on Windows when no encoding is named, from the cp1252 code page to UTF-8. Running both versions on Windows 11, none of the 159,706 assigned non-ASCII Unicode characters written by Python 3.15 came back right when Python 3.14 read it. 82% came back wrong without any error, and the rest raised. In the other direction Python 3.15 raised on every character Python 3.14 could write. R moved to UTF-8 on Windows in 2022, so every R to Python handoff tested that broke under 3.14 works under 3.15, and pandas never changed at all.</p>
     </div>
   </a>
   
@@ -1376,7 +1376,7 @@ Want to support my blogs?
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    9 min read
+    8 min read
   </span>
   
 
@@ -1390,7 +1390,7 @@ Want to support my blogs?
   
   <span class="middot-divider"></span>
   <span class="article-categories">
-    <i class="fas fa-folder mr-1"></i><a href="/category/python/">Python</a>, <a href="/category/r/">R</a></span>
+    <i class="fas fa-folder mr-1"></i><a href="/category/r/">R</a>, <a href="/category/python/">Python</a></span>
   
 
 </div>
@@ -1402,13 +1402,13 @@ Want to support my blogs?
   
 
   <h3 class="article-title mb-1 mt-3">
-    <a href="/post/polars-2-0-row-order/">Polars 2.0 Row Order: The Same Query Returned a Different Answer on Every Run</a>
+    <a href="/post/are-llm-benchmark-differences-statistically-significant/">Are LLM Benchmark Differences Statistically Significant? 25 of 31 Models Could Be First on AIME 2026</a>
   </h3>
 
   
-  <a href="/post/polars-2-0-row-order/" class="summary-link">
+  <a href="/post/are-llm-benchmark-differences-statistically-significant/" class="summary-link">
     <div class="article-style">
-      <p>Polars 2.0 runs lazy queries on the streaming engine by default, and the streaming engine does not guarantee row order. Running five order-dependent queries 20 times each on the same file, Polars 1.44.2 matched the explicit-order answer every time, while Polars 2.0.0 and 2.1.0 got four of the five wrong on every run, with a different answer each time and only a handful of customers affected. Keeping order in the join, or sorting inside the expression, fixed every run. Switching back to the in-memory engine did not fully restore the old answers, and DuckDB in R behaves the same way without an ORDER BY.</p>
+      <p>MathArena publishes every graded attempt, so its AIME 2026 leaderboard can be tested directly. Resampling the 30 problems, 25 of the 31 models with full coverage have a 95 percent rank interval that includes first place, and an exact paired test separates only one of the 29 imperfect models from a perfect score. Sixteen problems were solved by every model on every attempt, and five carry 80 percent of the spread. Intervals computed over problems rather than attempts run a median 1.7 times wider, because they answer a broader question.</p>
     </div>
   </a>
   
@@ -1763,6 +1763,11 @@ Website/Vignette
         
         
         
+        <a href="/tag/data-engineering/" style="font-size:0.7rem">data engineering</a>
+      
+        
+        
+        
         <a href="/tag/data-manipulation/" style="font-size:1.0567649029750459rem">data manipulation</a>
       
         
@@ -1803,12 +1808,7 @@ Website/Vignette
         
         
         
-        <a href="/tag/measurement/" style="font-size:0.7rem">measurement</a>
-      
-        
-        
-        
-        <a href="/tag/python/" style="font-size:0.9086940898138234rem">Python</a>
+        <a href="/tag/python/" style="font-size:1.0567649029750459rem">python</a>
       
         
         
@@ -1823,7 +1823,7 @@ Website/Vignette
         
         
         
-        <a href="/tag/reproducibility/" style="font-size:0.7rem">reproducibility</a>
+        <a href="/tag/reproducibility/" style="font-size:0.9086940898138234rem">reproducibility</a>
       
         
         

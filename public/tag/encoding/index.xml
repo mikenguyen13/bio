@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>encoding | Mike Nguyen</title>
+    <link>https://mikenguyen.netlify.app/tag/encoding/</link>
+      <atom:link href="https://mikenguyen.netlify.app/tag/encoding/index.xml" rel="self" type="application/rss+xml" />
+    <description>encoding</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Tue, 10 Nov 2026 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
+      <title>encoding</title>
+      <link>https://mikenguyen.netlify.app/tag/encoding/</link>
+    </image>
+    
+    <item>
+      <title>Python 3.15 Made UTF-8 the Default on Windows, and 82% of Characters Come Back Wrong in 3.14 With No Error</title>
+      <link>https://mikenguyen.netlify.app/post/python-3-15-utf-8-windows/</link>
+      <pubDate>Tue, 10 Nov 2026 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/post/python-3-15-utf-8-windows/</guid>
+      <description>
+
+
+&lt;p&gt;Python 3.15 came out on 9 October, and on Windows it changes what &lt;code&gt;open()&lt;/code&gt; does when you do not
+name an encoding. Python 3.14 and earlier use the ANSI code page, which is cp1252 on a US or
+Western European machine. Python 3.15 uses UTF-8 on every platform
+(&lt;a href=&#34;https://peps.python.org/pep-0686/&#34;&gt;PEP 686&lt;/a&gt;). R made the same move in R 4.2.0, in April 2022
+(&lt;a href=&#34;https://blog.r-project.org/2022/11/07/issues-while-switching-r-to-utf-8-and-ucrt-on-windows/&#34;&gt;Kalibera&lt;/a&gt;).
+So I wrote six names from R on Windows 11, one per CSV file, and read them back with Python’s
+&lt;code&gt;csv&lt;/code&gt; module and no encoding argument, under 3.14.10 and 3.15.2, the
+current release of each.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;people &amp;lt;- c(&amp;quot;Nguyễn Thị Minh Khai&amp;quot;, &amp;quot;Zoë O’Brien&amp;quot;, &amp;quot;Łukasz Wójcik&amp;quot;,
+            &amp;quot;Müller&amp;quot;, &amp;quot;東京&amp;quot;, &amp;quot;José Álvarez&amp;quot;)
+for (i in seq_along(people)) {
+  write.csv(data.frame(id = i, name = people[i]), sprintf(&amp;quot;person_%d.csv&amp;quot;, i),
+            row.names = FALSE)
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Under Python 3.14:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;import csv
+
+for i in range(1, 7):
+    try:
+        with open(f&amp;quot;person_{i}.csv&amp;quot;, newline=&amp;quot;&amp;quot;) as f:  # no encoding argument
+            print([row[&amp;quot;name&amp;quot;] for row in csv.DictReader(f)][0])
+    except UnicodeDecodeError as e:
+        print(&amp;quot;UnicodeDecodeError on byte&amp;quot;, hex(e.object[e.start]))
+## Nguyá»…n Thá»‹ Minh Khai
+## ZoÃ« Oâ€™Brien
+## UnicodeDecodeError on byte 0x81
+## MÃ¼ller
+## UnicodeDecodeError on byte 0x9d
+## UnicodeDecodeError on byte 0x81&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The same code under Python 3.15:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Nguyễn Thị Minh Khai
+## Zoë O’Brien
+## Łukasz Wójcik
+## Müller
+## 東京
+## José Álvarez&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Python 3.14 returned 3 names wrong and raised on the other
+3. Nguyễn, the most common Vietnamese surname and mine, came back as
+Nguyá»…n. Python 3.15 read all 6 correctly.&lt;/p&gt;
+&lt;div id=&#34;the-error-was-luck&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The error was luck&lt;/h2&gt;
+&lt;p&gt;The three names that raised have one thing in common. Their UTF-8 bytes include one of the five
+byte values that cp1252 leaves undefined. Every other byte maps to some character, so cp1252
+reads almost anything without complaint.&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;undefined = []
+for b in range(256):
+    try:
+        bytes([b]).decode(&amp;quot;cp1252&amp;quot;)
+    except UnicodeDecodeError:
+        undefined.append(hex(b))
+print(undefined)
+
+for ch in [&amp;quot;Á&amp;quot;, &amp;quot;á&amp;quot;, &amp;quot;”&amp;quot;, &amp;quot;’&amp;quot;]:
+    b = ch.encode(&amp;quot;utf-8&amp;quot;)
+    try:
+        shown = b.decode(&amp;quot;cp1252&amp;quot;)
+    except UnicodeDecodeError:
+        shown = &amp;quot;raises&amp;quot;
+    print(ch, b.hex(&amp;quot; &amp;quot;), &amp;quot;-&amp;gt;&amp;quot;, shown)
+## [&amp;#39;0x81&amp;#39;, &amp;#39;0x8d&amp;#39;, &amp;#39;0x8f&amp;#39;, &amp;#39;0x90&amp;#39;, &amp;#39;0x9d&amp;#39;]
+## Á c3 81 -&amp;gt; raises
+## á c3 a1 -&amp;gt; Ã¡
+## ” e2 80 9d -&amp;gt; raises
+## ’ e2 80 99 -&amp;gt; â€™&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Capital Á ends in 0x81 and raises. Lowercase á becomes Ã¡ and does not. The closing curly quote
+ends in 0x9D and raises, while the apostrophe becomes â€™. So whether Python 3.14 warns you
+depends on which letters happen to be in the file.&lt;/p&gt;
+&lt;p&gt;To see how often the error comes, I sent every assigned non-ASCII character in Unicode
+17.0.0, all 159,706 of them, through Python 3.15’s default writer and Python
+3.14’s default reader. Not one came back right. 82% came back wrong without an
+error, and the other 18% raised.&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;58%&#34; /&gt;
+&lt;col width=&#34;9%&#34; /&gt;
+&lt;col width=&#34;21%&#34; /&gt;
+&lt;col width=&#34;9%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;Characters&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Count&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Wrong, no error&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Raises&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Latin-1 Supplement (é, ü, ñ)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;96&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;95%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;5%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Latin Extended-A (Ł, ő, š)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;128&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;92%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;8%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Vietnamese (Latin Extended Additional)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;256&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;92%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;8%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Greek&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;135&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;94%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;6%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Cyrillic&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;256&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;92%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;8%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Arabic&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;256&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;92%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;8%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;General Punctuation (curly quotes, dashes)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;111&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;53%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;47%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;CJK Unified Ideographs&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20,992&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;85%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;15%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Hangul Syllables&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;11,172&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;84%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;16%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Emoji (U+1F300 to U+1FAFF)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1,895&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;80%&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;20%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The other direction is the mirror image. Python 3.14 can write only 123 of those
+characters, the non-ASCII part of cp1252, and raises &lt;code&gt;UnicodeEncodeError&lt;/code&gt; on the rest. Python
+3.15 raised &lt;code&gt;UnicodeDecodeError&lt;/code&gt; on all 123 of the ones it could write. A cp1252 byte
+next to plain ASCII is never valid UTF-8, so the only escape is two or more non-ASCII characters in a
+row that happen to spell a UTF-8 sequence, such as Ã followed by ©, which reads as é.&lt;/p&gt;
+&lt;p&gt;Old files fail loudly in new Python. New files fail quietly in old Python.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;where-r-and-python-meet&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Where R and Python meet&lt;/h2&gt;
+&lt;p&gt;R has written UTF-8 on Windows since 4.2.0, so most of what 3.15 changes is Python catching up
+with R. I ran the common handoffs both ways, with the same names, under both versions.&lt;/p&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;39%&#34; /&gt;
+&lt;col width=&#34;15%&#34; /&gt;
+&lt;col width=&#34;30%&#34; /&gt;
+&lt;col width=&#34;13%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;Path&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Names&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Python 3.14.10&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Python 3.15.2&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;R &lt;code&gt;write.csv()&lt;/code&gt; to Python &lt;code&gt;csv&lt;/code&gt; module&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;all six&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;UnicodeDecodeError&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;R &lt;code&gt;write.csv()&lt;/code&gt; to Python &lt;code&gt;csv&lt;/code&gt; module&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;three cp1252 can hold&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;wrong, no error&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Python 3.15 &lt;code&gt;csv.writer&lt;/code&gt; to Python &lt;code&gt;csv&lt;/code&gt; module&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;three cp1252 can hold&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;wrong, no error&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;R &lt;code&gt;write.csv()&lt;/code&gt; to &lt;code&gt;pandas.read_csv()&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;all six&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Python &lt;code&gt;csv.writer&lt;/code&gt; to R &lt;code&gt;read.csv()&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;all six&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;UnicodeEncodeError, file holds 0 of 6 rows&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Python &lt;code&gt;csv.writer&lt;/code&gt; to R &lt;code&gt;read.csv()&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;three cp1252 can hold&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;wrong, no error&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;Python &lt;code&gt;print()&lt;/code&gt; to R &lt;code&gt;system2()&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;all six&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;UnicodeEncodeError&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;R &lt;code&gt;writeLines()&lt;/code&gt; to Python &lt;code&gt;subprocess.run(text=True)&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;all six&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;stdout is None&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;cp1252 file to Python &lt;code&gt;csv&lt;/code&gt; module&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;three cp1252 can hold&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;right&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;UnicodeDecodeError&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;cp1252 file to &lt;code&gt;pandas.read_csv()&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;three cp1252 can hold&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;UnicodeDecodeError&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;UnicodeDecodeError&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;UTF-8 file with a BOM to &lt;code&gt;csv.DictReader&lt;/code&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;three cp1252 can hold&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;KeyError&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;KeyError&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Python 3.15 fixed every handoff with R. Three rows are worth a second look.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;pandas did not change.&lt;/strong&gt; &lt;code&gt;read_csv()&lt;/code&gt; has always assumed UTF-8, whatever the locale, so it
+read R’s file correctly under both versions and has been raising on cp1252 files for years.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The subprocess failure hides.&lt;/strong&gt; On Windows, &lt;code&gt;subprocess.run()&lt;/code&gt; decodes the child’s output in a
+background thread. When the decode fails, that thread prints a traceback, &lt;code&gt;run()&lt;/code&gt; returns
+normally, and &lt;code&gt;stdout&lt;/code&gt; is &lt;code&gt;None&lt;/code&gt;
+(&lt;a href=&#34;https://github.com/python/cpython/blob/v3.14.10/Lib/subprocess.py#L1682&#34;&gt;line 1682 of &lt;code&gt;subprocess.py&lt;/code&gt; in 3.14.10&lt;/a&gt;).
+&lt;code&gt;check=True&lt;/code&gt; does not catch it, because R exited cleanly. The same line is still in 3.15.2,
+which works here only because its decode succeeds.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;3.15 does not fix the BOM.&lt;/strong&gt; Files saved with the “UTF-8 with BOM” option start with three
+marker bytes. Plain UTF-8 keeps them as an invisible character on the first column name, so
+&lt;code&gt;row[&#34;name&#34;]&lt;/code&gt; raises &lt;code&gt;KeyError&lt;/code&gt; under both versions. Naming the encoding fixes this row and the
+cp1252 one:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;for path, enc in [(&amp;quot;bom.csv&amp;quot;, &amp;quot;utf-8&amp;quot;), (&amp;quot;bom.csv&amp;quot;, &amp;quot;utf-8-sig&amp;quot;), (&amp;quot;ansi.csv&amp;quot;, &amp;quot;cp1252&amp;quot;)]:
+    with open(path, newline=&amp;quot;&amp;quot;, encoding=enc) as f:
+        header, first = f.readline(), f.readline()
+    print(f&amp;quot;{path:9} {enc:10}&amp;quot;, repr(header.split(&amp;quot;,&amp;quot;)[0]), first.split(&amp;quot;,&amp;quot;)[0])
+## bom.csv   utf-8      &amp;#39;\ufeffname&amp;#39; Zoë O’Brien
+## bom.csv   utf-8-sig  &amp;#39;name&amp;#39; Zoë O’Brien
+## ansi.csv  cp1252     &amp;#39;name&amp;#39; Zoë O’Brien&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-to-change&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What to change&lt;/h2&gt;
+&lt;p&gt;Name the encoding everywhere. &lt;code&gt;open(path, encoding=&#34;utf-8&#34;)&lt;/code&gt; and
+&lt;code&gt;subprocess.run(..., encoding=&#34;utf-8&#34;)&lt;/code&gt; behave the same on every version and every machine.
+Python 3.10 and later can flag each call that leaves it out, as the call runs:&lt;/p&gt;
+&lt;pre class=&#34;python&#34;&gt;&lt;code&gt;with open(&amp;quot;person_1.csv&amp;quot;) as f:
+    f.read()
+with open(&amp;quot;person_1.csv&amp;quot;, encoding=&amp;quot;utf-8&amp;quot;) as f:
+    f.read()
+## warn.py:1: EncodingWarning: &amp;#39;encoding&amp;#39; argument not specified
+##   with open(&amp;quot;person_1.csv&amp;quot;) as f:&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Only the first &lt;code&gt;open()&lt;/code&gt; is flagged. If you share files with someone still on 3.14, the switch
+that gives 3.14 the new behavior has existed since 3.7. &lt;code&gt;PYTHONUTF8=1&lt;/code&gt; in the environment, or
+&lt;code&gt;-X utf8&lt;/code&gt; on the command line:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Nguyễn Thị Minh Khai
+## Zoë O’Brien
+## Łukasz Wójcik
+## Müller
+## 東京
+## José Álvarez&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;That is Python 3.14 reading the same six files with &lt;code&gt;-X utf8&lt;/code&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-this-does-not-show&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What this does not show&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;One Windows 11 machine with cp1252 as its ANSI code page. Machines set to Japanese, Chinese,
+or other code pages fail in different ways, and I did not test them.&lt;/li&gt;
+&lt;li&gt;I wrote the cp1252 and BOM files as bytes rather than saving them from Excel or Notepad.&lt;/li&gt;
+&lt;li&gt;The large table counts single characters. A file raises if any one character raises, so long
+Chinese or Korean text raises more often than its row suggests, and a short Western name list
+raises less.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;what-to-do-on-monday&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;What to do on Monday&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Search for &lt;code&gt;open(&lt;/code&gt; without &lt;code&gt;encoding=&lt;/code&gt;, or run your tests once with
+&lt;code&gt;-X warn_default_encoding&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Pass &lt;code&gt;encoding=&#34;utf-8&#34;&lt;/code&gt; to &lt;code&gt;open()&lt;/code&gt;, &lt;code&gt;Path.read_text()&lt;/code&gt;, and &lt;code&gt;subprocess.run()&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Read files that may start with a BOM with &lt;code&gt;encoding=&#34;utf-8-sig&#34;&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Read old ANSI exports with &lt;code&gt;encoding=&#34;cp1252&#34;&lt;/code&gt;, on purpose.&lt;/li&gt;
+&lt;li&gt;Until everyone is on 3.15, set &lt;code&gt;PYTHONUTF8=1&lt;/code&gt; on the machines that are not.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;R code on Windows needs no change for 3.15, because R got here first. Files from colleagues still
+on 3.14 are the exception: read those with &lt;code&gt;read.csv(fileEncoding = &#34;cp1252&#34;)&lt;/code&gt;. How CSV, Parquet, and
+other formats carry text and types between tools is covered in the
+&lt;a href=&#34;https://advanced-data-analysis.netlify.app/102-data-formats.html&#34;&gt;data formats chapter of Advanced Data Analysis&lt;/a&gt;.
+The audit script, &lt;a href=&#34;encoding_audit.py&#34;&gt;encoding_audit.py&lt;/a&gt;, sits next to this post.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
