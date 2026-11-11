@@ -54,7 +54,7 @@ news. Nothing fresh in measurement since the Winterberry unified measurement sur
 2026-09-30. Python 3.16.0a2 is due 2026-11-10, R 4.6.2 reportedly came out 2026-10-29, neither
 worth a post.
 
-- [~] **Python 3.15 made UTF-8 the default on Windows.** DRAFTED 2026-11-09 for Tuesday
+- [x] **Python 3.15 made UTF-8 the default on Windows.** SHIPPED 2026-11-10, see POSTS-LOG.md. Drafted 2026-11-09 for Tuesday
       2026-11-10. Freshness: 3.15.0 released 2026-10-09, one month old. The angle sharpened on
       contact with the data: the change is asymmetric. Everything 3.15 writes comes back wrong in
       3.14 (82% of 159,706 characters silently, the rest raise), while everything 3.14 can write
@@ -108,7 +108,7 @@ blocked by the diversify rule. Lane 3 has one live post, so it is the most under
       runs from a Parquet scan. Which part of the scan does that, and does `parallel="none"` on
       `scan_parquet` remove it? Small, self-contained, and the natural reply to the first
       comment asking why.
-- [~] **3. Python 3.15 defaults to UTF-8 on Windows (PEP 686).** DRAFTED 2026-11-09 as
+- [x] **3. Python 3.15 defaults to UTF-8 on Windows (PEP 686).** SHIPPED 2026-11-10. Drafted 2026-11-09 as
       `python-3-15-utf-8-windows`, see the 2026-11-09 scan above. Lane 4. Released 2026-10-09
       after a third release candidate. Every script that relied on cp1252 now reads differently,
       and the friction log already has a cp1252 entry. Natural link to the Unicode draft. Smaller

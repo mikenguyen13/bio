@@ -1,12 +1,11 @@
 # Review Queue
 
-> **Four drafts are queued.** New on 2026-11-09: the Python 3.15 UTF-8 post, written for
-> Tuesday 2026-11-10. Still at `draft: true` from before: benchmarking, Unicode normalization,
-> and structured output. Nothing has gone live since 2026-10-25. If the UTF-8 post ships Tuesday,
-> Unicode normalization is the natural Friday pairing (lane 3, and the UTF-8 post leads into it).
-> Benchmarking is lane 4 like the UTF-8 post, so it waits another week.
+> **Three drafts are queued.** The Python 3.15 UTF-8 post went live on 2026-11-10, its Tuesday
+> slot, ending a 16-day silence. Still at `draft: true`: benchmarking, Unicode normalization, and
+> structured output. Unicode normalization is the natural Friday pairing (lane 3, and the UTF-8
+> post leads into it). Benchmarking is lane 4 like the UTF-8 post, so it waits another week.
 
-## Awaiting review: Python 3.15 UTF-8 post, 2026-11-09 (Tuesday 2026-11-10 slot)
+## Shipped 2026-11-10: Python 3.15 UTF-8 post (Tuesday slot, on time)
 
 Review page: <https://claude.ai/artifact/JXMWwsWTBBjnUFQzhErCpV>
 
@@ -16,7 +15,7 @@ Review page: <https://claude.ai/artifact/JXMWwsWTBBjnUFQzhErCpV>
 | Target query | python 3.15 utf-8 windows |
 | Lane | Coding and tooling, with an R angle. Last three live posts are lanes 4, 3, 4, so the diversify rule holds |
 | Freshness | Python 3.15.0 released 2026-10-09, one month before drafting. 3.15.2 and 3.14.10, both released 2026-10-25, are the versions run |
-| Status | Draft, rendered, `draft: true`. Not committed, not pushed |
+| Status | **LIVE** at </post/python-3-15-utf-8-windows/> (`draft: false`, published 2026-11-10 on Mike's approval, as written: title and "and mine" kept). Re-rendered at publish with every computed number identical to the draft render |
 | File | `content/post/2026-11-10-python-3-15-utf-8-windows/index.en.Rmd`, with `encoding_audit.py` |
 | Evidence | `blog-ops/evidence/2026-11-10-python-utf8/PROVENANCE.md` |
 
