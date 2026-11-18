@@ -66,5 +66,7 @@ My name is Mike Nguyen. My research interests include
  * **Substantive:** Digital Marketing, Social Media, Management of Customer Interactions
  * **Methodological:** Econometrics, Machine Learning, Causal Inference
 
+My [open textbooks](/books/written_books/) have reached more than 500,000 readers in over 200 countries and territories, with more than 1 million page views.
+
 {{< icon name="download" pack="fas" >}} Download my resume in {{< staticref "media/Mike Nguyen CV.pdf" "newtab" >}} PDF {{< /staticref >}} and {{< staticref "media/Mike Nguyen CV.docx" "newtab" >}} Word {{< /staticref >}}.
 
