@@ -66,7 +66,9 @@ My name is Mike Nguyen. My research interests include
  * **Substantive:** Digital Marketing, Social Media, Management of Customer Interactions
  * **Methodological:** Econometrics, Machine Learning, Causal Inference
 
-My [open textbooks](/books/written_books/) have reached more than 500,000 readers in over 200 countries and territories, with more than 1 million page views.
+I also write [open textbooks](/books/written_books/) that are free to read online. I am grateful they have found more than <span data-reach="readers">500,000</span> readers in over <span data-reach="countries">200</span> countries and territories, with more than <span data-reach="views">1 million</span> page views.
+
+<script>fetch("https://raw.githubusercontent.com/mikenguyen13/research-methods-mcp/main/stats/bio.json").then(function(r){return r.ok?r.json():null}).then(function(d){if(!d)return;document.querySelectorAll("[data-reach]").forEach(function(e){var v=d[e.getAttribute("data-reach")];if(typeof v==="number"&&v>0)e.textContent=v>=1e6?v/1e6+" million":v.toLocaleString("en-US")})}).catch(function(){});</script>
 
 {{< icon name="download" pack="fas" >}} Download my resume in {{< staticref "media/Mike Nguyen CV.pdf" "newtab" >}} PDF {{< /staticref >}} and {{< staticref "media/Mike Nguyen CV.docx" "newtab" >}} Word {{< /staticref >}}.
 
