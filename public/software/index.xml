@@ -5,12 +5,23 @@
     <link>https://mikenguyen.netlify.app/software/</link>
       <atom:link href="https://mikenguyen.netlify.app/software/index.xml" rel="self" type="application/rss+xml" />
     <description>Software</description>
-    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Thu, 17 Aug 2023 00:00:00 +0000</lastBuildDate>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>© Mike Nguyen 2026</copyright><lastBuildDate>Tue, 03 Nov 2026 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://mikenguyen.netlify.app/media/social_sharing_image.png</url>
       <title>Software</title>
       <link>https://mikenguyen.netlify.app/software/</link>
     </image>
+    
+    <item>
+      <title>regsensitivity Package in R</title>
+      <link>https://mikenguyen.netlify.app/software/regsensitivity/</link>
+      <pubDate>Tue, 03 Nov 2026 00:00:00 +0000</pubDate>
+      <guid>https://mikenguyen.netlify.app/software/regsensitivity/</guid>
+      <description>&lt;p&gt;An R package for sensitivity analysis of linear regression coefficients when omitted variables may bias them. It reports how far a coefficient can move as the no-omitted-variables assumption is relaxed, the breakdown point at which a conclusion stops holding, and plots of both, following Diegert, Masten and Poirier (2026), Oster (2019), and Masten and Poirier (2026).&lt;/p&gt;
+&lt;p&gt;Install from CRAN with &lt;code&gt;install.packages(&amp;quot;regsensitivity&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://CRAN.R-project.org/package=regsensitivity&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CRAN&lt;/a&gt; | &lt;a href=&#34;https://mikenguyen13.github.io/regsensitivity/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Website/Vignette&lt;/a&gt; | &lt;a href=&#34;https://github.com/mikenguyen13/regsensitivity&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>CausalVerse Package in R</title>
