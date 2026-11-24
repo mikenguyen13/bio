@@ -11,7 +11,7 @@ headless: false
 | Type | Public Access |
 |------------------------|------------------------|
 | Analysis | [Data Analysis](https://bookdown.org/mike/data_analysis/)<br>(8K users / month,<br>Regularly Top [Bookdown](https://bookdown.org/) List)<br>[Advanced Data Analysis](https://advanced-data-analysis.netlify.app/)<br>[AI in action](https://mikenguyen13.github.io/ai_in_action/) |
-| Domain | [Communication Theory](https://bookdown.org/mike/comm_theory/)<br>[Marketing Research](https://bookdown.org/mike/marketing_research/) |
+| Domain | [Communication Theory](https://bookdown.org/mike/comm_theory/)<br>[Marketing Research](https://bookdown.org/mike/marketing_research/)<br>[Social Science Theory](https://mikenguyen13.github.io/social-theory/)<br>[Credit Scoring](https://mikenguyen13.github.io/credit_score/)<br>[Applying Tidy Finance with Python to Vietnam](https://mikenguyen13.github.io/tidy_finance_vn/) |
 
 <!-- 
 Want to support my books?
